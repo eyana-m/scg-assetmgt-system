@@ -1,7 +1,7 @@
 ﻿<!doctype html>
 <html lang="en">
 <head>
-	<title><?php echo template('title'); ?> | Website Name</title>
+	<title><?php echo template('title'); ?> | PBI Asset Management System</title>
 	<meta charset="utf-8">	
 	<?php echo template('mythos'); ?>
 	<?php echo template('bootstrap'); ?>
@@ -14,23 +14,10 @@
 <div class="container">
 	<div class="row">
 		<div class="span12">
-			<img src="http://placehold.it/250x80" />
-		</div>
-	</div>
-	<div class="row">
-		<div class="span12">
 			<ul class="nav nav-pills">
-				<li><a href="#">Menu 1</a></li>
+				<li><a href="admin">Login</a></li>
 				<li><a href="#">Menu 2</a></li>
-				<li><a href="#">Menu 3</a></li>
-				<li><a href="#">Menu 4</a></li>
-				<li><a href="#">Menu 5</a></li>
 			</ul>
-		</div>
-	</div>
-	<div class="row">
-		<div class="span12">
-			<img src="http://placehold.it/940x300" />
 		</div>
 	</div>
 	<div class="row">
@@ -41,7 +28,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="span12 center">&copy; 2012 - Website Name</div>
+		<div class="span12 center">&copy; 2014 - PBI Asset Management System</div>
 	</div>
 </div>
 </body>
