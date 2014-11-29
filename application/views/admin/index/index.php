@@ -1,7 +1,7 @@
 
 
 <div style="margin-top: 4em;">
-	<form class="form-signin" role="form" action="<?php echo site_url('admin/index'); ?>">
+	<form class="form-signin" role="form" action="<?php echo site_url('admin'); ?>">
 		<div class="jumbotron">
 	        <h2 class="form-signin-heading" style="margin-top:10px; color:white;">Please sign in</h2>
 	        <input type="email" class="form-control" placeholder="Email address" required autofocus>

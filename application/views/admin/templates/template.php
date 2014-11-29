@@ -13,36 +13,73 @@
 
 
 <body class="<?php echo uri_css_class(); ?>">
-<div class="navbar navbar-fixed-top">
-	<div class="navbar-inner">
-		<div class="container">
-			<img src="<?php echo res_url('admin/images/logo.png'); ?>" style="float: left;" />
-			<?php
-			if($this->access_control->check_logged_in()) 
-			{
-			?>
-				<ul class="nav pull-right">
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->session->userdata('acc_name'); ?><b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="<?php echo site_url('admin/profile'); ?>">Profile</a></li>
-							<li class="divider"></li>
-							<li><a href="<?php echo site_url('admin/index/logout'); ?>">Logout</a></li>
-						</ul>
-					</li>
-				</ul>
-			<?php
-			}
-			else
-			{
-			?>
-				
-			<?php
-			}
-			?>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header col-sm-7">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" style="color:white;" href="../html/dashboard.html">PBI IT Asset Inventory System</a>
 		</div>
-	</div>
-</div>
+
+
+		<?php
+		if($this->access_control->check_logged_in()) 
+			{
+		?>
+
+		<div class="collapse navbar-collapse col-sm-7 pull-right" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" style="color:white;" data-toggle="dropdown">Assets<span class="caret"></span></a>
+					<ul class="dropdown-menu" style="color:white;" role="menu">
+						<li><a href="../html/manage-assets.html">Manage</a></li>
+						<li><a href="../html/add-asset.html">Add</a></li>
+						<li><a href="#viewassets" data-toggle="modal">View All</a></li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" style="color:white;" data-toggle="dropdown">Personnel<span class="caret"></span></a>
+					<ul class="dropdown-menu" style="color:white;" role="menu">
+						<li><a href="../html/manage-personnel.html">Manage</a></li>
+						<li><a href="../html/add-personnel.html">Add</a></li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" style="color:white;" data-toggle="dropdown">Settings<span class="caret"></span></a>
+					<ul class="dropdown-menu pull-left"  style="right: 0; left: auto; color: white" role="menu">
+						<li><a href="../html/create-account.html">Create Account</a></li>
+						<li><a href="../html/edit-account-details.html">Manage Account</a></li>
+						<li><a href="../html/change-password.html">Change Password</a></li>
+						<li class="divider"></li>
+						<li><a href="#">Adjust Barcode Fields</a></li>
+						<li><a href="../html/adjust-technology-refresher.html">Adjust Technology Refresher</a></li>
+						<li class="divider"></li>
+						<li><a href="#">Database Backup</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div><!-- /.navbar-collapse -->
+		<?php
+		}
+		else
+		{
+		?>
+			
+		<?php
+		}
+		?>
+
+
+		
+	</div><!-- /.container-fluid -->
+</nav>
+
+
 <div class="wrapper" style="height: 50px"></div>
 <div class="container">
 	<div class="row">
