@@ -67,11 +67,14 @@ EOT;
 		<link rel="stylesheet" type="text/css" href="{$base_url}resources/mythos/css/jquery-ui-1.8.16.custom.css" />
 		<link rel="stylesheet" type="text/css" href="{$base_url}resources/mythos/css/jquery-ui-extended.css" />
 		<script type="text/javascript"> var BASE_URL = "{$base_url}"; var SITE_URL = "{$site_url}"; var RESOURCES_URL = "{$resources_url}"; </script>
-		<script type="text/javascript" src="{$base_url}resources/mythos/js/jquery.min.js"></script>
+		<script type="text/javascript" src="{$base_url}resources/mythos/js/jquery-1.11.1.min.js"></script>
 		<script type="text/javascript" src="{$base_url}resources/mythos/js/jquery-ui-1.8.16.custom.min.js"></script>
 		<script type="text/javascript" src="{$base_url}resources/mythos/js/jquery.validate.complete.min.js"></script>
 		<script type="text/javascript" src="{$base_url}resources/mythos/js/jquery.floodling.min.js"></script>
 		<script type="text/javascript" src="{$base_url}resources/mythos/js/utils.js"></script>
+		<script type="text/javascript" src="{$base_url}resources/mythos/js/navbar.js"></script>
+		<script type="text/javascript" src="{$base_url}resources/mythos/js/progress.js"></script>
+		<script type="text/javascript" src="{$base_url}resources/mythos/js/initializers.js"></script>
 EOT;
 
 		$this->CI->load->library('config');

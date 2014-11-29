@@ -17,17 +17,13 @@
 <div class="container">
 
 
-
-
-
-
-	<div class="row">
-		<div class="span12">
+		<div class="jumbotron">
 			<?php echo template('notification'); ?>
 			<h1><?php echo template('title'); ?></h1>
 			<?php echo template('content'); ?>
 		</div>
-	</div>
+
+	
 	<div class="row">
 		<div class="span12 center">&copy; 2014 - PBI Asset Management System</div>
 	</div>

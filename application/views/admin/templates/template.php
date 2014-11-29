@@ -1,16 +1,17 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title><?php echo template('title'); ?> | Administration Panel</title>
-	<meta charset="utf-8">	
-	<?php echo template('mythos'); ?>
+	<meta charset="utf-8">
+	<?php //echo template('mythos'); ?>
+	<script type="text/javascript" src="<?php echo res_url('mythos/js/jquery.min.js'); ?>"></script>
 	<?php echo template('bootstrap'); ?>
-	<link rel="stylesheet" type="text/css" href="<?php echo res_url('admin/css/styles.css'); ?>" />
-	<script type="text/javascript" src="<?php echo res_url('mythos/js/jquery.tablesorter.min.js'); ?>"></script>
-	<script type="text/javascript" src="<?php echo res_url('mythos/tiny_mce/tiny_mce.js'); ?>"></script>
-	<script type="text/javascript" src="<?php echo res_url('admin/js/document.ready.js'); ?>"></script>
 	<?php echo template('head'); ?>
+	<link rel="stylesheet" type="text/css" href="<?php echo res_url('admin/css/styles.css'); ?>" />
+	<link rel="stylesheet" type="text/css" href="<?php echo res_url('admin/css/custom.css'); ?>" />
 </head>
+
+
 <body class="<?php echo uri_css_class(); ?>">
 <div class="navbar navbar-fixed-top">
 	<div class="navbar-inner">
