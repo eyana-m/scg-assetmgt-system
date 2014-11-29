@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<title><?php echo template('title'); ?> | PBI Asset Management System</title>
-	<meta charset="utf-8">	
+	<meta charset="utf-8">
 	<?php echo template('mythos'); ?>
 	<?php echo template('bootstrap'); ?>
 	<link rel="stylesheet" type="text/css" href="<?php echo res_url('site/css/styles.css'); ?>" />
@@ -11,15 +11,16 @@
 	<?php echo template('head'); ?>
 </head>
 <body class="<?php echo uri_css_class(); ?>">
+
+
+
 <div class="container">
-	<div class="row">
-		<div class="span12">
-			<ul class="nav nav-pills">
-				<li><a href="admin">Login</a></li>
-				<li><a href="#">Menu 2</a></li>
-			</ul>
-		</div>
-	</div>
+
+
+
+
+
+
 	<div class="row">
 		<div class="span12">
 			<?php echo template('notification'); ?>
