@@ -35,4 +35,11 @@ class Page extends CI_Controller
 
 		//$this->load->view('site/page/index');
 	}
+
+	public function error(){
+		$this->template->title('Error Page');
+		$this->template->content('page-error');
+		$this->template->show();
+
+	}
 }

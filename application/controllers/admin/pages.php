@@ -209,4 +209,6 @@ class Pages extends CI_Controller
 		$this->template->show();
 	}
 	
+
+
 }
