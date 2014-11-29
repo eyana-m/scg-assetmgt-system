@@ -62,7 +62,7 @@ $route['api/(:any)'] = "api/$1";
 require('database.php');
 $dbconf = $db[$active_group];
 @$mysqli = new mysqli($dbconf['hostname'], $dbconf['username'], $dbconf['password'], $dbconf['dbprefix'] . $dbconf['database']);
-if($mysqli->connect_errno) 
+if($mysqli->connect_errno)
 {
 	die("Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
 }
@@ -76,12 +76,12 @@ while($row = $res->fetch_assoc())
 
 
 /*
-Redirect all other pages to the site folder. 
+Redirect all other pages to the site folder.
 
 No need to add the "site" folder when creating links.
 
 Example:
-http://www.mysite.com/signup/newuser will point to your site/signup controller 
+http://www.mysite.com/signup/newuser will point to your site/signup controller
 and will call the newuser() function.
 
 Always keep this at the bottom of this list (catch-all routing rule).

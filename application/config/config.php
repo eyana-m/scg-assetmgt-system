@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/mythos-cms/';
+$config['base_url']	= 'http://localhost/scg-assetmgt-system/';
 
 /*
 |--------------------------------------------------------------------------
