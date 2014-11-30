@@ -62,6 +62,15 @@
 						<li><a href="#">Database Backup</a></li>
 					</ul>
 				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" style="color:white;"  data-toggle="dropdown"><?php echo $this->session->userdata('acc_name'); ?><b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="<?php echo site_url('admin/profile'); ?>">Profile</a></li>
+						<li class="divider"></li>
+						<li><a href="<?php echo site_url('admin/index/logout'); ?>">Logout</a></li>
+					</ul>
+				</li>
+			
 			</ul>
 		</div><!-- /.navbar-collapse -->
 		<?php
@@ -83,48 +92,7 @@
 <div class="wrapper" style="height: 50px"></div>
 <div class="container">
 	<div class="row">
-		<div class="span2">
-			<div class="sidebar-nav">
-				<ul class="nav nav-list">
-					<li class="nav-header"><a href="<?php echo site_url('admin/pages'); ?>">Pages</a></li>
-					<?php
-					if($this->access_control->check_account_type('dev'))
-					{
-					?>
-					<li class="nav-header"><a href="<?php echo site_url('admin/page_categories'); ?>">Page Categories</a></li>
-					<?php
-					}
-					?>
-					<li class="nav-header"><a href="<?php echo site_url('admin/photos'); ?>">Photos</a></li>
-					<?php
-					if($this->access_control->check_account_type('admin', 'dev'))
-					{
-					?>
-					<li class="nav-header"><a href="<?php echo site_url('admin/accounts'); ?>">Accounts</a></li>
-					<?php
-					}
-					?>
-					<?php
-					if($this->access_control->check_account_type('dev'))
-					{
-					?>
-					<li class="nav-header"><a href="<?php echo site_url('admin/settings'); ?>">Settings</a></li>
-					<?php
-					}
-					?>
-					<!-- Sample menu with dropdown sub items
-					<li class="nav-header">
-						<a href="javascript:;" data-toggle="collapse" data-target="#menu_sample1">Sample Dropdown</a>
-						<ul class="nav nav-list collapse in" id="menu_sample1">
-							<li><a href="#">Sub Item 1</a></li>
-							<li><a href="#">Sub Item 2</a></li>
-						</ul>
-					</li>
-					-->
-				</ul>
-			</div>
-		</div>
-		<div class="span10">
+		<div class="col-sm-12">
 			<?php echo template('notification'); ?>
 			<div class="content-header">
 				<h1 class="page-title"><?php echo template('title'); ?></h1>
@@ -135,9 +103,6 @@
 				<?php echo template('content'); ?>
 			</div>
 		</div>
-	</div>
-	<div class="row">
-		<div class="version span10 offset2">Developed by <a href="http://www.zeaple.com" target="_blank">Zeaple, Inc.</a></div>
 	</div>
 </div>
 <div class="modal hide fade" id="confirm-modal">
