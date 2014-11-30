@@ -12,7 +12,7 @@ class Index extends CI_Controller
 	{
 		if($this->access_control->check_logged_in())
 		{
-			redirect('admin/profile');
+			redirect('admin/dashboard');
 		}
 	
 		$this->template->title('Login');
@@ -59,7 +59,7 @@ class Index extends CI_Controller
 					}
 					else 
 					{
-						redirect('admin/profile');
+						redirect('admin/dashboard');
 					}
 				}
 				else
