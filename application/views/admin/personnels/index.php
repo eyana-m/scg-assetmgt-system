@@ -11,6 +11,8 @@ if($personnels->num_rows())
 					<th>First Name</th>
 					<th>Middle Name</th>
 					<th>Position</th>
+					<th>Department</th>
+					<th>Office</th>
 					<th style="width: 60px;"></th>
 				</tr>
 			</thead>
@@ -25,6 +27,8 @@ if($personnels->num_rows())
 					<td><?php echo $personnel->per_first_name; ?></td>
 					<td><?php echo $personnel->per_middle_name; ?></td>
 					<td><?php echo $personnel->per_position; ?></td>
+					<td><?php echo $personnel->per_department; ?></td>
+					<td><?php echo $personnel->per_office; ?></td>
 					<td class="center"><a href="<?php echo site_url('admin/personnels/edit/' . $personnel->per_id); ?>" class="btn">Edit</a></td>
 				</tr>
 				<?php

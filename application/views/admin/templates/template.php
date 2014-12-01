@@ -3,7 +3,7 @@
 <head>
 	<title><?php echo template('title'); ?> | Administration Panel</title>
 	<meta charset="utf-8">
-	<?php //echo template('mythos'); ?>
+	<?php #echo template('mythos'); ?>
 	<script type="text/javascript" src="<?php echo res_url('mythos/js/jquery.min.js'); ?>"></script>
 	<?php echo template('bootstrap'); ?>
 	<?php echo template('head'); ?>
@@ -37,24 +37,21 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" style="color:white;" data-toggle="dropdown">Assets<span class="caret"></span></a>
 					<ul class="dropdown-menu" style="color:white;" role="menu">
-						<li><a href="../html/manage-assets.html">Manage</a></li>
-						<li><a href="../html/add-asset.html">Add</a></li>
+						<li><a href="<?php echo site_url('admin/hardware_assets'); ?>">Manage</a></li>
+						<li><a href="<?php echo site_url('admin/hardware_assets/create'); ?>">Add</a></li>
 						<li><a href="#viewassets" data-toggle="modal">View All</a></li>
 					</ul>
 				</li>
 				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" style="color:white;" data-toggle="dropdown">Personnel<span class="caret"></span></a>
+					<a href="#" class="dropdown-toggle" style="color:white;" data-toggle="dropdown">Employees<span class="caret"></span></a>
 					<ul class="dropdown-menu" style="color:white;" role="menu">
-						<li><a href="../html/manage-personnel.html">Manage</a></li>
-						<li><a href="../html/add-personnel.html">Add</a></li>
+						<li><a href="<?php echo site_url('admin/employees'); ?>">Manage</a></li>
+						<li><a href="<?php echo site_url('admin/employees/create'); ?>">Add</a></li>
 					</ul>
 				</li>
 				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" style="color:white;" data-toggle="dropdown">Settings<span class="caret"></span></a>
+					<a href="#" class="dropdown-toggle" style="color:white;" data-toggle="dropdown">Others<span class="caret"></span></a>
 					<ul class="dropdown-menu pull-left"  style="right: 0; left: auto; color: white" role="menu">
-						<li><a href="../html/create-account.html">Create Account</a></li>
-						<li><a href="../html/edit-account-details.html">Manage Account</a></li>
-						<li><a href="../html/change-password.html">Change Password</a></li>
 						<li class="divider"></li>
 						<li><a href="#">Adjust Barcode Fields</a></li>
 						<li><a href="../html/adjust-technology-refresher.html">Adjust Technology Refresher</a></li>
