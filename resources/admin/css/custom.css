@@ -1,4 +1,17 @@
+.btn-small{
+  height: 24px;
+  padding: 3px 6px;
 
+}
+
+.form-horizontal .control-label{
+  text-align: left;
+}
+
+.form-control-small{
+  height: 24px;
+  padding: 3px 6px;
+}
 
 .form-signin {
   max-width: 500px;

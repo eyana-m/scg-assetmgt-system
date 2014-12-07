@@ -16,7 +16,7 @@
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 	<div class="container">
 		<!-- Brand and toggle get grouped for better mobile display -->
-		<div class="navbar-header col-sm-7">
+		<div class="navbar-header col-sm-4">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 				<span class="sr-only">Toggle navigation</span>
 				<span class="icon-bar"></span>
@@ -32,7 +32,7 @@
 			{
 		?>
 
-		<div class="collapse navbar-collapse col-sm-7 pull-right" id="bs-example-navbar-collapse-1">
+		<div class="collapse navbar-collapse col-sm-8 pull-right" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" style="color:white;" data-toggle="dropdown">Assets<span class="caret"></span></a>
@@ -67,6 +67,9 @@
 						<li><a href="<?php echo site_url('admin/index/logout'); ?>">Logout</a></li>
 					</ul>
 				</li>
+		        <li>
+		          <a id="scanbutton" class="btn btn-danger navbar-btn" href="#scanbarcode" role="button" data-toggle="modal" style="color:white; padding:5px; margin-left:25px;">Scan Barcode</a>
+		        </li>
 			
 			</ul>
 		</div><!-- /.navbar-collapse -->
@@ -88,19 +91,17 @@
 
 <div class="wrapper" style="height: 50px"></div>
 <div class="container">
-	<div class="row">
-		<div class="col-sm-12">
-			<?php echo template('notification'); ?>
-			<div class="content-header">
-				<h1 class="page-title"><?php echo template('title'); ?></h1>
-				<?php echo template('page-nav'); ?>
-				<div class="clearfix"></div>
-			</div>
-			<div class="content-body">
-				<?php echo template('content'); ?>
-			</div>
-		</div>
+	
+	<?php echo template('notification'); ?>
+	<div class="content-header">
+		<h1 class="page-title"><?php echo template('title'); ?></h1>
+		<?php echo template('page-nav'); ?>
+		<div class="clearfix"></div>
 	</div>
+	<div class="content-body">
+		<?php echo template('content'); ?>
+	</div>
+	
 </div>
 <div class="modal hide fade" id="confirm-modal">
 	<div class="modal-header center">
@@ -115,5 +116,28 @@
 		<a href="#" class="btn btn-large" data-dismiss="modal">No</a>
 	</div>
 </div>
+
+
+
+<div id = "scanbarcode" class = "modal fade">
+	<div class = "modal-dialog">
+		<div class = "modal-content">
+			<div class = "modal-header">
+				<center><h3 class="no-margin exo-font">Scan Barcode</h3></center>
+			</div>
+			<center><div class = "modal-body">
+				<div class="jumbotron">
+					<h2 class="exo-font" style="margin-top:10px;">Scan Now...</h2>
+				</div>
+			</div></center>
+			<div class = "modal-footer">
+				<button class = "btn btn-danger btn-lg no-border-radius" data-dismiss = "modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
 </body>
 </html>
