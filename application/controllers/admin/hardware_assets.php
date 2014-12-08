@@ -170,7 +170,9 @@ class Hardware_assets extends CI_Controller
 		
 		$page = array();
 		$audit_entry = array();
+
 		$page['hardware_asset'] = $this->hardware_asset_model->get_one($hardware_asset_id);
+
 		$employees =  $this->employee_model->get_all();
 		$page['employees'] = $employees;
 
@@ -179,8 +181,6 @@ class Hardware_assets extends CI_Controller
 			$this->template->notification('Hardware asset was not found.', 'error');
 			redirect('admin/hardware_assets');
 		}
-
-
 
 
 		if($this->input->post('submit'))
@@ -235,7 +235,13 @@ class Hardware_assets extends CI_Controller
 			redirect('admin/hardware_assets/view/' . $hardware_asset_id);
 		
 			$this->template->autofill($audit_entry);
+
+			
 		}
+
+		$current_audit_entry = $this->audit_entry_model->get_by_hardware($hardware_asset_id)->last_row();
+
+		$page['current_audit_entry'] = $current_audit_entry;
 		
 		$this->template->content('hardware_assets-view', $page);
 		$this->template->show();

@@ -62,15 +62,18 @@ class Audit_entry_model extends Base_model
 		$query = $this->db->get($this->table); // 
 		return $query;
 
-		// //Use $this->table to get the table name
-		// if($query->num_rows() > 0)
-		// {
-		// 	return $query->row();
-		// }
-		// else
-		// {
-		// 	return false;
-		// }		
+	}
+
+	public function get_last_hardware($har_id)
+	{
+
+		$this->db->join('hardware_asset', "hardware_asset.har_id = {$this->table}.aud_har");				
+		$this->db->join('employee', "employee.emp_id = {$this->table}.aud_per");
+
+		$this->db->where('aud_har', $har_id);	
+		$query = $this->db->get($this->table)->last_row();
+		return $query;
+
 	}
 
 	public function get_last()

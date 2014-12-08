@@ -1,4 +1,8 @@
-
+<div class="row" style="margin-bottom: 2em">
+<?php echo $current_audit_entry->emp_last_name; ?>, <?php echo $current_audit_entry->emp_first_name; ?> <?php echo $current_audit_entry->emp_middle_name; ?>
+<br>
+<?php echo $current_audit_entry->aud_status; ?>
+</div>
 
 <div class="row" style="margin-bottom: 2em">
 
