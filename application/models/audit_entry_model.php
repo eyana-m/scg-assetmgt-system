@@ -31,32 +31,45 @@ class Audit_entry_model extends Base_model
 
 	public function get_by_employee($emp_id)
 	{
+		$this->db->join('hardware_asset', "hardware_asset.har_id = {$this->table}.aud_har");				
+		$this->db->join('employee', "employee.emp_id = {$this->table}.aud_per");
 		$this->db->where('aud_per', $emp_id);	
 		$query = $this->db->get($this->table); // Use $this->table to get the table name
-		if($query->num_rows() > 0)
-		{
-			return $query->row();
-		}
-		else
-		{
-			return false;
-		}
+
+
+		return $query;
+		// if($query->num_rows() > 0)
+		// {
+		// 	return $query->row();
+		// 	// var_dump($query->row());
+		// 	// die();
+		// }
+		// else
+		// {
+		// 	return false;
+		// }
 
 	}
 
 	public function get_by_hardware($har_id)
 	{
 
+		$this->db->join('hardware_asset', "hardware_asset.har_id = {$this->table}.aud_har");				
+		$this->db->join('employee', "employee.emp_id = {$this->table}.aud_per");
+
 		$this->db->where('aud_har', $har_id);	
-		$query = $this->db->get($this->table); // Use $this->table to get the table name
-		if($query->num_rows() > 0)
-		{
-			return $query->row();
-		}
-		else
-		{
-			return false;
-		}		
+		$query = $this->db->get($this->table); // 
+		return $query;
+
+		// //Use $this->table to get the table name
+		// if($query->num_rows() > 0)
+		// {
+		// 	return $query->row();
+		// }
+		// else
+		// {
+		// 	return false;
+		// }		
 	}
 
 

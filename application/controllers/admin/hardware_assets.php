@@ -166,7 +166,7 @@ class Hardware_assets extends CI_Controller
 
 	public function view($hardware_asset_id)
 	{
-		$this->template->title('View Hardware Asset');
+		$this->template->title('Audit Trail - Asset');
 		
 		$page = array();
 		$audit_entry = array();

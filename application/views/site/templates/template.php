@@ -23,7 +23,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" style="color:white;" href="../html/dashboard.html">PBI IT Asset Inventory System</a>
+			<a class="navbar-brand" style="color:white;" href="<?php echo site_url('admin/dashboard'); ?>">PBI IT Asset Inventory System</a>
 		</div>
 
 
@@ -31,7 +31,7 @@
 		if($this->access_control->check_logged_in()) 
 			{
 		?>
-
+			<ul class="nav navbar-nav">
 		
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" style="color:white;"  data-toggle="dropdown"><?php echo $this->session->userdata('acc_name'); ?><b class="caret"></b></a>

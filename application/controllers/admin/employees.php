@@ -17,6 +17,8 @@ class Employees extends CI_Controller
 		$this->load->library('upload');
 
 		$this->load->model('employee_model');
+		$this->load->model('hardware_asset_model');
+		$this->load->model('audit_entry_model');
 
 
 	}
@@ -193,10 +195,25 @@ class Employees extends CI_Controller
 
 	public function view($employee_id)
 	{
-		$this->template->title('View Employee');
-		
+		$this->template->title('Audit Trail - Employee');
 		$page = array();
-		$page['employee'] = $this->employee_model->get_one($employee_id);
+
+		$employee = $this->employee_model->get_one($employee_id);
+
+		$page['employee'] = $employee;
+
+		$audit_entries = $this->audit_entry_model->get_by_employee($employee_id);
+
+		$page['audit_entries'] = $audit_entries;
+
+		
+		#$page['audit_entries'] = $this->audit_entry_model->pagination("admin/employees/index/__PAGE__", 'get_by_employee($employee_id)'
+
+		$page['audit_entries_pagination'] = $this->audit_entry_model->pagination_links();
+
+		$employees =  $this->employee_model->get_all();
+		
+		$page['employees'] = $employees;
 
 		if($page['employee'] === false)
 		{
