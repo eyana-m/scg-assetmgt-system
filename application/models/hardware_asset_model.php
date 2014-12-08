@@ -14,5 +14,4 @@ class Hardware_asset_model extends Base_model
 	// Inherits the create, update, delete, get_one, and get_all methods of base_model.
 
 
-
 }

@@ -9,12 +9,21 @@ class Employees extends CI_Controller
 		$this->access_control->logged_in();
 		$this->access_control->account_type('admin', ' user', ' dev');
 		$this->access_control->validate();
+		$this->load->model('page_model');
+		$this->load->helper('format');
+
+
+
+		$this->load->library('upload');
 
 		$this->load->model('employee_model');
+
+
 	}
 
 	public function index()
 	{
+
 		$this->template->title('Employees');
 
 		if($this->input->post('form_mode'))
@@ -46,6 +55,53 @@ class Employees extends CI_Controller
 		$this->template->content('menu-employees', null, 'admin', 'page-nav');
 		$this->template->show();
 	}
+
+
+	public function batch_upload()
+	{
+		$this->template->title('Batch Upload');
+
+		$page = array();
+
+
+
+
+		$this->template->content('employees-batch_upload', $page);
+		$this->template->show();
+
+	}
+
+	public function do_upload()
+	{
+
+		$this->load->library('upload', $config);
+
+		if ( ! $this->upload->do_upload())
+		{
+			$error = array('error' => $this->upload->display_errors());
+			$this->load->model('page_model');
+			$this->template->notification('File Not Uploaded!', 'danger');
+
+			#redirect('admin/dashboard');
+		}
+		else
+		{
+			$data = array('upload_data' => $this->upload->data());
+			#redirect('admin/employees');
+
+			$this->template->notification('File Uploaded!', 'success');
+		}
+
+
+
+
+
+
+	}
+
+
+
+
 
 	public function create()
 	{
@@ -83,6 +139,7 @@ class Employees extends CI_Controller
 			}
 
 			$this->template->autofill($employee);
+
 		}
 
 		$page = array();

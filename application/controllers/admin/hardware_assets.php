@@ -10,6 +10,8 @@ class Hardware_assets extends CI_Controller
 		$this->access_control->account_type('admin', ' user', ' dev');
 		$this->access_control->validate();
 
+		$this->load->library('upload');
+
 		$this->load->model('hardware_asset_model');
 	}
 
@@ -45,6 +47,12 @@ class Hardware_assets extends CI_Controller
 		$this->template->content('hardware_assets-index', $page);
 		$this->template->content('menu-hardware_assets', null, 'admin', 'page-nav');
 		$this->template->show();
+	}
+
+
+	public function batch_upload()
+	{
+		
 	}
 
 	public function create()
@@ -170,4 +178,6 @@ class Hardware_assets extends CI_Controller
 		$this->template->content('hardware_assets-view', $page);
 		$this->template->show();
 	}
+
+
 }

@@ -44,6 +44,8 @@
 </form>
 
 <div class="col-sm-12" class="margin-top: 1.2em">
-		<center><a class="btn btn-success" href="#submit-personnel-me" role="button" data-toggle="modal" style="margin-top: 10px;">Add Asset</a>
-		<a class="btn btn-default" href="#submit-personnel-bu" role="button" data-toggle="modal" style="margin-top: 10px; margin-left: 5px">Batch Upload</a></center>
+	<center><a class="btn btn-success" href="#submit-personnel-me" role="button" data-toggle="modal" style="margin-top: 10px;">Add Asset</a>
+	<a class="btn btn-default" href="<?php echo site_url('admin/employees/batch_upload') ?>" role="button" data-toggle="modal" style="margin-top: 10px; margin-left: 5px">Batch Upload</a></center>
+
+
 </div>

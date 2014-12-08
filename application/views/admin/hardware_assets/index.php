@@ -177,6 +177,7 @@ if($hardware_assets->num_rows())
 		<div class="panel-heading">Other Options</div>
 		<div class="panel-body asset-info-panel" id="scan-panel-body">
 		  	<button type="submit" class="btn btn-default no-border-radius">Export Barcode</button>
+		  	<a class="btn btn-default no-border-radius">Generate CSV</a>
 			<a class="btn btn-default no-border-radius" href="#generatereport" role="button" data-toggle="modal">Generate Report</a>
 		</div>
 	</div>

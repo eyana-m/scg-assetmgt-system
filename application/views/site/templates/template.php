@@ -32,36 +32,7 @@
 			{
 		?>
 
-		<div class="collapse navbar-collapse col-sm-7 pull-right" id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" style="color:white;" data-toggle="dropdown">Assets<span class="caret"></span></a>
-					<ul class="dropdown-menu" style="color:white;" role="menu">
-						<li><a href="../html/manage-assets.html">Manage</a></li>
-						<li><a href="../html/add-asset.html">Add</a></li>
-						<li><a href="#viewassets" data-toggle="modal">View All</a></li>
-					</ul>
-				</li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" style="color:white;" data-toggle="dropdown">Personnel<span class="caret"></span></a>
-					<ul class="dropdown-menu" style="color:white;" role="menu">
-						<li><a href="../html/manage-personnel.html">Manage</a></li>
-						<li><a href="../html/add-personnel.html">Add</a></li>
-					</ul>
-				</li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" style="color:white;" data-toggle="dropdown">Settings<span class="caret"></span></a>
-					<ul class="dropdown-menu pull-left"  style="right: 0; left: auto; color: white" role="menu">
-						<li><a href="../html/create-account.html">Create Account</a></li>
-						<li><a href="../html/edit-account-details.html">Manage Account</a></li>
-						<li><a href="../html/change-password.html">Change Password</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Adjust Barcode Fields</a></li>
-						<li><a href="../html/adjust-technology-refresher.html">Adjust Technology Refresher</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Database Backup</a></li>
-					</ul>
-				</li>
+		
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" style="color:white;"  data-toggle="dropdown"><?php echo $this->session->userdata('acc_name'); ?><b class="caret"></b></a>
 					<ul class="dropdown-menu">
