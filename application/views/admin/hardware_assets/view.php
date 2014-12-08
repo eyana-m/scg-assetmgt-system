@@ -1,3 +1,24 @@
+<h4> Manual Tag to Employee </h4>
+
+<form method="post" id="employee-tag">
+
+<select class="input-medium" name="emp_id" id="emp_id">
+	<option value="">Select Employee</option>
+	<?php foreach($employees->result() as $employee): ?>
+		<option value="<?php echo $employee->emp_id; ?>"><?php echo $employee->emp_last_name; ?>, <?php echo $employee->emp_first_name; ?></option>	
+	<?php endforeach ?>
+</select> 
+
+
+<input type="submit" class="btn btn-info" name="submit" id="visualize" value="Tag">
+
+</form>
+
+<br><br>
+
+
+
+
 <table class="table-form table-bordered">
 	<tr>
 		<th>Asset Number</th>
@@ -71,3 +92,4 @@
 		</td>
 	</tr>
 </table>
+

@@ -13,6 +13,7 @@ class Hardware_assets extends CI_Controller
 		$this->load->library('upload');
 
 		$this->load->model('hardware_asset_model');
+		$this->load->model('employee_model');
 	}
 
 	public function index()
@@ -168,6 +169,8 @@ class Hardware_assets extends CI_Controller
 		
 		$page = array();
 		$page['hardware_asset'] = $this->hardware_asset_model->get_one($hardware_asset_id);
+		$employees =  $this->employee_model->get_all();
+		$page['employees'] = $employees;
 
 		if($page['hardware_asset'] === false)
 		{
