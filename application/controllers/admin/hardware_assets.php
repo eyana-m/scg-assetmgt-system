@@ -180,30 +180,48 @@ class Hardware_assets extends CI_Controller
 			redirect('admin/hardware_assets');
 		}
 
-		$this->form_validation->set_rules('aud_datetime', 'Datetime', 'trim|required|datetime');
-		$this->form_validation->set_rules('aud_status', 'Status', 'trim|required');
-		$this->form_validation->set_rules('aud_comment', 'Comment', 'trim|required');
-		$this->form_validation->set_rules('aud_har', 'Har', 'trim|required|integer|max_length[11]');
-		$this->form_validation->set_rules('aud_per', 'Per', 'trim|required|integer|max_length[11]');
-
-
 
 
 
 		if($this->input->post('submit'))
 		{
 			
-			// $audit_entry['aud_datetime'] = now(); 
-			// $audit_entry['aud_status'] = "active";
-			// $audit_entry['aud_comment'] = "";
-			// $audit_entry['aud_har'] = $hardware_asset_id;
-			// $audit_entry['aud_per'] = $this->extract->post();
-
 			$audit_entry['aud_datetime'] = date('Y-m-d H:i:s');
-			$audit_entry['aud_status'] = "active";
-			$audit_entry['aud_comment'] = "";
+
+			
+			if($this->input->post('aud_status'))
+			{
+				$audit_entry['aud_status'] = $this->input->post('aud_status');
+			}
+			else
+			{				
+				$audit_entry['aud_status'] = 'active';		
+			}
+
+			if($this->input->post('aud_comment'))
+			{
+				$audit_entry['aud_comment'] = $this->input->post("aud_comment");
+			}
+			else
+			{				
+				$audit_entry['aud_comment'] = 'Normal condition';		
+			}
+
+
 			$audit_entry['aud_har'] = $hardware_asset_id;
-			$audit_entry['aud_per'] = $this->input->post("emp_id");
+
+
+			if($this->input->post("emp_id"))
+			{
+				$audit_entry['aud_per'] = $this->input->post("emp_id");				
+			}
+			else
+			{
+				$temp = $this->audit_entry_model->get_last();
+				// var_dump($temp);
+				// die();
+				$audit_entry['aud_per'] = $temp->aud_per;			
+			}
 
 			$field_list = array('aud_id', 'aud_datetime', 'aud_status', 'aud_comment', 'aud_har', 'aud_per');
 
@@ -214,7 +232,7 @@ class Hardware_assets extends CI_Controller
 			$this->audit_entry_model->create($audit_entry, $field_list);
 
 			$this->template->notification('New audit entry created.', 'success');
-			redirect('admin/audit_entries');
+			redirect('admin/hardware_assets/view/' . $hardware_asset_id);
 		
 			$this->template->autofill($audit_entry);
 		}

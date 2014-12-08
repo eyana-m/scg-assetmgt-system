@@ -51,6 +51,7 @@ class Audit_entry_model extends Base_model
 
 	}
 
+
 	public function get_by_hardware($har_id)
 	{
 
@@ -70,6 +71,36 @@ class Audit_entry_model extends Base_model
 		// {
 		// 	return false;
 		// }		
+	}
+
+	public function get_last()
+	{
+		$this->db->join('hardware_asset', "hardware_asset.har_id = {$this->table}.aud_har");				
+		$this->db->join('employee', "employee.emp_id = {$this->table}.aud_per");
+		return $this->db->get($this->table)->last_row();
+
+	}
+
+	public function get_last_employee()
+	{
+		$this->db->join('hardware_asset', "hardware_asset.har_id = {$this->table}.aud_har");				
+		$this->db->join('employee', "employee.emp_id = {$this->table}.aud_per", 'Right');
+		$this->db->where('aud_per', $emp_id);	
+		$query = $this->db->get($this->table); // Use $this->table to get the table name
+
+
+		return $query;
+		// if($query->num_rows() > 0)
+		// {
+		// 	return $query->row();
+		// 	// var_dump($query->row());
+		// 	// die();
+		// }
+		// else
+		// {
+		// 	return false;
+		// }
+
 	}
 
 

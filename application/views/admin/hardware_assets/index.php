@@ -24,7 +24,7 @@ if($hardware_assets->num_rows())
 				?>
 				<tr>
 					<td class="center"><input type="checkbox" name="har_ids[]" value="<?php echo $hardware_asset->har_id; ?>" /></td>
-					<td><a href="<?php echo site_url('admin/hardware_assets/view/' . $hardware_asset->har_id); ?>"><?php echo number_format($hardware_asset->har_asset_number); ?></a></td>
+					<td><a href="<?php echo site_url('admin/hardware_assets/view/' . $hardware_asset->har_id); ?>"><?php echo $hardware_asset->har_serial_number; ?></a></td>
 					<td><?php echo $hardware_asset->har_asset_type; ?></td>
 					<td><?php echo number_format($hardware_asset->har_erf_number); ?></td>
 					<td><?php echo $hardware_asset->har_model; ?></td>
@@ -44,6 +44,7 @@ if($hardware_assets->num_rows())
 			</select>
 		</div>
 	</form>
+	
 </div>
 
 

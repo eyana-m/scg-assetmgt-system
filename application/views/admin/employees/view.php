@@ -1,40 +1,37 @@
 
-
-
 <div class="col-md-9 col-sm-12" style="margin: 0; padding: 0">
 
 <?php if($audit_entries->num_rows()): ?>
+	
+    <table class="table table-striped table-bordered table-audit-trail">
+		<thead>
+			<th>Asset ID</th>
+			<th>Type</th>
+			<th>Model</th>
+			<th>Remarks</th>
+			<th>Date Released</th>
+			<th>Date Returned</th>
+			<th>Actions</th>
+		</thead>
 
-	<div class="container" id="audit-trail-container">
-    	<table class="table table-striped table-bordered table-audit-trail">
-    		<thead>
-					<th>Asset ID</th>
-					<th>Type</th>
-					<th>Model</th>
-					<th>Remarks</th>
-	    			<th>Date Released</th>
-	    			<th>Date Returned</th>
-					<th>Actions</th>
-    		</thead>
-		<?php
-			foreach($audit_entries->result() as $audit_entry): ?>
+		<?php foreach($audit_entries->result() as $audit_entry): ?>
 
-    		<tr>
-					<td><a href="<?php echo site_url('admin/audit_entries/view/' . $audit_entry->aud_id); ?>"> <?php echo $audit_entry->har_asset_number; ?> </a></td>
-					<td><?php echo $audit_entry->har_asset_type; ?> </td>
-					<td><?php echo $audit_entry->har_model; ?></td>
-					<td><?php echo nl2br($audit_entry->aud_comment); ?></td>
-					<td>Sept. 16, 2014, 13:00</td>
-					<td>Sept. 17, 2014, 13:00</td>
-					<td><span class="label label-default">Untag</span></td>
-    		</tr>
+    	<tr>
+			<td>
+			<a href="<?php echo site_url('admin/hardware_assets/view/' . $audit_entry->aud_id); ?>"> <?php echo $audit_entry->har_serial_number; ?> </a></td>
+				<td><?php echo $audit_entry->har_asset_type; ?> </td>
+				<td><?php echo $audit_entry->har_model; ?></td>
+				<td><?php echo nl2br($audit_entry->aud_comment); ?></td>
+				<td>Sept. 16, 2014, 13:00</td>
+				<td>Sept. 17, 2014, 13:00</td>
+				<td><span class="label label-default">Untag</span>
+			</td>
+    	</tr>
 
-    		<?php
-			endforeach; ?>
+    	<?php endforeach; ?>
 
 
-  		</table>
-    </div>
+  	</table>
 
 <?php endif; ?>
 </div>

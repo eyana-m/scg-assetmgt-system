@@ -1,21 +1,53 @@
-<h4> Manual Tag to Employee </h4>
-
-<form method="post" id="employee-tag">
-
-<select class="input-medium" name="emp_id" id="emp_id">
-	<option value="">Select Employee</option>
-	<?php foreach($employees->result() as $employee): ?>
-		<option value="<?php echo $employee->emp_id; ?>"><?php echo $employee->emp_last_name; ?>, <?php echo $employee->emp_first_name; ?></option>	
-	<?php endforeach ?>
-</select> 
 
 
-<input type="submit" class="btn btn-info" name="submit" id="visualize" value="Tag">
+<div class="row" style="margin-bottom: 2em">
 
-</form>
+	<div class="col-md-6 col-sm-12">
 
-<br><br>
 
+		<h4> Manual Tag to Employee </h4>
+
+		<form method="post" id="employee-tag">
+
+		<select class="input-medium form-control"  name="emp_id" id="emp_id">
+			<option value="">Select Employee</option>
+			<?php foreach($employees->result() as $employee): ?>
+				<option value="<?php echo $employee->emp_id; ?>"><?php echo $employee->emp_last_name; ?>, <?php echo $employee->emp_first_name; ?></option>	
+			<?php endforeach ?>
+		</select> 
+
+		<input type="text" class="form-control" id="aud_comment" name="aud_comment" placeholder="Comment">
+
+		<input type="submit" class="btn btn-info" name="submit" value="Tag">
+
+		</form>
+
+	</div>
+
+	<div class="col-md-6 col-sm-12" >
+
+		<h4>Change Status</h4>
+
+		<form method="post" id="change-status">
+
+		<select name="aud_status" id="aud_status" class="input-medium form-control">
+			<option value="active">active</option>
+			<option value="storage">storage</option>
+			<option value="service unit">service unit</option>
+			<option value="for disposal">for disposal</option>
+			<option value="repair">repair</option>
+			<option value="inactive">inactive</option>
+		</select>
+
+		<input type="text" class="form-control" id="aud_comment" name="aud_comment" placeholder="Comment">
+
+		<input type="submit" class="btn btn-info" name="submit" id="visualize" value="Change Status">
+
+		</form>
+
+	</div>
+
+</div>
 
 
 
