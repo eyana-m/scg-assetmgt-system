@@ -56,12 +56,31 @@ class Audit_entry_model extends Base_model
 		else
 		{
 			return false;
-		}
-
-
-
-		
+		}		
 	}
+
+
+	// public function set_employee($emp_id, $har_id)
+	// {
+	// 	$this->db->join('hardware_asset', "hardware_asset.har_id = {$this->table}.aud_har");				
+	// 	$this->db->join('employee', "employee.emp_id = {$this->table}.aud_per");
+
+
+	// 	$this->db->where('{$this->table}.aud_har', $har_id);	
+	// 	$this->db->update('{$this->table}.aud_per',$emp_id);
+
+	// 	$query = $this->db->get($this->table); // Use $this->table to get the table name
+	// 	if($query->num_rows() > 0)
+	// 	{
+	// 		return $query->row();
+	// 	}
+	// 	else
+	// 	{
+	// 		return false;
+	// 	}		
+	// }
+
+
 
 
 
