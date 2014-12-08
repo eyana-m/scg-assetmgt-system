@@ -20,9 +20,9 @@
 			foreach($audit_entries->result() as $audit_entry): ?>
 
     		<tr>
-					<td><a href="<?php echo site_url('admin/audit_entries/view/' . $audit_entry->aud_id); ?>"> <?php echo $audit_entry->aud_har; ?> </a></td>
-					<td>Laptop</td>
-					<td>B9c2af25dd</td>
+					<td><a href="<?php echo site_url('admin/audit_entries/view/' . $audit_entry->aud_id); ?>"> <?php echo $audit_entry->har_asset_number; ?> </a></td>
+					<td><?php echo $audit_entry->har_asset_type; ?> </td>
+					<td><?php echo $audit_entry->har_model; ?></td>
 					<td><?php echo nl2br($audit_entry->aud_comment); ?></td>
 					<td>Sept. 16, 2014, 13:00</td>
 					<td>Sept. 17, 2014, 13:00</td>

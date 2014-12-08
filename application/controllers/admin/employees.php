@@ -206,6 +206,22 @@ class Employees extends CI_Controller
 
 		$page['audit_entries'] = $audit_entries;
 
+		// if($audit_entries->num_rows())
+		// {
+		// 	foreach($audit_entries->result() as $audit_entry)
+		// 	{
+		// 		var_dump($audit_entry);
+
+		// 	}
+
+		// 	die();
+
+
+
+		// }
+
+		
+
 		
 		#$page['audit_entries'] = $this->audit_entry_model->pagination("admin/employees/index/__PAGE__", 'get_by_employee($employee_id)'
 
