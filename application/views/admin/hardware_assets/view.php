@@ -59,9 +59,9 @@
 <div class="col-md-3 col-sm-12" style="padding: 0;">
 	<div class="panel panel-success panel-personnel">
 		<div class="panel-heading" style="overflow:auto;">
-			<div class="col-xs-8" style="padding-left: 0; font-size: 1.2em">Current Status:</div>
+			<div class="col-xs-5" style="padding-left: 0; font-size: 1.2em">Status:</div>
 			
-			<div class="col-xs-4 text-right"  style="padding-top: 0.25em; padding-right: 0;">
+			<div class="col-xs-7 text-right"  style="padding-top: 0.25em; padding-right: 0; margin: 0">
 				
 
 
@@ -86,9 +86,14 @@
 		
 		<div class="panel-body">
 
-
+		<?php if($current_audit_entry->aud_status=='inactive'):?>
+			<div class="col-xs-5 panel-personnel-content">Untagged from:
+			</div>
+		<?php else:?>
 			<div class="col-xs-5 panel-personnel-content">Tagged to:
 			</div>
+
+		<?php endif; ?>
 			<div class="col-xs-7 text-right panel-personnel-content">
 
 			<?php if($current_audit_entry->aud_per==null):?> N/A </div>
@@ -99,7 +104,9 @@
 				<strong><a href="<?php echo site_url('admin/employees/view/' . $current_audit_entry->emp_id); ?>"><?php echo $current_audit_entry->emp_first_name; ?> <?php echo $current_audit_entry->emp_last_name; ?></a>
 				</strong>
 
+			<?php if($current_audit_entry->aud_status=='active'):?>
 				<a href="#untag" style="text-decoration: none" role="button" data-toggle="modal" data-dismiss = "modal"><small>(untag)</small></a>
+			<?php endif; ?>
 			
 			</div>
 
@@ -147,14 +154,14 @@
 
 			<input type="text" class="form-control form-control-small" id="aud_comment" name="aud_comment" placeholder="Remark (e.g. 'Normal Condition')">
 
-			<input type="submit" class="btn btn-small btn-warning pull-right" name="submit" id="visualize" value="Change Status" style="font-size:12px">
+			<input type="submit" class="btn btn-small btn-warning pull-right" name="submit" value="Change Status" style="font-size:12px">
 
 			</form>
 		</div>
 	</div>
 
 
-<?php if($audit_entry->aud_status!=='active'):?>
+<?php if($current_audit_entry->aud_status!=='active'):?>
 
 	<div class="panel panel-default panel-personnel " style="margin-left: 0">
 		<div class="panel-heading">

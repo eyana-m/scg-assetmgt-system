@@ -205,7 +205,9 @@ class Hardware_assets extends CI_Controller
 			
 			if($this->input->post('aud_status'))
 			{
-				$this->auto_inactive($field_list, $hardware_asset_id, $current_audit_entry);
+				if($current_audit_entry->aud_status=='active'):
+					$this->auto_inactive($field_list, $hardware_asset_id, $current_audit_entry);
+				endif;
 
 				$audit_entry['aud_status'] = $this->input->post('aud_status');
 
@@ -257,8 +259,11 @@ class Hardware_assets extends CI_Controller
 			$this->auto_inactive($field_list, $hardware_asset_id, $current_audit_entry);
 			$current_audit_entry = $this->audit_entry_model->get_by_hardware($hardware_asset_id)->first_row();
 			$page['current_audit_entry'] = $current_audit_entry;
-			redirect($this->uri->uri_string());
-			var_dump($current_audit_entry); die();
+
+			$this->template->notification('Asset is now untagged.', 'success');
+			//redirect($this->uri->uri_string());
+			redirect('admin/hardware_assets/view/' . $hardware_asset_id);
+			$this->template->autofill($audit_entry);
 		}
 
 		
