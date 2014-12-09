@@ -18,7 +18,7 @@
 
     	<tr>
 			<td>
-			<a href="<?php echo site_url('admin/hardware_assets/view/' . $audit_entry->aud_id); ?>"> <?php echo $audit_entry->har_serial_number; ?> </a></td>
+				<a href="<?php echo site_url('admin/hardware_assets/view/' . $audit_entry->har_id); ?>"> <?php echo $audit_entry->har_serial_number; ?> </a></td>
 				<td><?php echo $audit_entry->har_asset_type; ?> </td>
 				<td><?php echo $audit_entry->har_model; ?></td>
 				<td><?php echo nl2br($audit_entry->aud_comment); ?></td>

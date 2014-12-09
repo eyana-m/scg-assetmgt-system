@@ -173,6 +173,9 @@ class Hardware_assets extends CI_Controller
 
 		$page['hardware_asset'] = $this->hardware_asset_model->get_one($hardware_asset_id);
 
+		$audit_entries =  $this->audit_entry_model->get_by_hardware($hardware_asset_id);
+		$page['audit_entries'] = $audit_entries;		
+
 		$employees =  $this->employee_model->get_all();
 		$page['employees'] = $employees;
 

@@ -9,8 +9,10 @@
 }
 
 .form-control-small{
-  height: 24px;
+  height: 27px;
+  font-size: 12px;
   padding: 3px 6px;
+  margin-bottom: 0.5em;
 }
 
 .form-signin {

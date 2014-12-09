@@ -1,131 +1,206 @@
-<div class="row" style="margin-bottom: 2em">
-<?php echo $current_audit_entry->emp_last_name; ?>, <?php echo $current_audit_entry->emp_first_name; ?> <?php echo $current_audit_entry->emp_middle_name; ?>
-<br>
-<?php echo $current_audit_entry->aud_status; ?>
+
+<div class="col-md-9 col-sm-12" style="padding-left: 0; margin-left: 0">
+
+<?php if($audit_entries->num_rows()): ?>
+	<table class="table table-striped table-bordered table-audit-trail">
+		<thead>
+			<th>Date & Time</th>
+			<th>Status</th>
+			<th>Personnel</th>
+			<th>Office</th>
+			<th>Department</th>
+			<th>Remarks</th>
+		</thead>
+
+		<?php foreach($audit_entries->result() as $audit_entry): ?>
+			<tr>
+				<td><?php echo $audit_entry->aud_datetime; ?></td>
+				
+
+				<td>
+
+			<?php if($audit_entry->aud_status=='active'):?>
+
+				<span class="label label-success"><?php echo $audit_entry->aud_status; ?></span>
+
+			<?php elseif ($audit_entry->aud_status=='repair'): ?>
+
+				<span class="label label-warning"><?php echo $audit_entry->aud_status; ?></span>
+
+			<?php else: ?>
+
+				<span class="label label-default"><?php echo $audit_entry->aud_status; ?></span>
+
+				</td>
+
+			<?php endif ?>
+
+
+				<td>
+				<?php echo $audit_entry->emp_first_name; ?> <?php echo $audit_entry->emp_last_name; ?>
+				</td>
+
+				<td><?php echo $audit_entry->emp_office; ?></td>
+
+				<td><?php echo $audit_entry->emp_department; ?></td>
+				<td><small><?php echo $audit_entry->aud_comment; ?></small></td>
+			</tr>
+
+		<?php endforeach; ?>
+	</table>
+
+<?php endif; ?>
 </div>
 
-<div class="row" style="margin-bottom: 2em">
+<div class="col-md-3 col-sm-12" style="padding: 0;">
+	<div class="panel panel-success panel-personnel">
+		<div class="panel-heading" style="overflow:auto;">
+			<div class="col-xs-8" style="padding-left: 0; font-size: 1.2em">Current Status:</div>
+			
+			<div class="col-xs-4 text-right"  style="padding-top: 0.25em; padding-right: 0;">
+				<span class="label label-success" style="font-size: 1em"><?php echo $current_audit_entry->aud_status; ?></span>			
+			</div>
+		</div>
+		
+		<div class="panel-body">
 
-	<div class="col-md-6 col-sm-12">
+
+			<div class="col-xs-5 panel-personnel-content">Tagged to:
+			</div>
+			<div class="col-xs-7 text-right panel-personnel-content">
+				<strong><a href="<?php echo site_url('admin/employees/view/' . $current_audit_entry->emp_id); ?>"><?php echo $current_audit_entry->emp_first_name; ?> <?php echo $current_audit_entry->emp_last_name; ?></a>
+				</strong>
+			</div>
+
+			<div class="col-xs-5 panel-personnel-content">Department:
+			</div>
+			<div class="col-xs-7 text-right panel-personnel-content">
+				<?php echo $current_audit_entry->emp_department; ?> 
+			</div>
+
+			<div class="col-xs-5 panel-personnel-content">Date Tagged:
+			</div>
+			<div class="col-xs-7 text-right panel-personnel-content">
+				<?php echo $current_audit_entry->aud_datetime; ?> 
+			</div>
+
+			<div class="col-xs-5 panel-personnel-content">Remarks:
+			</div>
+			<div class="col-xs-7 text-right panel-personnel-content">
+				<?php echo $current_audit_entry->aud_comment; ?> 
+			</div>
 
 
-		<h4> Manual Tag to Employee </h4>
+
+		</div>
+	</div>
+
+	<div class="panel panel-default panel-personnel " style="margin-left: 0">
+		<div class="panel-heading">
+		Change Status
+		</div>
+		<div class="panel-body">
+			<form method="post" id="change-status">
+
+			<select name="aud_status" id="aud_status" class="input-medium form-control form-control-small">
+				<option value="">Select Status</option>
+				<option value="active">active</option>
+				<option value="storage">storage</option>
+				<option value="service unit">service unit</option>
+				<option value="for disposal">for disposal</option>
+				<option value="repair">repair</option>
+				<option value="inactive">inactive</option>
+			</select>
+
+			<input type="text" class="form-control form-control-small" id="aud_comment" name="aud_comment" placeholder="Remark (e.g. 'Normal Condition')">
+
+			<input type="submit" class="btn btn-small btn-warning pull-right" name="submit" id="visualize" value="Change Status" style="font-size:12px">
+
+			</form>
+		</div>
+	</div>
+
+	<div class="panel panel-default panel-personnel " style="margin-left: 0">
+		<div class="panel-heading">
+		Manual Tag to Personnel
+		</div>
+		<div class="panel-body">
 
 		<form method="post" id="employee-tag">
 
-		<select class="input-medium form-control"  name="emp_id" id="emp_id">
+		<select class="input-medium form-control form-control-small"  name="emp_id" id="emp_id">
 			<option value="">Select Employee</option>
 			<?php foreach($employees->result() as $employee): ?>
 				<option value="<?php echo $employee->emp_id; ?>"><?php echo $employee->emp_last_name; ?>, <?php echo $employee->emp_first_name; ?></option>	
 			<?php endforeach ?>
 		</select> 
 
-		<input type="text" class="form-control" id="aud_comment" name="aud_comment" placeholder="Comment">
+		<input type="text" class="form-control form-control-small" id="aud_comment" name="aud_comment" placeholder="Remark (e.g. 'Normal Condition')">
 
-		<input type="submit" class="btn btn-info" name="submit" value="Tag">
+		<input type="submit" class="btn btn-small btn-warning pull-right" style="font-size:12px" name="submit" value="Tag">
 
 		</form>
 
+
+
+		</div>
 	</div>
 
-	<div class="col-md-6 col-sm-12" >
 
-		<h4>Change Status</h4>
+	<div class="panel panel-success panel-personnel" style="margin-left: 0">
+		<div class="panel-heading">Asset Information</div>
+		<div class="panel-body">
+				<div class="col-xs-6 panel-personnel-content"><small>Barcode Number:</small></div>
+				<div class="col-xs-6 panel-personnel-content text-right"><?php echo number_format($hardware_asset->har_asset_number); ?></div>
 
-		<form method="post" id="change-status">
+				<div class="col-xs-5 panel-personnel-content"><small>Model:</small></div>
+				<div class="col-xs-7 panel-personnel-content text-right"><?php echo $hardware_asset->har_model; ?></div>
+	
+				<div class="col-xs-5 panel-personnel-content"><small>Type:</small></div>
+				<div class="col-xs-7 panel-personnel-content text-right"><?php echo $hardware_asset->har_asset_type; ?></div>
 
-		<select name="aud_status" id="aud_status" class="input-medium form-control">
-			<option value="active">active</option>
-			<option value="storage">storage</option>
-			<option value="service unit">service unit</option>
-			<option value="for disposal">for disposal</option>
-			<option value="repair">repair</option>
-			<option value="inactive">inactive</option>
-		</select>
+				<div class="col-xs-5 panel-personnel-content"><small>ERF Number:</small></div>
+				<div class="col-xs-7 panel-personnel-content text-right"><?php echo number_format($hardware_asset->har_erf_number); ?></div>
 
-		<input type="text" class="form-control" id="aud_comment" name="aud_comment" placeholder="Comment">
+				<div class="col-xs-5 panel-personnel-content"><small>Serial Number:</small></div>
+				<div class="col-xs-7 panel-personnel-content text-right"><?php echo $hardware_asset->har_serial_number; ?></div>
+	
 
-		<input type="submit" class="btn btn-info" name="submit" id="visualize" value="Change Status">
+				<div class="col-xs-5 panel-personnel-content"><small>Hostname:</small></div>
+				<div class="col-xs-7 panel-personnel-content text-right"><?php echo $hardware_asset->har_hostname; ?></div>
 
-		</form>
+				<div class="col-xs-5 panel-personnel-content"><small>Vendor:</small></div>
+				<div class="col-xs-7 panel-personnel-content text-right"><?php echo $hardware_asset->har_vendor; ?></div>
 
+				<div class="col-xs-5 panel-personnel-content"><small>Date of purchase:</small></div>
+				<div class="col-xs-7 panel-personnel-content text-right"><?php echo format_date($hardware_asset->har_date_purchase); ?></div>
+
+				<div class="col-xs-6 panel-personnel-content"><small>Date Added:</small></div>
+				<div class="col-xs-6 panel-personnel-content text-right"><?php echo format_date($hardware_asset->har_date_added); ?></div>
+
+				<div class="col-xs-6 panel-personnel-content"><small>Technology Refresher:</small></div>
+				<div class="col-xs-6 panel-personnel-content text-right"> Feb 30, 2017 (3 Years)</div>
+	
+				<div class="col-xs-5 panel-personnel-content"><small>PO Number:</small></div>
+				<div class="col-xs-7 panel-personnel-content text-right"> <?php echo number_format($hardware_asset->har_po_number); ?></div>
+		
+				<div class="col-xs-5 panel-personnel-content"><small>Cost:</small></div>
+				<div class="col-xs-7 panel-personnel-content text-right"><?php echo number_format($hardware_asset->har_cost, 2); ?></div>
+			
+				<div class="col-xs-5 panel-personnel-content"><small>Book Value:</small></div>
+				<div class="col-xs-7 panel-personnel-content text-right"><?php echo number_format($hardware_asset->har_book_value, 2); ?></div>
+
+
+				<div class="col-xs-5 panel-personnel-content"><small>Predetermined Value:</small></div>
+				<div class="col-xs-7 panel-personnel-content text-right"><?php echo number_format($hardware_asset->har_predetermined_value, 2); ?></div>
+
+				<div class="col-xs-5 panel-personnel-content"><small>Asset Value:</small></div>
+				<div class="col-xs-7 panel-personnel-content text-right"><?php echo number_format($hardware_asset->har_asset_value, 2); ?></div>
+
+
+		</div>
 	</div>
 
 </div>
 
-
-
-<table class="table-form table-bordered">
-	<tr>
-		<th>Asset Number</th>
-		<td><?php echo number_format($hardware_asset->har_asset_number); ?></td>
-	</tr>
-	<tr>
-		<th>Asset Type</th>
-		<td><?php echo $hardware_asset->har_asset_type; ?></td>
-	</tr>
-	<tr>
-		<th>Erf Number</th>
-		<td><?php echo number_format($hardware_asset->har_erf_number); ?></td>
-	</tr>
-	<tr>
-		<th>Model</th>
-		<td><?php echo $hardware_asset->har_model; ?></td>
-	</tr>
-	<tr>
-		<th>Serial Number</th>
-		<td><?php echo $hardware_asset->har_serial_number; ?></td>
-	</tr>
-	<tr>
-		<th>Hostname</th>
-		<td><?php echo $hardware_asset->har_hostname; ?></td>
-	</tr>
-	<tr>
-		<th>Status</th>
-		<td><?php echo $hardware_asset->har_status; ?></td>
-	</tr>
-	<tr>
-		<th>Vendor</th>
-		<td><?php echo $hardware_asset->har_vendor; ?></td>
-	</tr>
-	<tr>
-		<th>Date Purchase</th>
-		<td><?php echo format_date($hardware_asset->har_date_purchase); ?></td>
-	</tr>
-	<tr>
-		<th>Po Number</th>
-		<td><?php echo number_format($hardware_asset->har_po_number); ?></td>
-	</tr>
-	<tr>
-		<th>Cost</th>
-		<td><?php echo number_format($hardware_asset->har_cost, 2); ?></td>
-	</tr>
-	<tr>
-		<th>Book Value</th>
-		<td><?php echo number_format($hardware_asset->har_book_value, 2); ?></td>
-	</tr>
-	<tr>
-		<th>Predetermined Value</th>
-		<td><?php echo number_format($hardware_asset->har_predetermined_value, 2); ?></td>
-	</tr>
-	<tr>
-		<th>Asset Value</th>
-		<td><?php echo number_format($hardware_asset->har_asset_value, 2); ?></td>
-	</tr>
-	<tr>
-		<th>Date Added</th>
-		<td><?php echo format_date($hardware_asset->har_date_added); ?></td>
-	</tr>
-	<tr>
-		<th>Specs</th>
-		<td><?php echo nl2br($hardware_asset->har_specs); ?></td>
-	</tr>
-	<tr>
-		<th></th>
-		<td>
-			<a href="<?php echo site_url('admin/hardware_assets/edit/' . $hardware_asset->har_id); ?>" class="btn btn-primary">Edit</a>
-			<a href="<?php echo site_url('admin/hardware_assets'); ?>" class="btn">Back</a>
-		</td>
-	</tr>
-</table>
-
+</div>
