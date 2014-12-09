@@ -103,6 +103,13 @@
 	</div>
 	
 </div>
+
+<footer style="margin-top: 2em; margin-bottom: 2em">
+	<div class="container text-center">
+	<p>&copy; 2014 | Summit Consulting Group<br>
+	Ateneo de Manila University</p>
+	</div>
+</footer>
 <div class="modal hide fade" id="confirm-modal">
 	<div class="modal-header center">
 		<a class="close" data-dismiss="modal">&times;</a>
