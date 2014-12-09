@@ -174,7 +174,6 @@ class Hardware_assets extends CI_Controller
 		$page['hardware_asset'] = $this->hardware_asset_model->get_one($hardware_asset_id);
 
 		$audit_entries =  $this->audit_entry_model->get_by_hardware($hardware_asset_id);
-
 		// var_dump($audit_entries->result());
 		// die();
 
@@ -186,7 +185,7 @@ class Hardware_assets extends CI_Controller
 		$field_list = array('aud_id', 'aud_datetime', 'aud_status', 'aud_comment', 'aud_har', 'aud_per');
 
 
-		$current_audit_entry = $this->audit_entry_model->get_by_hardware($hardware_asset_id)->last_row();
+		$current_audit_entry = $this->audit_entry_model->get_by_hardware($hardware_asset_id)->first_row();
 
 		$page['current_audit_entry'] = $current_audit_entry;
 

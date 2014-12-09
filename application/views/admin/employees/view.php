@@ -43,11 +43,37 @@
 	<div class="panel panel-success panel-personnel">
 		<div class="panel-heading">Personnel Information</div>
 		<div class="panel-body">
-			<h5 class="h5-no-margin"><small>ID Number:</small> <strong>111457</strong></h5>
-			<h5 class="h5-no-margin"><small>Name:</small> <strong><?php echo $employee->emp_last_name; ?>, <?php echo $employee->emp_first_name; ?> <?php echo $employee->emp_middle_name; ?></strong></h5>
-			<h5 class="h5-no-margin"><small>Position:</small> <?php echo $employee->emp_position; ?></h5>
-			<h5 class="h5-no-margin"><small>Department:</small> <?php echo $employee->emp_department; ?></h5>
-			<h5 class="h5-no-margin"><small>Office:</small> <?php echo $employee->emp_office; ?></h5>
+
+			<div class="col-xs-5 panel-personnel-content"><small>ID Number:</small>
+			</div>
+			<div class="col-xs-7 text-right panel-personnel-content">
+				<?php echo $employee->emp_id; ?> 
+			</div>
+
+			<div class="col-xs-3 panel-personnel-content"><small>Name:</small>
+			</div>
+			<div class="col-xs-9 text-right panel-personnel-content">
+				<strong><?php echo $employee->emp_last_name; ?>, <?php echo $employee->emp_first_name; ?> <?php echo $employee->emp_middle_name; ?></strong>
+			</div>
+
+			<div class="col-xs-5 panel-personnel-content"><small>Position:</small>
+			</div>
+			<div class="col-xs-7 text-right panel-personnel-content">
+				<?php echo $employee->emp_position; ?>
+			</div>
+
+			<div class="col-xs-5 panel-personnel-content"><small>Department:</small>
+			</div>
+			<div class="col-xs-7 text-right panel-personnel-content">
+				<?php echo $employee->emp_department; ?> 
+			</div>
+
+			<div class="col-xs-5 panel-personnel-content"><small>Office:</small>
+			</div>
+			<div class="col-xs-7 text-right panel-personnel-content">
+				<?php echo $employee->emp_office; ?> 
+			</div>
+
 		</div>
 		<div class="panel-footer">
 			<a href="<?php echo site_url('admin/employees/edit/' . $employee->emp_id); ?>" class="btn btn-primary">Edit</a>
