@@ -248,8 +248,17 @@ class Hardware_assets extends CI_Controller
 			redirect('admin/hardware_assets/view/' . $hardware_asset_id);
 		
 			$this->template->autofill($audit_entry);
-
 			
+		}
+
+
+		if($this->input->post('untag'))
+		{
+			$this->auto_inactive($field_list, $hardware_asset_id, $current_audit_entry);
+			$current_audit_entry = $this->audit_entry_model->get_by_hardware($hardware_asset_id)->first_row();
+			$page['current_audit_entry'] = $current_audit_entry;
+			redirect($this->uri->uri_string());
+			var_dump($current_audit_entry); die();
 		}
 
 		
@@ -277,6 +286,8 @@ class Hardware_assets extends CI_Controller
 		$this->audit_entry_model->create($audit_entry, $field_list);		
 
 	}
+
+
 
 
 }
