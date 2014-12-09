@@ -174,10 +174,22 @@ class Hardware_assets extends CI_Controller
 		$page['hardware_asset'] = $this->hardware_asset_model->get_one($hardware_asset_id);
 
 		$audit_entries =  $this->audit_entry_model->get_by_hardware($hardware_asset_id);
+
+		// var_dump($audit_entries->result());
+		// die();
+
 		$page['audit_entries'] = $audit_entries;		
 
 		$employees =  $this->employee_model->get_all();
 		$page['employees'] = $employees;
+
+		$field_list = array('aud_id', 'aud_datetime', 'aud_status', 'aud_comment', 'aud_har', 'aud_per');
+
+
+		$current_audit_entry = $this->audit_entry_model->get_by_hardware($hardware_asset_id)->last_row();
+
+		$page['current_audit_entry'] = $current_audit_entry;
+
 
 		if($page['hardware_asset'] === false)
 		{
@@ -194,45 +206,44 @@ class Hardware_assets extends CI_Controller
 			
 			if($this->input->post('aud_status'))
 			{
+				$this->auto_inactive($field_list, $hardware_asset_id, $current_audit_entry);
+
 				$audit_entry['aud_status'] = $this->input->post('aud_status');
-			}
-			else
-			{				
-				$audit_entry['aud_status'] = 'active';		
-			}
 
-			if($this->input->post('aud_comment'))
+				if($this->input->post('aud_comment')):
+					$audit_entry['aud_comment'] = $this->input->post("aud_comment");
+				else:				
+					$audit_entry['aud_comment'] = 'Normal condition';		
+				endif;
+
+				$audit_entry['aud_har'] = $hardware_asset_id;
+				$audit_entry['aud_per'] = null;
+
+				$this->audit_entry_model->create($audit_entry, $field_list);
+
+
+			}
+			elseif($this->input->post("emp_id"))
 			{
-				$audit_entry['aud_comment'] = $this->input->post("aud_comment");
+				$audit_entry['aud_status'] = 'active';	
+
+				if($this->input->post('aud_comment')):
+					$audit_entry['aud_comment'] = $this->input->post("aud_comment");
+				else:				
+					$audit_entry['aud_comment'] = 'Normal condition';		
+				endif;
+
+				$audit_entry['aud_har'] = $hardware_asset_id;
+				$audit_entry['aud_per'] = $this->input->post("emp_id");	
+
+				$this->audit_entry_model->create($audit_entry, $field_list);	
+
 			}
-			else
-			{				
-				$audit_entry['aud_comment'] = 'Normal condition';		
-			}
-
-
-			$audit_entry['aud_har'] = $hardware_asset_id;
-
-
-			if($this->input->post("emp_id"))
-			{
-				$audit_entry['aud_per'] = $this->input->post("emp_id");				
-			}
-			else
-			{
-				$temp = $this->audit_entry_model->get_last();
-				// var_dump($temp);
-				// die();
-				$audit_entry['aud_per'] = $temp->aud_per;			
-			}
-
-			$field_list = array('aud_id', 'aud_datetime', 'aud_status', 'aud_comment', 'aud_har', 'aud_per');
-
 
 			// var_dump($audit_entry);
 			// var_dump($field_list);
 			// die();	
-			$this->audit_entry_model->create($audit_entry, $field_list);
+			
 
 			$this->template->notification('New audit entry created.', 'success');
 			redirect('admin/hardware_assets/view/' . $hardware_asset_id);
@@ -242,12 +253,30 @@ class Hardware_assets extends CI_Controller
 			
 		}
 
-		$current_audit_entry = $this->audit_entry_model->get_by_hardware($hardware_asset_id)->last_row();
-
-		$page['current_audit_entry'] = $current_audit_entry;
 		
 		$this->template->content('hardware_assets-view', $page);
 		$this->template->show();
+	}
+
+	private function auto_inactive($field_list, $hardware_asset_id, $current_audit_entry)
+	{
+		$audit_entry = array();
+
+		$audit_entry['aud_datetime'] = date('Y-m-d H:i:s');
+		$audit_entry['aud_status'] = "inactive";
+
+		// var_dump($current_audit_entry);
+		// die();
+
+		$name = $current_audit_entry->emp_first_name." ".$current_audit_entry->emp_last_name;
+			
+		$audit_entry['aud_comment'] = 'Untagged from '.$name;	
+
+		$audit_entry['aud_har'] = $hardware_asset_id;
+		$audit_entry['aud_per'] = $current_audit_entry->aud_per;
+
+		$this->audit_entry_model->create($audit_entry, $field_list);		
+
 	}
 
 

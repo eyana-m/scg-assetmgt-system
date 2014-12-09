@@ -38,16 +38,7 @@ class Audit_entry_model extends Base_model
 
 
 		return $query;
-		// if($query->num_rows() > 0)
-		// {
-		// 	return $query->row();
-		// 	// var_dump($query->row());
-		// 	// die();
-		// }
-		// else
-		// {
-		// 	return false;
-		// }
+
 
 	}
 
@@ -56,9 +47,10 @@ class Audit_entry_model extends Base_model
 	{
 
 		$this->db->join('hardware_asset', "hardware_asset.har_id = {$this->table}.aud_har");				
-		$this->db->join('employee', "employee.emp_id = {$this->table}.aud_per");
+		$this->db->join('employee', "employee.emp_id = {$this->table}.aud_per", "left outer");
 
 		$this->db->where('aud_har', $har_id);	
+		//$this->db->where('aud_per', null);
 		$query = $this->db->get($this->table); // 
 		return $query;
 

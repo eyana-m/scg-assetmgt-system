@@ -33,11 +33,15 @@
 
 				</td>
 
-			<?php endif ?>
+			<?php endif; ?>
 
 
 				<td>
-				<?php echo $audit_entry->emp_first_name; ?> <?php echo $audit_entry->emp_last_name; ?>
+
+			<?php if($audit_entry->aud_per==null):?> N/A <?php else: ?>
+				<a href="<?php echo site_url('admin/employees/view/' . $audit_entry->emp_id); ?>"><?php echo $audit_entry->emp_first_name; ?> <?php echo $audit_entry->emp_last_name; ?></a>
+			<?php endif; ?>
+
 				</td>
 
 				<td><?php echo $audit_entry->emp_office; ?></td>
@@ -58,7 +62,25 @@
 			<div class="col-xs-8" style="padding-left: 0; font-size: 1.2em">Current Status:</div>
 			
 			<div class="col-xs-4 text-right"  style="padding-top: 0.25em; padding-right: 0;">
-				<span class="label label-success" style="font-size: 1em"><?php echo $current_audit_entry->aud_status; ?></span>			
+				
+
+
+			<?php if($audit_entry->aud_status=='active'):?>
+
+				<span class="label label-success" style="font-size: 1em"><?php echo $audit_entry->aud_status; ?></span>
+
+			<?php elseif ($audit_entry->aud_status=='repair'): ?>
+
+				<span class="label label-warning" style="font-size: 1em"><?php echo $audit_entry->aud_status; ?></span>
+
+			<?php else: ?>
+
+				<span class="label label-default" style="font-size: 1em"><?php echo $audit_entry->aud_status; ?></span>
+
+				</td>
+
+			<?php endif; ?>
+	
 			</div>
 		</div>
 		
@@ -68,8 +90,14 @@
 			<div class="col-xs-5 panel-personnel-content">Tagged to:
 			</div>
 			<div class="col-xs-7 text-right panel-personnel-content">
+
+			<?php if($audit_entry->aud_per==null):?> N/A </div>
+
+
+			<?php else: ?>
 				<strong><a href="<?php echo site_url('admin/employees/view/' . $current_audit_entry->emp_id); ?>"><?php echo $current_audit_entry->emp_first_name; ?> <?php echo $current_audit_entry->emp_last_name; ?></a>
 				</strong>
+			
 			</div>
 
 			<div class="col-xs-5 panel-personnel-content">Department:
@@ -77,6 +105,10 @@
 			<div class="col-xs-7 text-right panel-personnel-content">
 				<?php echo $current_audit_entry->emp_department; ?> 
 			</div>
+
+			<?php endif; ?>
+
+
 
 			<div class="col-xs-5 panel-personnel-content">Date Tagged:
 			</div>
@@ -104,12 +136,10 @@
 
 			<select name="aud_status" id="aud_status" class="input-medium form-control form-control-small">
 				<option value="">Select Status</option>
-				<option value="active">active</option>
 				<option value="storage">storage</option>
 				<option value="service unit">service unit</option>
 				<option value="for disposal">for disposal</option>
 				<option value="repair">repair</option>
-				<option value="inactive">inactive</option>
 			</select>
 
 			<input type="text" class="form-control form-control-small" id="aud_comment" name="aud_comment" placeholder="Remark (e.g. 'Normal Condition')">
