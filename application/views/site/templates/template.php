@@ -27,12 +27,11 @@
 		</div>
 
 
-		<?php
-		if($this->access_control->check_logged_in()) 
-			{
-		?>
-			<ul class="nav navbar-nav">
 		
+			<ul class="nav navbar-nav pull-right">
+			
+			<?php if($this->access_control->check_logged_in()):?>
+
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" style="color:white;"  data-toggle="dropdown"><?php echo $this->session->userdata('acc_name'); ?><b class="caret"></b></a>
 					<ul class="dropdown-menu">
@@ -41,18 +40,18 @@
 						<li><a href="<?php echo site_url('admin/index/logout'); ?>">Logout</a></li>
 					</ul>
 				</li>
+
+			<?php else:?>
+			
+				<li><a href="<?php echo site_url('admin/login'); ?>" style="color:white;" >Login</a></li>
+			<?php endif;?>
+
 			
 			</ul>
 		</div><!-- /.navbar-collapse -->
-		<?php
-		}
-		else
-		{
-		?>
+		
 			
-		<?php
-		}
-		?>
+		
 
 
 		

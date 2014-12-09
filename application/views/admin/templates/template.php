@@ -27,13 +27,12 @@
 		</div>
 
 
-		<?php
-		if($this->access_control->check_logged_in()) 
-			{
-		?>
+		
 
 		<div class="collapse navbar-collapse col-sm-8 pull-right" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
+
+			<?php if($this->access_control->check_logged_in()):?>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" style="color:white;" data-toggle="dropdown">Assets<span class="caret"></span></a>
 					<ul class="dropdown-menu" style="color:white;" role="menu">
@@ -70,18 +69,19 @@
 		        <li>
 		          <a id="scanbutton" class="btn btn-danger navbar-btn" href="#scanbarcode" role="button" data-toggle="modal" style="color:white; padding:5px; margin-left:25px;">Scan Barcode</a>
 		        </li>
+
+
+
+		    <?php else:?>
+			
+				<li><a href="<?php echo site_url('admin/login'); ?>" style="color:white;" >Login</a></li>
+			<?php endif;?>
 			
 			</ul>
 		</div><!-- /.navbar-collapse -->
-		<?php
-		}
-		else
-		{
-		?>
+	
 			
-		<?php
-		}
-		?>
+	
 
 
 		
@@ -90,7 +90,7 @@
 
 
 <div class="wrapper" style="height: 50px"></div>
-<div class="container">
+<div class="container" style="padding-top: 1em">
 	
 	<?php echo template('notification'); ?>
 	<div class="content-header">
