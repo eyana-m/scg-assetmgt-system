@@ -182,70 +182,61 @@ if($hardware_assets->num_rows())
 			<a class="btn btn-default no-border-radius" href="#generatereport" role="button" data-toggle="modal">Generate Report</a>
 		</div>
 	</div>
-</div>
 
-<!--**********************-->
-<!--******* MODALS *******-->
-<!--**********************-->
 
-<!-- GENERATE REPORT -->
-<div id = "generatereport" class = "modal fade">
-	<div class = "modal-dialog">
-		<div class = "modal-content">
-			<div class = "modal-header">
-				<h3>Reports Generation</h3>
+
+
+	<div class="panel panel-danger panel-personnel" style="margin-left: 0;">
+		<div class="panel-heading">Generate Report</div>
+		<div class="panel-body asset-info-panel" id="scan-panel-body">
+
+		<form method="post" id="report-type">
+
+		  	<div class="radio">
+			  <label>
+			    <input type="radio" name="optionsRadios" id="asset-replacement" value="asset-replacement" checked>
+			    Assets Due for Replacement
+			  </label>
 			</div>
-			<div class = "modal-body" id="reports-modal">
-			  	<div class="radio">
-				  <label>
-				    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-				    Assets Due for Replacement
-				  </label>
-				</div>
-				<div class="radio">
-				  <label>
-				    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-				    Recently Added Assets
-				  </label>
-				</div>
-				<div class="radio">
-				  <label>
-				    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-				    Assets Status
-				  </label>
-				</div>
-				<div class="radio">
-				  <label>
-				    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-				    Salvage Value of Selected Assets
-				  </label>
-				</div>
+			
+			<div class="radio">
+			  <label>
+			    <input type="radio" name="optionsRadios" id="asset-recentlyadded" value="asset-recentlyadded">
+			    Recently Added Assets
+			  </label>
 			</div>
-			<div class = "modal-footer">
-				<button class = "btn btn-primary" data-dismiss = "modal">Proceed</button>
+			<div class="radio">
+			  <label>
+			    <input type="radio" name="optionsRadios" id="asset-status" value="asset-status">
+			    Assets Status
+			  </label>
+			<select name="aud_status" id="aud_status" class="input-medium form-control form-control-small" disabled>
+				<option value="">Select Status</option>
+				<option value="active">active</option>
+				<option value="inactive">inactivew</option>
+				<option value="storage">storage</option>
+				<option value="service unit">service unit</option>
+				<option value="for disposal">for disposal</option>
+				<option value="repair">repair</option>
+			</select>
+
 			</div>
+			<div class="radio">
+			  <label>
+			    <input type="radio" name="optionsRadios" id="asset-salvagevalue" value="asset-salvagevalue">
+			    Salvage Value of Selected Assets
+			  </label>
+			</div>
+
+			<input type="submit" class="btn btn-warning pull-right"  name="submit" value="Generate Report">
+		
+		</form>
+
+
 		</div>
 	</div>
 </div>
 
-<!-- SCAN BARCODE -->
-<div id = "scanbarcode" class = "modal fade">
-	<div class = "modal-dialog">
-		<div class = "modal-content">
-			<div class = "modal-header">
-				<center><h3 class="no-margin exo-font">Scan Barcode</h3></center>
-			</div>
-			<center><div class = "modal-body">
-				<div class="jumbotron">
-					<h2 class="exo-font" style="margin-top:10px;">Scan Now...</h2>
-				</div>
-			</div></center>
-			<div class = "modal-footer">
-				<button class = "btn btn-danger btn-lg no-border-radius" data-dismiss = "modal">Close</button>
-			</div>
-		</div>
-	</div>
-</div>
 
 <!-- View All Assets -->
 <div id = "viewassets" class = "modal fade">
@@ -432,3 +423,19 @@ else
 	<?php
 }
 ?>
+
+<script type="text/javascript">
+
+$(document).ready(function () {
+
+	$('input:radio').change(function() {
+        if (this.value == 'asset-status') {
+            $('select#aud_status').removeAttr('disabled');
+        }
+        else {
+            $('select#aud_status').attr('disabled', 'disabled');
+        }
+    });
+
+ });
+</script>

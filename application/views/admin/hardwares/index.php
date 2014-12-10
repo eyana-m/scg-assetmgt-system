@@ -50,3 +50,45 @@ else
 	<?php
 }
 ?>
+
+<!-- GENERATE REPORT -->
+<div id = "generatereport" class = "modal fade">
+	<div class = "modal-dialog">
+		<div class = "modal-content">
+			<div class = "modal-header">
+				<center><h3 class="no-margin exo-font">Generate Report</h3></center>
+			</div>
+			<div class = "modal-body" id="reports-modal">
+				<div class="jumbotron">
+				  	<div class="radio">
+					  <label>
+					    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+					    Assets Due for Replacement
+					  </label>
+					</div>
+					<div class="radio">
+					  <label>
+					    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+					    Recently Added Assets
+					  </label>
+					</div>
+					<div class="radio">
+					  <label>
+					    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+					    Assets Status
+					  </label>
+					</div>
+					<div class="radio">
+					  <label>
+					    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+					    Salvage Value of Selected Assets
+					  </label>
+					</div>
+				</div>
+			</div>
+			<div class = "modal-footer">
+				<button class = "btn btn-primary" data-dismiss = "modal">Proceed</button>
+			</div>
+		</div>
+	</div>
+</div>
