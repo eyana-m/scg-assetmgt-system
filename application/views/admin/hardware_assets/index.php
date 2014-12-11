@@ -190,27 +190,28 @@ if($hardware_assets->num_rows())
 		<div class="panel-heading">Generate Report</div>
 		<div class="panel-body asset-info-panel" id="scan-panel-body">
 
-		<form method="post" id="report-type">
+		<form method="post" id="report-type" name="report-types">
 
 		  	<div class="radio">
 			  <label>
-			    <input type="radio" name="optionsRadios" id="asset-replacement" value="asset-replacement" checked>
+			    <input type="radio" name="report-type" id="asset-replacement" value="asset-replacement" checked>
 			    Assets Due for Replacement
 			  </label>
 			</div>
 			
 			<div class="radio">
 			  <label>
-			    <input type="radio" name="optionsRadios" id="asset-recentlyadded" value="asset-recentlyadded">
+			    <input type="radio" name="report-type" id="asset-recentlyadded" value="asset-recentlyadded">
 			    Recently Added Assets
 			  </label>
 			</div>
+
 			<div class="radio">
 			  <label>
-			    <input type="radio" name="optionsRadios" id="asset-status" value="asset-status">
+			    <input type="radio" name="report-type" id="asset-status" value="asset-status">
 			    Assets Status
 			  </label>
-			<select name="aud_status" id="aud_status" class="input-medium form-control form-control-small" disabled>
+			<select name="status_type" id="aud_status" class="input-medium form-control form-control-small" disabled>
 				<option value="">Select Status</option>
 				<option value="active">active</option>
 				<option value="inactive">inactivew</option>
@@ -223,12 +224,12 @@ if($hardware_assets->num_rows())
 			</div>
 			<div class="radio">
 			  <label>
-			    <input type="radio" name="optionsRadios" id="asset-salvagevalue" value="asset-salvagevalue">
+			    <input type="radio" name="report-type" id="asset-salvagevalue" value="asset-salvagevalue">
 			    Salvage Value of Selected Assets
 			  </label>
 			</div>
 
-			<input type="submit" class="btn btn-warning pull-right"  name="submit" value="Generate Report">
+			<input type="submit" class="btn btn-warning pull-right"  name="report-types" value="Generate Report">
 		
 		</form>
 

@@ -46,16 +46,23 @@ class Hardware_assets extends CI_Controller
 		$page = array();
 		$page['hardware_assets'] = $this->hardware_asset_model->pagination("admin/hardware_assets/index/__PAGE__", 'get_all');
 		$page['hardware_assets_pagination'] = $this->hardware_asset_model->pagination_links();
+		
+
+		if($this->input->post('report-types'))
+		{
+			$report_type = $this->extract->post();
+			var_dump($report_type); die();
+
+		}
+
+
+
 		$this->template->content('hardware_assets-index', $page);
 		$this->template->content('menu-hardware_assets', null, 'admin', 'page-nav');
 		$this->template->show();
 	}
 
 
-	public function batch_upload()
-	{
-		
-	}
 
 	public function create()
 	{
