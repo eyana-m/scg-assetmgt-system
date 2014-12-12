@@ -43,19 +43,94 @@ class Hardware_assets extends CI_Controller
 			    	var_dump($page['hardware_repair']->result()); die();
 			  
 			    	break; 
-			    	
+
 			    case 'asset-recentlyadded':
 			    	$page['hardware_recentlyadded'] = $this->hardware_asset_model->get_asset_past_week();
+
 			    	var_dump($har_ids);
 			    	var_dump($page['hardware_recentlyadded']->result()); die();
 
 			    	break;
+
 			    case 'asset-status':
 
+			    	switch ($report_type["status_type"]) {
+
+			    		case 'active':
+
+					    	$params = array('har_status' => 'active');
+					    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_all($params);
+
+					    	var_dump($har_ids);
+					    	var_dump($page['hardware_asset_status']->result()); die();
+
+			    			
+			    			break;
+
+			    		case 'inactive':
+
+					    	$params = array('har_status' => 'inactive');
+					    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_all($params);
+
+					    	var_dump($har_ids);
+					    	var_dump($page['hardware_asset_status']->result()); die();
+
+			    			break;
+
+			    		case 'storage':
+
+					    	$params = array('har_status' => 'storage');
+					    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_all($params);
+
+					    	var_dump($har_ids);
+					    	var_dump($page['hardware_asset_status']->result()); die();
+			    			
+			    			break;
+
+			    		case 'service unit':
+
+				    	$params = array('har_status' => 'service unit');
+				    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_all($params);
+
+				    	var_dump($har_ids);
+				    	var_dump($page['hardware_asset_status']->result()); die();
+
+			    			
+			    			break;
+
+			    		case 'for disposal':
+
+
+				    	$params = array('har_status' => 'for disposal');
+				    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_all($params);
+
+				    	var_dump($har_ids);
+				    	var_dump($page['hardware_asset_status']->result()); die();			    		
+			    			
+			    			break;
+
+			    		case 'repair':
+			    		
+				    	$params = array('har_status' => 'repair');
+				    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_all($params);
+
+				    	var_dump($har_ids);
+				    	var_dump($page['hardware_asset_status']->result()); die();		
+
+
+			    			break;			    		
+			    		default:
+			    			
+			    			break;
+			    	}
 
 
 			    	break;
+
 			    case 'asset-salvagevalue':
+
+
+			    
 			    	break;
 
 			    case 'current_status':
