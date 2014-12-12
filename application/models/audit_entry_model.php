@@ -57,6 +57,24 @@ class Audit_entry_model extends Base_model
 
 	}
 
+	public function get_current_by_hardware($har_id)
+	{
+		$this->db->join('hardware_asset', "hardware_asset.har_id = {$this->table}.aud_har");
+		//$this->db->join('employee', "employee.emp_id = {$this->table}.aud_per", "left outer");
+		$this->db->where('aud_har', $har_id);
+		$this->db->order_by("aud_id","desc");
+		$this->db->limit(1);
+		$query = $this->db->get($this->table); // 
+		return $query;
+
+
+
+
+	}
+
+
+
+
 
 
 

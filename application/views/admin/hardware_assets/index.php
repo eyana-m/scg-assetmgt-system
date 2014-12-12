@@ -214,7 +214,7 @@ if($hardware_assets->num_rows())
 			<select name="status_type" id="aud_status" class="input-medium form-control form-control-small" disabled>
 				<option value="">Select Status</option>
 				<option value="active">active</option>
-				<option value="inactive">inactivew</option>
+				<option value="inactive">inactive</option>
 				<option value="storage">storage</option>
 				<option value="service unit">service unit</option>
 				<option value="for disposal">for disposal</option>
@@ -228,6 +228,15 @@ if($hardware_assets->num_rows())
 			    Salvage Value of Selected Assets
 			  </label>
 			</div>
+
+			<div class="radio">
+			  <label>
+			    <input type="radio" name="report-type" id="current_status" value="current_status">
+			    Current Status of Asset 1 
+			  </label>
+			</div>
+
+
 
 			<input type="submit" class="btn btn-warning pull-right"  name="report-types" value="Generate Report">
 		

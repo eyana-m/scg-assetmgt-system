@@ -55,16 +55,27 @@ class Hardware_assets extends CI_Controller
 
 			switch ($report_type["report-type"]) {
 			    case 'asset-replacement':
-			     
+
+
 			    	break; 
 			    case 'asset-recentlyadded':
 			    
-
 			    	break;
 			    case 'asset-status':
 
 			    	break;
 			    case 'asset-salvagevalue':
+			    	break;
+
+			    case 'current_status':
+			    	$page['hardware_current_entry'] = $this->audit_entry_model->get_current_by_hardware(1);		    	
+			    	$hardware_current_entry = $page['hardware_current_entry']->result();
+					foreach ($hardware_current_entry as $row)
+					{
+					    $current_aud_status = $row->aud_status;
+					    print_r($current_aud_status); die();
+					}
+
 			    	break;
 			    	 
 			}

@@ -14,4 +14,55 @@ class Hardware_asset_model extends Base_model
 	// Inherits the create, update, delete, get_one, and get_all methods of base_model.
 
 
+	//select hardware_asset with status 'repair'
+	public function get_asset_repair()
+	{
+
+	}
+
+	public function get_asset_past_week()
+	{
+
+	}
+
+	public function get_asset_active()
+	{
+
+	}
+
+
+	public function get_asset_inactive()
+	{
+
+	}
+
+	public function get_asset_storage()
+	{
+
+	}
+
+	public function get_asset_service_unit()
+	{
+
+	}
+
+	public function get_asset_disposal()
+	{
+
+	}
+
+	public function get_asset_salvage_value()
+	{
+
+	}
+
+	public function get_salvage_value()
+	{
+
+	}
+
+
+
+
+
 }
