@@ -1,0 +1,234 @@
+<?php
+include_once "enterDB.php";  
+$DB_TBLName = "user"; //MySQL Table Nam
+$sql = "Select lastname, firstname, middleinitial, email_address, mobile_number, volunteer_type from $DB_TBLName";
+$filename = "Member Information";  
+if(isset($_POST['radio1']))
+{
+    if($_POST['radio1'] == '1')
+    {
+		export_information_excel($DB_TBLName, $sql, $filename);
+    }
+    elseif($_POST['radio1'] == '2')
+    {
+        
+	}
+	elseif($_POST['radio1'] == '3')
+    {
+		 
+		$sql = "Select e.event_name, e.event_date, u.lastname, u.firstname from event e, user u, involvement i where e.event_id=i.event_id and i.user_id=u.user_id and i.attendance = 1";
+		$filename = "Member Involvement"; 
+		export_information_excel($DB_TBLName, $sql, $filename);
+	}
+}
+function export_information_excel($DB_TBLName, $sql, $filename)
+{
+	$result = mysql_query($sql) or die (mysql_error());
+	    
+	$file_ending = "xls";
+
+	header("Content-Type: application/xls");    
+	header("Content-Disposition: attachment; filename=$filename.xls");  
+	header("Pragma: no-cache"); 
+	header("Expires: 0");
+
+	$sep = "\t"; //tabbed character
+	
+	for ($i = 0; $i < mysql_num_fields($result); $i++) 
+	{
+	echo mysql_field_name($result,$i) . "\t";
+	}
+	print("\n");    
+//end of printing column names  
+//start while loop to get data
+    while($row = mysql_fetch_row($result))
+    {
+        $schema_insert = "";
+        for($j=0; $j<mysql_num_fields($result);$j++)
+        {
+            if(!isset($row[$j]))
+                $schema_insert .= "NULL".$sep;
+            elseif ($row[$j] != "")
+                $schema_insert .= "$row[$j]".$sep;
+            else
+                $schema_insert .= "".$sep;
+        }
+        $schema_insert = str_replace($sep."$", "", $schema_insert);
+        $schema_insert = preg_replace("/\r\n|\n\r|\n|\r/", " ", $schema_insert);
+        $schema_insert .= "\t";
+        print(trim($schema_insert));
+        print "\n";
+    } 
+}	
+
+
+
+            if($form_mode == 'delete')
+            {
+                if($har_ids !== false)
+                {
+                    foreach($har_ids as $har_id)
+                    {
+                        $hardware_asset = $this->hardware_asset_model->get_one($har_id);
+                        if($hardware_asset !== false)
+                        {
+                            $this->hardware_asset_model->delete($har_id);
+                        }
+                    }
+                    $this->template->notification('Selected hardware assets were deleted.', 'success');
+                }
+            }
+
+?>
+
+
+
+<div class="panel panel-danger panel-personnel" style="margin-left: 0;">
+        <div class="panel-heading">Generate Report</div>
+        <div class="panel-body asset-info-panel" id="scan-panel-body">
+
+        <form method="post" id="report-type" name="report-types">
+
+            <div class="radio">
+              <label>
+                <input type="radio" name="report-type" id="asset-replacement" value="asset-replacement" checked>
+                Assets Due for Replacement
+              </label>
+            </div>
+            
+            <div class="radio">
+              <label>
+                <input type="radio" name="report-type" id="asset-recentlyadded" value="asset-recentlyadded">
+                Recently Added Assets
+              </label>
+            </div>
+
+            <div class="radio">
+              <label>
+                <input type="radio" name="report-type" id="asset-status" value="asset-status">
+                Assets Status
+              </label>
+            <select name="status_type" id="aud_status" class="input-medium form-control form-control-small" disabled>
+                <option value="">Select Status</option>
+                <option value="active">active</option>
+                <option value="inactive">inactive</option>
+                <option value="storage">storage</option>
+                <option value="service unit">service unit</option>
+                <option value="for disposal">for disposal</option>
+                <option value="repair">repair</option>
+            </select>
+
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="report-type" id="asset-salvagevalue" value="asset-salvagevalue">
+                Salvage Value of Selected Assets
+              </label>
+            </div>
+
+            <div class="radio">
+              <label>
+                <input type="radio" name="report-type" id="current_status" value="current_status">
+                Current Status of Asset 1 
+              </label>
+            </div>
+
+
+
+            <input type="submit" class="btn btn-warning pull-right"  name="report-types" value="Generate Report">
+        
+        </form>
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        if($this->input->post('report-types'))
+        {
+            $report_type = $this->extract->post();
+
+            //$har_ids = $this->input->post('har_ids');
+            var_dump($har_ids)
+            var_dump($report_type); die();
+
+            
+
+            switch ($report_type["report-type"]) {
+                case 'asset-replacement':
+
+               // var_dump($report_type); die();
+                //$har_ids = $this->input->post('har_ids');
+
+
+                if ($har_ids):
+                var_dump($har_ids); die();
+                else:
+                print_r("NADA"); die();
+                endif;
+
+                $har_array = array();
+
+                if($har_ids !== false)
+                {
+                    foreach($har_ids as $har_id)
+                    {
+                        //$hardware_asset = $this->hardware_asset_model->get_one($har_id);
+
+                        $har_array[] = $har_id;
+                        
+                    }
+
+                    var_dump($har_array); die();
+                
+                }
+
+
+
+
+
+                
+
+                    break; 
+                case 'asset-recentlyadded':
+                
+                    break;
+                case 'asset-status':
+
+                    break;
+                case 'asset-salvagevalue':
+                    break;
+
+                case 'current_status':
+                    $page['hardware_current_entry'] = $this->audit_entry_model->get_current_by_hardware(1);             
+                    $hardware_current_entry = $page['hardware_current_entry']->result();
+                    
+                    if ($page['hardware_current_entry']->num_rows())
+                    {
+                        foreach ($hardware_current_entry as $row)
+                        {
+                            $current_aud_status = $row->aud_status;
+                            print_r($current_aud_status); die();
+                        }
+                    }
+                    else
+                    {
+                        print_r("No Audit trail"); die();
+                    }
+                    break;
+                     
+            }

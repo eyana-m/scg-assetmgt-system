@@ -36,19 +36,76 @@ if($hardware_assets->num_rows())
 			</tbody>
 		</table>
 		<?php echo $hardware_assets_pagination; ?>
-		<div class="choose-select">
-			With selected:
-			<select name="form_mode" class="select-submit">
-				<option value="">choose...</option>
-				<option value="delete">Delete Hardware Assets</option>
-			</select>
-		</div>
-	</form>
 	
 </div>
 
 
 <div class="col-md-3 col-sm-12" style="margin-right: 0; padding-right: 0">
+
+	<div class="panel panel-danger panel-personnel" style="margin-left: 0;">
+		<div class="panel-heading">Generate Report</div>
+		<div class="panel-body asset-info-panel" id="scan-panel-body">
+
+		<form method="post" id="report-type" name="form_mode">
+
+		  	<div class="radio">
+			  <label>
+			    <input type="radio" name="report-type" id="asset-replacement" value="asset-replacement" checked>
+			    Assets Due for Replacement
+			  </label>
+			</div>
+			
+			<div class="radio">
+			  <label>
+			    <input type="radio" name="report-type" id="asset-recentlyadded" value="asset-recentlyadded">
+			    Recently Added Assets
+			  </label>
+			</div>
+
+			<div class="radio">
+			  <label>
+			    <input type="radio" name="report-type" id="asset-status" value="asset-status">
+			    Assets Status
+			  </label>
+			<select name="status_type" id="aud_status" class="input-medium form-control form-control-small" disabled>
+				<option value="">Select Status</option>
+				<option value="active">active</option>
+				<option value="inactive">inactive</option>
+				<option value="storage">storage</option>
+				<option value="service unit">service unit</option>
+				<option value="for disposal">for disposal</option>
+				<option value="repair">repair</option>
+			</select>
+
+			</div>
+			<div class="radio">
+			  <label>
+			    <input type="radio" name="report-type" id="asset-salvagevalue" value="asset-salvagevalue">
+			    Salvage Value of Selected Assets
+			  </label>
+			</div>
+
+			<div class="radio">
+			  <label>
+			    <input type="radio" name="report-type" id="current_status" value="current_status">
+			    Current Status of Asset 1 
+			  </label>
+			</div>
+
+
+
+			<input type="submit" class="btn btn-warning pull-right"  name="form_mode" value="Generate Report">
+		
+		</form>
+
+
+		</div>
+	</div>
+
+
+
+
+
 	<div class="panel panel-danger panel-personnel">
 			<div class="panel-heading filter-heading">Filter By:</div>
 			<div class="panel-body asset-info-panel">
@@ -174,77 +231,10 @@ if($hardware_assets->num_rows())
 			</div>
 	</div>
 
-	<div class="panel panel-danger panel-personnel" style="margin-left: 0;">
-		<div class="panel-heading">Other Options</div>
-		<div class="panel-body asset-info-panel" id="scan-panel-body">
-		  	<button type="submit" class="btn btn-default no-border-radius">Export Barcode</button>
-		  	<a class="btn btn-default no-border-radius">Generate CSV</a>
-			<a class="btn btn-default no-border-radius" href="#generatereport" role="button" data-toggle="modal">Generate Report</a>
-		</div>
-	</div>
 
 
 
 
-	<div class="panel panel-danger panel-personnel" style="margin-left: 0;">
-		<div class="panel-heading">Generate Report</div>
-		<div class="panel-body asset-info-panel" id="scan-panel-body">
-
-		<form method="post" id="report-type" name="report-types">
-
-		  	<div class="radio">
-			  <label>
-			    <input type="radio" name="report-type" id="asset-replacement" value="asset-replacement" checked>
-			    Assets Due for Replacement
-			  </label>
-			</div>
-			
-			<div class="radio">
-			  <label>
-			    <input type="radio" name="report-type" id="asset-recentlyadded" value="asset-recentlyadded">
-			    Recently Added Assets
-			  </label>
-			</div>
-
-			<div class="radio">
-			  <label>
-			    <input type="radio" name="report-type" id="asset-status" value="asset-status">
-			    Assets Status
-			  </label>
-			<select name="status_type" id="aud_status" class="input-medium form-control form-control-small" disabled>
-				<option value="">Select Status</option>
-				<option value="active">active</option>
-				<option value="inactive">inactive</option>
-				<option value="storage">storage</option>
-				<option value="service unit">service unit</option>
-				<option value="for disposal">for disposal</option>
-				<option value="repair">repair</option>
-			</select>
-
-			</div>
-			<div class="radio">
-			  <label>
-			    <input type="radio" name="report-type" id="asset-salvagevalue" value="asset-salvagevalue">
-			    Salvage Value of Selected Assets
-			  </label>
-			</div>
-
-			<div class="radio">
-			  <label>
-			    <input type="radio" name="report-type" id="current_status" value="current_status">
-			    Current Status of Asset 1 
-			  </label>
-			</div>
-
-
-
-			<input type="submit" class="btn btn-warning pull-right"  name="report-types" value="Generate Report">
-		
-		</form>
-
-
-		</div>
-	</div>
 </div>
 
 

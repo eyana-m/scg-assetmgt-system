@@ -20,42 +20,29 @@ class Hardware_assets extends CI_Controller
 	public function index()
 	{
 		$this->template->title('Hardware Assets');
-
-		if($this->input->post('form_mode'))
-		{
-			$form_mode = $this->input->post('form_mode');
-
-			if($form_mode == 'delete')
-			{
-				$har_ids = $this->input->post('har_ids');
-				if($har_ids !== false)
-				{
-					foreach($har_ids as $har_id)
-					{
-						$hardware_asset = $this->hardware_asset_model->get_one($har_id);
-						if($hardware_asset !== false)
-						{
-							$this->hardware_asset_model->delete($har_id);
-						}
-					}
-					$this->template->notification('Selected hardware assets were deleted.', 'success');
-				}
-			}
-		}
+		
+		$har_ids = $this->input->post('har_ids');
 
 		$page = array();
 		$page['hardware_assets'] = $this->hardware_asset_model->pagination("admin/hardware_assets/index/__PAGE__", 'get_all');
 		$page['hardware_assets_pagination'] = $this->hardware_asset_model->pagination_links();
 		
 
-		if($this->input->post('report-types'))
+		if($this->input->post('form_mode'))
 		{
 			$report_type = $this->extract->post();
-			//var_dump($report_type["report-type"]); die();
 
 			switch ($report_type["report-type"]) {
 			    case 'asset-replacement':
 
+
+
+
+
+
+
+
+			    
 
 			    	break; 
 			    case 'asset-recentlyadded':
