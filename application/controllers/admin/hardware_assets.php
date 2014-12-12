@@ -25,6 +25,7 @@ class Hardware_assets extends CI_Controller
 
 		$page = array();
 		$page['hardware_assets'] = $this->hardware_asset_model->pagination("admin/hardware_assets/index/__PAGE__", 'get_all');
+
 		$page['hardware_assets_pagination'] = $this->hardware_asset_model->pagination_links();
 		
 
@@ -35,8 +36,9 @@ class Hardware_assets extends CI_Controller
 			switch ($report_type["report-type"]) {
 			    case 'asset-replacement':
 
-
-
+			    	$params = array('har_status' => 'repair');
+			    	$page['hardware_repair'] =  $this->hardware_asset_model->get_all($params);
+			    	var_dump($page['hardware_repair']->result()); die();
 
 
 
@@ -50,12 +52,16 @@ class Hardware_assets extends CI_Controller
 			    	break;
 			    case 'asset-status':
 
+
+
 			    	break;
 			    case 'asset-salvagevalue':
 			    	break;
 
 			    case 'current_status':
-			    	$page['hardware_current_entry'] = $this->audit_entry_model->get_current_by_hardware(1);		    	
+			    	$page['hardware_current_entry'] = $this->hardware_asset_model->get_current_by_hardware(11);
+
+
 			    	$hardware_current_entry = $page['hardware_current_entry']->result();
 					
 					if ($page['hardware_current_entry']->num_rows())
@@ -212,6 +218,10 @@ class Hardware_assets extends CI_Controller
 
 		$field_list = array('aud_id', 'aud_datetime', 'aud_status', 'aud_comment', 'aud_har', 'aud_per');
 
+		$hardware_update = array();
+		$hardware_update_fields = array('har_id', 'har_status');
+		$hardware_update['har_id'] = $hardware_asset_id;
+
 
 		$current_audit_entry = $this->audit_entry_model->get_by_hardware($hardware_asset_id)->first_row();
 
@@ -239,6 +249,8 @@ class Hardware_assets extends CI_Controller
 
 				$audit_entry['aud_status'] = $this->input->post('aud_status');
 
+				$hardware_update['har_status'] = $audit_entry['aud_status'];
+
 				if($this->input->post('aud_comment')):
 					$audit_entry['aud_comment'] = $this->input->post("aud_comment");
 				else:				
@@ -249,12 +261,14 @@ class Hardware_assets extends CI_Controller
 				$audit_entry['aud_per'] = null;
 
 				$this->audit_entry_model->create($audit_entry, $field_list);
+				$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);
 
 
 			}
 			elseif($this->input->post("emp_id"))
 			{
 				$audit_entry['aud_status'] = 'active';	
+				$hardware_update['har_status'] = $audit_entry['aud_status'];
 
 				if($this->input->post('aud_comment')):
 					$audit_entry['aud_comment'] = $this->input->post("aud_comment");
@@ -265,7 +279,8 @@ class Hardware_assets extends CI_Controller
 				$audit_entry['aud_har'] = $hardware_asset_id;
 				$audit_entry['aud_per'] = $this->input->post("emp_id");	
 
-				$this->audit_entry_model->create($audit_entry, $field_list);	
+				$this->audit_entry_model->create($audit_entry, $field_list);
+				$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);	
 
 			}
 
@@ -302,12 +317,13 @@ class Hardware_assets extends CI_Controller
 	private function auto_inactive($field_list, $hardware_asset_id, $current_audit_entry)
 	{
 		$audit_entry = array();
+		$hardware_update = array();
+		$hardware_update_fields = array('har_id', 'har_status');
+		$hardware_update['har_id'] = $hardware_asset_id;
 
 		$audit_entry['aud_datetime'] = date('Y-m-d H:i:s');
 		$audit_entry['aud_status'] = "inactive";
-
-		// var_dump($current_audit_entry);
-		// die();
+		$hardware_update['har_status'] = $audit_entry['aud_status'];
 
 		$name = $current_audit_entry->emp_first_name." ".$current_audit_entry->emp_last_name;
 			
@@ -316,7 +332,8 @@ class Hardware_assets extends CI_Controller
 		$audit_entry['aud_har'] = $hardware_asset_id;
 		$audit_entry['aud_per'] = $current_audit_entry->aud_per;
 
-		$this->audit_entry_model->create($audit_entry, $field_list);		
+		$this->audit_entry_model->create($audit_entry, $field_list);
+		$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);			
 
 	}
 

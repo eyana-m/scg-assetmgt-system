@@ -68,8 +68,11 @@ class Audit_entry_model extends Base_model
 		return $query;
 
 
+	}
 
-
+	public function update_hardware_status($har_id)
+	{
+		
 	}
 
 

@@ -13,12 +13,18 @@ class Hardware_asset_model extends Base_model
 
 	// Inherits the create, update, delete, get_one, and get_all methods of base_model.
 
-
-	//select hardware_asset with status 'repair'
-	public function get_asset_repair()
+	public function get_current_by_hardware($har_id)
 	{
+		$this->db->join('audit_entry', "audit_entry.aud_har = {$this->table}.har_id", "left");
+		$this->db->where('aud_har', $har_id);			
+		$this->db->order_by("aud_id","desc");
+		$this->db->limit(1);
+		$query = $this->db->get($this->table); // 
+		return $query;
+
 
 	}
+
 
 	public function get_asset_past_week()
 	{
