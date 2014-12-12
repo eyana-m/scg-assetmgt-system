@@ -28,6 +28,18 @@ class Hardware_asset_model extends Base_model
 
 	public function get_asset_past_week()
 	{
+		$date = date('Y-m-d');
+		$date_0 = "0000-00-00";
+		$date_minus_7 = date('Y-m-d', strtotime('-7 days'));
+			
+
+		$this->db->where('har_date_added >',$date_minus_7);
+		$this->db->where('har_date_added <=',$date);
+		$this->db->where('har_date_added !=',$date_0);
+
+		$query = $this->db->get($this->table); 
+		return $query;
+
 
 	}
 

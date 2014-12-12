@@ -38,17 +38,17 @@ class Hardware_assets extends CI_Controller
 
 			    	$params = array('har_status' => 'repair');
 			    	$page['hardware_repair'] =  $this->hardware_asset_model->get_all($params);
+
+			    	var_dump($har_ids);
 			    	var_dump($page['hardware_repair']->result()); die();
-
-
-
-
-
-			    
-
+			  
 			    	break; 
+			    	
 			    case 'asset-recentlyadded':
-			    
+			    	$page['hardware_recentlyadded'] = $this->hardware_asset_model->get_asset_past_week();
+			    	var_dump($har_ids);
+			    	var_dump($page['hardware_recentlyadded']->result()); die();
+
 			    	break;
 			    case 'asset-status':
 
