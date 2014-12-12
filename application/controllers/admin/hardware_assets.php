@@ -70,12 +70,19 @@ class Hardware_assets extends CI_Controller
 			    case 'current_status':
 			    	$page['hardware_current_entry'] = $this->audit_entry_model->get_current_by_hardware(1);		    	
 			    	$hardware_current_entry = $page['hardware_current_entry']->result();
-					foreach ($hardware_current_entry as $row)
+					
+					if ($page['hardware_current_entry']->num_rows())
 					{
-					    $current_aud_status = $row->aud_status;
-					    print_r($current_aud_status); die();
+						foreach ($hardware_current_entry as $row)
+						{
+						    $current_aud_status = $row->aud_status;
+						    print_r($current_aud_status); die();
+						}
 					}
-
+					else
+					{
+						print_r("No Audit trail"); die();
+					}
 			    	break;
 			    	 
 			}

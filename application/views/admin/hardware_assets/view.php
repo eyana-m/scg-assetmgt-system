@@ -64,82 +64,97 @@
 			<div class="col-xs-7 text-right"  style="padding-top: 0.25em; padding-right: 0; margin: 0">
 				
 
+			<?php if($audit_entries->num_rows()): ?>
 
-			<?php if($current_audit_entry->aud_status=='active'):?>
+				<?php if($current_audit_entry->aud_status=='active'):?>
 
-				<span class="label label-success" style="font-size: 1em"><?php echo $audit_entry->aud_status; ?></span>
+					<span class="label label-success" style="font-size: 1em"><?php echo $audit_entry->aud_status; ?></span>
 
-			<?php elseif ($current_audit_entry->aud_status=='repair'): ?>
+				<?php elseif ($current_audit_entry->aud_status=='repair'): ?>
 
-				<span class="label label-warning" style="font-size: 1em"><?php echo $current_audit_entry->aud_status; ?></span>
+					<span class="label label-warning" style="font-size: 1em"><?php echo $current_audit_entry->aud_status; ?></span>
+
+				<?php else: ?>
+
+					<span class="label label-default" style="font-size: 1em"><?php echo $current_audit_entry->aud_status; ?></span>
+
+					</td>
+
+				<?php endif; ?>
 
 			<?php else: ?>
 
-				<span class="label label-default" style="font-size: 1em"><?php echo $current_audit_entry->aud_status; ?></span>
-
-				</td>
+					<span class="label label-default" style="font-size: 1em">No Audit Entry</span>
 
 			<?php endif; ?>
+
+
+
 	
 			</div>
 		</div>
+
+		<?php if($audit_entries->num_rows()): ?>
 		
 		<div class="panel-body">
 
-		<?php if($current_audit_entry->aud_status=='inactive'):?>
-			<div class="col-xs-5 panel-personnel-content">Untagged from:
-			</div>
-		<?php else:?>
-			<div class="col-xs-5 panel-personnel-content">Tagged to:
-			</div>
+		
 
-		<?php endif; ?>
-			<div class="col-xs-7 text-right panel-personnel-content">
-
-			<?php if($current_audit_entry->aud_per==null):?> N/A </div>
-
-
-			<?php else: ?>
-
-				<strong><a href="<?php echo site_url('admin/employees/view/' . $current_audit_entry->emp_id); ?>"><?php echo $current_audit_entry->emp_first_name; ?> <?php echo $current_audit_entry->emp_last_name; ?></a>
-				</strong>
-
-			<?php if($current_audit_entry->aud_status=='active'):?>
-				<a href="#untag" style="text-decoration: none" role="button" data-toggle="modal" data-dismiss = "modal"><small>(untag)</small></a>
-			<?php endif; ?>
-			
-			</div>
-
-			<div class="col-xs-5 panel-personnel-content">Department:
-			</div>
-			<div class="col-xs-7 text-right panel-personnel-content">
-				<?php echo $current_audit_entry->emp_department; ?> 
-			</div>
+			<?php if($current_audit_entry->aud_status=='inactive'):?>
+				<div class="col-xs-5 panel-personnel-content">Untagged from:
+				</div>
+			<?php else:?>
+				<div class="col-xs-5 panel-personnel-content">Tagged to:
+				</div>
 
 			<?php endif; ?>
+				<div class="col-xs-7 text-right panel-personnel-content">
+
+				<?php if($current_audit_entry->aud_per==null):?> N/A </div>
+
+
+				<?php else: ?>
+
+					<strong><a href="<?php echo site_url('admin/employees/view/' . $current_audit_entry->emp_id); ?>"><?php echo $current_audit_entry->emp_first_name; ?> <?php echo $current_audit_entry->emp_last_name; ?></a>
+					</strong>
+
+				<?php if($current_audit_entry->aud_status=='active'):?>
+					<a href="#untag" style="text-decoration: none" role="button" data-toggle="modal" data-dismiss = "modal"><small>(untag)</small></a>
+				<?php endif; ?>
+				
+				</div>
+
+				<div class="col-xs-5 panel-personnel-content">Department:
+				</div>
+				<div class="col-xs-7 text-right panel-personnel-content">
+					<?php echo $current_audit_entry->emp_department; ?> 
+				</div>
+
+				<?php endif; ?>
 
 
 
-			<div class="col-xs-5 panel-personnel-content">Date Tagged:
-			</div>
-			<div class="col-xs-7 text-right panel-personnel-content">
-				<?php echo $current_audit_entry->aud_datetime; ?> 
-			</div>
+				<div class="col-xs-5 panel-personnel-content">Date Tagged:
+				</div>
+				<div class="col-xs-7 text-right panel-personnel-content">
+					<?php echo $current_audit_entry->aud_datetime; ?> 
+				</div>
 
-			<div class="col-xs-5 panel-personnel-content">Remarks:
-			</div>
-			<div class="col-xs-7 text-right panel-personnel-content">
-				<?php echo $current_audit_entry->aud_comment; ?> 
-			</div>
-
+				<div class="col-xs-5 panel-personnel-content">Remarks:
+				</div>
+				<div class="col-xs-7 text-right panel-personnel-content">
+					<?php echo $current_audit_entry->aud_comment; ?> 
+				</div>
 
 
 		</div>
+
+		<?php endif; ?>
 	</div>
 
 	<div class="panel panel-default panel-personnel " style="margin-left: 0">
 		<div class="panel-heading">
-		Change Status
+		Update Status
 		</div>
 		<div class="panel-body">
 			<form method="post" id="change-status">
@@ -161,33 +176,64 @@
 	</div>
 
 
-<?php if($current_audit_entry->aud_status!=='active'):?>
+<?php if ($audit_entries->num_rows()): ?>
+	<?php if($current_audit_entry->aud_status!=='active'): ?>
 
-	<div class="panel panel-default panel-personnel " style="margin-left: 0">
-		<div class="panel-heading">
-		Manual Tag to Personnel
+		<div class="panel panel-default panel-personnel " style="margin-left: 0">
+			<div class="panel-heading">
+			Manual Tag to Personnel
+			</div>
+			<div class="panel-body">
+
+			<form method="post" id="employee-tag">
+
+			<select class="input-medium form-control form-control-small"  name="emp_id" id="emp_id">
+				<option value="">Select Employee</option>
+				<?php foreach($employees->result() as $employee): ?>
+					<option value="<?php echo $employee->emp_id; ?>"><?php echo $employee->emp_last_name; ?>, <?php echo $employee->emp_first_name; ?></option>	
+				<?php endforeach ?>
+			</select> 
+
+			<input type="text" class="form-control form-control-small" id="aud_comment" name="aud_comment" placeholder="Remark (e.g. 'Normal Condition')">
+
+			<input type="submit" class="btn btn-small btn-warning pull-right" style="font-size:12px" name="submit" value="Tag">
+
+			</form>
+
+
+
+			</div>
 		</div>
-		<div class="panel-body">
+	<?php endif;?>
 
-		<form method="post" id="employee-tag">
+<?php else:?>
 
-		<select class="input-medium form-control form-control-small"  name="emp_id" id="emp_id">
-			<option value="">Select Employee</option>
-			<?php foreach($employees->result() as $employee): ?>
-				<option value="<?php echo $employee->emp_id; ?>"><?php echo $employee->emp_last_name; ?>, <?php echo $employee->emp_first_name; ?></option>	
-			<?php endforeach ?>
-		</select> 
+		<div class="panel panel-default panel-personnel " style="margin-left: 0">
+			<div class="panel-heading">
+			Manual Tag to Personnel
+			</div>
+			<div class="panel-body">
 
-		<input type="text" class="form-control form-control-small" id="aud_comment" name="aud_comment" placeholder="Remark (e.g. 'Normal Condition')">
+			<form method="post" id="employee-tag">
 
-		<input type="submit" class="btn btn-small btn-warning pull-right" style="font-size:12px" name="submit" value="Tag">
+			<select class="input-medium form-control form-control-small"  name="emp_id" id="emp_id">
+				<option value="">Select Employee</option>
+				<?php foreach($employees->result() as $employee): ?>
+					<option value="<?php echo $employee->emp_id; ?>"><?php echo $employee->emp_last_name; ?>, <?php echo $employee->emp_first_name; ?></option>	
+				<?php endforeach ?>
+			</select> 
 
-		</form>
+			<input type="text" class="form-control form-control-small" id="aud_comment" name="aud_comment" placeholder="Remark (e.g. 'Normal Condition')">
+
+			<input type="submit" class="btn btn-small btn-warning pull-right" style="font-size:12px" name="submit" value="Tag">
+
+			</form>
 
 
 
+			</div>
 		</div>
-	</div>
+
 <?php endif;?>
 
 	<div class="panel panel-success panel-personnel" style="margin-left: 0">
