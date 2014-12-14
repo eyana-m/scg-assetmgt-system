@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+
+<html lang="en">
 <head>
 	<title><?php echo template('title'); ?> | Administration Panel</title>
-	<meta charset="utf-8">
-	<?php #echo template('mythos'); ?>
+	<meta charset="utf-8">	
+	<?php echo template('mythos'); ?>
 	<script type="text/javascript" src="<?php echo res_url('mythos/js/jquery.min.js'); ?>"></script>
 	<?php echo template('bootstrap'); ?>
 	<?php echo template('head'); ?>

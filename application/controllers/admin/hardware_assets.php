@@ -9,8 +9,11 @@ class Hardware_assets extends CI_Controller
 		$this->access_control->logged_in();
 		$this->access_control->account_type('admin', ' user', ' dev');
 		$this->access_control->validate();
+		$this->load->helper('url');
+		$this->load->helper('csv');
+		$this->load->helper('download');
 
-		$this->load->library('upload');
+		
 
 		$this->load->model('hardware_asset_model');
 		$this->load->model('employee_model');
@@ -22,6 +25,8 @@ class Hardware_assets extends CI_Controller
 		$this->template->title('Hardware Assets');
 		
 		$har_ids = $this->input->post('har_ids');
+
+		$this->load->dbutil();
 
 		$page = array();
 		$page['hardware_assets'] = $this->hardware_asset_model->pagination("admin/hardware_assets/index/__PAGE__", 'get_all');
@@ -38,9 +43,32 @@ class Hardware_assets extends CI_Controller
 
 			    	$params = array('har_status' => 'repair');
 			    	$page['hardware_repair'] =  $this->hardware_asset_model->get_all($params);
+			    	$hardware_repair = $page['hardware_repair'];
 
-			    	var_dump($har_ids);
-			    	var_dump($page['hardware_repair']->result()); die();
+			    	
+
+			    	//var_dump($hardware_repair); die();
+
+		
+
+					$date = date('Y-m-d');
+					$filename = 'asset_replacement_'.$date.'.csv';
+
+			    	//$file_repair = $this->dbutil->csv_from_result($page['hardware_repair'], $delimiter, $newline);
+
+
+			    	
+					// $file = fopen($filename,"w");
+
+					// foreach ($hardware_repair as $line)
+					//   {
+					//   fputcsv($file,explode(',',$line));
+					//   }
+
+					// fclose($file);
+
+
+			    	query_to_csv($hardware_repair, TRUE, $filename);
 			  
 			    	break; 
 
