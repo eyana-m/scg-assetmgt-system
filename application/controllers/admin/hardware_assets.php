@@ -45,30 +45,13 @@ class Hardware_assets extends CI_Controller
 			    	$page['hardware_repair'] =  $this->hardware_asset_model->get_all($params);
 			    	$hardware_repair = $page['hardware_repair'];
 
-			    	
-
-			    	//var_dump($hardware_repair); die();
-
-		
-
 					$date = date('Y-m-d');
 					$filename = 'asset_replacement_'.$date.'.csv';
 
-			    	//$file_repair = $this->dbutil->csv_from_result($page['hardware_repair'], $delimiter, $newline);
+					$data = $this->dbutil->csv_from_result($hardware_repair);
 
+				    force_download($filename, $data); 
 
-			    	
-					// $file = fopen($filename,"w");
-
-					// foreach ($hardware_repair as $line)
-					//   {
-					//   fputcsv($file,explode(',',$line));
-					//   }
-
-					// fclose($file);
-
-
-			    	query_to_csv($hardware_repair, TRUE, $filename);
 			  
 			    	break; 
 
