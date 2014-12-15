@@ -88,9 +88,9 @@ class Hardware_assets extends CI_Controller
 
 			    			break;
 
-			    		case 'storage':
+			    		case 'stockroom':
 
-					    	$params = array('har_status' => 'storage');
+					    	$params = array('har_status' => 'stockroom');
 					    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_all($params);
 
 					    	var_dump($har_ids);
@@ -129,7 +129,20 @@ class Hardware_assets extends CI_Controller
 				    	var_dump($page['hardware_asset_status']->result()); die();		
 
 
-			    			break;			    		
+			    			break;	
+
+			    		case 'disposed':
+			    		
+				    	$params = array('har_status' => 'disposed');
+				    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_all($params);
+
+				    	var_dump($har_ids);
+				    	var_dump($page['hardware_asset_status']->result()); die();		
+
+
+			    			break;	
+
+
 			    		default:
 			    			
 			    			break;

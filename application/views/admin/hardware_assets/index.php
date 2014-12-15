@@ -71,10 +71,12 @@ if($hardware_assets->num_rows())
 				<option value="">Select Status</option>
 				<option value="active">active</option>
 				<option value="inactive">inactive</option>
-				<option value="storage">storage</option>
+				<option value="stockroom">stockroom</option>
 				<option value="service unit">service unit</option>
 				<option value="for disposal">for disposal</option>
+				<option value="disposed">disposed</option>
 				<option value="repair">repair</option>
+				
 			</select>
 
 			</div>
