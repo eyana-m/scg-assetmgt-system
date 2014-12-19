@@ -114,6 +114,7 @@ class Employees extends CI_Controller
 		// Already combined with jQuery. No extra coding required for JS validation.
 		// We get both JS and PHP validation which makes it both secure and user friendly.
 		// NOTE: Set the rules before you check if $_POST is set so that the jQuery validation will work.
+		$this->form_validation->set_rules('emp_id', 'ID Number', 'trim|required|integer|max_length[10]');
 		$this->form_validation->set_rules('emp_last_name', 'Last Name', 'trim|required|max_length[30]');
 		$this->form_validation->set_rules('emp_first_name', 'First Name', 'trim|required|max_length[30]');
 		$this->form_validation->set_rules('emp_middle_name', 'Middle Name', 'trim|required|max_length[30]');

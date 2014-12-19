@@ -14,5 +14,34 @@ class Employee_model extends Base_model
 	// Inherits the create, update, delete, get_one, and get_all methods of base_model.
 
 
+//Doesn't skip primary key 
+	public function create($data, $field_list = array())
+	{
+		if(!is_array($data))
+		{
+			$data = get_object_vars($data);
+		}
+		
+		if(count($field_list) > 0)
+		{
+			$data = $this->filter_data($data, $field_list);
+		}
+		
+		$valid_data = array();
+		$i = 0;
+		foreach($this->fields as $field)
+		{
+			//if($i > 0) // Skip primary key from the list of fields
+			
+			if(isset($data[$field]))
+			{
+				$valid_data[$field] = $data[$field];
+			}
+			
+			$i++;
+		}
+		$this->db->insert($this->table, $valid_data);
+		return $this->db->insert_id();
+	}
 
 }

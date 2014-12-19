@@ -1,6 +1,10 @@
 <form method="post">
 	<table class="table-form table-bordered">
 		<tr>
+			<th>ID Number</th>
+			<td><input type="text" name="emp_id" size="30" maxlength="30" value="" /></td>
+		</tr>
+		<tr>
 			<th>Last Name</th>
 			<td><input type="text" name="emp_last_name" size="30" maxlength="30" value="" /></td>
 		</tr>
