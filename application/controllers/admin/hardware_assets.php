@@ -26,7 +26,7 @@ class Hardware_assets extends CI_Controller
 	{
 		$this->template->title('Hardware Assets');
 		
-		$har_ids = $this->input->post('har_ids');
+		$har_ids = $this->input->post('har_barcodes');
 
 		$this->load->dbutil();
 
@@ -228,8 +228,6 @@ class Hardware_assets extends CI_Controller
 		$this->form_validation->set_rules('har_date_purchase', 'Date of Purchase', 'trim|required|date');
 		$this->form_validation->set_rules('har_po_number', 'Po Number', 'trim|required|integer|max_length[11]');
 		$this->form_validation->set_rules('har_cost', 'Cost', 'trim|required|double');
-		$this->form_validation->set_rules('har_book_value', 'Book Value', 'trim|required|double');
-		$this->form_validation->set_rules('har_predetermined_value', 'Predetermined Value', 'trim|required|double');
 		$this->form_validation->set_rules('har_asset_value', 'Asset Value', 'trim|required|double');
 		$this->form_validation->set_rules('har_date_added', 'Date Added', 'trim|required|date');
 		$this->form_validation->set_rules('har_specs', 'Specs', 'trim|required');

@@ -44,12 +44,12 @@ class Audit_entry_model extends Base_model
 	}
 
 
-	public function get_by_hardware($har_id)
+	public function get_by_hardware($har_barcode)
 	{
 
 		$this->db->join('hardware_asset', "hardware_asset.har_barcode = {$this->table}.aud_har");				
 		$this->db->join('employee', "employee.emp_id = {$this->table}.aud_per", "left outer");
-		$this->db->where('aud_har', $har_id);	
+		$this->db->where('aud_har', $har_barcode);	
 		//$this->db->where('aud_per', null);
 		$this->db->order_by("aud_id","desc");
 		$query = $this->db->get($this->table); // 
@@ -57,11 +57,11 @@ class Audit_entry_model extends Base_model
 
 	}
 
-	public function get_current_by_hardware($har_id)
+	public function get_current_by_hardware($har_barcode)
 	{
 		$this->db->join('hardware_asset', "hardware_asset.har_barcode = {$this->table}.aud_har");
 		//$this->db->join('employee', "employee.emp_id = {$this->table}.aud_per", "left outer");
-		$this->db->where('aud_har', $har_id);
+		$this->db->where('aud_har', $har_barcode);
 		$this->db->order_by("aud_id","desc");
 		$this->db->limit(1);
 		$query = $this->db->get($this->table); // 
@@ -70,7 +70,7 @@ class Audit_entry_model extends Base_model
 
 	}
 
-	public function update_hardware_status($har_id)
+	public function update_hardware_status($har_barcode)
 	{
 		
 	}

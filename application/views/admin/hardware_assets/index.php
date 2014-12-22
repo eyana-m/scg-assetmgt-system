@@ -10,7 +10,7 @@ if($hardware_assets->num_rows())
 			<thead>
 				<tr>
 					<th></th>
-					<th>Asset Number</th>
+					<th>Asset Barcode</th>
 					<th>Asset Type</th>
 					<th>Erf Number</th>
 					<th>Model</th>
@@ -23,7 +23,7 @@ if($hardware_assets->num_rows())
 			{
 				?>
 				<tr>
-					<td class="center"><input type="checkbox" name="har_ids[]" value="<?php echo $hardware_asset->har_barcode; ?>" /></td>
+					<td class="center"><input type="checkbox" name="har_barcodes[]" value="<?php echo $hardware_asset->har_barcode; ?>" /></td>
 					<td><a href="<?php echo site_url('admin/hardware_assets/view/' . $hardware_asset->har_barcode); ?>"><?php echo $hardware_asset->har_barcode; ?></a></td>
 					<td><?php echo $hardware_asset->har_asset_type; ?></td>
 					<td><?php echo number_format($hardware_asset->har_erf_number); ?></td>
