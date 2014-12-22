@@ -12,6 +12,8 @@ class Hardware_assets extends CI_Controller
 		$this->load->helper('url');
 		$this->load->helper('csv');
 		$this->load->helper('download');
+		$this->load->helper(array('dompdf', 'file'));
+		$this->load->helper('file'); 
 
 		
 
@@ -41,9 +43,9 @@ class Hardware_assets extends CI_Controller
 			switch ($report_type["report-type"]) {
 			    case 'asset-replacement':
 
-			    	$params = array('har_status' => 'repair');
-			    	$page['hardware_repair'] =  $this->hardware_asset_model->get_all($params);
-			    	$hardware_repair = $page['hardware_repair'];
+			  		$params = array('har_status' => 'repair');
+			     	$page['hardware_repair'] =  $this->hardware_asset_model->get_all($params);
+			     	$hardware_repair = $page['hardware_repair'];
 
 					$date = date('Y-m-d');
 					$filename = 'asset_replacement_'.$date.'.csv';
@@ -51,15 +53,18 @@ class Hardware_assets extends CI_Controller
 					$data = $this->dbutil->csv_from_result($hardware_repair);
 
 				    force_download($filename, $data); 
-
 			  
 			    	break; 
 
 			    case 'asset-recentlyadded':
 			    	$page['hardware_recentlyadded'] = $this->hardware_asset_model->get_asset_past_week();
+			    	$hardware_recentlyadded = $page['hardware_recentlyadded'];
 
-			    	var_dump($har_ids);
-			    	var_dump($page['hardware_recentlyadded']->result()); die();
+			    	$date = date('Y-m-d');
+			    	$filename = 'asset_addedthisweek_'.$date.'.csv';
+
+			    	$data = $this->dbutil->csv_from_result($hardware_recentlyadded);
+			    	force_download($filename, $data); 
 
 			    	break;
 
@@ -71,9 +76,14 @@ class Hardware_assets extends CI_Controller
 
 					    	$params = array('har_status' => 'active');
 					    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_all($params);
+					    	$hardware_asset_status = $page['hardware_asset_status'];
 
-					    	var_dump($har_ids);
-					    	var_dump($page['hardware_asset_status']->result()); die();
+					    	$date = date('Y-m-d');
+					    	$filename = 'asset_active_'.$date.'.csv';
+
+					    	$data = $this->dbutil->csv_from_result($hardware_asset_status);
+					    	force_download($filename, $data); 
+
 
 			    			
 			    			break;
@@ -82,9 +92,13 @@ class Hardware_assets extends CI_Controller
 
 					    	$params = array('har_status' => 'inactive');
 					    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_all($params);
+					    	$hardware_asset_status = $page['hardware_asset_status'];
 
-					    	var_dump($har_ids);
-					    	var_dump($page['hardware_asset_status']->result()); die();
+					    	$date = date('Y-m-d');
+					    	$filename = 'asset_inactive_'.$date.'.csv';
+
+					    	$data = $this->dbutil->csv_from_result($hardware_asset_status);
+					    	force_download($filename, $data); 
 
 			    			break;
 
@@ -92,9 +106,13 @@ class Hardware_assets extends CI_Controller
 
 					    	$params = array('har_status' => 'stockroom');
 					    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_all($params);
+					    	$hardware_asset_status = $page['hardware_asset_status'];
 
-					    	var_dump($har_ids);
-					    	var_dump($page['hardware_asset_status']->result()); die();
+					    	$date = date('Y-m-d');
+					    	$filename = 'asset_stockroom_'.$date.'.csv';
+
+					    	$data = $this->dbutil->csv_from_result($hardware_asset_status);
+					    	force_download($filename, $data); 
 			    			
 			    			break;
 
@@ -102,21 +120,27 @@ class Hardware_assets extends CI_Controller
 
 				    	$params = array('har_status' => 'service unit');
 				    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_all($params);
+				    	$hardware_asset_status = $page['hardware_asset_status'];
 
-				    	var_dump($har_ids);
-				    	var_dump($page['hardware_asset_status']->result()); die();
+				    	$date = date('Y-m-d');
+				    	$filename = 'asset_service_unit_'.$date.'.csv';
+
+				    	$data = $this->dbutil->csv_from_result($hardware_asset_status);
+				    	force_download($filename, $data); 
 
 			    			
 			    			break;
 
 			    		case 'for disposal':
-
-
 				    	$params = array('har_status' => 'for disposal');
 				    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_all($params);
+				    	$hardware_asset_status = $page['hardware_asset_status'];
 
-				    	var_dump($har_ids);
-				    	var_dump($page['hardware_asset_status']->result()); die();			    		
+				    	$date = date('Y-m-d');
+				    	$filename = 'asset_for_disposal_'.$date.'.csv';
+
+				    	$data = $this->dbutil->csv_from_result($hardware_asset_status);
+				    	force_download($filename, $data); 	    		
 			    			
 			    			break;
 
@@ -124,9 +148,13 @@ class Hardware_assets extends CI_Controller
 			    		
 				    	$params = array('har_status' => 'repair');
 				    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_all($params);
+				    	$hardware_asset_status = $page['hardware_asset_status'];
 
-				    	var_dump($har_ids);
-				    	var_dump($page['hardware_asset_status']->result()); die();		
+				    	$date = date('Y-m-d');
+				    	$filename = 'asset_repair_'.$date.'.csv';
+
+				    	$data = $this->dbutil->csv_from_result($hardware_asset_status);
+				    	force_download($filename, $data); 
 
 
 			    			break;	
@@ -135,9 +163,13 @@ class Hardware_assets extends CI_Controller
 			    		
 				    	$params = array('har_status' => 'disposed');
 				    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_all($params);
+				    	$hardware_asset_status = $page['hardware_asset_status'];
 
-				    	var_dump($har_ids);
-				    	var_dump($page['hardware_asset_status']->result()); die();		
+				    	$date = date('Y-m-d');
+				    	$filename = 'asset_disposed_'.$date.'.csv';
+
+				    	$data = $this->dbutil->csv_from_result($hardware_asset_status);
+				    	force_download($filename, $data); 	
 
 
 			    			break;	
