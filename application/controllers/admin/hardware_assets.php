@@ -267,7 +267,9 @@ class Hardware_assets extends CI_Controller
 
 	public function edit($har_barcode)
 	{
-		$this->template->title('Edit Hardware Asset');
+		
+
+		$this->template->title('Edit Asset: '.$har_barcode);
 
 
 		$this->form_validation->set_rules('har_asset_number', 'Asset Number', 'trim|required|integer|max_length[11]');
@@ -292,7 +294,7 @@ class Hardware_assets extends CI_Controller
 			$hardware_asset = $this->extract->post();
 			if($this->form_validation->run() !== false)
 			{
-				$hardware_asset['har_id'] = $har_id;
+				$hardware_asset['har_barcode'] = $har_barcode;
 				$rows_affected = $this->hardware_asset_model->update($hardware_asset, $this->form_validation->get_fields());
 
 				$this->template->notification('Hardware asset updated.', 'success');
@@ -306,7 +308,7 @@ class Hardware_assets extends CI_Controller
 		}
 
 		$page = array();
-		$page['hardware_asset'] = $this->hardware_asset_model->get_one($har_id);
+		$page['hardware_asset'] = $this->hardware_asset_model->get_one($har_barcode);
 
 		if($page['hardware_asset'] === false)
 		{
@@ -320,7 +322,7 @@ class Hardware_assets extends CI_Controller
 
 	public function view($hardware_asset_id)
 	{
-		$this->template->title('Audit Trail - Asset');
+		$this->template->title('Audit Trail: '.$hardware_asset_id);
 		
 		$page = array();
 		$audit_entry = array();

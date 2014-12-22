@@ -153,7 +153,11 @@ class Employees extends CI_Controller
 
 	public function edit($emp_id)
 	{
-		$this->template->title('Edit Employee');
+		$this->template->title('Edit Employee <small>'.$emp_id.'</small>');
+
+
+
+
 
 
 		$this->form_validation->set_rules('emp_last_name', 'Last Name', 'trim|required|max_length[30]');
@@ -196,7 +200,9 @@ class Employees extends CI_Controller
 
 	public function view($employee_id)
 	{
-		$this->template->title('Audit Trail - Employee');
+	
+
+		$this->template->title('Audit Trail <small>'.$employee_id.'</small>');
 		$page = array();
 
 		$employee = $this->employee_model->get_one($employee_id);
