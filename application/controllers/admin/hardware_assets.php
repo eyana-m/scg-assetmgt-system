@@ -426,7 +426,7 @@ class Hardware_assets extends CI_Controller
 
 				if ($audit_entry['aud_status'] == 'repair')
 				{
-					$audit_entry['aud_per'] = $current_audit_entry['emp_id'];
+					$audit_entry['aud_per'] = $current_audit_entry->aud_per;
 				}
 				else 
 				{
