@@ -35,15 +35,11 @@ class Hardware_asset_model extends Base_model
 		}
 
 		$temp2 = substr($har_date_added, 2);
-
 		$date_added = str_replace('-','',$temp2);
 
 		return $asset_type."-".$har_asset_number."-".$date_added;
 
-
-
 	}
-
 
 	
 
