@@ -267,7 +267,7 @@ class Hardware_assets extends CI_Controller
 		$this->template->show();
 	}
 
-	public function edit($har_id)
+	public function edit($har_barcode)
 	{
 		$this->template->title('Edit Hardware Asset');
 
@@ -341,8 +341,8 @@ class Hardware_assets extends CI_Controller
 		$field_list = array('aud_id', 'aud_datetime', 'aud_status', 'aud_comment', 'aud_har', 'aud_per');
 
 		$hardware_update = array();
-		$hardware_update_fields = array('har_id', 'har_status');
-		$hardware_update['har_id'] = $hardware_asset_id;
+		$hardware_update_fields = array('har_barcode', 'har_status');
+		$hardware_update['har_barcode'] = $hardware_asset_id;
 
 
 		$current_audit_entry = $this->audit_entry_model->get_by_hardware($hardware_asset_id)->first_row();

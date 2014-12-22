@@ -17,21 +17,21 @@ class Audit_entry_model extends Base_model
 		
 	public function get_one($id)
 	{				
-		$this->db->join('hardware_asset', "hardware_asset.har_id = {$this->table}.aud_har");				
+		$this->db->join('hardware_asset', "hardware_asset.har_barcode = {$this->table}.aud_har");				
 		$this->db->join('employee', "employee.emp_id = {$this->table}.aud_per");
 		return parent::get_one($id);
 	}
 
 	public function get_all($params = array())
 	{				
-		$this->db->join('hardware_asset', "hardware_asset.har_id = {$this->table}.aud_har");				
+		$this->db->join('hardware_asset', "hardware_asset.har_barcode = {$this->table}.aud_har");				
 		$this->db->join('employee', "employee.emp_id = {$this->table}.aud_per");
 		return parent::get_all($params);
 	}
 
 	public function get_by_employee($emp_id)
 	{
-		$this->db->join('hardware_asset', "hardware_asset.har_id = {$this->table}.aud_har");				
+		$this->db->join('hardware_asset', "hardware_asset.har_barcode= {$this->table}.aud_har");				
 		$this->db->join('employee', "employee.emp_id = {$this->table}.aud_per", 'Right');
 		$this->db->where('aud_per', $emp_id);	
 		$this->db->order_by("aud_id","desc");
@@ -47,7 +47,7 @@ class Audit_entry_model extends Base_model
 	public function get_by_hardware($har_id)
 	{
 
-		$this->db->join('hardware_asset', "hardware_asset.har_id = {$this->table}.aud_har");				
+		$this->db->join('hardware_asset', "hardware_asset.har_barcode = {$this->table}.aud_har");				
 		$this->db->join('employee', "employee.emp_id = {$this->table}.aud_per", "left outer");
 		$this->db->where('aud_har', $har_id);	
 		//$this->db->where('aud_per', null);
@@ -59,7 +59,7 @@ class Audit_entry_model extends Base_model
 
 	public function get_current_by_hardware($har_id)
 	{
-		$this->db->join('hardware_asset', "hardware_asset.har_id = {$this->table}.aud_har");
+		$this->db->join('hardware_asset', "hardware_asset.har_barcode = {$this->table}.aud_har");
 		//$this->db->join('employee', "employee.emp_id = {$this->table}.aud_per", "left outer");
 		$this->db->where('aud_har', $har_id);
 		$this->db->order_by("aud_id","desc");

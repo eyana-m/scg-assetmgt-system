@@ -23,8 +23,8 @@ if($hardware_assets->num_rows())
 			{
 				?>
 				<tr>
-					<td class="center"><input type="checkbox" name="har_ids[]" value="<?php echo $hardware_asset->har_id; ?>" /></td>
-					<td><a href="<?php echo site_url('admin/hardware_assets/view/' . $hardware_asset->har_id); ?>"><?php echo $hardware_asset->har_barcode; ?></a></td>
+					<td class="center"><input type="checkbox" name="har_ids[]" value="<?php echo $hardware_asset->har_barcode; ?>" /></td>
+					<td><a href="<?php echo site_url('admin/hardware_assets/view/' . $hardware_asset->har_barcode); ?>"><?php echo $hardware_asset->har_barcode; ?></a></td>
 					<td><?php echo $hardware_asset->har_asset_type; ?></td>
 					<td><?php echo number_format($hardware_asset->har_erf_number); ?></td>
 					<td><?php echo $hardware_asset->har_model; ?></td>
