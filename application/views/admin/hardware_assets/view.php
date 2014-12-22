@@ -14,7 +14,7 @@
 
 		<?php foreach($audit_entries->result() as $audit_entry): ?>
 			<tr>
-				<td><?php echo $audit_entry->aud_datetime; ?></td>
+			<td><?php echo format_datetime($audit_entry->aud_datetime); ?></td>
 				
 
 				<td>
@@ -100,14 +100,10 @@
 
 		
 
-			<?php if($current_audit_entry->aud_status=='inactive'):?>
-				<div class="col-xs-5 panel-personnel-content">Untagged from:
-				</div>
-			<?php else:?>
 				<div class="col-xs-5 panel-personnel-content">Tagged to:
 				</div>
 
-			<?php endif; ?>
+
 				<div class="col-xs-7 text-right panel-personnel-content">
 
 				<?php if($current_audit_entry->aud_per==null):?> N/A </div>
@@ -118,7 +114,7 @@
 					<strong><a href="<?php echo site_url('admin/employees/view/' . $current_audit_entry->emp_id); ?>"><?php echo $current_audit_entry->emp_first_name; ?> <?php echo $current_audit_entry->emp_last_name; ?></a>
 					</strong>
 
-				<?php if($current_audit_entry->aud_status=='active'):?>
+				<?php if(($current_audit_entry->aud_status=='active')|| ($current_audit_entry->aud_status=='repair')):?>
 					<a href="#untag" style="text-decoration: none" role="button" data-toggle="modal" data-dismiss = "modal"><small>(untag)</small></a>
 				<?php endif; ?>
 				
@@ -161,6 +157,7 @@
 
 			<select name="aud_status" id="aud_status" class="input-medium form-control form-control-small">
 				<option value="">Select Status</option>
+				<option value="active">active</option>
 				<option value="stockroom">stockroom</option>
 				<option value="service unit">service unit</option>
 				<option value="for disposal">for disposal</option>
@@ -312,7 +309,8 @@
 		<div class = "modal-content">
 			<div class = "modal-header">Untag Employee</div>
 			<div class = "modal-body">
-				Are you sure you want to untag this asset to the following employee?
+				You're about to untag the following asset to the following employee:
+
 			<div class="well row" style="margin-top: 1em; background-color: #bbb; border-color: #bbb">
 
 
@@ -353,14 +351,27 @@
 					<?php echo $hardware_asset->har_serial_number; ?> 
 				</div>	
 
+			</div>	
+
 			</div>
-			
+
+			<div class="col-xs-12">
+			<div class="panel-personnel-content">Select new <strong>Asset Status</strong> after untagging:</div>
+			<form method="post" id="untag">
+			<select name="aud_status" id="aud_status" class="input-medium form-control form-control-small">
+				<option value="">Select Status</option>				
+				<option value="stockroom" selected>stockroom</option>
+				<option value="service unit">service unit</option>
+				<option value="for disposal">for disposal</option>
+				<option value="disposed">disposed</option>
+			</select>
+
 			</div>
 
 
 			</div>
 			<div class = "modal-footer">
-			<form method="post" id="untag">
+			
 				<input class ="btn btn-danger no-border-radius" type="submit" name="untag" value="Untag">
 			</form>
 				<button class ="btn btn-default no-border-radius" data-dismiss = "modal">Cancel</button>

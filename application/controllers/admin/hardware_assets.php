@@ -424,7 +424,7 @@ class Hardware_assets extends CI_Controller
 
 				$audit_entry['aud_har'] = $hardware_asset_id;
 
-				if ($audit_entry['aud_status'] == 'repair')
+				if (($audit_entry['aud_status'] == 'repair') || ($audit_entry['aud_status'] == 'active') )
 				{
 					$audit_entry['aud_per'] = $current_audit_entry->aud_per;
 				}
@@ -472,7 +472,8 @@ class Hardware_assets extends CI_Controller
 
 		if($this->input->post('untag'))
 		{
-			$this->auto_stockroom($field_list, $hardware_asset_id, $current_audit_entry);
+			$new_status = $this->input->post("aud_status");	
+			$this->auto_stockroom($field_list, $hardware_asset_id, $current_audit_entry, $new_status);
 			$current_audit_entry = $this->audit_entry_model->get_by_hardware($hardware_asset_id)->first_row();
 			$page['current_audit_entry'] = $current_audit_entry;
 
@@ -487,7 +488,7 @@ class Hardware_assets extends CI_Controller
 		$this->template->show();
 	}
 
-	private function auto_stockroom($field_list, $hardware_asset_id, $current_audit_entry)
+	private function auto_stockroom($field_list, $hardware_asset_id, $current_audit_entry, $new_status)
 	{
 		$audit_entry = array();
 		$hardware_update = array();
@@ -495,7 +496,7 @@ class Hardware_assets extends CI_Controller
 		$hardware_update['har_id'] = $hardware_asset_id;
 
 		$audit_entry['aud_datetime'] = date('Y-m-d H:i:s');
-		$audit_entry['aud_status'] = "stockroom";
+		$audit_entry['aud_status'] = $new_status;
 		$hardware_update['har_status'] = $audit_entry['aud_status'];
 
 		$name = $current_audit_entry->emp_first_name." ".$current_audit_entry->emp_last_name;
@@ -503,7 +504,7 @@ class Hardware_assets extends CI_Controller
 		$audit_entry['aud_comment'] = 'Untagged from '.$name;	
 
 		$audit_entry['aud_har'] = $hardware_asset_id;
-		$audit_entry['aud_per'] = $current_audit_entry->aud_per;
+		$audit_entry['aud_per'] = null;
 
 		$this->audit_entry_model->create($audit_entry, $field_list);
 		$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);			
