@@ -14,7 +14,7 @@ class Employee_model extends Base_model
 	// Inherits the create, update, delete, get_one, and get_all methods of base_model.
 
 
-//Doesn't skip primary key 
+	//Doesn't skip primary key 
 	public function create($data, $field_list = array())
 	{
 		if(!is_array($data))

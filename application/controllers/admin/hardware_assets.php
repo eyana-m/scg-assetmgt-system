@@ -88,20 +88,6 @@ class Hardware_assets extends CI_Controller
 			    			
 			    			break;
 
-			    		case 'inactive':
-
-					    	$params = array('har_status' => 'inactive');
-					    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_all($params);
-					    	$hardware_asset_status = $page['hardware_asset_status'];
-
-					    	$date = date('Y-m-d');
-					    	$filename = 'asset_inactive_'.$date.'.csv';
-
-					    	$data = $this->dbutil->csv_from_result($hardware_asset_status);
-					    	force_download($filename, $data); 
-
-			    			break;
-
 			    		case 'stockroom':
 
 					    	$params = array('har_status' => 'stockroom');
@@ -239,23 +225,28 @@ class Hardware_assets extends CI_Controller
 		$this->form_validation->set_rules('har_hostname', 'Hostname', 'trim|required|max_length[30]');
 		$this->form_validation->set_rules('har_status', 'Status', 'trim|required');
 		$this->form_validation->set_rules('har_vendor', 'Vendor', 'trim|required|max_length[30]');
-		$this->form_validation->set_rules('har_date_purchase', 'Date Purchase', 'trim|required|date');
+		$this->form_validation->set_rules('har_date_purchase', 'Date of Purchase', 'trim|required|date');
 		$this->form_validation->set_rules('har_po_number', 'Po Number', 'trim|required|integer|max_length[11]');
-		$this->form_validation->set_rules('har_cost', 'Cost', 'trim|required|decimal');
-		$this->form_validation->set_rules('har_book_value', 'Book Value', 'trim|required|decimal');
-		$this->form_validation->set_rules('har_predetermined_value', 'Predetermined Value', 'trim|required|decimal');
-		$this->form_validation->set_rules('har_asset_value', 'Asset Value', 'trim|required|decimal');
+		$this->form_validation->set_rules('har_cost', 'Cost', 'trim|required|double');
+		$this->form_validation->set_rules('har_book_value', 'Book Value', 'trim|required|double');
+		$this->form_validation->set_rules('har_predetermined_value', 'Predetermined Value', 'trim|required|double');
+		$this->form_validation->set_rules('har_asset_value', 'Asset Value', 'trim|required|double');
 		$this->form_validation->set_rules('har_date_added', 'Date Added', 'trim|required|date');
 		$this->form_validation->set_rules('har_specs', 'Specs', 'trim|required');
+		//$this->form_validation->set_rules('har_barcode', 'Barcode', 'trim|required');
 
 		if($this->input->post('submit'))
 		{
 			$hardware_asset = $this->extract->post();
+			
+			$hardware_asset['har_barcode'] = $this->hardware_asset_model->generate_barcode($hardware_asset['har_asset_type'],$hardware_asset['har_asset_number'],$hardware_asset['har_date_added']);
+
+			//var_dump($hardware_asset); die();
 
 			// Call run method from Form_validation to check
 			if($this->form_validation->run() !== false)
 			{
-				$this->hardware_asset_model->create($hardware_asset, $this->form_validation->get_fields());
+				$this->hardware_asset_model->create($hardware_asset, $this->hardware_asset_model->get_fields());
 				// Set a notification using notification method from Template.
 				// It is okay to redirect after and the notification will be displayed on the redirect page.
 				$this->template->notification('New hardware asset created.', 'success');
@@ -374,9 +365,9 @@ class Hardware_assets extends CI_Controller
 			
 			if($this->input->post('aud_status'))
 			{
-				if($current_audit_entry->aud_status=='active'):
-					$this->auto_inactive($field_list, $hardware_asset_id, $current_audit_entry);
-				endif;
+				// if($current_audit_entry->aud_status=='active'):
+				// 	$this->auto_inactive($field_list, $hardware_asset_id, $current_audit_entry);
+				// endif;
 
 				$audit_entry['aud_status'] = $this->input->post('aud_status');
 
