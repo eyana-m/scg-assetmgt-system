@@ -202,7 +202,7 @@ class Employees extends CI_Controller
 	{
 	
 
-		$this->template->title('Audit Trail <small>'.$employee_id.'</small>');
+		$this->template->title('Audit Trail: '.$employee_id);
 		$page = array();
 
 		$employee = $this->employee_model->get_one($employee_id);
@@ -214,11 +214,15 @@ class Employees extends CI_Controller
 		$page['audit_entries'] = $audit_entries;
 
 
+		$page['current_audit_entry']= $this->audit_entry_model->get_by_employee($employee_id)->first_row();
+		$page['next_audit_entry']= $this->audit_entry_model->get_by_employee($employee_id)->next_row();
+
+
 
 		
-		#$page['audit_entries'] = $this->audit_entry_model->pagination("admin/employees/index/__PAGE__", 'get_by_employee($employee_id)'
+		//$page['audit_entries'] = $this->audit_entry_model->pagination("admin/employees/index/__PAGE__", 'get_by_employee($employee_id)'
 
-		$page['audit_entries_pagination'] = $this->audit_entry_model->pagination_links();
+		//$page['audit_entries_pagination'] = $this->audit_entry_model->pagination_links();
 
 		$employees =  $this->employee_model->get_all();
 		

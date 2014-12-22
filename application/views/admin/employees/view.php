@@ -8,9 +8,10 @@
 			<th>Asset ID</th>
 			<th>Type</th>
 			<th>Model</th>
+			<th>Status</th>
 			<th>Remarks</th>
-			<th>Date Released</th>
-			<th>Date Returned</th>
+			<th>Date Assigned</th>
+			<th>Date Untagged</th>
 			<th>Actions</th>
 		</thead>
 
@@ -18,12 +19,43 @@
 
     	<tr>
 			<td>
-				<a href="<?php echo site_url('admin/hardware_assets/view/' . $audit_entry->har_id); ?>"> <?php echo $audit_entry->har_serial_number; ?> </a></td>
+				<a href="<?php echo site_url('admin/hardware_assets/view/' . $audit_entry->har_barcode); ?>"> <?php echo $audit_entry->har_barcode; ?> </a></td>
 				<td><?php echo $audit_entry->har_asset_type; ?> </td>
 				<td><?php echo $audit_entry->har_model; ?></td>
+
+				<td>
+
+				<?php if($audit_entry->aud_status=='active'):?>
+
+					<span class="label label-success"><?php echo $audit_entry->aud_status; ?></span>
+
+				<?php elseif ($audit_entry->aud_status=='repair'): ?>
+
+					<span class="label label-warning"><?php echo $audit_entry->aud_status; ?></span>
+
+				<?php else: ?>
+
+					<span class="label label-default"><?php echo $audit_entry->aud_status; ?></span>
+
+					</td>
+
+				<?php endif; ?>
+
+
+
+
+				</td>
+
 				<td><?php echo nl2br($audit_entry->aud_comment); ?></td>
-				<td>Sept. 16, 2014, 13:00</td>
-				<td>Sept. 17, 2014, 13:00</td>
+				<td><?php echo format_datetime($audit_entry->aud_datetime); ?></td>
+
+				<?php 
+
+				$next = $audit_entries->previous_row();
+
+
+				?>
+				<td><?php echo format_datetime($next ->aud_datetime); ?></td>
 				<td><span class="label label-default">Untag</span>
 			</td>
     	</tr>
