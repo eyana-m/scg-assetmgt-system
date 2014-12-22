@@ -48,7 +48,7 @@ if($hardware_assets->num_rows())
 					<?php endif; ?>
 
 					</td>
-					<td><?php echo $hardware_asset->har_model; ?></td>
+					<td><?php echo $hardware_asset->har_tech_refresher; ?></td>
 					
 				</tr>
 				<?php

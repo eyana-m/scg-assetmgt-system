@@ -6,7 +6,7 @@ class Hardware_asset_model extends Base_model
 	{
 		// List all fields of the table.
 		// Primary key must be auto-increment and must be listed here first.
-		$fields = array('har_barcode', 'har_asset_number', 'har_asset_type', 'har_erf_number', 'har_model', 'har_serial_number', 'har_hostname', 'har_status', 'har_vendor', 'har_date_purchase', 'har_po_number', 'har_cost', 'har_book_value', 'har_predetermined_value', 'har_asset_value', 'har_date_added', 'har_specs');
+		$fields = array('har_barcode', 'har_asset_number', 'har_asset_type', 'har_erf_number', 'har_model', 'har_serial_number', 'har_hostname', 'har_status', 'har_vendor', 'har_date_purchase', 'har_tech_refresher', 'har_po_number', 'har_cost', 'har_book_value', 'har_predetermined_value', 'har_asset_value', 'har_date_added', 'har_specs');
 		// Call the parent constructor with the table name and fields as parameters.
 		parent::__construct('hardware_asset', $fields);
 	}
@@ -41,7 +41,66 @@ class Hardware_asset_model extends Base_model
 
 	}
 
-	
+
+	public function get_tech_refresher_date($har_asset_type, $har_date_purchase)
+	{
+
+
+		switch ($har_asset_type) {
+			case 'Desktop':
+				$tech_year = 4;
+				break;
+			case 'Laptop':
+				$tech_year = 3;
+				break;	
+			case 'Projector':
+				$tech_year = 3;
+				break;						
+			default:
+				$tech_year = 1;
+				break;
+		}
+
+		$date_purchase = strtotime($har_date_purchase);
+		$added_tech_refresher = strtotime('+'.$tech_year.' years', $date_purchase);
+
+
+		return date('Y-m-d', $added_tech_refresher);
+	}	
+
+	// Inserts a row in the Base_model's table
+	public function create($data, $field_list = array())
+	{
+		if(!is_array($data))
+		{
+			$data = get_object_vars($data);
+		}
+		
+		if(count($field_list) > 0)
+		{
+			$data = $this->filter_data($data, $field_list);
+		}
+		
+		$valid_data = array();
+		$i = 0;
+		foreach($this->fields as $field)
+		{
+		
+			if(isset($data[$field]))
+			{
+				$valid_data[$field] = $data[$field];
+			}
+			
+			$i++;
+		}
+		$this->db->insert($this->table, $valid_data);
+		return $this->db->insert_id();
+	}
+
+
+
+
+
 
 	public function get_current_by_hardware($har_id)
 	{

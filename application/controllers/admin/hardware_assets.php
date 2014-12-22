@@ -239,12 +239,16 @@ class Hardware_assets extends CI_Controller
 			
 			$hardware_asset['har_barcode'] = $this->hardware_asset_model->generate_barcode($hardware_asset['har_asset_type'],$hardware_asset['har_asset_number'],$hardware_asset['har_date_added']);
 
-			//var_dump($hardware_asset); die();
+			$hardware_asset['har_tech_refresher'] = $this->hardware_asset_model->get_tech_refresher_date($hardware_asset['har_asset_type'],$hardware_asset['har_date_purchase']);
+
+	
 
 			// Call run method from Form_validation to check
 			if($this->form_validation->run() !== false)
 			{
 				$this->hardware_asset_model->create($hardware_asset, $this->hardware_asset_model->get_fields());
+
+					
 				// Set a notification using notification method from Template.
 				// It is okay to redirect after and the notification will be displayed on the redirect page.
 				$this->template->notification('New hardware asset created.', 'success');
