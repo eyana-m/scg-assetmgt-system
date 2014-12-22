@@ -3,7 +3,7 @@
 <head>
 	<title><?php echo template('title'); ?> | Administration Panel</title>
 	<meta charset="utf-8">
-	<?php //echo template('mythos'); ?>
+	<?php echo template('mythos'); ?>
 	<script type="text/javascript" src="<?php echo res_url('mythos/js/jquery.min.js'); ?>"></script>
 	<?php echo template('bootstrap'); ?>
 	<?php echo template('head'); ?>

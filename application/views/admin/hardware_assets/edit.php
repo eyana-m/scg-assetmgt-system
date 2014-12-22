@@ -72,19 +72,47 @@
 		</tr>
 		<tr>
 			<th>Cost</th>
-			<td><input type="text" name="har_cost" class="form-control" value="" /></td>
+			<td>
+
+			<div class="input-group">
+				<span class="input-group-addon">Php</span> <input type="text" name="har_cost" class="form-control" value="" />
+			</div>
+
+
+
+			</td>
 		</tr>
 		<tr>
 			<th>Book Value</th>
-			<td><input type="text" name="har_book_value" class="form-control" value="" /></td>
+			<td>
+
+
+			<div class="input-group">
+				<span class="input-group-addon">Php</span> <input type="text" name="har_book_value" class="form-control" value="" disabled />
+			</div>
+
+			</td>
 		</tr>
+
 		<tr>
 			<th>Predetermined Value</th>
-			<td><input type="text" name="har_predetermined_value" class="form-control" value="" /></td>
+			<td>
+
+			<div class="input-group">
+				<span class="input-group-addon">Php</span> <input type="text" name="har_predetermined_value" class="form-control" value="" disabled />
+			</div>
+
+			</td>
 		</tr>
 		<tr>
 			<th>Asset Value</th>
-			<td><input type="text" name="har_asset_value" class="form-control" value="" /></td>
+			<td>
+
+			<div class="input-group">
+				<span class="input-group-addon">Php</span> <input type="text" name="har_asset_value" class="form-control" value="" disabled/>
+			</div>
+
+			</td>
 		</tr>
 		<tr>
 			<th>Date Added</th>

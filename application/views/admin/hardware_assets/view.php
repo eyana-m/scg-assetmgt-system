@@ -240,8 +240,11 @@
 	<div class="panel panel-success panel-personnel" style="margin-left: 0">
 		<div class="panel-heading">Asset Information</div>
 		<div class="panel-body">
-				<div class="col-xs-6 panel-personnel-content"><small>Barcode Number:</small></div>
-				<div class="col-xs-6 panel-personnel-content text-right"><?php echo number_format($hardware_asset->har_asset_number); ?></div>
+				<div class="col-xs-6 panel-personnel-content"><small>Barcode:</small></div>
+				<div class="col-xs-6 panel-personnel-content text-right"><?php echo $hardware_asset->har_barcode; ?></div>
+
+				<div class="col-xs-6 panel-personnel-content"><small>Asset Number:</small></div>
+				<div class="col-xs-6 panel-personnel-content text-right"><?php echo $hardware_asset->har_asset_number; ?></div>
 
 				<div class="col-xs-5 panel-personnel-content"><small>Model:</small></div>
 				<div class="col-xs-7 panel-personnel-content text-right"><?php echo $hardware_asset->har_model; ?></div>
@@ -250,7 +253,7 @@
 				<div class="col-xs-7 panel-personnel-content text-right"><?php echo $hardware_asset->har_asset_type; ?></div>
 
 				<div class="col-xs-5 panel-personnel-content"><small>ERF Number:</small></div>
-				<div class="col-xs-7 panel-personnel-content text-right"><?php echo number_format($hardware_asset->har_erf_number); ?></div>
+				<div class="col-xs-7 panel-personnel-content text-right"><?php echo $hardware_asset->har_erf_number; ?></div>
 
 				<div class="col-xs-5 panel-personnel-content"><small>Serial Number:</small></div>
 				<div class="col-xs-7 panel-personnel-content text-right"><?php echo $hardware_asset->har_serial_number; ?></div>
@@ -269,10 +272,10 @@
 				<div class="col-xs-6 panel-personnel-content text-right"><?php echo format_date($hardware_asset->har_date_added); ?></div>
 
 				<div class="col-xs-6 panel-personnel-content"><small>Technology Refresher:</small></div>
-				<div class="col-xs-6 panel-personnel-content text-right"> Feb 30, 2017 (3 Years)</div>
+				<div class="col-xs-6 panel-personnel-content text-right"> <?php echo format_date($hardware_asset->har_tech_refresher); ?> <br>(<?php echo $hardware_remaining; ?>)</div>
 	
 				<div class="col-xs-5 panel-personnel-content"><small>PO Number:</small></div>
-				<div class="col-xs-7 panel-personnel-content text-right"> <?php echo number_format($hardware_asset->har_po_number); ?></div>
+				<div class="col-xs-7 panel-personnel-content text-right"> <?php echo $hardware_asset->har_po_number; ?></div>
 		
 				<div class="col-xs-5 panel-personnel-content"><small>Cost:</small></div>
 				<div class="col-xs-7 panel-personnel-content text-right"><?php echo number_format($hardware_asset->har_cost, 2); ?></div>
@@ -282,7 +285,14 @@
 
 
 				<div class="col-xs-5 panel-personnel-content"><small>Predetermined Value:</small></div>
+
+				<?php if ($hardware_asset->har_tech_refresher > $current_date): ?>
+				<div class="col-xs-7 panel-personnel-content text-right">Not Yet Expired
+				</div>
+				<?php else: ?>
 				<div class="col-xs-7 panel-personnel-content text-right"><?php echo number_format($hardware_asset->har_predetermined_value, 2); ?></div>
+
+				<?php endif; ?>
 
 				<div class="col-xs-5 panel-personnel-content"><small>Asset Value:</small></div>
 				<div class="col-xs-7 panel-personnel-content text-right"><?php echo number_format($hardware_asset->har_asset_value, 2); ?></div>
