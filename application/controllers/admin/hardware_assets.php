@@ -370,8 +370,7 @@ class Hardware_assets extends CI_Controller
 		$page['hardware_remaining']  = $this->hardware_asset_model->get_remaining_years($hardware_asset->har_tech_refresher);
 
 		$audit_entries =  $this->audit_entry_model->get_by_hardware($hardware_asset_id);
-		// var_dump($audit_entries->result());
-		// die();
+
 
 		$page['audit_entries'] = $audit_entries;		
 
@@ -385,7 +384,11 @@ class Hardware_assets extends CI_Controller
 		$hardware_update['har_barcode'] = $hardware_asset_id;
 
 
+		//$current_audit_entry = $this->audit_entry_model->get_current_by_hardware($hardware_asset_id);
+
 		$current_audit_entry = $this->audit_entry_model->get_by_hardware($hardware_asset_id)->first_row();
+
+
 
 		$page['current_audit_entry'] = $current_audit_entry;
 
@@ -420,7 +423,15 @@ class Hardware_assets extends CI_Controller
 				endif;
 
 				$audit_entry['aud_har'] = $hardware_asset_id;
+
+				if ($audit_entry['aud_status'] == 'repair')
+				{
+					$audit_entry['aud_per'] = $current_audit_entry['emp_id'];
+				}
+				else 
+				{
 				$audit_entry['aud_per'] = null;
+				}
 
 				$this->audit_entry_model->create($audit_entry, $field_list);
 				$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);
@@ -461,7 +472,7 @@ class Hardware_assets extends CI_Controller
 
 		if($this->input->post('untag'))
 		{
-			$this->auto_inactive($field_list, $hardware_asset_id, $current_audit_entry);
+			$this->auto_stockroom($field_list, $hardware_asset_id, $current_audit_entry);
 			$current_audit_entry = $this->audit_entry_model->get_by_hardware($hardware_asset_id)->first_row();
 			$page['current_audit_entry'] = $current_audit_entry;
 
@@ -476,7 +487,7 @@ class Hardware_assets extends CI_Controller
 		$this->template->show();
 	}
 
-	private function auto_inactive($field_list, $hardware_asset_id, $current_audit_entry)
+	private function auto_stockroom($field_list, $hardware_asset_id, $current_audit_entry)
 	{
 		$audit_entry = array();
 		$hardware_update = array();
@@ -484,7 +495,7 @@ class Hardware_assets extends CI_Controller
 		$hardware_update['har_id'] = $hardware_asset_id;
 
 		$audit_entry['aud_datetime'] = date('Y-m-d H:i:s');
-		$audit_entry['aud_status'] = "inactive";
+		$audit_entry['aud_status'] = "stockroom";
 		$hardware_update['har_status'] = $audit_entry['aud_status'];
 
 		$name = $current_audit_entry->emp_first_name." ".$current_audit_entry->emp_last_name;
