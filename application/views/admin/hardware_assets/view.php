@@ -155,19 +155,30 @@
 		</div>
 
 		<?php endif; ?>
+
+
 		<div class="panel-footer">
-			<a href="<?php echo site_url('admin/hardware_assets/edit/' . $hardware_asset->har_barcode); ?>" class="btn btn-small btn-primary" style="font-size:12px">Update Details</a> <br><br>
+
+			<a href="<?php echo site_url('admin/hardware_assets/edit/' . $hardware_asset->har_barcode); ?>" class="btn btn-small btn-default" style="font-size:12px">Update Details</a>
+
+
+
+
+		<?php if($audit_entries->num_rows()): ?>	
 
 			<?php if ($current_audit_entry->aud_confirm != null): ?>
-
-
-			<a href="#confirmed"  role="button" data-toggle="modal" data-dismiss = "modal" class="btn btn-small btn-success" style="font-size:12px">Confirmed</a>
-
+				
+				<a href="#confirmed"  role="button" data-toggle="modal" data-dismiss = "modal" class="pull-right btn btn-small btn-info" style="font-size:12px">Acknowledged</a>
 
 			<?php else: ?>
-			<a href="#confirm" role="button" data-toggle="modal" data-dismiss = "modal"class="btn btn-small btn-warning" style="font-size:12px">Confirm</a>
+
+				<a href="#confirm" role="button" data-toggle="modal" data-dismiss = "modal"class="pull-right btn btn-small btn-danger" style="font-size:12px">Not yet acknowledged</a>
 
 			<?php endif; ?>
+
+		<?php endif; ?>
+
+
 		</div>
 	</div>
 
@@ -331,7 +342,7 @@
 <div id = "untag" class = "modal fade">
 	<div class = "modal-dialog">
 		<div class = "modal-content">
-			<div class = "modal-header">Untag Employee</div>
+			<div class = "modal-header"><h3>Untag Employee</h3></div>
 			<div class = "modal-body">
 				You're about to untag the following asset to the following employee:
 
@@ -409,7 +420,7 @@
 <div id = "confirm" class = "modal fade">
 	<div class = "modal-dialog">
 		<div class = "modal-content">
-			<div class = "modal-header">Upload Employee Confirmation</div>
+			<div class = "modal-header"><h3>Upload Employee Confirmation</h3></div>
 			<div class = "modal-body">
 				It's highly recommended ask an employee for an acknowledgement of the tagged asset.
 			<div class="well row" style="margin-top: 1em; background-color: #bbb; border-color: #bbb">
