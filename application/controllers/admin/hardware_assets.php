@@ -12,6 +12,7 @@ class Hardware_assets extends CI_Controller
 		$this->load->helper('url');
 		$this->load->helper('csv');
 		$this->load->helper('download');
+		$this->load->library('upload');
 		$this->load->helper(array('dompdf', 'file'));
 		$this->load->helper('file'); 
 
@@ -206,8 +207,6 @@ class Hardware_assets extends CI_Controller
 		$this->template->show();
 	}
 
-
-
 	public function create()
 	{
 		$this->template->title('Create Hardware Asset');
@@ -377,7 +376,7 @@ class Hardware_assets extends CI_Controller
 		$employees =  $this->employee_model->get_all();
 		$page['employees'] = $employees;
 
-		$field_list = array('aud_id', 'aud_datetime', 'aud_status', 'aud_comment', 'aud_har', 'aud_per');
+		$field_list = array('aud_id', 'aud_datetime', 'aud_status', 'aud_comment', 'aud_har', 'aud_per', 'aud_confirm');
 
 		$hardware_update = array();
 		$hardware_update_fields = array('har_barcode', 'har_status');
@@ -431,6 +430,8 @@ class Hardware_assets extends CI_Controller
 				else 
 				{
 				$audit_entry['aud_per'] = null;
+
+				$audit_entry['aud_confirm'] = null;	
 				}
 
 				$this->audit_entry_model->create($audit_entry, $field_list);
@@ -451,7 +452,7 @@ class Hardware_assets extends CI_Controller
 
 				$audit_entry['aud_har'] = $hardware_asset_id;
 				$audit_entry['aud_per'] = $this->input->post("emp_id");	
-				$audit_entry['aud_confirm'] = $this->input->post("aud_confirm");	
+				$audit_entry['aud_confirm'] = null;	
 
 
 				$this->audit_entry_model->create($audit_entry, $field_list);
@@ -484,6 +485,69 @@ class Hardware_assets extends CI_Controller
 			redirect('admin/hardware_assets/view/' . $hardware_asset_id);
 			$this->template->autofill($audit_entry);
 		}
+
+
+		if($this->input->post('confirm'))
+		{
+			$config =  array(
+                  'upload_path'     => dirname($_SERVER["SCRIPT_FILENAME"])."/uploads/confirmation",
+                  'upload_url'      => base_url()."uploads/confirmation/",
+                  'allowed_types'   => "gif|jpg|png|jpeg|pdf|mwb",
+                  'overwrite'       => TRUE,
+                  'max_size'        => "50MB"
+                );
+
+			$this->upload->initialize($config);
+
+			$file = $this->input->post("aud_confirm");	
+
+
+			if ( ! $this->upload->do_upload("aud_confirm"))
+			{
+				//$error = array('error' => $this->upload->display_errors());
+
+				$this->template->notification($this->upload->display_errors(), 'danger');
+			}
+			else
+			{
+
+		
+			// 'file_name'			=> $this->file_name,
+			// 'file_type'			=> $this->file_type,
+			// 'file_path'			=> $this->upload_path,
+			// 'full_path'			=> $this->upload_path.$this->file_name,
+			// 'raw_name'			=> str_replace($this->file_ext, '', $this->file_name),
+			// 'orig_name'			=> $this->orig_name,
+			// 'client_name'		=> $this->client_name,
+			// 'file_ext'			=> $this->file_ext,
+			// 'file_size'			=> $this->file_size,
+			// 'is_image'			=> $this->is_image(),
+			// 'image_width'		=> $this->image_width,
+			// 'image_height'		=> $this->image_height,
+			// 'image_type'		=> $this->image_type,
+			// 'image_size_str'	=> $this->image_size_str,
+					
+
+				$data =  $this->upload->data();
+
+				foreach ($current_audit_entry as $field => $value){
+					$audit_entry[$field] = $value;
+				}
+				
+				$audit_entry['aud_confirm'] = $data['full_path'];
+
+				$this->audit_entry_model->update($audit_entry, $field_list);
+			
+				$this->template->notification("Confirmation file ".$data['file_name']." uploaded! <br> Check this path: ".$data['full_path'] , 'success');
+
+			}
+
+
+
+
+		}
+
+
 
 		
 		$this->template->content('hardware_assets-view', $page);

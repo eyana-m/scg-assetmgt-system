@@ -56,8 +56,10 @@
 
 				?>
 				<td><?php echo format_datetime($next ->aud_datetime); ?></td>
-				<td><span class="label label-default">Untag</span>
-			</td>
+
+				<td>
+				<span class="label label-default">Untag</span>
+				</td>
     	</tr>
 
     	<?php endforeach; ?>

@@ -456,13 +456,15 @@
 
 			</div>
 
+
 			<div class="col-xs-12">
 			<div class="panel-personnel-content">
 				Upload confirmation file here. 
 			</div>
-			<form method="post" id="confirm">
+			<form method="post" id="confirm" enctype="multipart/form-data">
 
-				<input type="file" name="aud_confirm" id="aud_confirm" size="30" maxlength="30" value="" />
+
+				<input type="file" name="aud_confirm" id="aud_confirm" value="" />
 
 			</div>
 
