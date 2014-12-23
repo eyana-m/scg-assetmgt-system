@@ -15,10 +15,13 @@
 
 		<?php foreach($audit_entries->result() as $audit_entry): ?>
 			<tr>
-			<td><?php echo format_datetime($audit_entry->aud_datetime); ?></td>
+
+			<td>
+				<?php echo format_datetime($audit_entry->aud_datetime); ?>
+			</td>
 				
 
-				<td>
+			<td>
 
 			<?php if($audit_entry->aud_status=='active'):?>
 
@@ -32,7 +35,7 @@
 
 				<span class="label label-default"><?php echo $audit_entry->aud_status; ?></span>
 
-				</td>
+			</td>
 
 			<?php endif; ?>
 
@@ -57,13 +60,15 @@
 
 				<?php if ($audit_entry->aud_status == 'active'): ?>
 
-					<?php if ($audit_entry->aud_confirm != null): ?>
+					<?php if ($audit_entry->aud_confirm != null):  ?>
 						
-						<a href="#confirmed"  role="button" data-toggle="modal" data-dismiss = "modal" class="label label-info" style="font-size:10px">Acknowledged</a>
+						<a href="<?php echo site_url('admin/audit_entries/view/' . $audit_entry->aud_id); ?>"  role="button" class="label label-info" style="font-size:10px">Acknowledged</a>
+
+
 
 					<?php else: ?>
 
-						<a href="#confirm" role="button" data-toggle="modal" data-dismiss = "modal"class="label label-default" style="font-size:10px">Not yet</a>
+						<a href="<?php echo site_url('admin/audit_entries/view/' . $audit_entry->aud_id); ?>"  role="button" class="label label-danger" style="font-size:10px">Not yet</a>
 
 					<?php endif; ?>
 
@@ -78,7 +83,14 @@
 				</td>
 
 
+
 			</tr>
+
+
+
+
+
+
 
 		<?php endforeach; ?>
 	</table>
@@ -144,7 +156,7 @@
 					<strong><a href="<?php echo site_url('admin/employees/view/' . $current_audit_entry->emp_id); ?>"><?php echo $current_audit_entry->emp_first_name; ?> <?php echo $current_audit_entry->emp_last_name; ?></a>
 					</strong>
 
-				<?php if(($current_audit_entry->aud_status=='active')|| ($current_audit_entry->aud_status=='repair')):?>
+				<?php if(($current_audit_entry->aud_status=='active')):?>
 					<a href="#untag" style="text-decoration: none" role="button" data-toggle="modal" data-dismiss = "modal"><small>(untag)</small></a>
 				<?php endif; ?>
 				
@@ -216,12 +228,19 @@
 
 			<select name="aud_status" id="aud_status" class="input-medium form-control form-control-small">
 				<option value="">Select Status</option>
+
+			<?php if ($current_audit_entry->aud_status == 'repair') : ?>	
 				<option value="active">active</option>
+			<?php endif; ?>
+
 				<option value="stockroom">stockroom</option>
 				<option value="service unit">service unit</option>
 				<option value="for disposal">for disposal</option>
 				<option value="disposed">disposed</option>
+
+			<?php if ($current_audit_entry->aud_status == 'active'): ?>
 				<option value="repair">repair</option>
+			<?php endif; ?>	
 			</select>
 
 			<input type="text" class="form-control form-control-small" id="aud_comment" name="aud_comment" placeholder="Remark (e.g. 'Normal Condition')">
@@ -234,7 +253,7 @@
 
 
 <?php if ($audit_entries->num_rows()): ?>
-	<?php if($current_audit_entry->aud_status!=='active'): ?>
+	<?php if($current_audit_entry->aud_status!='active'): ?>
 
 		<div class="panel panel-default panel-personnel " style="margin-left: 0">
 			<div class="panel-heading">
@@ -305,7 +324,7 @@
 
 				<div class="col-xs-5 panel-personnel-content"><small>Model:</small></div>
 				<div class="col-xs-7 panel-personnel-content text-right"><?php echo $hardware_asset->har_model; ?></div>
-	
+
 				<div class="col-xs-5 panel-personnel-content"><small>Type:</small></div>
 				<div class="col-xs-7 panel-personnel-content text-right"><?php echo $hardware_asset->har_asset_type; ?></div>
 
@@ -314,7 +333,7 @@
 
 				<div class="col-xs-5 panel-personnel-content"><small>Serial Number:</small></div>
 				<div class="col-xs-7 panel-personnel-content text-right"><?php echo $hardware_asset->har_serial_number; ?></div>
-	
+
 
 				<div class="col-xs-5 panel-personnel-content"><small>Hostname:</small></div>
 				<div class="col-xs-7 panel-personnel-content text-right"><?php echo $hardware_asset->har_hostname; ?></div>
@@ -330,7 +349,7 @@
 
 				<div class="col-xs-6 panel-personnel-content"><small>Technology Refresher:</small></div>
 				<div class="col-xs-6 panel-personnel-content text-right"> <?php echo format_date($hardware_asset->har_tech_refresher); ?> <br>(<?php echo $hardware_remaining; ?>)</div>
-	
+
 				<div class="col-xs-5 panel-personnel-content"><small>PO Number:</small></div>
 				<div class="col-xs-7 panel-personnel-content text-right"> <?php echo $hardware_asset->har_po_number; ?></div>
 		
@@ -517,7 +536,7 @@
 </div>
 
 
-<!-- Confirmed: Image Upload-->
+<!-- Confirmed CURRENT: Image Upload-->
 <div id = "confirmed" class = "modal fade">
 	<div class = "modal-dialog">
 		<div class = "modal-content">

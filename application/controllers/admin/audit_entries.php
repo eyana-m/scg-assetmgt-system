@@ -9,6 +9,7 @@ class Audit_entries extends CI_Controller
 		$this->access_control->logged_in();
 		$this->access_control->account_type('admin', ' user', ' dev');
 		$this->access_control->validate();
+		$this->load->library('upload');
 
 		$this->load->model('audit_entry_model');
 	}
@@ -139,11 +140,62 @@ class Audit_entries extends CI_Controller
 		$page = array();
 		$page['audit_entry'] = $this->audit_entry_model->get_one($audit_entry_id);
 
+		$audit_entry = $page['audit_entry'];
+		$new_entry = array();
+
+		$field_list = array('aud_id', 'aud_datetime', 'aud_status', 'aud_comment', 'aud_har', 'aud_per', 'aud_confirm');
+
 		if($page['audit_entry'] === false)
 		{
 			$this->template->notification('Audit entry was not found.', 'error');
 			redirect('admin/audit_entries');
 		}
+		if($this->input->post('confirm'))
+		{
+			$config =  array(
+                  'upload_path'     => dirname($_SERVER["SCRIPT_FILENAME"])."/uploads/confirmation",
+                  'upload_url'      => base_url()."uploads/confirmation/",
+                  'allowed_types'   => "gif|jpg|png|jpeg|pdf|mwb",
+                  'overwrite'       => TRUE,
+                  'max_size'        => "1000MB"
+                );
+
+			$this->upload->initialize($config);
+
+			$file = $this->input->post("aud_confirm");	
+
+
+			if ( ! $this->upload->do_upload("aud_confirm"))
+			{
+				//$error = array('error' => $this->upload->display_errors());
+
+				$this->template->notification($this->upload->display_errors(), 'danger');
+			}
+			else
+			{
+
+				$data =  $this->upload->data();
+
+				foreach ($audit_entry as $field => $value){
+					$new_entry[$field] = $value;
+				}
+
+				
+				$new_entry['aud_confirm'] = $data['full_path'];
+
+				$this->audit_entry_model->update($new_entry, $field_list);
+			
+				$this->template->notification("Confirmation file ".$data['file_name']." uploaded! <br> Check this path: ".$data['full_path'] , 'success');
+
+			}
+
+		}
+
+
+
+
+
+
 		
 		$this->template->content('audit_entries-view', $page);
 		$this->template->show();

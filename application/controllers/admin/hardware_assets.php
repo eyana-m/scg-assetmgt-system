@@ -360,6 +360,8 @@ class Hardware_assets extends CI_Controller
 		$page = array();
 		$audit_entry = array();
 
+		$page['specific'] = "";
+
 		$page['current_date'] = date('Y-m-d');
 
 		$page['hardware_asset'] = $this->hardware_asset_model->get_one($hardware_asset_id);
