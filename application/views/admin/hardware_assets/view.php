@@ -281,6 +281,31 @@
 
 			</div>
 		</div>
+
+
+		<div class="panel panel-default panel-personnel " style="margin-left: 0">
+			<div class="panel-heading">
+			Manual Tag to Personnel
+			</div>
+			<div class="panel-body">
+
+			<form method="post" id="employee-tag-type">
+
+
+			<input type="number" class="form-control form-control-small" id="emp_id" name="emp_id" placeholder="Employee ID (e.g. '10000022')">
+
+			<input type="text" class="form-control form-control-small" id="aud_comment" name="aud_comment" placeholder="Remark (e.g. 'Normal Condition')">
+
+
+			<input type="submit" class="btn btn-small btn-warning pull-right" style="font-size:12px" name="submit" value="Tag">
+
+			</form>
+
+
+
+			</div>
+		</div>
+
 	<?php endif;?>
 
 <?php else:?>
@@ -466,7 +491,7 @@
 		<div class = "modal-content">
 			<div class = "modal-header"><h3>Upload Employee Confirmation</h3></div>
 			<div class = "modal-body">
-				It's highly recommended ask an employee for an acknowledgement of the tagged asset.
+				0It's highly recommended ask an employee for an acknowledgement of the tagged asset.
 			<div class="well row" style="margin-top: 1em; background-color: #bbb; border-color: #bbb">
 
 
