@@ -108,7 +108,7 @@
 
 		</div>
 		<div class="panel-footer">
-			<a href="<?php echo site_url('admin/employees/edit/' . $employee->emp_id); ?>" class="btn btn-primary">Edit</a>
+			<a href="<?php echo site_url('admin/employees/edit/' . $employee->emp_id); ?>" class="btn btn-primary">Edit Employee Details</a>
 		</div>
 	</div>
 

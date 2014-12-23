@@ -6,7 +6,7 @@ class Audit_entry_model extends Base_model
 	{
 		// List all fields of the table.
 		// Primary key must be auto-increment and must be listed here first.
-		$fields = array('aud_id', 'aud_datetime', 'aud_status', 'aud_comment', 'aud_har', 'aud_per');
+		$fields = array('aud_id', 'aud_datetime', 'aud_status', 'aud_comment', 'aud_har', 'aud_per', 'aud_confirm');
 		// Call the parent constructor with the table name and fields as parameters.
 		parent::__construct('audit_entry', $fields);
 	}

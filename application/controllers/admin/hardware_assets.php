@@ -451,6 +451,8 @@ class Hardware_assets extends CI_Controller
 
 				$audit_entry['aud_har'] = $hardware_asset_id;
 				$audit_entry['aud_per'] = $this->input->post("emp_id");	
+				$audit_entry['aud_confirm'] = $this->input->post("aud_confirm");	
+
 
 				$this->audit_entry_model->create($audit_entry, $field_list);
 				$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);	

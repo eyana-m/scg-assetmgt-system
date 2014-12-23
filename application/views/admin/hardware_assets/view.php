@@ -10,6 +10,7 @@
 			<th>Office</th>
 			<th>Department</th>
 			<th>Remarks</th>
+			<th>Actions</th>
 		</thead>
 
 		<?php foreach($audit_entries->result() as $audit_entry): ?>
@@ -48,6 +49,14 @@
 
 				<td><?php echo $audit_entry->emp_department; ?></td>
 				<td><small><?php echo $audit_entry->aud_comment; ?></small></td>
+
+
+
+				<td>
+				<span class="label label-default">Confirm</span>
+				</td>
+
+
 			</tr>
 
 		<?php endforeach; ?>
@@ -146,6 +155,20 @@
 		</div>
 
 		<?php endif; ?>
+		<div class="panel-footer">
+			<a href="<?php echo site_url('admin/hardware_assets/edit/' . $hardware_asset->har_barcode); ?>" class="btn btn-small btn-primary" style="font-size:12px">Update Details</a> <br><br>
+
+			<?php if ($current_audit_entry->aud_confirm != null): ?>
+
+
+			<a href="#confirmed" style="text-decoration: none" role="button" data-toggle="modal" data-dismiss = "modal" class="btn btn-small btn-success" style="font-size:10px">Confirmed</a>
+
+
+			<?php else: ?>
+			<a href="#confirm" style="text-decoration: none" role="button" data-toggle="modal" data-dismiss = "modal"class="btn btn-small btn-warning" style="font-size:10px">Confirm</a>
+
+			<?php endif; ?>
+		</div>
 	</div>
 
 	<div class="panel panel-default panel-personnel " style="margin-left: 0">
@@ -193,6 +216,7 @@
 			</select> 
 
 			<input type="text" class="form-control form-control-small" id="aud_comment" name="aud_comment" placeholder="Remark (e.g. 'Normal Condition')">
+
 
 			<input type="submit" class="btn btn-small btn-warning pull-right" style="font-size:12px" name="submit" value="Tag">
 
