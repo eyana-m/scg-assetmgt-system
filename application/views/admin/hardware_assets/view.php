@@ -327,7 +327,7 @@
 </div>
 
 
-<!-- SCAN BARCODE to TAG-->
+<!-- Untag from Employee-->
 <div id = "untag" class = "modal fade">
 	<div class = "modal-dialog">
 		<div class = "modal-content">
@@ -405,7 +405,7 @@
 </div>
 
 
-<!-- Confirm-->
+<!-- Confirm: Upload Acknowledgment File-->
 <div id = "confirm" class = "modal fade">
 	<div class = "modal-dialog">
 		<div class = "modal-content">
@@ -475,6 +475,42 @@
 				<input class ="btn btn-danger no-border-radius" type="submit" name="confirm" value="Confirm">
 			</form>
 				<button class ="btn btn-default no-border-radius" data-dismiss = "modal">Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Confirmed: Image Upload-->
+<div id = "confirmed" class = "modal fade">
+	<div class = "modal-dialog">
+		<div class = "modal-content">
+			<div class = "modal-header"> <h3>View Tagged Asset Acknowledgement</h3></div>
+			<div class = "modal-body">
+
+			<center><img src="<?php echo base_url() ?>.<?php echo substr($current_audit_entry->aud_confirm, 28); ?>" class="img img-responsive"></center>
+
+			
+			<br>
+			<div class="col-xs-12">
+				<div class="col-xs-5 panel-personnel-content"><strong>Path: </strong></div>
+				<div class="col-xs-7 panel-personnel-content">
+					<?php echo $current_audit_entry->aud_confirm; ?>
+				</div>	
+				<div class="col-xs-5 panel-personnel-content"><strong>Employee: </strong></div>
+				<div class="col-xs-7 panel-personnel-content">
+					<?php echo $current_audit_entry->emp_first_name; ?> <?php echo $current_audit_entry->emp_last_name; ?>
+				</div>
+				<div class="col-xs-5 panel-personnel-content"><strong>Asset: </strong></div>
+				<div class="col-xs-7 panel-personnel-content">
+					<?php echo $hardware_asset->har_barcode; ?>
+				</div>		
+			</div>
+               
+			</div>
+			<div class = "modal-footer">
+			
+				<button class ="btn btn-default no-border-radius" data-dismiss = "modal">Close</button>
 			</div>
 		</div>
 	</div>

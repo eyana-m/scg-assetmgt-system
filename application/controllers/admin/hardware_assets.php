@@ -494,7 +494,7 @@ class Hardware_assets extends CI_Controller
                   'upload_url'      => base_url()."uploads/confirmation/",
                   'allowed_types'   => "gif|jpg|png|jpeg|pdf|mwb",
                   'overwrite'       => TRUE,
-                  'max_size'        => "50MB"
+                  'max_size'        => "1000MB"
                 );
 
 			$this->upload->initialize($config);
@@ -533,6 +533,7 @@ class Hardware_assets extends CI_Controller
 				foreach ($current_audit_entry as $field => $value){
 					$audit_entry[$field] = $value;
 				}
+
 				
 				$audit_entry['aud_confirm'] = $data['full_path'];
 
@@ -542,10 +543,8 @@ class Hardware_assets extends CI_Controller
 
 			}
 
-
-
-
 		}
+
 
 
 
