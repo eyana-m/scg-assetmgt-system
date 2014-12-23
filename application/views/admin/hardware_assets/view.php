@@ -10,7 +10,7 @@
 			<th>Office</th>
 			<th>Department</th>
 			<th>Remarks</th>
-			<th>Actions</th>
+			<th>Acknowledged?</th>
 		</thead>
 
 		<?php foreach($audit_entries->result() as $audit_entry): ?>
@@ -53,7 +53,28 @@
 
 
 				<td>
-				<span class="label label-default">Confirm</span>
+
+
+				<?php if ($audit_entry->aud_status == 'active'): ?>
+
+					<?php if ($audit_entry->aud_confirm != null): ?>
+						
+						<a href="#confirmed"  role="button" data-toggle="modal" data-dismiss = "modal" class="label label-info" style="font-size:10px">Acknowledged</a>
+
+					<?php else: ?>
+
+						<a href="#confirm" role="button" data-toggle="modal" data-dismiss = "modal"class="label label-default" style="font-size:10px">Not yet</a>
+
+					<?php endif; ?>
+
+				<?php else: ?>
+
+						<span>N/A</span>
+
+				<?php endif; ?>
+
+
+
 				</td>
 
 
@@ -164,15 +185,19 @@
 
 
 
-		<?php if($audit_entries->num_rows()): ?>	
+		<?php if($audit_entries->num_rows()): ?>
 
-			<?php if ($current_audit_entry->aud_confirm != null): ?>
-				
-				<a href="#confirmed"  role="button" data-toggle="modal" data-dismiss = "modal" class="pull-right btn btn-small btn-info" style="font-size:12px">Acknowledged</a>
+			<?php if($current_audit_entry->aud_status=='active'):	?>
 
-			<?php else: ?>
+				<?php if ($current_audit_entry->aud_confirm != null): ?>
+					
+					<a href="#confirmed"  role="button" data-toggle="modal" data-dismiss = "modal" class="pull-right btn btn-small btn-info" style="font-size:12px">Acknowledged</a>
 
-				<a href="#confirm" role="button" data-toggle="modal" data-dismiss = "modal"class="pull-right btn btn-small btn-danger" style="font-size:12px">Not yet acknowledged</a>
+				<?php else: ?>
+
+					<a href="#confirm" role="button" data-toggle="modal" data-dismiss = "modal"class="pull-right btn btn-small btn-danger" style="font-size:12px">Not yet acknowledged</a>
+
+				<?php endif; ?>
 
 			<?php endif; ?>
 
