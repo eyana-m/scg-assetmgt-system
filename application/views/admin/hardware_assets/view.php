@@ -161,11 +161,11 @@
 			<?php if ($current_audit_entry->aud_confirm != null): ?>
 
 
-			<a href="#confirmed" style="text-decoration: none" role="button" data-toggle="modal" data-dismiss = "modal" class="btn btn-small btn-success" style="font-size:10px">Confirmed</a>
+			<a href="#confirmed"  role="button" data-toggle="modal" data-dismiss = "modal" class="btn btn-small btn-success" style="font-size:12px">Confirmed</a>
 
 
 			<?php else: ?>
-			<a href="#confirm" style="text-decoration: none" role="button" data-toggle="modal" data-dismiss = "modal"class="btn btn-small btn-warning" style="font-size:10px">Confirm</a>
+			<a href="#confirm" role="button" data-toggle="modal" data-dismiss = "modal"class="btn btn-small btn-warning" style="font-size:12px">Confirm</a>
 
 			<?php endif; ?>
 		</div>
@@ -397,6 +397,80 @@
 			<div class = "modal-footer">
 			
 				<input class ="btn btn-danger no-border-radius" type="submit" name="untag" value="Untag">
+			</form>
+				<button class ="btn btn-default no-border-radius" data-dismiss = "modal">Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Confirm-->
+<div id = "confirm" class = "modal fade">
+	<div class = "modal-dialog">
+		<div class = "modal-content">
+			<div class = "modal-header">Upload Employee Confirmation</div>
+			<div class = "modal-body">
+				It's highly recommended ask an employee for an acknowledgement of the tagged asset.
+			<div class="well row" style="margin-top: 1em; background-color: #bbb; border-color: #bbb">
+
+
+			<div class="col-xs-6">
+				<div class="col-xs-5 panel-personnel-content">Employee:</div>
+				<div class="col-xs-7 panel-personnel-content">
+					<strong><?php echo $current_audit_entry->emp_first_name; ?> <?php echo $current_audit_entry->emp_last_name; ?>
+					</strong>					
+				</div>
+
+				<div class="col-xs-5 panel-personnel-content">Department:</div>
+				<div class="col-xs-7 panel-personnel-content">
+					<?php echo $current_audit_entry->emp_department; ?> 
+				</div>	
+
+				<div class="col-xs-5 panel-personnel-content">Office:</div>
+				<div class="col-xs-7 panel-personnel-content">
+					<?php echo $current_audit_entry->emp_office; ?> 
+				</div>		
+			</div>
+
+
+			<div class="col-xs-6">
+
+				<div class="col-xs-5 panel-personnel-content">Asset Type:</div>
+				<div class="col-xs-7 panel-personnel-content">
+					<strong><?php echo $hardware_asset->har_asset_type; ?></strong>
+					
+				</div>
+
+				<div class="col-xs-5 panel-personnel-content">Asset Model:</div>
+				<div class="col-xs-7 panel-personnel-content">
+					<?php echo $hardware_asset->har_model; ?> 
+				</div>	
+
+				<div class="col-xs-5 panel-personnel-content">Barcode:</div>
+				<div class="col-xs-7 panel-personnel-content">
+					<?php echo $hardware_asset->har_barcode; ?> 
+				</div>	
+
+			</div>	
+
+			</div>
+
+			<div class="col-xs-12">
+			<div class="panel-personnel-content">
+				Upload confirmation file here. 
+			</div>
+			<form method="post" id="confirm">
+
+				<input type="file" name="aud_confirm" id="aud_confirm" size="30" maxlength="30" value="" />
+
+			</div>
+
+
+			</div>
+			<div class = "modal-footer">
+			
+				<input class ="btn btn-danger no-border-radius" type="submit" name="confirm" value="Confirm">
 			</form>
 				<button class ="btn btn-default no-border-radius" data-dismiss = "modal">Cancel</button>
 			</div>
