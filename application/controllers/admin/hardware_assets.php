@@ -583,6 +583,7 @@ class Hardware_assets extends CI_Controller
 	{
 		$data = $this->extract->post();
 		$bc = $data["barcode"];
+		$this->template->notification('Hardware found!', 'success');
 		redirect('admin/hardware_assets/view/'.$bc);
 	}
 
