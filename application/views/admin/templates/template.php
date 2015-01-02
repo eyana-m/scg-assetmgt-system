@@ -141,9 +141,7 @@
 				<div class="jumbotron">
 					<h2 class="exo-font" style="margin-top:10px;">Scan Now...</h2>
 					<form  method="post" action="<?php echo site_url("admin/hardware_assets/catch_barcode"); ?>"  name="barcode-form" id="barcode-form">
-					  <fieldset>
-					    <input id="barcode" name="barcode" type="text">
-					  </fieldset>
+					    <input id="barcode" class="form-control" name="barcode" type="text" autofocus>
 					</form>
 				</div>
 			</div></center>
@@ -167,36 +165,32 @@ $('#barcode').on("input", function() {
 
    var bc;
    setTimeout(function() {
-      	bc = $("input:text[name=barcode]").val();
-        console.log("hello");
-        //ajax_call(bc);	
-        
+      	bc = $("input:text[name=barcode]").val(); 
     }, 2000);
-
 
    $("form#barcode-form").submit();
 
 });
 
-function ajax_call(barcode){
+// function ajax_call(barcode){
 			
-			var request = $.ajax({					
-				url: '<?php echo site_url("admin/hardware_assets/catch_barcode"); ?>',
-				type: "POST",	
-				data: { barcode : barcode },
-				dataType: "json"
-			});
+// 			var request = $.ajax({					
+// 				url: '<?php echo site_url("admin/hardware_assets/catch_barcode"); ?>',
+// 				type: "POST",	
+// 				data: { barcode : barcode },
+// 				dataType: "json"
+// 			});
 			 
-			request.done(function( msg ) {
-				//var x = msg["xaxis"];
+// 			request.done(function( msg ) {
+// 				//var x = msg["xaxis"];
 
-				alert(msg);
-			});
+// 				alert(msg);
+// 			});
 			 
-			request.fail(function( jqXHR, textStatus ) {
-				alert( "Request failed: " + textStatus );
-			});
-	}
+// 			request.fail(function( jqXHR, textStatus ) {
+// 				alert( "Request failed: " + textStatus );
+// 			});
+// 	}
 
 
 
