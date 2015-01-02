@@ -3,8 +3,9 @@
 <head>
 	<title><?php echo template('title'); ?> | Administration Panel</title>
 	<meta charset="utf-8">	
-	<?php echo template('mythos'); ?>
+	<?php //echo template('mythos'); ?>
 	<script type="text/javascript" src="<?php echo res_url('mythos/js/jquery.min.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo res_url('mythos/js/jquery-ui-1.8.16.custom.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo res_url('mythos/js/jquery.floodling.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo res_url('mythos/js/jquery.validate.complete.min.js'); ?>"></script>
 
@@ -139,6 +140,11 @@
 			<center><div class = "modal-body">
 				<div class="jumbotron">
 					<h2 class="exo-font" style="margin-top:10px;">Scan Now...</h2>
+					<form  method="post" action="<?php echo site_url("admin/hardware_assets/catch_barcode"); ?>"  name="barcode-form" id="barcode-form">
+					  <fieldset>
+					    <input id="barcode" name="barcode" type="text">
+					  </fieldset>
+					</form>
 				</div>
 			</div></center>
 			<div class = "modal-footer">
@@ -152,3 +158,46 @@
 
 </body>
 </html>
+
+<script type="text/javascript">
+
+
+
+$('#barcode').on("input", function() {
+
+   var bc;
+   setTimeout(function() {
+      	bc = $("input:text[name=barcode]").val();
+        console.log("hello");
+        //ajax_call(bc);	
+        
+    }, 2000);
+
+
+   $("form#barcode-form").submit();
+
+});
+
+function ajax_call(barcode){
+			
+			var request = $.ajax({					
+				url: '<?php echo site_url("admin/hardware_assets/catch_barcode"); ?>',
+				type: "POST",	
+				data: { barcode : barcode },
+				dataType: "json"
+			});
+			 
+			request.done(function( msg ) {
+				//var x = msg["xaxis"];
+
+				alert(msg);
+			});
+			 
+			request.fail(function( jqXHR, textStatus ) {
+				alert( "Request failed: " + textStatus );
+			});
+	}
+
+
+
+</script>

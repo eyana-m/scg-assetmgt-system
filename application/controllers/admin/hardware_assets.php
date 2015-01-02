@@ -579,47 +579,14 @@ class Hardware_assets extends CI_Controller
 	}
 
 
-	function export_information_excel($DB_TBLName, $sql, $filename)
+	public function catch_barcode()
 	{
-		$result = mysql_query($sql) or die (mysql_error());
-		    
-		$file_ending = "xls";
-
-		header("Content-Type: application/xls");    
-		header("Content-Disposition: attachment; filename=$filename.xls");  
-		header("Pragma: no-cache"); 
-		header("Expires: 0");
-
-		$sep = "\t"; //tabbed character
-		
-		for ($i = 0; $i < mysql_num_fields($result); $i++) 
-		{
-		echo mysql_field_name($result,$i) . "\t";
-		}
-		print("\n");    
-	//end of printing column names  
-	//start while loop to get data
-	    while($row = mysql_fetch_row($result))
-	    {
-	        $schema_insert = "";
-	        for($j=0; $j<mysql_num_fields($result);$j++)
-	        {
-	            if(!isset($row[$j]))
-	                $schema_insert .= "NULL".$sep;
-	            elseif ($row[$j] != "")
-	                $schema_insert .= "$row[$j]".$sep;
-	            else
-	                $schema_insert .= "".$sep;
-	        }
-	        $schema_insert = str_replace($sep."$", "", $schema_insert);
-	        $schema_insert = preg_replace("/\r\n|\n\r|\n|\r/", " ", $schema_insert);
-	        $schema_insert .= "\t";
-	        print(trim($schema_insert));
-	        print "\n";
-	    } 
-	}	
+		$data = $this->extract->post();
+		$bc = $data["barcode"];
+		redirect('admin/hardware_assets/view/'.$bc);
+	}
 
 
 
 
-}
+}															
