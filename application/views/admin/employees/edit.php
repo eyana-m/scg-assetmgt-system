@@ -13,6 +13,10 @@
 			<td><input type="text" name="emp_middle_name" size="30" maxlength="30" value="" /></td>
 		</tr>
 		<tr>
+			<th>Email</th>
+			<td><input type="email" name="emp_email" size="30" maxlength="30" value="" /></td>
+		</tr>
+		<tr>
 			<th>Position</th>
 			<td><input type="text" name="emp_position" size="30" maxlength="30" value="" /></td>
 		</tr>

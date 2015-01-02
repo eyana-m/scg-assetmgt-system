@@ -6,7 +6,7 @@ class Employee_model extends Base_model
 	{
 		// List all fields of the table.
 		// Primary key must be auto-increment and must be listed here first.
-		$fields = array('emp_id', 'emp_last_name', 'emp_first_name', 'emp_middle_name', 'emp_position', 'emp_department', 'emp_office');
+		$fields = array('emp_id', 'emp_last_name', 'emp_first_name', 'emp_middle_name', 'emp_email','emp_position', 'emp_department', 'emp_office');
 		// Call the parent constructor with the table name and fields as parameters.
 		parent::__construct('employee', $fields);
 	}

@@ -118,6 +118,7 @@ class Employees extends CI_Controller
 		$this->form_validation->set_rules('emp_last_name', 'Last Name', 'trim|required|max_length[30]');
 		$this->form_validation->set_rules('emp_first_name', 'First Name', 'trim|required|max_length[30]');
 		$this->form_validation->set_rules('emp_middle_name', 'Middle Name', 'trim|required|max_length[30]');
+		$this->form_validation->set_rules('emp_email', 'Email', 'trim|required|max_length[30]');
 		$this->form_validation->set_rules('emp_position', 'Position', 'trim|required|max_length[30]');
 		$this->form_validation->set_rules('emp_department', 'Department', 'trim|required|max_length[30]');
 		$this->form_validation->set_rules('emp_office', 'Office', 'trim|required');
@@ -163,6 +164,7 @@ class Employees extends CI_Controller
 		$this->form_validation->set_rules('emp_last_name', 'Last Name', 'trim|required|max_length[30]');
 		$this->form_validation->set_rules('emp_first_name', 'First Name', 'trim|required|max_length[30]');
 		$this->form_validation->set_rules('emp_middle_name', 'Middle Name', 'trim|required|max_length[30]');
+		$this->form_validation->set_rules('emp_email', 'Email', 'trim|required|max_length[30]');
 		$this->form_validation->set_rules('emp_position', 'Position', 'trim|required|max_length[30]');
 		$this->form_validation->set_rules('emp_department', 'Department', 'trim|required|max_length[30]');
 		$this->form_validation->set_rules('emp_office', 'Office', 'trim|required');
