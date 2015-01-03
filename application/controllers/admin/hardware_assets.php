@@ -216,7 +216,7 @@ class Hardware_assets extends CI_Controller
 		// Already combined with jQuery. No extra coding required for JS validation.
 		// We get both JS and PHP validation which makes it both secure and user friendly.
 		// NOTE: Set the rules before you check if $_POST is set so that the jQuery validation will work.
-		$this->form_validation->set_rules('har_asset_number', 'Asset Number', 'trim|required|integer|max_length[11]');
+		$this->form_validation->set_rules('har_asset_number', 'Asset Number', 'trim|required|integer|max_length[15]');
 		$this->form_validation->set_rules('har_asset_type', 'Asset Type', 'trim|required');
 		$this->form_validation->set_rules('har_erf_number', 'Erf Number', 'trim|required|integer|max_length[11]');
 		$this->form_validation->set_rules('har_model', 'Model', 'trim|required|max_length[30]');
@@ -286,7 +286,7 @@ class Hardware_assets extends CI_Controller
 		$this->template->title('Edit Asset: '.$har_barcode);
 
 
-		$this->form_validation->set_rules('har_asset_number', 'Asset Number', 'trim|required|integer|max_length[11]');
+		$this->form_validation->set_rules('har_asset_number', 'Asset Number', 'trim|required|integer|max_length[15]');
 		$this->form_validation->set_rules('har_asset_type', 'Asset Type', 'trim|required');
 		$this->form_validation->set_rules('har_erf_number', 'Erf Number', 'trim|required|integer|max_length[11]');
 		$this->form_validation->set_rules('har_model', 'Model', 'trim|required|max_length[30]');
@@ -378,7 +378,7 @@ class Hardware_assets extends CI_Controller
 		$employees =  $this->employee_model->get_all();
 		$page['employees'] = $employees;
 
-		$field_list = array('aud_id', 'aud_datetime', 'aud_status', 'aud_comment', 'aud_har', 'aud_per', 'aud_confirm');
+		$field_list = array('aud_id', 'aud_datetime', 'aud_status', 'aud_comment', 'aud_har', 'aud_per', 'aud_confirm', 'aud_untag');
 
 		$hardware_update = array();
 		$hardware_update_fields = array('har_barcode', 'har_status');
@@ -409,9 +409,9 @@ class Hardware_assets extends CI_Controller
 			
 			if($this->input->post('aud_status'))
 			{
-				// if($current_audit_entry->aud_status=='active'):
-				// 	$this->auto_inactive($field_list, $hardware_asset_id, $current_audit_entry);
-				// endif;
+				if($current_audit_entry->aud_status=='active'):
+				 	$this->auto_untag($current_audit_entry);				
+				endif;
 
 				$audit_entry['aud_status'] = $this->input->post('aud_status');
 
@@ -443,6 +443,7 @@ class Hardware_assets extends CI_Controller
 			}
 			elseif($this->input->post("emp_id"))
 			{
+
 				$audit_entry['aud_status'] = 'active';	
 				$hardware_update['har_status'] = $audit_entry['aud_status'];
 
@@ -455,6 +456,7 @@ class Hardware_assets extends CI_Controller
 				$audit_entry['aud_har'] = $hardware_asset_id;
 				$audit_entry['aud_per'] = $this->input->post("emp_id");	
 				$audit_entry['aud_confirm'] = null;	
+				$audit_entry['aud_untag'] = FALSE;	
 
 
 				$this->audit_entry_model->create($audit_entry, $field_list);
@@ -477,6 +479,9 @@ class Hardware_assets extends CI_Controller
 
 		if($this->input->post('untag'))
 		{
+			if($current_audit_entry->aud_status=='active'):
+			 	$this->auto_untag($current_audit_entry);				
+			endif;
 			$new_status = $this->input->post("aud_status");	
 			$this->auto_stockroom($field_list, $hardware_asset_id, $current_audit_entry, $new_status);
 			$current_audit_entry = $this->audit_entry_model->get_by_hardware($hardware_asset_id)->first_row();
@@ -576,6 +581,20 @@ class Hardware_assets extends CI_Controller
 		$this->audit_entry_model->create($audit_entry, $field_list);
 		$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);			
 
+	}
+
+
+	private function auto_untag($current_audit_entry)
+	{
+		$audit_update = array();
+		$audit_update_fields = array('aud_id', 'aud_untag');
+
+		//print_r($current_audit_entry->aud_id); die();
+
+		$audit_update['aud_id'] = $current_audit_entry->aud_id;
+		$audit_update['aud_untag'] = TRUE;
+
+		$this->audit_entry_model->update($audit_update, $audit_update_fields);	
 	}
 
 
