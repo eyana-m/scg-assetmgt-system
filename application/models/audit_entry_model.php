@@ -6,7 +6,7 @@ class Audit_entry_model extends Base_model
 	{
 		// List all fields of the table.
 		// Primary key must be auto-increment and must be listed here first.
-		$fields = array('aud_id', 'aud_datetime', 'aud_status', 'aud_comment', 'aud_har', 'aud_per', 'aud_confirm', 'aud_untag');
+		$fields = array('aud_id', 'aud_datetime', 'aud_status', 'aud_comment', 'aud_har', 'aud_per', 'aud_confirm', 'aud_untag', 'aud_date_untagged');
 		// Call the parent constructor with the table name and fields as parameters.
 		parent::__construct('audit_entry', $fields);
 	}
@@ -34,7 +34,8 @@ class Audit_entry_model extends Base_model
 	{
 		$this->db->join('hardware_asset', "hardware_asset.har_barcode= {$this->table}.aud_har");				
 		$this->db->join('employee', "employee.emp_id = {$this->table}.aud_per", 'Right');
-		$this->db->where('aud_per', $emp_id);	
+		$this->db->where('aud_per', $emp_id);
+		$this->db->where('aud_untag', FALSE);	
 		$this->db->order_by("aud_id","desc");
 		$query = $this->db->get($this->table); // Use $this->table to get the table name
 

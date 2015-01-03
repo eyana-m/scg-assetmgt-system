@@ -378,7 +378,7 @@ class Hardware_assets extends CI_Controller
 		$employees =  $this->employee_model->get_all();
 		$page['employees'] = $employees;
 
-		$field_list = array('aud_id', 'aud_datetime', 'aud_status', 'aud_comment', 'aud_har', 'aud_per', 'aud_confirm', 'aud_untag');
+		$field_list = array('aud_id', 'aud_datetime', 'aud_status', 'aud_comment', 'aud_har', 'aud_per', 'aud_confirm', 'aud_untag', 'aud_date_untagged');
 
 		$hardware_update = array();
 		$hardware_update_fields = array('har_barcode', 'har_status');
@@ -457,6 +457,8 @@ class Hardware_assets extends CI_Controller
 				$audit_entry['aud_per'] = $this->input->post("emp_id");	
 				$audit_entry['aud_confirm'] = null;	
 				$audit_entry['aud_untag'] = FALSE;	
+				$audit_entry['aud_date_untagged'] = null;	
+
 
 
 				$this->audit_entry_model->create($audit_entry, $field_list);
@@ -587,12 +589,15 @@ class Hardware_assets extends CI_Controller
 	private function auto_untag($current_audit_entry)
 	{
 		$audit_update = array();
-		$audit_update_fields = array('aud_id', 'aud_untag');
+		$audit_update_fields = array('aud_id', 'aud_untag', 'aud_date_untagged');
 
 		//print_r($current_audit_entry->aud_id); die();
 
 		$audit_update['aud_id'] = $current_audit_entry->aud_id;
 		$audit_update['aud_untag'] = TRUE;
+		$audit_update['aud_date_untagged'] = date('Y-m-d H:i:s');
+	
+
 
 		$this->audit_entry_model->update($audit_update, $audit_update_fields);	
 	}
