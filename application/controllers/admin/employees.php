@@ -154,13 +154,13 @@ class Employees extends CI_Controller
 
 	public function edit($emp_id)
 	{
-		$this->template->title('Edit Employee <small>'.$emp_id.'</small>');
+		$this->template->title('Edit Employee '.$emp_id);
 
 
 
 
 
-
+		//$this->form_validation->set_rules('emp_id', 'ID Number', 'trim|required|integer|max_length[10]');
 		$this->form_validation->set_rules('emp_last_name', 'Last Name', 'trim|required|max_length[30]');
 		$this->form_validation->set_rules('emp_first_name', 'First Name', 'trim|required|max_length[30]');
 		$this->form_validation->set_rules('emp_middle_name', 'Middle Name', 'trim|required|max_length[30]');
@@ -178,7 +178,7 @@ class Employees extends CI_Controller
 				$rows_affected = $this->employee_model->update($employee, $this->form_validation->get_fields());
 
 				$this->template->notification('Employee updated.', 'success');
-				redirect('admin/employees');
+				redirect('admin/employees/view/'.$emp_id);
 			}
 			else
 			{
