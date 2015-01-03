@@ -11,7 +11,6 @@
 			<th>Status</th>
 			<th>Remarks</th>
 			<th>Date Assigned</th>
-			<th>Date Untagged</th>
 			<th>Actions</th>
 		</thead>
 
@@ -43,7 +42,6 @@
 
 
 
-
 				</td>
 
 				<td><?php echo nl2br($audit_entry->aud_comment); ?></td>
@@ -55,10 +53,10 @@
 
 
 				?>
-				<td><?php echo format_datetime($next ->aud_datetime); ?></td>
+
 
 				<td>
-				<span class="label label-default">Untag</span>
+			<a href="#untag" class="label label-default" style="text-decoration: none" role="button" data-toggle="modal" data-dismiss = "modal">untag</a>
 				</td>
     	</tr>
 
@@ -140,4 +138,83 @@
 	</div>
 
 
+</div>
+
+
+
+<!-- Untag from Employee-->
+<div id = "untag" class = "modal fade">
+	<div class = "modal-dialog">
+		<div class = "modal-content">
+			<div class = "modal-header"><h3>Untag Employee</h3></div>
+			<div class = "modal-body">
+				You're about to untag the following asset to the following employee:
+
+			<div class="well row" style="margin-top: 1em; background-color: #bbb; border-color: #bbb">
+
+
+			<div class="col-xs-6">
+				<div class="col-xs-5 panel-personnel-content">Employee:</div>
+				<div class="col-xs-7 panel-personnel-content">
+					<strong><?php echo $current_audit_entry->emp_first_name; ?> <?php echo $current_audit_entry->emp_last_name; ?>
+					</strong>					
+				</div>
+
+				<div class="col-xs-5 panel-personnel-content">Department:</div>
+				<div class="col-xs-7 panel-personnel-content">
+					<?php echo $current_audit_entry->emp_department; ?> 
+				</div>	
+
+				<div class="col-xs-5 panel-personnel-content">Office:</div>
+				<div class="col-xs-7 panel-personnel-content">
+					<?php echo $current_audit_entry->emp_office; ?> 
+				</div>		
+			</div>
+
+
+			<div class="col-xs-6">
+
+				<div class="col-xs-5 panel-personnel-content">Asset Type:</div>
+				<div class="col-xs-7 panel-personnel-content">
+					<strong><?php echo $current_audit_entry->har_asset_type; ?></strong>
+					
+				</div>
+
+				<div class="col-xs-5 panel-personnel-content">Asset Model:</div>
+				<div class="col-xs-7 panel-personnel-content">
+					<?php echo $current_audit_entry->har_model; ?> 
+				</div>	
+
+				<div class="col-xs-5 panel-personnel-content">Serial Number:</div>
+				<div class="col-xs-7 panel-personnel-content">
+					<?php echo $current_audit_entry->har_serial_number; ?> 
+				</div>	
+
+			</div>	
+
+			</div>
+
+			<div class="col-xs-12">
+			<div class="panel-personnel-content">Select new <strong>Asset Status</strong> after untagging:</div>
+			<form method="post" id="untag">
+			<select name="aud_status" id="aud_status" class="input-medium form-control form-control-small">
+				<option value="">Select Status</option>				
+				<option value="stockroom" selected>stockroom</option>
+				<option value="service unit">service unit</option>
+				<option value="for disposal">for disposal</option>
+				<option value="disposed">disposed</option>
+			</select>
+
+			</div>
+
+
+			</div>
+			<div class = "modal-footer">
+			
+				<input class ="btn btn-danger no-border-radius" type="submit" name="untag" value="Untag">
+			</form>
+				<button class ="btn btn-default no-border-radius" data-dismiss = "modal">Cancel</button>
+			</div>
+		</div>
+	</div>
 </div>

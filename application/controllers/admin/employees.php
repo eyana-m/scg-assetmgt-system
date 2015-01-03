@@ -203,11 +203,11 @@ class Employees extends CI_Controller
 	public function view($employee_id)
 	{
 	
-
-		$this->template->title('Audit Trail: '.$employee_id);
+		$employee = $this->employee_model->get_one($employee_id);
+		$this->template->title('Audit Trail: '.$employee->emp_last_name.', '.$employee->emp_first_name);
 		$page = array();
 
-		$employee = $this->employee_model->get_one($employee_id);
+		
 
 		$page['employee'] = $employee;
 
@@ -215,11 +215,35 @@ class Employees extends CI_Controller
 
 		$page['audit_entries'] = $audit_entries;
 
+		$field_list = array('aud_id', 'aud_datetime', 'aud_status', 'aud_comment', 'aud_har', 'aud_per', 'aud_confirm', 'aud_untag', 'aud_date_untagged');
+
 
 		$page['current_audit_entry']= $this->audit_entry_model->get_by_employee($employee_id)->first_row();
+		$current_audit_entry = $page['current_audit_entry'];
+
 		$page['next_audit_entry']= $this->audit_entry_model->get_by_employee($employee_id)->next_row();
 
 
+
+		if($this->input->post('untag'))
+		{
+			if($current_audit_entry->aud_status=='active'):
+			 	$this->auto_untag($current_audit_entry);				
+			endif;
+
+			$hardware_asset_id = $current_audit_entry->aud_har;
+
+			$new_status = $this->input->post("aud_status");	
+			$this->untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status);
+
+			$page['current_audit_entry']= $this->audit_entry_model->get_by_employee($employee_id)->first_row();
+			$current_audit_entry = $page['current_audit_entry'];
+
+			$this->template->notification('Asset is now untagged.', 'success');
+			//redirect($this->uri->uri_string());
+			redirect('admin/employees/view/' . $employee_id);
+			$this->template->autofill($audit_entry);
+		}
 
 		
 		//$page['audit_entries'] = $this->audit_entry_model->pagination("admin/employees/index/__PAGE__", 'get_by_employee($employee_id)'
@@ -239,4 +263,46 @@ class Employees extends CI_Controller
 		$this->template->content('employees-view', $page);
 		$this->template->show();
 	}
+
+	private function untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status)
+	{
+		$audit_entry = array();
+		$hardware_update = array();
+		$hardware_update_fields = array('har_id', 'har_status');
+		$hardware_update['har_id'] = $hardware_asset_id;
+
+		$audit_entry['aud_datetime'] = date('Y-m-d H:i:s');
+		$audit_entry['aud_status'] = $new_status;
+		$hardware_update['har_status'] = $audit_entry['aud_status'];
+
+		$name = $current_audit_entry->emp_first_name." ".$current_audit_entry->emp_last_name;
+			
+		$audit_entry['aud_comment'] = 'Untagged from '.$name;	
+
+		$audit_entry['aud_har'] = $hardware_asset_id;
+		$audit_entry['aud_per'] = null;
+
+		$this->audit_entry_model->create($audit_entry, $field_list);
+		$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);			
+
+	}
+
+
+	private function auto_untag($current_audit_entry)
+	{
+		$audit_update = array();
+		$audit_update_fields = array('aud_id', 'aud_untag', 'aud_date_untagged');
+
+		//print_r($current_audit_entry->aud_id); die();
+
+		$audit_update['aud_id'] = $current_audit_entry->aud_id;
+		$audit_update['aud_untag'] = TRUE;
+		$audit_update['aud_date_untagged'] = date('Y-m-d H:i:s');
+	
+
+
+		$this->audit_entry_model->update($audit_update, $audit_update_fields);	
+	}
+
+
 }

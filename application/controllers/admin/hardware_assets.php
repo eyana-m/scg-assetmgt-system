@@ -484,8 +484,9 @@ class Hardware_assets extends CI_Controller
 			if($current_audit_entry->aud_status=='active'):
 			 	$this->auto_untag($current_audit_entry);				
 			endif;
+
 			$new_status = $this->input->post("aud_status");	
-			$this->auto_stockroom($field_list, $hardware_asset_id, $current_audit_entry, $new_status);
+			$this->untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status);
 			$current_audit_entry = $this->audit_entry_model->get_by_hardware($hardware_asset_id)->first_row();
 			$page['current_audit_entry'] = $current_audit_entry;
 
@@ -562,7 +563,7 @@ class Hardware_assets extends CI_Controller
 		$this->template->show();
 	}
 
-	private function auto_stockroom($field_list, $hardware_asset_id, $current_audit_entry, $new_status)
+	private function untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status)
 	{
 		$audit_entry = array();
 		$hardware_update = array();

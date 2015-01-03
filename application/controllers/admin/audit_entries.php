@@ -150,6 +150,8 @@ class Audit_entries extends CI_Controller
 			$this->template->notification('Audit entry was not found.', 'error');
 			redirect('admin/audit_entries');
 		}
+	
+
 		if($this->input->post('confirm'))
 		{
 			$config =  array(
@@ -200,4 +202,11 @@ class Audit_entries extends CI_Controller
 		$this->template->content('audit_entries-view', $page);
 		$this->template->show();
 	}
+
+
+
+
+
+
+
 }
