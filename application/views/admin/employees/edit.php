@@ -50,7 +50,8 @@
 $(function() {		
 	$('form').floodling('emp_last_name', "<?php echo addslashes($employee->emp_last_name); ?>");		
 	$('form').floodling('emp_first_name', "<?php echo addslashes($employee->emp_first_name); ?>");		
-	$('form').floodling('emp_middle_name', "<?php echo addslashes($employee->emp_middle_name); ?>");		
+	$('form').floodling('emp_middle_name', "<?php echo addslashes($employee->emp_middle_name); ?>");
+	$('form').floodling('emp_email', "<?php echo addslashes($employee->emp_email); ?>");				
 	$('form').floodling('emp_position', "<?php echo addslashes($employee->emp_position); ?>");		
 	$('form').floodling('emp_department', "<?php echo addslashes($employee->emp_department); ?>");		
 	$('form').floodling('emp_office', "<?php echo addslashes($employee->emp_office); ?>");

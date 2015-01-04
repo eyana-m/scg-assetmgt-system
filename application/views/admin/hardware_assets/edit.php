@@ -2,12 +2,12 @@
 	<table class="table-form table-bordered">
 		<tr>
 			<th>Asset Number</th>
-			<td><input type="text" name="har_asset_number" class="form-control" size="11" maxlength="11" value="" /></td>
+			<td><input type="text" name="har_asset_number" class="form-control" size="11" maxlength="11" value="" disabled/></td>
 		</tr>
 		<tr>
 			<th>Asset Type</th>
 			<td>
-				<select name="har_asset_type" class="form-control">
+				<select name="har_asset_type" class="form-control" disabled>
 					<option value="Access Point">Access Point</option>
 					<option value="Camera">Camera</option>
 					<option value="Desktop">Desktop</option>
@@ -45,23 +45,25 @@
 		<tr>
 			<th>Status</th>
 			<td>
-				<select name="har_status" class="form-control">
-					<option value="active" disabled>active</option>
-					<option value="stockroom" selected="true">stockroom</option>
-					<option value="service unit" disabled>service unit</option>
-					<option value="for disposal" disabled>for disposal</option>
-					<option value="repair" disabled>repair</option>
+				<select name="har_status" class="form-control" disabled>
+					<option value="active">active</option>
+					<option value="stockroom">stockroom</option>
+					<option value="service unit">service unit</option>
+					<option value="for disposal">for disposal</option>
+					<option value="repair">repair</option>
 		
 				</select>
 			</td>
 		</tr>
+
+
 		<tr>
 			<th>Vendor</th>
 			<td><input type="text" name="har_vendor" class="form-control" size="30" maxlength="30" value="" /></td>
 		</tr>
 		<tr>
 			<th>Date of Purchase</th>
-			<td><input type="date" name="har_date_purchase" class="form-control" class="form-control" value="" /></td>
+			<td><input type="date" name="har_date_purchase" class="form-control" class="form-control" value="" disabled /></td>
 		</tr>
 
 
@@ -152,4 +154,14 @@ $(function() {
 	$('form').floodling('har_date_added', "<?php echo addslashes($hardware_asset->har_date_added); ?>");		
 	$('form').floodling('har_specs', "<?php echo addslashes($hardware_asset->har_specs); ?>");
 });
+</script>
+
+<script type="text/javascript">
+	jQuery(function($) {
+
+	    $('form').bind('submit', function() {
+	        $(this).find(':input').removeAttr('disabled');
+	    });
+
+	});
 </script>
