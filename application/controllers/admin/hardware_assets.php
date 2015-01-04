@@ -32,7 +32,7 @@ class Hardware_assets extends CI_Controller
 		$this->load->dbutil();
 
 		$page = array();
-		$page['hardware_assets'] = $this->hardware_asset_model->pagination("admin/hardware_assets/index/__PAGE__", 'get_all');
+		$page['hardware_assets'] = $this->hardware_asset_model->pagination("admin/hardware_assets/index/__PAGE__", 'get_all_reverse');
 
 		$page['hardware_assets_pagination'] = $this->hardware_asset_model->pagination_links();
 		
@@ -211,11 +211,6 @@ class Hardware_assets extends CI_Controller
 	{
 		$this->template->title('Create Hardware Asset');
 
-
-		// Use the set_rules from the Form_validation class for form validation.
-		// Already combined with jQuery. No extra coding required for JS validation.
-		// We get both JS and PHP validation which makes it both secure and user friendly.
-		// NOTE: Set the rules before you check if $_POST is set so that the jQuery validation will work.
 		$this->form_validation->set_rules('har_asset_number', 'Asset Number', 'trim|required|integer|max_length[15]');
 		$this->form_validation->set_rules('har_asset_type', 'Asset Type', 'trim|required');
 		$this->form_validation->set_rules('har_erf_number', 'Erf Number', 'trim|required|integer|max_length[11]');
@@ -258,8 +253,7 @@ class Hardware_assets extends CI_Controller
 				$this->hardware_asset_model->create($hardware_asset, $this->hardware_asset_model->get_fields());
 
 
-				// Set a notification using notification method from Template.
-				// It is okay to redirect after and the notification will be displayed on the redirect page.
+				print_r("hello u bish"); die();
 				$this->template->notification('New hardware asset created.', 'success');
 				//redirect('admin/hardware_assets');
 				redirect('admin/hardware_assets/view/' . $$hardware_asset['har_barcode']);
@@ -267,7 +261,7 @@ class Hardware_assets extends CI_Controller
 			else
 			{
 				// To display validation errors caught by the Form_validation, you should have the code below.
-				$this->template->notification(validation_errors(), 'error');
+				$this->template->notification(validation_errors(), 'danger');
 			}
 
 			$this->template->autofill($hardware_asset);
@@ -344,7 +338,7 @@ class Hardware_assets extends CI_Controller
 
 		if($page['hardware_asset'] === false)
 		{
-			$this->template->notification('Hardware asset was not found.', 'error');
+			$this->template->notification('Hardware asset was not found.', 'danger');
 			redirect('admin/hardware_assets');
 		}
 
