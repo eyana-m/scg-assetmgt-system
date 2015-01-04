@@ -118,7 +118,7 @@
 		</tr>
 		<tr>
 			<th>Date Added</th>
-			<td><input type="date" name="har_date_added" class="form-control" class="form-control" value="<?php echo date('Y-m-d'); ?>" /></td>
+			<td><input type="date" name="har_date_added" class="form-control" class="form-control" value="<?php echo date('Y-m-d'); ?>" disabled/></td>
 		</tr>
 		<tr>
 			<th>Specs</th>
