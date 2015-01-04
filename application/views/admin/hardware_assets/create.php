@@ -1,8 +1,6 @@
-<div class="col-md-12" style="margin-bottom: 2em">
-	<a href="<?php echo site_url('admin/hardware_assets'); ?>" class="btn btn-info">Back to Assets Page</a>
-</div>
-<br>
-<div class="col-md-6">
+
+
+<div class="col-md-6 form-card" style="float:left">
 	<form method="post">
 		<table class="table-form table-bordered">
 			<tr>
@@ -95,75 +93,79 @@
 			<tr>
 				<th></th>
 				<td>
-					<input type="submit" name="submit" value="Submit" class="btn btn-primary" />
 					
+					<a href="#formsubmit" class="btn btn-primary" data-toggle="modal"  >Submit</a>
 					
-					<a href="<?php echo site_url('admin/hardware_assets'); ?>" class="btn btn-danger">+</a>
 				</td>
 			</tr>
 		</table>
 
 
-	</form>
-
-<div class="preview-card" style="display:none">
-	<p class="har_asset_number"></p>
-	<p class="har_asset_type" ></p>
-	<p class="har_erf_number"></p>
-	<p class="har_model"></p>
-	<p class="har_serial_number"></p>
-	<p class="har_hostname"></p>
-	<p class="har_status"></p>
-	<p class="har_vendor"></p>
-	<p class="har_po_number"></p>
-	<p class="har_cost"></p>
-	<p class="har_date_purchase"></p>
-	<p class="har_date_added"></p>
-	<p class="har_specs"></p>
-	
-
-</div>
-
-<button id="preview" class="btn btn-danger">Preview Data</button>
-<button id="backtoform" class="btn btn-success" style="display: none">Back to Form</button>
-<a href="#previewasset" data-toggle="modal"  class="btn">Preview Modal</a>
-
-</div> <!--end-one-col-->
-
-
-
-
-
-
-
-
-<div id ="previewasset" class = "modal fade">
-	<div class = "modal-dialog">
-		<div class = "modal-content">
-			<div class = "modal-header">
-			Review Asset
-			</div>
-			<div class = "modal-body">
-				<p class="har_asset_number"></p>
-				<p class="har_asset_type" ></p>
-				<p class="har_erf_number"></p>
-				<p class="har_model"></p>
-				<p class="har_serial_number"></p>
-				<p class="har_hostname"></p>
-				<p class="har_status"></p>
-				<p class="har_vendor"></p>
-				<p class="har_po_number"></p>
-				<p class="har_cost"></p>
-				<p class="har_date_purchase"></p>
-				<p class="har_date_added"></p>
-				<p class="har_specs"></p>
+		<div id ="formsubmit" class = "modal fade">
+			<div class = "modal-dialog">
+				<div class = "modal-content">
+					<div class = "modal-header">
+					<h4>Please review the following information before adding this asset:</h4>
+					</div>
+					<div class = "modal-body">
+						<p class="har_asset_number"></p>
+						<p class="har_asset_type" ></p>
+						<p class="har_erf_number"></p>
+						<p class="har_model"></p>
+						<p class="har_serial_number"></p>
+						<p class="har_hostname"></p>
+						<p class="har_status"></p>
+						<p class="har_vendor"></p>
+						<p class="har_po_number"></p>
+						<p class="har_cost"></p>
+						<p class="har_date_purchase"></p>
+						<p class="har_date_added"></p>
+						<p class="har_specs"></p>
+						</div>
+					<div class = "modal-footer">
+						<input type="submit" name="submit" id="postsubmit" data-toggle="modal" value="Submit" class="btn btn-primary btn-lg no-border-radius" />
+						<button class = "btn btn-danger btn-lg no-border-radius" data-dismiss = "modal">Back</button>
+					</div>
 				</div>
-			<div class = "modal-footer">
-				<button class = "btn btn-danger btn-lg no-border-radius" data-dismiss = "modal">Close</button>
 			</div>
 		</div>
+	</form>
+
+
+
+	
+	
+	
+</div> <!--end-one-col-->
+
+<div class="col-md-6 preview-card">
+	<div style="position: fixed;">
+
+	<a href="<?php echo site_url('admin/hardware_assets'); ?>" class="btn btn-info pull-right">Back to Assets Page</a><br><br>
+	<h3>Asset Information Preview</h3>
+		<div class="well" style="width: 550px">
+			<p class="har_asset_number"></p>
+			<p class="har_asset_type" ></p>
+			<p class="har_erf_number"></p>
+			<p class="har_model"></p>
+			<p class="har_serial_number"></p>
+			<p class="har_hostname"></p>
+			<p class="har_status"></p>
+			<p class="har_vendor"></p>
+			<p class="har_po_number"></p>
+			<p class="har_cost"></p>
+			<p class="har_date_purchase"></p>
+			<p class="har_date_added"></p>
+			<p class="har_specs"></p>	
+		</div>
 	</div>
+		
 </div>
+
+
+
+
+
 
 
 <script type="text/javascript">
@@ -184,7 +186,7 @@
 		$( "input:text[name=har_asset_number]" )
 		  .keyup(function() {
 			var har_asset_number= $( this ).val();
-			$("p.har_asset_number").html("<strong>Asset Number:</strong> " + har_asset_number);
+			$("p.har_asset_number").html("<strong>Asset Number:</strong>&nbsp;&nbsp;&nbsp;" + har_asset_number);
 		  })
 		  .keyup();
 
@@ -192,61 +194,61 @@
 
 		$('select[name=har_asset_type]').change(function(){
     		var har_asset_type = $(this).val();
-    		$("p.har_asset_type").html("<strong>Asset Type:</strong> " + har_asset_type);
+    		$("p.har_asset_type").html("<strong>Asset Type:</strong>&nbsp;&nbsp;&nbsp;" + har_asset_type);
   		});
 
 
 		$( "input:text[name=har_erf_number]" )
 		  .keyup(function() {
 			var har_erf_number = $( this ).val();
-			$("p.har_erf_number").html("<strong>ERF Number:</strong> " + har_erf_number );
+			$("p.har_erf_number").html("<strong>ERF Number:</strong>&nbsp;&nbsp;&nbsp;" + har_erf_number );
 		  })
 		  .keyup();
 
 		$( "input:text[name=har_model]" )
 		  .keyup(function() {
 			var har_model= $( this ).val();
-			$("p.har_model").html("<strong>Model:</strong> " + har_model );
+			$("p.har_model").html("<strong>Model:</strong>&nbsp;&nbsp;&nbsp;" + har_model );
 		  })
 		  .keyup();
 
 		$( "input:text[name=har_serial_number]" )
 		  .keyup(function() {
 			var har_serial_number = $( this ).val();
-			$("p.har_serial_number").html("<strong>Serial Number:</strong> " + har_serial_number );
+			$("p.har_serial_number").html("<strong>Serial Number:</strong>&nbsp;&nbsp;&nbsp;" + har_serial_number );
 		  })
 		  .keyup();
 
 		$( "input:text[name=har_hostname]" )
 		  .keyup(function() {
 			var har_hostname = $( this ).val();
-			$("p.har_hostname").html("<strong>Host Name:</strong> " + har_hostname );
+			$("p.har_hostname").html("<strong>Host Name:</strong>&nbsp;&nbsp;&nbsp;" + har_hostname );
 		  })
 		  .keyup();
 
 		 //status select
 		
 		var har_status = $('select[name=har_status]').val();
-		$("p.har_status").html("<strong>Status:</strong> " + har_status);
+		$("p.har_status").html("<strong>Status:</strong>&nbsp;&nbsp;&nbsp;" + har_status);
   		
 
 		$( "input:text[name=har_vendor]" )
 		  .keyup(function() {
 			var har_vendor = $( this ).val();
-			$("p.har_vendor").html("<strong>Vendor:</strong> " + har_vendor );
+			$("p.har_vendor").html("<strong>Vendor:</strong>&nbsp;&nbsp;&nbsp;" + har_vendor );
 		  })
 		  .keyup();
 
 		  //date purchase
 		$('input[name=har_date_purchase]').change(function(){
     		var har_date_purchase = $(this).val();
-    		$("p.har_date_purchase").html("<strong>Date Purchased:</strong> " + har_date_purchase);
+    		$("p.har_date_purchase").html("<strong>Date Purchased:</strong>&nbsp;&nbsp;&nbsp;" + har_date_purchase);
   		});
 
 		$( "input:text[name=har_cost]" )
 		  .keyup(function() {
 			var har_cost = $( this ).val();
-			$("p.har_cost").html("<strong>Cost:</strong> Php " + har_cost );
+			$("p.har_cost").html("<strong>Cost:</strong>&nbsp;&nbsp;&nbsp;Php " + har_cost );
 		  })
 		  .keyup();
 
@@ -254,50 +256,27 @@
 		$( "input:text[name=har_po_number]" )
 		  .keyup(function() {
 			var har_po_number = $( this ).val();
-			$("p.har_po_number").html("<strong>PO Number:</strong> " + har_po_number );
+			$("p.har_po_number").html("<strong>PO Number:</strong>&nbsp;&nbsp;&nbsp;" + har_po_number );
 		  })
 		  .keyup();
 
 		  //date_added
 	
     	var har_date_added = $('input[name=har_date_added]').val();
-    	$("p.har_date_added").html("<strong>Date Added:</strong> " + har_date_added);
+    	$("p.har_date_added").html("<strong>Date Added:</strong>&nbsp;&nbsp;&nbsp;" + har_date_added);
   	
 
 
 		$( "input:text[name=har_specs]" )
 		  .keyup(function() {
 			var har_specs = $( this ).val();
-			$("p.har_specs").html("<strong>Specifications:</strong> " + har_specs );
+			$("p.har_specs").html("<strong>Specifications:</strong>&nbsp;&nbsp;&nbsp;" + har_specs );
 		  })
 		  .keyup();
 		
 
 	});
 
-
-	jQuery(function($) {
-
-	$("#preview").click(function(){
-   		$("form").hide();
-   		$(".preview-card").show();
-   		$(this).find(':input').removeAttr('disabled');
-   		$(this).hide();
-   		$("#backtoform").show();
-   		// $("#preview").removeClass('btn-danger');
-   		// $("#preview").addClass('btn-success');
-   		// $("#preview").html("Back to Form");
- 	 });
-
-	$("#backtoform").click(function(){
-   		$("form").show();
-   		$('input[name=har_date_added]').prop('disabled', true);
-   		$(".preview-card").hide();
-   		$(this).hide();
-   		$("#preview").show();
- 	 });
-
-	});
 
 
 

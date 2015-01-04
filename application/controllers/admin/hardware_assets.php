@@ -253,9 +253,11 @@ class Hardware_assets extends CI_Controller
 			{
 				$this->hardware_asset_model->create($hardware_asset, $this->hardware_asset_model->get_fields());
 
-				$this->template->notification('New hardware asset created.', 'success');
+				//$this->template->notification("New hardware asset created. <a class='label label-success' href=".site_url('admin/hardware_assets/create').">Add More Asset</a>", 'success');
+				$this->template->notification("New hardware asset created. <a class='label label-success' href=".site_url('admin/hardware_assets').">Back to Asset List</a>", 'success');
 				//redirect('admin/hardware_assets');
-				redirect('admin/hardware_assets/view/' . $hardware_asset['har_barcode']);
+				//redirect('admin/hardware_assets/view/' . $hardware_asset['har_barcode']);
+				redirect('admin/hardware_assets/create');
 			}
 			else
 			{

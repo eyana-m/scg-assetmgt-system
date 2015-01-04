@@ -232,3 +232,32 @@ function export_information_excel($DB_TBLName, $sql, $filename)
                     break;
                      
             }
+
+<div class="col-md-6" style="margin-bottom: 2em">
+    <button id="preview" class="btn btn-danger pull-right">Preview Data</button>
+    <button id="backtoform" class="btn btn-success pull-right" style="display: none">Back to Form</button>
+</div>
+
+
+    jQuery(function($) {
+
+    $("#preview").click(function(){
+        $("form").hide();
+        $(".preview-card").show();
+        $(this).find(':input').removeAttr('disabled');
+        $(this).hide();
+        $("#backtoform").show();
+        // $("#preview").removeClass('btn-danger');
+        // $("#preview").addClass('btn-success');
+        // $("#preview").html("Back to Form");
+     });
+
+    $("#backtoform").click(function(){
+        $("form").show();
+        $('input[name=har_date_added]').prop('disabled', true);
+        $(".preview-card").hide();
+        $(this).hide();
+        $("#preview").show();
+     });
+
+    });
