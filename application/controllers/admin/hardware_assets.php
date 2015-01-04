@@ -13,6 +13,7 @@ class Hardware_assets extends CI_Controller
 		$this->load->helper('csv');
 		$this->load->helper('download');
 		$this->load->library('upload');
+
 		$this->load->helper(array('dompdf', 'file'));
 		$this->load->helper('file'); 
 
@@ -211,23 +212,43 @@ class Hardware_assets extends CI_Controller
 	{
 		$this->template->title('Create Hardware Asset');
 
-		$this->form_validation->set_rules('har_asset_number', 'Asset Number', 'trim|required|integer|max_length[15]');
-		$this->form_validation->set_rules('har_asset_type', 'Asset Type', 'trim|required');
-		$this->form_validation->set_rules('har_erf_number', 'Erf Number', 'trim|required|integer|max_length[11]');
-		$this->form_validation->set_rules('har_model', 'Model', 'trim|required|max_length[30]');
-		$this->form_validation->set_rules('har_serial_number', 'Serial Number', 'trim|required|max_length[30]');
-		$this->form_validation->set_rules('har_hostname', 'Hostname', 'trim|required|max_length[30]');
-		$this->form_validation->set_rules('har_status', 'Status', 'trim|required');
-		$this->form_validation->set_rules('har_vendor', 'Vendor', 'trim|required|max_length[30]');
-		$this->form_validation->set_rules('har_date_purchase', 'Date of Purchase', 'trim|required|date');
-		$this->form_validation->set_rules('har_po_number', 'Po Number', 'trim|required|integer|max_length[11]');
-		$this->form_validation->set_rules('har_cost', 'Cost', 'trim|required|double');
-		$this->form_validation->set_rules('har_date_added', 'Date Added', 'trim|required|date');
-		$this->form_validation->set_rules('har_specs', 'Specs', 'trim|required');
-		//$this->form_validation->set_rules('har_barcode', 'Barcode', 'trim|required');
 
-		if($this->input->post('submit'))
+
+
+
+	
+		if ($this->input->post('generate_csv'))
 		{
+			$this->load->dbutil();
+	    	$page['hardware_today'] = $this->hardware_asset_model->get_asset_today();
+	    	$hardware_today = $page['hardware_today'];
+
+	    	$date = date('Y-m-d');
+	    	$filename = 'asset_addedtoday_'.$date.'.csv';
+
+	    	$data = $this->dbutil->csv_from_result($hardware_today);
+	    	force_download($filename, $data); 
+			
+			
+		}
+
+		if($this->input->post('add_asset'))
+		{
+	
+			$this->form_validation->set_rules('har_asset_number', 'Asset Number', 'trim|required|integer|max_length[15]');
+			$this->form_validation->set_rules('har_asset_type', 'Asset Type', 'trim|required');
+			$this->form_validation->set_rules('har_erf_number', 'Erf Number', 'trim|required|integer|max_length[11]');
+			$this->form_validation->set_rules('har_model', 'Model', 'trim|required|max_length[30]');
+			$this->form_validation->set_rules('har_serial_number', 'Serial Number', 'trim|required|max_length[30]');
+			$this->form_validation->set_rules('har_hostname', 'Hostname', 'trim|required|max_length[30]');
+			$this->form_validation->set_rules('har_status', 'Status', 'trim|required');
+			$this->form_validation->set_rules('har_vendor', 'Vendor', 'trim|required|max_length[30]');
+			$this->form_validation->set_rules('har_date_purchase', 'Date of Purchase', 'trim|required|date');
+			$this->form_validation->set_rules('har_po_number', 'Po Number', 'trim|required|integer|max_length[11]');
+			$this->form_validation->set_rules('har_cost', 'Cost', 'trim|required|double');
+			$this->form_validation->set_rules('har_date_added', 'Date Added', 'trim|required|date');
+			$this->form_validation->set_rules('har_specs', 'Specs', 'trim|required');
+
 			$hardware_asset = $this->extract->post();
 			
 			$hardware_asset['har_barcode'] = $this->hardware_asset_model->generate_barcode($hardware_asset['har_asset_type'],$hardware_asset['har_asset_number'],$hardware_asset['har_date_added']);
@@ -254,7 +275,7 @@ class Hardware_assets extends CI_Controller
 				$this->hardware_asset_model->create($hardware_asset, $this->hardware_asset_model->get_fields());
 
 				//$this->template->notification("New hardware asset created. <a class='label label-success' href=".site_url('admin/hardware_assets/create').">Add More Asset</a>", 'success');
-				$this->template->notification("New hardware asset created. <a class='label label-success' href=".site_url('admin/hardware_assets').">Back to Asset List</a>", 'success');
+				$this->template->notification("Hardware asset ".$hardware_asset['har_barcode']." created. <br><a class='label label-primary' href=".site_url('admin/hardware_assets').">Back to Asset List</a> <a class='label label-success' href=".site_url('admin/hardware_assets/view/')."/".$hardware_asset['har_barcode'].">View Asset</a>", 'success');
 				//redirect('admin/hardware_assets');
 				//redirect('admin/hardware_assets/view/' . $hardware_asset['har_barcode']);
 				redirect('admin/hardware_assets/create');
@@ -263,10 +284,15 @@ class Hardware_assets extends CI_Controller
 			{
 				// To display validation errors caught by the Form_validation, you should have the code below.
 				$this->template->notification(validation_errors(), 'danger');
+				redirect('admin/hardware_assets/create');
 			}
 
 			$this->template->autofill($hardware_asset);
 		}
+		
+
+
+
 
 		$page = array();
 		

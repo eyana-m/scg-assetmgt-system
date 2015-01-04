@@ -130,16 +130,18 @@ class Employees extends CI_Controller
 			// Call run method from Form_validation to check
 			if($this->form_validation->run() !== false)
 			{
-				$this->employee_model->create($employee, $this->form_validation->get_fields());
+				$this->employee_model->create($employee, $this->employee_model->get_fields());
 				// Set a notification using notification method from Template.
 				// It is okay to redirect after and the notification will be displayed on the redirect page.
 				$this->template->notification('New employee created.', 'success');
-				redirect('admin/employees');
+				$this->template->notification("Employee ".$employee['emp_first_name']." ".$employee['emp_last_name']." created. <br><a class='label label-primary' href=".site_url('admin/employees').">Back to Employees Page</a> <a class='label label-success' href=".site_url('admin/employees/view/')."/".$employee['emp_id'].">View Employee</a>", 'success');
+				redirect('admin/employees/create');
 			}
 			else
 			{
 				// To display validation errors caught by the Form_validation, you should have the code below.
 				$this->template->notification(validation_errors(), 'error');
+				redirect('admin/employees/create');
 			}
 
 			$this->template->autofill($employee);

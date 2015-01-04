@@ -1,11 +1,11 @@
 
 
 <div class="col-md-6 form-card" style="float:left">
-	<form method="post">
+	<form method="post" name="add_asset" id="add_asset">
 		<table class="table-form table-bordered">
 			<tr>
 				<th>Asset Number</th>
-				<td><input type="text" name="har_asset_number" class="form-control" size="11" maxlength="11" autofocus/></td>
+			<td><input type="text" name="har_asset_number" class="form-control" size="11" maxlength="11" autofocus/></td>
 			</tr>
 			<tr>
 				<th>Asset Type</th>
@@ -123,26 +123,30 @@
 						<p class="har_specs"></p>
 						</div>
 					<div class = "modal-footer">
-						<input type="submit" name="submit" id="postsubmit" data-toggle="modal" value="Submit" class="btn btn-primary btn-lg no-border-radius" />
+						<input type="submit" name="add_asset" id="postsubmit" data-toggle="modal" value="Submit" class="btn btn-primary btn-lg no-border-radius" />
 						<button class = "btn btn-danger btn-lg no-border-radius" data-dismiss = "modal">Back</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</form>
-
-
-
-	
-	
 	
 </div> <!--end-one-col-->
 
 <div class="col-md-6 preview-card">
 	<div style="position: fixed;">
+	
 
-	<a href="<?php echo site_url('admin/hardware_assets'); ?>" class="btn btn-info pull-right">Back to Assets Page</a><br><br>
-	<h3>Asset Information Preview</h3>
+	<a href="<?php echo site_url('admin/hardware_assets'); ?>" class="btn btn-small btn-info pull-right"><small>Back to Assets Page</small></a>
+
+	<form role="form" method="post" id ="generate_csv" name="generate_csv">
+		
+		<input type="submit" id ="generate_csv" name="generate_csv" class="btn btn-small btn-success pull-right" style="margin-right: 0.5em; font-size: 1.02em;" value="Print Barcode Added Today">
+
+	</form>
+
+	<br>
+	<h4>Asset Information Preview</h4>
 		<div class="well" style="width: 550px">
 			<p class="har_asset_number"></p>
 			<p class="har_asset_type" ></p>
@@ -267,7 +271,7 @@
   	
 
 
-		$( "input:text[name=har_specs]" )
+		$( "textarea[name=har_specs]" )
 		  .keyup(function() {
 			var har_specs = $( this ).val();
 			$("p.har_specs").html("<strong>Specifications:</strong>&nbsp;&nbsp;&nbsp;" + har_specs );

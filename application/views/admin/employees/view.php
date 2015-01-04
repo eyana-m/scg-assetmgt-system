@@ -114,28 +114,10 @@
 
 		</div>
 		<div class="panel-footer">
-			<a href="<?php echo site_url('admin/employees/edit/' . $employee->emp_id); ?>" class="btn btn-primary">Edit Employee Details</a>
+			<a href="<?php echo site_url('admin/employees/edit/' . $employee->emp_id); ?>" class="btn btn-default btn-small" style="font-size:12px">Edit Employee Details</a>
 		</div>
 	</div>
 
-	<div class="panel panel-danger panel-personnel">
-		<div class="panel-heading">Report Generation</div>
-		<div class="panel-body">
-			<div class="dropdown no-border-radius">
-				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" style="display: inline-block; width: 100%">
-					All Assigned Assets
-					<span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">All Assigned Assets</a></li>
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">All Unreturned Assets</a></li>
-				</ul>
-			</div>
-		</div>
-		<div class = "panel-footer" style="overflow:auto;">
-			<center><button class="btn btn-primary" style="width:80%;">Generate</button></center>
-		</div>
-	</div>
 
 
 </div>

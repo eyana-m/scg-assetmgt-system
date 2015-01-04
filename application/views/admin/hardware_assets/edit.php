@@ -1,3 +1,7 @@
+<div class="col-md-12" style="margin-bottom: 2em">
+	<a href="<?php echo site_url('admin/hardware_assets'); ?>" class="btn btn-info">Back to Assets Page</a>	
+</div>
+
 <form method="post">
 	<table class="table-form table-bordered">
 		<tr>
@@ -128,7 +132,7 @@
 			<th></th>
 			<td>
 				<input type="submit" name="submit" value="Submit" class="btn btn-primary" />
-				<a href="<?php echo site_url('admin/hardware_assets'); ?>" class="btn">Back</a>
+				
 			</td>
 		</tr>
 	</table>

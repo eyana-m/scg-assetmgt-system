@@ -283,6 +283,18 @@ class Hardware_asset_model extends Base_model
 
 	}
 
+	public function get_asset_today()
+	{
+		$date = date('Y-m-d');
+
+		$this->db->where('har_date_added',$date);
+
+		$query = $this->db->get($this->table); 
+		return $query;
+
+
+	}
+
 	public function get_asset_active()
 	{
 
