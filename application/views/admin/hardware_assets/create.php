@@ -3,7 +3,7 @@
 		<table class="table-form table-bordered">
 			<tr>
 				<th>Asset Number</th>
-				<td><input type="text" name="har_asset_number" class="form-control" size="11" maxlength="11" value="" /></td>
+				<td><input type="text" name="har_asset_number" class="form-control" size="11" maxlength="11" autofocus/></td>
 			</tr>
 			<tr>
 				<th>Asset Type</th>
@@ -29,19 +29,19 @@
 			</tr>
 			<tr>
 				<th>Erf Number</th>
-				<td><input type="text" name="har_erf_number" class="form-control" size="11" maxlength="11" value="" /></td>
+				<td><input type="text" name="har_erf_number" class="form-control" size="11" maxlength="11"/></td>
 			</tr>
 			<tr>
 				<th>Model</th>
-				<td><input type="text" name="har_model" class="form-control" size="30" maxlength="30" value="" /></td>
+				<td><input type="text" name="har_model" class="form-control" size="30" maxlength="30" /></td>
 			</tr>
 			<tr>
 				<th>Serial Number</th>
-				<td><input type="text" name="har_serial_number" class="form-control" size="30" maxlength="30" value="" /></td>
+				<td><input type="text" name="har_serial_number" class="form-control" size="30" maxlength="30"/></td>
 			</tr>
 			<tr>
 				<th>Hostname</th>
-				<td><input type="text" name="har_hostname" class="form-control" size="30" maxlength="30" value="" /></td>
+				<td><input type="text" name="har_hostname" class="form-control" size="30" maxlength="30"/></td>
 			</tr>
 			<tr>
 				<th>Status</th>
@@ -58,24 +58,24 @@
 			</tr>
 			<tr>
 				<th>Vendor</th>
-				<td><input type="text" name="har_vendor" class="form-control" size="30" maxlength="30" value="" /></td>
+				<td><input type="text" name="har_vendor" class="form-control" size="30" maxlength="30"/></td>
 			</tr>
 			<tr>
 				<th>Date of Purchase</th>
-				<td><input type="date" name="har_date_purchase" class="form-control" class="form-control" value="" /></td>
+				<td><input type="date" name="har_date_purchase" class="form-control" class="form-control"/></td>
 			</tr>
 
 
 
 			<tr>
 				<th>Po Number</th>
-				<td><input type="text" name="har_po_number" class="form-control" size="11" maxlength="11" value="" /></td>
+				<td><input type="text" name="har_po_number" class="form-control" size="11" maxlength="11" /></td>
 			</tr>
 			<tr>
 				<th>Cost</th>
 				<td>
 				<div class="input-group">
-					<span class="input-group-addon">Php</span> <input type="text" name="har_cost" class="form-control" value="" />
+					<span class="input-group-addon">Php</span> <input type="text" name="har_cost" class="form-control"/>
 				</div>
 				</td>
 			</tr>
@@ -103,7 +103,19 @@
 
 
 <div class="col-md-6 preview-card" style="display:none">
-<p class="asset"></p>
+	<p class="har_asset_number"></p>
+	<p class="har_asset_type" ></p>
+	<p class="har_erf_number"></p>
+	<p class="har_model"></p>
+	<p class="har_serial_number"></p>
+	<p class="har_hostname"></p>
+	<p class="har_status"></p>
+	<p class="har_vendor"></p>
+	<p class="har_po_number"></p>
+	<p class="har_cost"></p>
+	<p class="har_date_purchase"></p>
+	<p class="har_date_added"></p>
+	<p class="har_specs"></p>
 	
 
 </div>
@@ -143,21 +155,109 @@
 
 	jQuery(function($) {
 
-		var har_asset_number;
-		var har_asset_type;
-		var har_erf_number;
-		var har_model;
-		var har_serial_number;
 
 
-    	$("p.asset").html("Hello <b>world!</b>");
-  	});
+		$( "input:text[name=har_asset_number]" )
+		  .keyup(function() {
+			var har_asset_number= $( this ).val();
+			$("p.har_asset_number").html("<strong>Asset Number:</strong> " + har_asset_number);
+		  })
+		  .keyup();
+
+		
+
+		$('select[name=har_asset_type]').change(function(){
+    		var har_asset_type = $(this).val();
+    		$("p.har_asset_type").html("<strong>Asset Type:</strong> " + har_asset_type);
+  		});
+
+
+		$( "input:text[name=har_erf_number]" )
+		  .keyup(function() {
+			var har_erf_number = $( this ).val();
+			$("p.har_erf_number").html("<strong>ERF Number:</strong> " + har_erf_number );
+		  })
+		  .keyup();
+
+		$( "input:text[name=har_model]" )
+		  .keyup(function() {
+			var har_model= $( this ).val();
+			$("p.har_model").html("<strong>Model:</strong> " + har_model );
+		  })
+		  .keyup();
+
+		$( "input:text[name=har_serial_number]" )
+		  .keyup(function() {
+			var har_serial_number = $( this ).val();
+			$("p.har_serial_number").html("<strong>Serial Number:</strong> " + har_serial_number );
+		  })
+		  .keyup();
+
+		$( "input:text[name=har_hostname]" )
+		  .keyup(function() {
+			var har_hostname = $( this ).val();
+			$("p.har_hostname").html("<strong>Host Name:</strong> " + har_hostname );
+		  })
+		  .keyup();
+
+		 //status select
+		
+		var har_status = $('select[name=har_status]').val();
+		$("p.har_status").html("<strong>Status:</strong> " + har_status);
+  		
+
+		$( "input:text[name=har_vendor]" )
+		  .keyup(function() {
+			var har_vendor = $( this ).val();
+			$("p.har_vendor").html("<strong>Vendor:</strong> " + har_vendor );
+		  })
+		  .keyup();
+
+		  //date purchase
+		$('input[name=har_date_purchase]').change(function(){
+    		var har_date_purchase = $(this).val();
+    		$("p.har_date_purchase").html("<strong>Date Purchased:</strong> " + har_date_purchase);
+  		});
+
+		$( "input:text[name=har_cost]" )
+		  .keyup(function() {
+			var har_cost = $( this ).val();
+			$("p.har_cost").html("<strong>Cost:</strong> Php " + har_cost );
+		  })
+		  .keyup();
+
+
+		$( "input:text[name=har_po_number]" )
+		  .keyup(function() {
+			var har_po_number = $( this ).val();
+			$("p.har_po_number").html("<strong>PO Number:</strong> " + har_po_number );
+		  })
+		  .keyup();
+
+		  //date_added
+	
+    	var har_date_added = $('input[name=har_date_added]').val();
+    	$("p.har_date_added").html("<strong>Date Added:</strong> " + har_date_added);
+  	
+
+
+		$( "input:text[name=har_specs]" )
+		  .keyup(function() {
+			var har_specs = $( this ).val();
+			$("p.har_specs").html("<strong>Specifications:</strong> " + har_specs );
+		  })
+		  .keyup();
+		
+
+	});
+
 
 	jQuery(function($) {
 
 	$("#preview").click(function(){
    		$("form").hide();
    		$(".preview-card").show();
+   		$(this).find(':input').removeAttr('disabled');
    		$(this).hide();
    		$("#backtoform").show();
    		// $("#preview").removeClass('btn-danger');
@@ -167,6 +267,7 @@
 
 	$("#backtoform").click(function(){
    		$("form").show();
+   		$('input[name=har_date_added]').prop('disabled', true);
    		$(".preview-card").hide();
    		$(this).hide();
    		$("#preview").show();
