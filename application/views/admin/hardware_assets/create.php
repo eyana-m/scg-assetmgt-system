@@ -1,5 +1,9 @@
-<form method="post">
-	<div class="col-md-6">
+<div class="col-md-12" style="margin-bottom: 2em">
+	<a href="<?php echo site_url('admin/hardware_assets'); ?>" class="btn btn-info">Back to Assets Page</a>
+</div>
+<br>
+<div class="col-md-6">
+	<form method="post">
 		<table class="table-form table-bordered">
 			<tr>
 				<th>Asset Number</th>
@@ -92,17 +96,17 @@
 				<th></th>
 				<td>
 					<input type="submit" name="submit" value="Submit" class="btn btn-primary" />
-					<a href="<?php echo site_url('admin/hardware_assets'); ?>" class="btn">Back</a>
-					<a href="#previewasset" data-toggle="modal"  class="btn">Preview</a>
+					
+					
 					<a href="<?php echo site_url('admin/hardware_assets'); ?>" class="btn btn-danger">+</a>
 				</td>
 			</tr>
 		</table>
-	</div>
-</form>
 
 
-<div class="col-md-6 preview-card" style="display:none">
+	</form>
+
+<div class="preview-card" style="display:none">
 	<p class="har_asset_number"></p>
 	<p class="har_asset_type" ></p>
 	<p class="har_erf_number"></p>
@@ -122,6 +126,14 @@
 
 <button id="preview" class="btn btn-danger">Preview Data</button>
 <button id="backtoform" class="btn btn-success" style="display: none">Back to Form</button>
+<a href="#previewasset" data-toggle="modal"  class="btn">Preview Modal</a>
+
+</div> <!--end-one-col-->
+
+
+
+
+
 
 
 
@@ -132,8 +144,20 @@
 			Review Asset
 			</div>
 			<div class = "modal-body">
-			<p class="asset"> </p>
-			</div>
+				<p class="har_asset_number"></p>
+				<p class="har_asset_type" ></p>
+				<p class="har_erf_number"></p>
+				<p class="har_model"></p>
+				<p class="har_serial_number"></p>
+				<p class="har_hostname"></p>
+				<p class="har_status"></p>
+				<p class="har_vendor"></p>
+				<p class="har_po_number"></p>
+				<p class="har_cost"></p>
+				<p class="har_date_purchase"></p>
+				<p class="har_date_added"></p>
+				<p class="har_specs"></p>
+				</div>
 			<div class = "modal-footer">
 				<button class = "btn btn-danger btn-lg no-border-radius" data-dismiss = "modal">Close</button>
 			</div>
