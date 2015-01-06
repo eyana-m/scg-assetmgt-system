@@ -133,304 +133,113 @@ if($hardware_assets->num_rows())
 			<div class="panel-body asset-info-panel">
 
 
-	    		<form class="form-horizontal" role="form">
+	    		<form name="filter_search" role="form">
 
-					<div class = "form-group">
-						<label class= "control-label col-md-12" for="name"><small>Personnel Name:</small></label>
-						<div class="controls col-md-12">
-						<input type="text" class="form-control-small form-control" id="name" placeholder="Personnel Name">
-						</div>
-					</div>
+				<div class="form-group">
+				    <label class= "control-label col-md-12" >Employee ID</label>
+				    <div class="col-md-12 controls">
+				    	<input type="text" class="form-control-small form-control" name="emp_id" placeholder="Employee Name">
+				    </div>
+					
+				</div>
 
-				  	<div class="form-group">
+				<div class="form-group">
+				    <label class= "control-label col-md-12">Asset Office</label>
+				    <div class="col-md-12 controls">
+						<select name="har_office" class="input-medium form-control form-control-small">
+							<option value="PBI ROCES">PBI ROCES</option>
+							<option value="OMMC">OMMC</option>
+							<option value="PBI STAMM">PBI STAMM</option>
+							<option value="RTI">RTI</option>
+							<option value="SMIP">SMIP</option>
+							<option value="EG">EG</option>
+						</select>
+						
+				    </div>				
+				</div>
 
-				    	<label class= "control-label col-md-12" for="company"><small>Company:</small></label>
-					    <div class="col-md-12 controls">
-					    	<div class="dropdown no-border-radius">
-								<button class="btn btn-default dropdown-toggle btn-small" type="button" id="jobdepartment" data-toggle="dropdown" aria-expanded="true" style="display: inline-block; width: 100%">
-									All Companies
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu full-width" role="menu" aria-labelledby="dropdownMenu1">
-									<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><center>Company 1</center></a></li>
-									<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><center>Company 2</center></a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
+				<div class="form-group">
+				    <label class= "control-label col-md-12" >Asset Model</label>
+				    <div class="col-md-12 controls">
+				    	<input type="text" class="form-control-small form-control" name="asset_model" placeholder="Asset Model">
+				    </div>
+					
+				</div>
 
-					 <div class="form-group">
-					    <label class= "control-label col-md-12" for="category"><small>Category:</small></label>
-					    <div class="col-md-12 controls">
-					    	<div class="dropdown no-border-radius">
-								<button class="btn btn-default dropdown-toggle btn-small" type="button" id="jobdepartment" data-toggle="dropdown" aria-expanded="true" style="display: inline-block; width: 100%">
-									All Categories
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu full-width" role="menu" aria-labelledby="dropdownMenu1">
-									<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><center>Category 1</center></a></li>
-									<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><center>Category 2</center></a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
+				<div class="form-group">
+				    <label class= "control-label col-md-12" >Asset Type</label>
+				    <div class="col-md-12 controls">
+					<select name="har_asset_type" class="input-medium form-control form-control-small">
+						<option value="Access Point">Access Point</option>
+						<option value="Camera">Camera</option>
+						<option value="Desktop">Desktop</option>
+						<option value="Digital Camera">Digital Camera</option>
+						<option value="External Hard Disk">External Hard Disk</option>
+						<option value="Laptop">Laptop</option>
+						<option value="Monitor">Monitor</option>
+						<option value="Mouse">Mouse</option>
+						<option value="Printer">Printer</option>
+						<option value="Projector">Projector</option>
+						<option value="Server">Server</option>
+						<option value="Switch">Switch</option>
+						<option value="TV">TV</option>
+						<option value="UPS">UPS</option>
+						<option value="Video Conference">Video Conference</option>
+					</select>
+				    </div>				
+				</div>
 
-					<div class="form-group">
-					    <label for="status" class="col-md-12"><small>Asset Status:</small></label>
-					    <div class=" col-md-12 controls">
-					    	<select class="form-control-small form-control form-controller-small" id="status">
-								  <option>1</option>
-								  <option>2</option>
-								  <option>3</option>
-								  <option>4</option>
-								  <option>5</option>
-								</select>
-						</div>
-				  	</div>
 
-				  	<div class="form-group">
-					    <label class= "control-label col-md-12" for="assettype"><small>Asset Type:</small></label>
-					    <div class="col-md-12 controls">
-					    	<div class="dropdown no-border-radius">
-								<button class="btn btn-default dropdown-toggle btn-small" type="button" id="jobdepartment" data-toggle="dropdown" aria-expanded="true" style="display: inline-block; width: 100%">
-									All Asset Types
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu full-width" role="menu" aria-labelledby="dropdownMenu1">
-									<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><center>Asset Type 1</center></a></li>
-									<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><center>Asset Type 2</center></a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
+				<div class="form-group">
+				    <label class= "control-label col-md-12">Asset Status</label>
+				    <div class="col-md-12 controls">
+					<select name="har_asset_status" class="input-medium form-control form-control-small">
+						<option value="active">active</option>
+						<option value="stockroom">stockroom</option>
+						<option value="service unit">service unit</option>
+						<option value="for disposal">for disposal</option>
+						<option value="repair">repair</option>
+					</select>
+				    </div>				
+				</div>
 
-					<div class="form-group">
-					    <label class= "control-label col-md-12" for="assetstatus"><small>Asset Statues:</small></label>
-					    <div class="col-md-12 controls">
-					    	<div class="dropdown no-border-radius">
-								<button class="btn btn-default dropdown-toggle btn-small" type="button" id="jobdepartment" data-toggle="dropdown" aria-expanded="true" style="display: inline-block; width: 100%; ">
-									All Asset Statutes
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu full-width" role="menu" aria-labelledby="dropdownMenu1">
-									<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><center>Asset Status 1</center></a></li>
-									<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><center>Asset Status 2</center></a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
+				<div class="form-group">
+				    <label class= "control-label col-md-12">Date Added</label>
+				    <div class="col-md-12 controls">
+						<input type="date" name="har_date_added" class="form-control form-control-small" />
+				    </div>				
+				</div>
 
-				  	<div class="form-group">
-				    	<label class= "control-label col-md-12" for="model"><small>Model:</small></label>
-				    	<div class="col-md-12 controls">
-				    		<input type="text" class="form-control-small form-control" id="model" placeholder="Model">
-				    	</div>
-				  	</div>
 
-					<div class="form-group">
-		   				<label class= "control-label col-md-12" for="vendor"><small>Vendor:</small></label>
-					    <div class="col-md-12 controls">
-					    	<input type="text" class="form-control-small form-control" id="vendor" placeholder="Vendor">
-					  	</div>
-					</div>
+				<div class="form-group">
+				    <label class= "control-label col-md-12">Date Last Updated</label>
+				    <div class="col-md-12 controls">
+						<input type="date" name="har_last_update" class="form-control form-control-small" />
+				    </div>				
+				</div>
 
-					<div class="form-group">
-					    <label class= "control-label col-md-12" for="techrefresher"><small>Technology Refresher:</small></label>
-					    <div class="col-md-12 controls">
-					    	<input type="text" class="form-control-small form-control" id="techrefresher" placeholder="Technology Refresher">
-					    </div>
-					</div>
 
-				  	<div class="form-group">
-				    	<label class= "control-label col-md-12" for="added"><small>Date Added:</small></label>
-				    	<div class="col-md-12 controls">
-				    		<input type="date" class="form-control-small form-control" id="added">
-				    	</div>
-				  	</div>
 
+				
+	
+
+			
+				
+				<input type="submit" id ="filter_search" name="generate_csv" class="btn btn-success pull-right" value="Filter">
 
 				</form>
+
+			
 			</div>
-	</div>
-
-
-
-
+</div>
 
 </div>
 
 
-<!-- View All Assets -->
-<div id = "viewassets" class = "modal fade">
-	<div class = "modal-dialog" style="width:90%;">
-		<div class = "modal-content">
-			<div class = "modal-header">
-				<center><h3 class="no-margin exo-font">View All Assets</h3></center>
-			</div>
-			<center><div class = "modal-body" style="width:100%;overflow:scroll;height:400px;">
-				<!--Paano lakihan yung modal-->
-				<table class="table table-striped table-bordered table-audit-trail">
-					<thead>
-						<th>Asset Number</th>
-						<th>Asset Type</th>
-						<th>Model</th>
-						<th>Serial Number</th>
-						<th>Status</th>
-						<th>Date of Purchase</th>
-						<th>Warranty Expiration</th>
-					</thead>
-					<tr>
-						<td><a href="../html/view-asset.html">LAP-1002014</a></td>
-						<td>Laptop</td>
-						<td>Apple MacBook Pro</td>
-						<td>102938291023</td>
-						<td>For Disposal</td>
-						<td>February 30, 2014</td>
-						<td>February 30, 2017</td>
-					</tr>
-					<tr>
-						<td><a href="../html/view-asset.html">LAP-1002014</a></td>
-						<td>Laptop</td>
-						<td>Apple MacBook Pro</td>
-						<td>102938291023</td>
-						<td>For Disposal</td>
-						<td>February 30, 2014</td>
-						<td>February 30, 2017</td>
-					</tr>
-					<tr>
-						<td><a href="../html/view-asset.html">LAP-1002014</a></td>
-						<td>Laptop</td>
-						<td>Apple MacBook Pro</td>
-						<td>102938291023</td>
-						<td>For Disposal</td>
-						<td>February 30, 2014</td>
-						<td>February 30, 2017</td>
-					</tr>
-					<tr>
-						<td><a href="../html/view-asset.html">LAP-1002014</a></td>
-						<td>Laptop</td>
-						<td>Apple MacBook Pro</td>
-						<td>102938291023</td>
-						<td>For Disposal</td>
-						<td>February 30, 2014</td>
-						<td>February 30, 2017</td>
-					</tr>
-					<tr>
-						<td><a href="../html/view-asset.html">LAP-1002014</a></td>
-						<td>Laptop</td>
-						<td>Apple MacBook Pro</td>
-						<td>102938291023</td>
-						<td>For Disposal</td>
-						<td>February 30, 2014</td>
-						<td>February 30, 2017</td>
-					</tr>
-					<tr>
-						<td><a href="../html/view-asset.html">LAP-1002014</a></td>
-						<td>Laptop</td>
-						<td>Apple MacBook Pro</td>
-						<td>102938291023</td>
-						<td>For Disposal</td>
-						<td>February 30, 2014</td>
-						<td>February 30, 2017</td>
-					</tr>
-					<tr>
-						<td><a href="../html/view-asset.html">LAP-1002014</a></td>
-						<td>Laptop</td>
-						<td>Apple MacBook Pro</td>
-						<td>102938291023</td>
-						<td>For Disposal</td>
-						<td>February 30, 2014</td>
-						<td>February 30, 2017</td>
-					</tr>
-					<tr>
-						<td><a href="../html/view-asset.html">LAP-1002014</a></td>
-						<td>Laptop</td>
-						<td>Apple MacBook Pro</td>
-						<td>102938291023</td>
-						<td>For Disposal</td>
-						<td>February 30, 2014</td>
-						<td>February 30, 2017</td>
-					</tr>
-					<tr>
-						<td><a href="../html/view-asset.html">LAP-1002014</a></td>
-						<td>Laptop</td>
-						<td>Apple MacBook Pro</td>
-						<td>102938291023</td>
-						<td>For Disposal</td>
-						<td>February 30, 2014</td>
-						<td>February 30, 2017</td>
-					</tr>
-					<tr>
-						<td><a href="../html/view-asset.html">LAP-1002014</a></td>
-						<td>Laptop</td>
-						<td>Apple MacBook Pro</td>
-						<td>102938291023</td>
-						<td>For Disposal</td>
-						<td>February 30, 2014</td>
-						<td>February 30, 2017</td>
-					</tr>
-					<tr>
-						<td><a href="../html/view-asset.html">LAP-1002014</a></td>
-						<td>Laptop</td>
-						<td>Apple MacBook Pro</td>
-						<td>102938291023</td>
-						<td>For Disposal</td>
-						<td>February 30, 2014</td>
-						<td>February 30, 2017</td>
-					</tr>
-					<tr>
-						<td><a href="../html/view-asset.html">LAP-1002014</a></td>
-						<td>Laptop</td>
-						<td>Apple MacBook Pro</td>
-						<td>102938291023</td>
-						<td>For Disposal</td>
-						<td>February 30, 2014</td>
-						<td>February 30, 2017</td>
-					</tr>
-					<tr>
-						<td><a href="../html/view-asset.html">LAP-1002014</a></td>
-						<td>Laptop</td>
-						<td>Apple MacBook Pro</td>
-						<td>102938291023</td>
-						<td>For Disposal</td>
-						<td>February 30, 2014</td>
-						<td>February 30, 2017</td>
-					</tr>
-					<tr>
-						<td><a href="../html/view-asset.html">LAP-1002014</a></td>
-						<td>Laptop</td>
-						<td>Apple MacBook Pro</td>
-						<td>102938291023</td>
-						<td>For Disposal</td>
-						<td>February 30, 2014</td>
-						<td>February 30, 2017</td>
-					</tr>
-					<tr>
-						<td><a href="../html/view-asset.html">LAP-1002014</a></td>
-						<td>Laptop</td>
-						<td>Apple MacBook Pro</td>
-						<td>102938291023</td>
-						<td>For Disposal</td>
-						<td>February 30, 2014</td>
-						<td>February 30, 2017</td>
-					</tr>
-					<tr>
-						<td><a href="../html/view-asset.html">LAP-1002014</a></td>
-						<td>Laptop</td>
-						<td>Apple MacBook Pro</td>
-						<td>102938291023</td>
-						<td>For Disposal</td>
-						<td>February 30, 2014</td>
-						<td>February 30, 2017</td>
-					</tr>
-				</table>
-			</div></center>
-			<div class = "modal-footer">
-				<button class = "btn btn-danger" data-dismiss = "modal" style="margin-top:5px;">Close</button>
-			</div>
-		</div>
-	</div>
-</div>
+
+
+
+
 
 
 
