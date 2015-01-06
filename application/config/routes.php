@@ -46,6 +46,7 @@ $route['admin'] = "admin";
 $route['admin/login'] = "admin/index/index";
 $route['admin/forbidden'] = "admin/index/forbidden";
 $route['admin/(:any)'] = "admin/$1";
+$route['admin/accounts'] = "admin/accounts/index";
 
 
 // Redirect all dev requests to the dev folder.

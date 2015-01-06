@@ -237,6 +237,7 @@ class Hardware_assets extends CI_Controller
 	
 			$this->form_validation->set_rules('har_asset_number', 'Asset Number', 'trim|required|integer|max_length[15]');
 			$this->form_validation->set_rules('har_asset_type', 'Asset Type', 'trim|required');
+			$this->form_validation->set_rules('har_office', 'Asset Office', 'trim|required');
 			$this->form_validation->set_rules('har_erf_number', 'Erf Number', 'trim|required|integer|max_length[11]');
 			$this->form_validation->set_rules('har_model', 'Model', 'trim|required|max_length[30]');
 			$this->form_validation->set_rules('har_serial_number', 'Serial Number', 'trim|required|max_length[30]');
@@ -308,6 +309,7 @@ class Hardware_assets extends CI_Controller
 
 		$this->form_validation->set_rules('har_asset_number', 'Asset Number', 'trim|required|integer|max_length[15]');
 		$this->form_validation->set_rules('har_asset_type', 'Asset Type', 'trim|required');
+		$this->form_validation->set_rules('har_office', 'Asset Office', 'trim|required');
 		$this->form_validation->set_rules('har_erf_number', 'Erf Number', 'trim|required|integer|max_length[11]');
 		$this->form_validation->set_rules('har_model', 'Model', 'trim|required|max_length[30]');
 		$this->form_validation->set_rules('har_serial_number', 'Serial Number', 'trim|required|max_length[30]');
@@ -631,7 +633,7 @@ class Hardware_assets extends CI_Controller
 		$bc = $data["barcode"];
 		$hardware_asset = $this->hardware_asset_model->get_one($bc);
 
-		if($hardware_asset !=null)
+		if($hardware_asset != null)
 		{
 			$this->template->notification("Hardware ".$bc." found!", 'success');
 			redirect('admin/hardware_assets/view/'.$bc);
