@@ -733,9 +733,7 @@ class Hardware_assets extends CI_Controller
 	 	
 	 	$this->template->content('hardware_assets-results', $page);
 	 	$this->template->show('admin/templates','partial');
-
-	 	
-	 	
+ 	
 	 
 	}
 

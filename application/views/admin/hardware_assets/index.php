@@ -149,6 +149,7 @@ if($hardware_assets->num_rows())
 				    <label class= "control-label col-md-12">Asset Office</label>
 				    <div class="col-md-12 controls">
 						<select name="har_office" class="input-medium form-control form-control-small">
+							<option selected value=''>Select Office</option>
 							<option value="PBI ROCES">PBI ROCES</option>
 							<option value="OMMC">OMMC</option>
 							<option value="PBI STAMM">PBI STAMM</option>
@@ -180,6 +181,7 @@ if($hardware_assets->num_rows())
 				    <label class= "control-label col-md-12" >Asset Type</label>
 				    <div class="col-md-12 controls">
 					<select name="har_asset_type" class="input-medium form-control form-control-small">
+						<option selected value=''>Select Asset Type</option>
 						<option value="Access Point">Access Point</option>
 						<option value="Camera">Camera</option>
 						<option value="Desktop">Desktop</option>
@@ -204,6 +206,7 @@ if($hardware_assets->num_rows())
 				    <label class= "control-label col-md-12">Asset Status</label>
 				    <div class="col-md-12 controls">
 					<select name="har_status" class="input-medium form-control form-control-small">
+						<option selected value=''>Select Status</option>
 						<option value="active">active</option>
 						<option value="stockroom">stockroom</option>
 						<option value="service unit">service unit</option>
@@ -306,9 +309,6 @@ $(document).ready(function () {
         }
     });
 
-    $("select[name=har_asset_type]").prop("selectedIndex", -1);
-	$("select[name=har_office]").prop("selectedIndex", -1);
-	$("select[name=har_status]").prop("selectedIndex", -1);
 
  });
 </script>
