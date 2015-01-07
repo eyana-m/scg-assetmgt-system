@@ -44,7 +44,7 @@
 					<ul class="dropdown-menu" style="color:white;" role="menu">
 						<li><a href="<?php echo site_url('admin/hardware_assets'); ?>">Manage</a></li>
 						<li><a href="<?php echo site_url('admin/hardware_assets/create'); ?>">Add</a></li>
-						<li><a href="#viewassets" data-toggle="modal">View All</a></li>
+					
 					</ul>
 				</li>
 				<li class="dropdown">
