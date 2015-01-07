@@ -646,6 +646,31 @@ class Hardware_assets extends CI_Controller
 		}
 	}
 
+	public function filter_search()
+	{
+		$reg_id = $this->check_postvar($this->input->post('reg_id'));
+		$pro_id = $this->check_postvar($this->input->post('pro_id'));
+		$mun_id = $this->check_postvar($this->input->post('mun_id'));
+		$are_id = $this->check_postvar($this->input->post('are_id'));
+		$start_date = $this->check_postvar($this->input->post('start_date'));
+		$end_date = $this->check_postvar($this->input->post('end_date'));
+		$end_date = $this->check_postvar($this->input->post('end_date'));
+
+	}
+
+	private function check_postvar($postvar)
+	{
+		if($postvar==false)
+		{
+			return null;
+		}
+		if($postvar=="")
+		{
+			return null;
+		}
+		return $postvar;
+	}
+
 
 
 

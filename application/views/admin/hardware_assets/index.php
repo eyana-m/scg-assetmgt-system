@@ -161,7 +161,15 @@ if($hardware_assets->num_rows())
 				<div class="form-group">
 				    <label class= "control-label col-md-12" >Asset Model</label>
 				    <div class="col-md-12 controls">
-				    	<input type="text" class="form-control-small form-control" name="asset_model" placeholder="Asset Model">
+				    	<input type="text" class="form-control-small form-control" name="har_asset_model" placeholder="Asset Model">
+				    </div>
+					
+				</div>
+
+				<div class="form-group">
+				    <label class= "control-label col-md-12" >Asset Number</label>
+				    <div class="col-md-12 controls">
+				    	<input type="text" class="form-control-small form-control" name="har_asset_number" placeholder="Asset Model">
 				    </div>
 					
 				</div>
@@ -222,7 +230,9 @@ if($hardware_assets->num_rows())
 
 				
 	
+			</div>
 
+			<div class="panel-footer" style="height: 5em">
 			
 				
 				<input type="submit" id ="filter_search" name="generate_csv" class="btn btn-success pull-right" value="Filter">
@@ -234,6 +244,58 @@ if($hardware_assets->num_rows())
 </div>
 
 </div>
+
+<script type="text/javascript">
+
+	jQuery(function($) {
+
+		$('form[name="filter_search"]').submit(function(e){
+			e.preventDefault(); 
+			
+			var emp_id = $( 'input:text[name=emp_id]').val();	
+			var har_office = $( 'select[name=har_office]').val();	
+			var har_asset_number = $( 'input:text[name=har_asset_number]').val();	
+			var har_asset_type = $( 'select[name=har_asset_type]').val();	
+			var har_asset_status = $( 'select[name=har_asset_status]').val();	
+			var har_date_added = $( 'input:date[name=har_date_added]').val();	
+			var har_last_update = $( 'input:date[name=har_last_update]').val();	
+
+		});	
+
+	function ajax_call(id, start_date, end_date, type){
+			
+			var request = $.ajax({					
+				url: '<?php echo site_url("admin/hardware_assets/filter_search"); ?>',
+				type: "POST",	
+				data: { 
+					emp_id : emp_id, 
+					har_office : har_office, 
+					har_asset_number : har_asset_number, 
+					har_asset_type : har_asset_type, 
+					har_asset_status : har_asset_status, 
+					har_date_added : har_date_added, 
+					har_last_update: har_last_update 
+					},
+				dataType: "json"
+			});
+			 
+			request.done(function( msg ) {
+				var x = msg["xaxis"];
+				var y = msg["type"];
+				createChart(x, y, z, a,b); 
+			});
+			 
+			request.fail(function( jqXHR, textStatus ) {
+				alert( "Request failed: " + textStatus );
+			});
+	}
+
+
+
+	});
+
+
+</script>
 
 
 
