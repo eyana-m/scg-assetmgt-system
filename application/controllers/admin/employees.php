@@ -7,7 +7,7 @@ class Employees extends CI_Controller
 	{
 		parent::__construct();
 		$this->access_control->logged_in();
-		$this->access_control->account_type('admin', ' user', ' dev');
+		$this->access_control->account_type('admin', ' user', ' dev', 'superadmin');
 		$this->access_control->validate();
 		$this->load->model('page_model');
 		$this->load->helper('format');

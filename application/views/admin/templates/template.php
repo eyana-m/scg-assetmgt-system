@@ -54,16 +54,15 @@
 						<li><a href="<?php echo site_url('admin/employees/create'); ?>">Add</a></li>
 					</ul>
 				</li>
+			<?php if($this->access_control->check_account_type('superadmin') || $this->access_control->check_user('admin@gmail.com')  ):?>
 				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" style="color:white;" data-toggle="dropdown">Others<span class="caret"></span></a>
-					<ul class="dropdown-menu pull-left"  style="right: 0; left: auto; color: white" role="menu">
-						<li class="divider"></li>
-						<li><a href="#">Adjust Barcode Fields</a></li>
-						<li><a href="../html/adjust-technology-refresher.html">Adjust Technology Refresher</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Database Backup</a></li>
+					<a href="#" class="dropdown-toggle" style="color:white;" data-toggle="dropdown">Accounts<span class="caret"></span></a>
+					<ul class="dropdown-menu" style="color:white;" role="menu">
+						<li><a href="<?php echo site_url('admin/accounts'); ?>">Manage</a></li>
+						<li><a href="<?php echo site_url('admin/accounts/create'); ?>">Add</a></li>
 					</ul>
 				</li>
+			<?php endif; ?>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" style="color:white;"  data-toggle="dropdown"><?php echo $this->session->userdata('acc_name'); ?><b class="caret"></b></a>
 					<ul class="dropdown-menu">
@@ -74,6 +73,9 @@
 				</li>
 		        <li>
 		          <a id="scanbutton" class="btn btn-danger navbar-btn" href="#scanbarcode" role="button" data-toggle="modal" style="color:white; padding:5px; margin-left:25px;">Scan Barcode</a>
+		        </li>
+		        <li>
+		          <a id="findemployee" class="btn btn-danger navbar-btn" href="#findemployee" role="button" data-toggle="modal" style="color:white; padding:5px; margin-left:25px;">Find Employee</a>
 		        </li>
 
 
