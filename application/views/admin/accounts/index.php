@@ -10,7 +10,7 @@ if($accounts->num_rows())
 		<table class="table-list table-striped table-bordered">
 			<thead>
 				<tr>
-					<th class="checkbox skip-sort"><input type="checkbox" class="select-all" value="acc_ids" /></th>
+					<th></th>
 					<th>Email</th>
 					<th style="width: 250px;">Name</th>
 					<th style="width: 100px;">Account Type</th>
@@ -35,13 +35,6 @@ if($accounts->num_rows())
 			</tbody>
 		</table>
 		<?php echo $accounts_pagination; ?>
-		<div class="choose-select">
-			With selected: 
-			<select name="form_mode" class="select-submit">
-				<option value="">choose...</option>
-				<option value="delete">Delete Accounts</option>
-			</select>
-		</div>
 	</form>
 	<?php
 }
