@@ -455,3 +455,55 @@ label {
   background-color: #fff;
   border-color: #ddd;
 }
+
+
+.dashboard-panel {
+  border:5px;
+}
+
+.dashboard-row {
+  background-color: #bdc3c7;
+}
+
+.padding-fifteen {
+  padding:15px;
+}
+
+.nav-tabs>li.active>#PBI-tab, #PBI-tab:hover {
+  background-color: #2980b9;
+}
+
+.nav-tabs>li.active>#STAM-tab, #STAM-tab:hover  {
+  background-color: #e74c3c;
+}
+
+.nav-tabs>li.active>#ALL-tab, #ALL-tab:hover  {
+  background-color: #8e44ad;
+}
+
+/**KEN's**/
+.tab-headers {
+  color:white !important;
+  border-top: 0px !important; 
+  border-right:0px !important;
+  border-left: 0px !important;
+}
+
+.no-side-padding {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.chart-class {
+  position: relative;
+  width: inherit;
+  height: inherit;
+}
+
+.dashboard-table-row {
+  height:37px;
+}
+
+.font-eleven {
+  font-size: 11px;
+}
