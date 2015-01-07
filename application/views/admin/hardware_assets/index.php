@@ -1,65 +1,20 @@
+
+
+<div class="col-md-9 col-sm-12 manage-assets" style="margin: 0; padding: 0">
+
 <?php
 if($hardware_assets->num_rows())
 {
 	?>
 
-<div class="col-md-9 col-sm-12" style="margin: 0; padding: 0">
+<?php echo $this->template->get_view("hardware_assets-assets"); ?>
 
-	<form method="post">
-		<table class="table-list table-striped table-bordered">
-			<thead>
-				<tr>
-					<th></th>
-					<th>Asset Barcode</th>
-					<th>Asset Type</th>
-					<th>Model</th>
-					<th>Status</th>
-					<th>Tech Refresher</th>
 
-					
-				</tr>
-			</thead>
-			<tbody>
-			<?php
-			foreach($hardware_assets->result() as $hardware_asset)
-			{
-				?>
-				<tr>
-					<td class="center"><input type="checkbox" name="har_barcodes[]" value="<?php echo $hardware_asset->har_barcode; ?>" /></td>
-					<td><a href="<?php echo site_url('admin/hardware_assets/view/' . $hardware_asset->har_barcode); ?>"><?php echo $hardware_asset->har_barcode; ?></a></td>
-					<td><?php echo $hardware_asset->har_asset_type; ?></td>				
-					<td><?php echo $hardware_asset->har_model; ?></td>
-					<td>
 
-					<?php if($hardware_asset->har_status=='active'):?>
-
-						<span class="label label-success"><?php echo $hardware_asset->har_status; ?></span>
-
-					<?php elseif ($hardware_asset->har_status=='repair'): ?>
-
-						<span class="label label-warning"><?php echo $hardware_asset->har_status; ?></span>
-
-					<?php else: ?>
-
-						<span class="label label-default"><?php echo $hardware_asset->har_status; ?></span>
-
-						
-
-					<?php endif; ?>
-
-					</td>
-					<td><?php echo $hardware_asset->har_tech_refresher; ?></td>
-					
-				</tr>
-				<?php
-			}
-			?>
-			</tbody>
-		</table>
-		<?php echo $hardware_assets_pagination; ?>
 	
-</div>
 
+
+</div>
 
 <div class="col-md-3 col-sm-12" style="margin-right: 0; padding-right: 0">
 
@@ -107,12 +62,6 @@ if($hardware_assets->num_rows())
 			  </label>
 			</div>
 
-			<div class="radio">
-			  <label>
-			    <input type="radio" name="report-type" id="current_status" value="current_status">
-			    Current Status of Asset 1 
-			  </label>
-			</div>
 
 
 
@@ -211,22 +160,6 @@ if($hardware_assets->num_rows())
 				    </div>				
 				</div>
 
-				<div class="form-group">
-				    <label class= "control-label col-md-12">Date Added</label>
-				    <div class="col-md-12 controls">
-						<input type="date" name="har_date_added" class="form-control form-control-small" />
-				    </div>				
-				</div>
-
-
-				<div class="form-group">
-				    <label class= "control-label col-md-12">Date Last Updated</label>
-				    <div class="col-md-12 controls">
-						<input type="date" name="har_last_update" class="form-control form-control-small" />
-				    </div>				
-				</div>
-
-
 
 				
 	
@@ -253,36 +186,39 @@ if($hardware_assets->num_rows())
 			e.preventDefault(); 
 			
 			var emp_id = $( 'input:text[name=emp_id]').val();	
-			var har_office = $( 'select[name=har_office]').val();	
-			var har_asset_number = $( 'input:text[name=har_asset_number]').val();	
-			var har_asset_type = $( 'select[name=har_asset_type]').val();	
-			var har_asset_status = $( 'select[name=har_asset_status]').val();	
-			var har_date_added = $( 'input:date[name=har_date_added]').val();	
-			var har_last_update = $( 'input:date[name=har_last_update]').val();	
+			var har_office = $( 'select[name=har_office]').val();
+
+			var har_asset_model = $( 'input:text[name=har_asset_model]').val();
+
+			var har_asset_number = $( 'input:text[name=har_asset_number]').val();
+
+			var har_asset_type = $( 'select[name=har_asset_type]').val();
+
+			var har_asset_status = $( 'select[name=har_asset_status]').val();
+
+			ajax_call(emp_id, har_office, har_asset_model, har_asset_number, har_asset_type, har_asset_status);
 
 		});	
 
-	function ajax_call(id, start_date, end_date, type){
+	function ajax_call(emp_id, har_office, har_asset_model,har_asset_number, har_asset_type, har_asset_status){
 			
 			var request = $.ajax({					
-				url: '<?php echo site_url("admin/hardware_assets/filter_search"); ?>',
+				url: '<?php echo site_url("admin/hardware_assets/assets"); ?>',
 				type: "POST",	
-				data: { 
-					emp_id : emp_id, 
-					har_office : har_office, 
-					har_asset_number : har_asset_number, 
-					har_asset_type : har_asset_type, 
-					har_asset_status : har_asset_status, 
-					har_date_added : har_date_added, 
-					har_last_update: har_last_update 
-					},
-				dataType: "json"
+				data: { emp_id : emp_id, har_office : har_office, har_asset_model : har_asset_model,har_asset_number : har_asset_number, har_asset_type : har_asset_type, har_asset_status : har_asset_status
+					}
+				//dataType: "json"
 			});
 			 
 			request.done(function( msg ) {
-				var x = msg["xaxis"];
-				var y = msg["type"];
-				createChart(x, y, z, a,b); 
+				$(".manage-assets").fadeOut(800, function(){
+                     $(".manage-assets").load(msg).fadeIn().delay(2000);
+
+                });
+
+			//console.log(msg);
+
+			
 			});
 			 
 			request.fail(function( jqXHR, textStatus ) {
@@ -296,15 +232,6 @@ if($hardware_assets->num_rows())
 
 
 </script>
-
-
-
-
-
-
-
-
-
 
 
 	<?php
@@ -329,6 +256,10 @@ $(document).ready(function () {
             $('select#aud_status').attr('disabled', 'disabled');
         }
     });
+
+    $("select[name=har_asset_type]").prop("selectedIndex", -1);
+	$("select[name=har_office]").prop("selectedIndex", -1);
+	$("select[name=har_asset_status]").prop("selectedIndex", -1);
 
  });
 </script>

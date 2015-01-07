@@ -374,9 +374,6 @@ class Hardware_assets extends CI_Controller
 		$this->template->show();
 	}
 
-
-
-
 	public function view($hardware_asset_id)
 	{
 		$this->template->title('Audit Trail: '.$hardware_asset_id);
@@ -646,17 +643,38 @@ class Hardware_assets extends CI_Controller
 		}
 	}
 
-	public function filter_search()
+	public function assets()
 	{
-		$reg_id = $this->check_postvar($this->input->post('reg_id'));
-		$pro_id = $this->check_postvar($this->input->post('pro_id'));
-		$mun_id = $this->check_postvar($this->input->post('mun_id'));
-		$are_id = $this->check_postvar($this->input->post('are_id'));
-		$start_date = $this->check_postvar($this->input->post('start_date'));
-		$end_date = $this->check_postvar($this->input->post('end_date'));
-		$end_date = $this->check_postvar($this->input->post('end_date'));
+		$emp_id = $this->check_postvar($this->input->post('emp_id'));
+
+		$har_office = $this->check_postvar($this->input->post('har_office'));
+
+		$har_asset_model = $this->check_postvar($this->input->post('har_asset_model'));
+
+		$har_asset_number = $this->check_postvar($this->input->post('har_asset_number'));
+
+		$har_asset_type = $this->check_postvar($this->input->post('har_asset_type'));
+
+		$har_asset_status = $this->check_postvar($this->input->post('har_asset_status'));
+
+		$page = array();
+
+		$params = array('har_status' => $har_asset_status);
+		
+		$page["hardware_assets"] = $this->hardware_asset_model->get_all($params);
+
+		// $this->load->view('templates/manage_assets');
+		// $this->template->show();
+
+	 	//echo $page["hardware_assets"];
+	 	$this->template->content('hardware_assets-index', $page);
+	 	$reload->show();
 
 	}
+
+	// public function assets(){
+
+	// }
 
 	private function check_postvar($postvar)
 	{
