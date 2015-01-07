@@ -54,7 +54,7 @@
 						<li><a href="<?php echo site_url('admin/employees/create'); ?>">Add</a></li>
 					</ul>
 				</li>
-			<?php if($this->access_control->check_account_type('superadmin') || $this->access_control->check_account_type('admin@gmail.com')  ):?>
+			<?php if($this->access_control->check_user('admin@gmail.com')  ):?>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" style="color:white;" data-toggle="dropdown">Accounts<span class="caret"></span></a>
 					<ul class="dropdown-menu" style="color:white;" role="menu">

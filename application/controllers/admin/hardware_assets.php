@@ -35,6 +35,8 @@ class Hardware_assets extends CI_Controller
 		$page = array();
 		$page['hardware_assets'] = $this->hardware_asset_model->pagination("admin/hardware_assets/index/__PAGE__", 'get_all_reverse');
 
+		$hardware_assets = $page['hardware_assets'];
+
 		$page['hardware_assets_pagination'] = $this->hardware_asset_model->pagination_links();
 		
 
@@ -42,8 +44,12 @@ class Hardware_assets extends CI_Controller
 		{
 			$report_type = $this->extract->post();
 
+
+
 			switch ($report_type["report-type"]) {
+
 			    case 'asset-replacement':
+			    	
 
 			  		$params = array('har_status' => 'repair');
 			     	$page['hardware_repair'] =  $this->hardware_asset_model->get_all($params);
@@ -172,30 +178,27 @@ class Hardware_assets extends CI_Controller
 			    	break;
 
 			    case 'asset-salvagevalue':
+			    $date = date('Y-m-d');
+				$filename = 'asset_computation_'.$date.'.csv';
+
+
+				$page['hardware_selected'] =  $this->hardware_asset_model->get_selected($report_type['har_barcodes']);
+
+				$hardware_selected = $page['hardware_selected'] ;
+
+				
+				$data = $this->dbutil->csv_from_result($hardware_selected);
+
+				force_download($filename, $data);
+
+
+
 
 
 			    
-			    	break;
-
-			    case 'current_status':
-			    	$page['hardware_current_entry'] = $this->hardware_asset_model->get_current_by_hardware(11);
+			    break;
 
 
-			    	$hardware_current_entry = $page['hardware_current_entry']->result();
-					
-					if ($page['hardware_current_entry']->num_rows())
-					{
-						foreach ($hardware_current_entry as $row)
-						{
-						    $current_aud_status = $row->aud_status;
-						    print_r($current_aud_status); die();
-						}
-					}
-					else
-					{
-						print_r("No Audit trail"); die();
-					}
-			    	break;
 			    	 
 			}
 
@@ -644,7 +647,7 @@ class Hardware_assets extends CI_Controller
 	}
 
 
-	}
+	
 
 
 	public function results()
@@ -659,54 +662,196 @@ class Hardware_assets extends CI_Controller
 
 		$har_status = $this->check_postvar($this->input->post('har_status'));
 
+		$args = array(
+    		"har_office" => $har_office,
+    		"har_model" => $har_model,
+    		"har_asset_number" => $har_asset_number,
+    		"har_asset_type" => $har_asset_type,
+    		"har_status" => $har_status
+		);
+
 		$page = array();
+
+		//print_r($args); die();
+
+		$assets = $this->query_hardware_asset($args);
+
+		$page['hardware_assets'] = $assets["hardware_assets"];
+
+		$page['hardware_assets_pagination'] = $this->hardware_asset_model->pagination_links();
+
+		$page["keys"] = $assets["key"];
+		$page["params"] = $assets["params"];
+
+
+
+
+	 	foreach($assets["params"] as $p){
+	 		$temp = strtoupper($p);
+	 		$this->template->set("content-top", $temp." ");
+	 		
+	 	}
+
+
+
+	 	
+	 	$this->template->content('hardware_assets-results', $page);
+	 	$this->template->show('admin/templates','partial');	
+
+
+	}
+
+	public function query_hardware_asset($args=array())
+	{
+
 
 		$params = array();
 
 		$key = array();
 
+		$out = array();
 
-		//HARDWARE ASSET
 
-		if ($har_office!=null):
-			$params['har_office'] = $har_office;
-			$key['Office'] = $har_office;
+
+
+
+		if ($args["har_office"]!=null ):
+			$params['har_office'] = $args["har_office"];
+			$key['har_office'] = $args["har_office"];
+		else:
+			$key['har_office'] = null;
+
 		endif;
 
-		if ($har_model!=null):
-			$params['har_model'] = $har_model;
+		if ($args["har_model"]!=null):
+			$params['har_model'] = $args["har_model"];
+			$key['har_model'] = $args["har_model"];
+		else:
+			$key['har_model'] = $args["har_model"];
+
 		endif;	
 
-		if ($har_asset_number!=null):
-			$params['$har_asset_number'] = $$har_asset_number;
+		if ($args["har_asset_number"]!=null):
+			$params['har_asset_number'] = $args["har_asset_number"];
+			$key['har_asset_number'] = $args["har_asset_number"];
+		else:
+			$key['har_asset_number'] = $args["har_asset_number"];
+
 		endif;
 
-		if ($har_asset_type!=null):
-			$params['har_asset_type'] = $har_asset_type;
-			$key['Type'] = $har_asset_type;
+		if ($args["har_asset_type"]!=null):
+			$params['har_asset_type'] = $args["har_asset_type"];
+			$key['har_asset_type'] = $args["har_asset_type"];
+		else:
+			$key['har_asset_type'] = $args["har_asset_type"];
+
+
 		endif;
 
-		if ($har_status!=null):
-			$params['har_status'] = $har_status;
-		$key['Status'] = $har_status;
+		if ($args["har_status"]!=null):
+			$params['har_status'] = $args["har_status"];
+			$key['har_status'] = $args["har_status"];
+		else:
+			$key['har_status'] = $args["har_status"];
+
+
 		endif;	
 
 	
 
-		$page['hardware_assets'] = $this->hardware_asset_model->pagination("admin/hardware_assets/index/__PAGE__", 'get_all_reverse', $params);
+		$out["hardware_assets"] = $this->hardware_asset_model->pagination("admin/hardware_assets/index/__PAGE__", 'get_all_reverse', $params);
 
-		$page['hardware_assets_pagination'] = $this->hardware_asset_model->pagination_links();
+		$out["key"] = $key;
+		$out["params"] = $params;
+
+
+
+		return $out;
 
 
 
 
-	 	foreach($key as $k){
-	 		$temp = strtoupper($k);
-	 		$this->template->set("content-top", $temp." ");
-	 	}
-	 	
-	 	$this->template->content('hardware_assets-results', $page);
-	 	$this->template->show('admin/templates','partial');	 
+	}
+
+public function query_hardware_asset_array($args=array())
+	{
+
+
+		$params = array();
+
+		$key = array();
+
+		$out = array();
+
+
+
+
+
+		if (in_array($args["har_office"], $args)):
+			$params['har_office'] = $args["har_office"];
+			$key['Office'] = $args["har_office"];
+
+		endif;
+
+		if (in_array($args["har_model"], $args)):
+			$params['har_model'] = $args["har_model"];
+			$key['Model'] = $args["har_model"];
+	
+
+		endif;	
+
+		if (in_array($args["har_asset_number"], $args)):
+			$params['har_asset_number'] = $args["har_asset_number"];
+			$key['Asset_Number'] = $args["har_asset_number"];
+
+		endif;
+
+		if (in_array($args["har_asset_type"], $args)):
+			$params['har_asset_type'] = $args["har_asset_type"];
+			$key['Type'] = $args["har_asset_type"];
+
+		endif;
+
+		if (in_array($args["har_status"], $args)):
+			$params['har_status'] = $args["har_status"];
+			$key['Status'] = $args["har_status"];
+
+		endif;	
+
+	
+
+		$out["hardware_assets"] = $this->hardware_asset_model->pagination("admin/hardware_assets/index/__PAGE__", 'get_all_reverse', $params);
+
+		$out["key"] = $key;
+		$out["params"] = $params;
+
+
+
+		return $out;
+
+
+
+
+	}
+
+
+	public function filter_csv()
+	{
+
+		$data = $this->extract->post();
+		$this->load->dbutil();
+
+		$assets = $this->query_hardware_asset($data["filters"]);
+
+		$date = date('Y-m-d');
+		$filename = 'asset_filtered_'.$date.'.csv';
+
+		$data = $this->dbutil->csv_from_result($assets["hardware_assets"]);
+
+		force_download($filename, $data); 
+
+
+
 	}
 
 

@@ -28,27 +28,6 @@ class Employees extends CI_Controller
 
 		$this->template->title('Employees');
 
-		if($this->input->post('form_mode'))
-		{
-			$form_mode = $this->input->post('form_mode');
-
-			if($form_mode == 'delete')
-			{
-				$emp_ids = $this->input->post('emp_ids');
-				if($emp_ids !== false)
-				{
-					foreach($emp_ids as $emp_id)
-					{
-						$employee = $this->employee_model->get_one($emp_id);
-						if($employee !== false)
-						{
-							$this->employee_model->delete($emp_id);
-						}
-					}
-					$this->template->notification('Selected employees were deleted.', 'success');
-				}
-			}
-		}
 
 		$page = array();
 		$page['employees'] = $this->employee_model->pagination("admin/employees/index/__PAGE__", 'get_all');

@@ -1,8 +1,9 @@
 
 	<table class="table-list table-striped table-bordered">
+	<form method="post" id="report-type" name="form_mode">
 		<thead>
 			<tr>
-				<th></th>
+				
 				<th>Asset Barcode</th>
 				<th>Asset Type</th>
 				<th>Model</th>
@@ -18,7 +19,7 @@
 		{
 			?>
 			<tr>
-				<td class="center"><input type="checkbox" name="har_barcodes[]" value="<?php echo $hardware_asset->har_barcode; ?>" /></td>
+				
 				<td><a href="<?php echo site_url('admin/hardware_assets/view/' . $hardware_asset->har_barcode); ?>"><?php echo $hardware_asset->har_barcode; ?></a></td>
 				<td><?php echo $hardware_asset->har_asset_type; ?></td>				
 				<td><?php echo $hardware_asset->har_model; ?></td>

@@ -193,8 +193,8 @@ class Hardware_asset_model extends Base_model
 	public function get_book_value($har_cost, $tech_year, $you)
 	{
 
-		return $har_cost*(($tech_year-$you)/$tech_year);
-
+		$temp = $har_cost*(($tech_year-$you)/$tech_year);
+		return round($temp, 2);
 	}
 
 
@@ -219,22 +219,27 @@ class Hardware_asset_model extends Base_model
 
 			if (($gap > 0) && ($gap <= 1)) //15
 			{
-				return $har_cost * .15;
+				$temp =  $har_cost * .15;
+
+				return round($temp, 2);
 
 			}
 			else if (($gap > 1) &&($gap <= 2)) //12
 			{
-				return $har_cost * .12;
+				$temp =  $har_cost * .12;
+				return round($temp, 2);
 
 			}
 			else if (($gap > 2) &&($gap <= 3)) //10
 			{
-				return $har_cost * .10;
+				$temp =  $har_cost * .10;
+				return round($temp, 2);
 
 			}
 			else if ($gap > 3)
 			{
-				return $har_cost * .08;
+				$temp = $har_cost * .08;
+				return round($temp, 2);
 
 			}
 
@@ -295,39 +300,12 @@ class Hardware_asset_model extends Base_model
 
 	}
 
-	public function get_asset_active()
+	public function get_selected($params=array())
 	{
-
-	}
-
-
-	public function get_asset_inactive()
-	{
-
-	}
-
-	public function get_asset_storage()
-	{
-
-	}
-
-	public function get_asset_service_unit()
-	{
-
-	}
-
-	public function get_asset_disposal()
-	{
-
-	}
-
-	public function get_asset_salvage_value()
-	{
-
-	}
-
-	public function get_salvage_value()
-	{
+		
+		$this->db->where_in('har_barcode', $params);
+		$query = $this->db->get($this->table); 
+		return $query;
 
 	}
 

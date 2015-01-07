@@ -10,6 +10,7 @@ if($hardware_assets->num_rows())
 	<div class="manage-assets">
 
 		<table class="table-list table-striped table-bordered">
+		<form method="post" id="report-type" name="form_mode">
 			<thead>
 				<tr>
 					<th></th>
@@ -75,17 +76,16 @@ if($hardware_assets->num_rows())
 	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
 		<div class="panel panel-danger panel-personnel" style="margin-left: 0;">
-		    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="text-decoration: none;">
+		    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="text-decoration: none;">
 				<div class="panel-heading" role="tab" id="headingOne" style="text-decoration: none;">
-				Generate Report
+				Generate Report for <strong>ALL</strong> Assets.
 				</div>
 			</a>
 
-			<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+			<div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
 
 			<div class="panel-body asset-info-panel" id="scan-panel-body">
-
-				<form method="post" id="report-type" name="form_mode">
+			
 
 				  	<div class="radio">
 					  <label>
@@ -97,7 +97,7 @@ if($hardware_assets->num_rows())
 					<div class="radio">
 					  <label>
 					    <input type="radio" name="report-type" id="asset-recentlyadded" value="asset-recentlyadded">
-					    Recently Added Assets
+					    Assets Added in the Past 7 Days
 					  </label>
 					</div>
 
@@ -118,7 +118,7 @@ if($hardware_assets->num_rows())
 					</select>
 
 					</div>
-					<div class="radio">
+					<div class="radio salvagevalue">
 					  <label>
 					    <input type="radio" name="report-type" id="asset-salvagevalue" value="asset-salvagevalue">
 					    Salvage Value of Selected Assets
@@ -139,11 +139,11 @@ if($hardware_assets->num_rows())
 
 
 		<div class="panel panel-danger panel-personnel">
-			<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="text-decoration: none;">
+			<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo" style="text-decoration: none;">
 				<div class="panel-heading filter-heading" role="tab" id="headingTwo" style="text-decoration: none;">Filter By:</div>
 			</a>
 
-			<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+			<div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
 				<div class="panel-body asset-info-panel">
 
 
@@ -177,7 +177,7 @@ if($hardware_assets->num_rows())
 					<div class="form-group">
 					    <label class= "control-label col-md-12" >Asset Number</label>
 					    <div class="col-md-12 controls">
-					    	<input type="text" class="form-control-small form-control" name="har_asset_number" placeholder="Asset Model">
+					    	<input type="text" class="form-control-small form-control" name="har_asset_number" placeholder="Asset Number">
 					    </div>
 						
 					</div>
@@ -259,11 +259,13 @@ if($hardware_assets->num_rows())
 
 			var har_status = $( 'select[name=har_status]').val();
 
+
+
 			ajax_call(har_office, har_model, har_asset_number, har_asset_type, har_status);
 
 		});	
 
-	function ajax_call(har_office, har_model,har_asset_number, har_asset_type, har_status){
+	function ajax_call(har_office, har_model, har_asset_number, har_asset_type, har_status){
 			
 			var request = $.ajax({					
 				url: '<?php echo site_url("admin/hardware_assets/results"); ?>',
@@ -275,7 +277,8 @@ if($hardware_assets->num_rows())
 			 
 			request.done(function( msg ) {
 				$(".manage-assets").fadeOut(800, function(){
-                     $(".manage-assets").html(msg).fadeIn().delay(2000);               
+                     $(".manage-assets").html(msg).fadeIn().delay(2000);    
+                     $(".salvagevalue").hide();            
                 });
 			
 			});
