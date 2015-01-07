@@ -1,5 +1,7 @@
 
 
+<?php echo $temp; ?>
+
 <div class="container">
   <div class="row dashboard-row">
     <h4 class="exo-font"><center><b>Current Inventory Count</b></center></h4>
