@@ -10,6 +10,8 @@ class Dashboard extends CI_Controller
 		$this->access_control->logged_in();
 		$this->access_control->account_type('dev', 'admin');
 		$this->access_control->validate();
+
+		$this->load->model('dashboard_model')
 	}
 	
 	public function index()
