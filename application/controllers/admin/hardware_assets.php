@@ -662,6 +662,8 @@ class Hardware_assets extends CI_Controller
 
 		$params = array();
 
+		$key = array();
+
 		//$params = array('har_office' => $har_office);
 
 		//EMPLOYEE SEARCH
@@ -674,6 +676,7 @@ class Hardware_assets extends CI_Controller
 
 		if ($har_office!=null):
 			$params['har_office'] = $har_office;
+			$key['Office'] = $har_office;
 		endif;
 
 		if ($har_model!=null):
@@ -686,10 +689,12 @@ class Hardware_assets extends CI_Controller
 
 		if ($har_asset_type!=null):
 			$params['har_asset_type'] = $har_asset_type;
+			$key['Type'] = $har_asset_type;
 		endif;
 
 		if ($har_status!=null):
 			$params['har_status'] = $har_status;
+		$key['Status'] = $har_status;
 		endif;	
 
 		// $params = array('har_office' => $har_office);
@@ -705,7 +710,7 @@ class Hardware_assets extends CI_Controller
 			$page['hardware_assets'] = $this->hardware_asset_model->pagination("admin/hardware_assets/index/__PAGE__", 'get_all_reverse', $params);
 
 			$page['hardware_assets_pagination'] = $this->hardware_asset_model->pagination_links();
-			
+
 		 else:
 
 		 endif;
@@ -721,6 +726,11 @@ class Hardware_assets extends CI_Controller
 		//var_dump($page["hardware_assets"]->result());
 
 	 	//echo $page["hardware_assets"];
+	 	foreach($key as $k){
+	 		$temp = strtoupper($k);
+	 		$this->template->set("content-top", $temp." ");
+	 	}
+	 	
 	 	$this->template->content('hardware_assets-results', $page);
 	 	$this->template->show('admin/templates','partial');
 
