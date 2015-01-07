@@ -6,23 +6,23 @@
 	<table class="table-form table-bordered">
 		<tr>
 			<th>Email</th>
-			<td><input type="text" name="acc_username" maxlength="150" /></td>
+			<td><input type="text" class="form-control"  style="width: 80%" name="acc_username" maxlength="150" /></td>
 		</tr>
 		<tr>
 			<th>Password</th>
-			<td><input type="password" name="acc_password" /></td>
+			<td><input type="password" class="form-control" style="width: 80%"  name="acc_password" /></td>
 		</tr>
 		<tr>
 			<th>Retype Password</th>
-			<td><input type="password" name="acc_password2" /></td>
+			<td><input type="password" class="form-control" style="width: 80%"  name="acc_password2" /></td>
 		</tr>
 		<tr>
 			<th>First Name</th>
-			<td><input type="text" name="acc_first_name" maxlength="60" /></td>
+			<td><input type="text" class="form-control" style="width: 80%"  name="acc_first_name" maxlength="60" /></td>
 		</tr>
 		<tr>
 			<th>Last Name</th>
-			<td><input type="text" name="acc_last_name" maxlength="30" /></td>
+			<td><input type="text" class="form-control" style="width: 80%" name="acc_last_name" maxlength="30" /></td>
 		</tr>
 		<tr>
 			<th>Account Type</th>
