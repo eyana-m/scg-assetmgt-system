@@ -82,17 +82,20 @@
         <div class="tab-content" style="background-color:#cccccb;">
           <div class="tab-pane fade in active" id="PBI-1">
               <div class="padding-fifteen no-side-padding" style="background-color:#2980b9;">
-                <div id="barchart-PBI-1" class="chart-class"></div>
+                <div id="barchart-PBI-1" class="chart-class">
+                </div>
               </div>
           </div>
           <div class="tab-pane fade in" id="STAM-1">
               <div class="padding-fifteen no-side-padding" style="background-color:#e74c3c;">
-                <div id="barchart-STAM-1" class="chart-class"></div>
+                <div id="barchart-STAM-1" class="chart-class">
+                </div>
               </div>
           </div>
           <div class="tab-pane fade in" id="ALL-1">
               <div class="padding-fifteen no-side-padding" style="background-color:#8e44ad;">
-                <div id="barchart-ALL-1" class="chart-class"></div>
+                <div id="barchart-ALL-1" class="chart-class">
+                </div>
               </div>
           </div>
         </div>
@@ -144,17 +147,20 @@
         <div class="tab-content" style="background-color:#cccccb;">
           <div class="tab-pane fade in active" id="PBI-2">
               <div class="padding-fifteen no-side-padding" style="background-color:#2980b9;">
-                <div id="barchart-PBI-2" class="chart-class"></div>
+                <div id="barchart-PBI-2" class="chart-class">
+                </div>
               </div>
           </div>
           <div class="tab-pane fade in" id="STAM-2">
               <div class="padding-fifteen no-side-padding" style="background-color:#e74c3c;">
-                <div id="barchart-STAM-2" class="chart-class"></div>
+                <div id="barchart-STAM-2" class="chart-class">
+                </div>
               </div>
           </div>
           <div class="tab-pane fade in" id="ALL-2">
               <div class="padding-fifteen no-side-padding" style="background-color:#8e44ad;">
-                <div id="barchart-ALL-2" class="chart-class"></div>
+                <div id="barchart-ALL-2" class="chart-class">
+                </div>
               </div>
           </div>
         </div>
