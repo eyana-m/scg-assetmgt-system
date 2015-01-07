@@ -619,7 +619,8 @@ class Hardware_assets extends CI_Controller
 	
 
 
-		$this->audit_entry_model->update($audit_update, $audit_update_fields);	
+		$this->audit_entry_model->update($audit_update, $audit_update_fields);
+
 	}
 
 
@@ -644,10 +645,6 @@ class Hardware_assets extends CI_Controller
 
 	public function results()
 	{
-		$emp_id = $this->check_postvar($this->input->post('emp_id'));
-
-		//
-
 		$har_office = $this->check_postvar($this->input->post('har_office'));
 
 		$har_model = $this->check_postvar($this->input->post('har_model'));
@@ -664,13 +661,6 @@ class Hardware_assets extends CI_Controller
 
 		$key = array();
 
-		//$params = array('har_office' => $har_office);
-
-		//EMPLOYEE SEARCH
-
-		// if ($emp_id!=null):
-		// 	$params[] = array('emp_id' => $emp_id);
-		// endif;
 
 		//HARDWARE ASSET
 
@@ -697,49 +687,24 @@ class Hardware_assets extends CI_Controller
 		$key['Status'] = $har_status;
 		endif;	
 
-		// $params = array('har_office' => $har_office);
-		// $params = array('har_model' => $har_model);	
-		// $params = array('har_asset_number' => $har_asset_number);
-		// $params = array('har_asset_type' => $har_asset_type);
-		// $params = array('har_status' => $har_asset_status);
+	
+
+		$page['hardware_assets'] = $this->hardware_asset_model->pagination("admin/hardware_assets/index/__PAGE__", 'get_all_reverse', $params);
+
+		$page['hardware_assets_pagination'] = $this->hardware_asset_model->pagination_links();
 
 
-		 if ($emp_id==null):
-			//$page["hardware_assets"] = $this->hardware_asset_model->get_all($params);
 
-			$page['hardware_assets'] = $this->hardware_asset_model->pagination("admin/hardware_assets/index/__PAGE__", 'get_all_reverse', $params);
 
-			$page['hardware_assets_pagination'] = $this->hardware_asset_model->pagination_links();
-
-		 else:
-
-		 endif;
-
-		//echo $this->load->view('hardware_assets/results', $page);
-		// $this->template->show();
-
-		// foreach($page["hardware_assets"]->result() as $hardware_asset)
-		// {
-		// 	print_r($hardware_asset);
-		// }
-
-		//var_dump($page["hardware_assets"]->result());
-
-	 	//echo $page["hardware_assets"];
 	 	foreach($key as $k){
 	 		$temp = strtoupper($k);
 	 		$this->template->set("content-top", $temp." ");
 	 	}
 	 	
 	 	$this->template->content('hardware_assets-results', $page);
-	 	$this->template->show('admin/templates','partial');
- 	
-	 
+	 	$this->template->show('admin/templates','partial');	 
 	}
 
-	// public function assets(){
-
-	// }
 
 	private function check_postvar($postvar)
 	{

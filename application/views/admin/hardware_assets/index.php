@@ -71,166 +71,174 @@ if($hardware_assets->num_rows())
 
 <div class="col-md-3 col-sm-12" style="margin-right: 0; padding-right: 0">
 
-	<div class="panel panel-danger panel-personnel" style="margin-left: 0;">
-		<div class="panel-heading">Generate Report</div>
-		<div class="panel-body asset-info-panel" id="scan-panel-body">
 
-		<form method="post" id="report-type" name="form_mode">
+	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
-		  	<div class="radio">
-			  <label>
-			    <input type="radio" name="report-type" id="asset-replacement" value="asset-replacement" checked>
-			    Assets Due for Replacement
-			  </label>
-			</div>
-			
-			<div class="radio">
-			  <label>
-			    <input type="radio" name="report-type" id="asset-recentlyadded" value="asset-recentlyadded">
-			    Recently Added Assets
-			  </label>
-			</div>
+		<div class="panel panel-danger panel-personnel" style="margin-left: 0;">
+		    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="text-decoration: none;">
+				<div class="panel-heading" role="tab" id="headingOne" style="text-decoration: none;">
+				Generate Report
+				</div>
+			</a>
 
-			<div class="radio">
-			  <label>
-			    <input type="radio" name="report-type" id="asset-status" value="asset-status">
-			    Assets Status
-			  </label>
-			<select name="status_type" id="aud_status" class="input-medium form-control form-control-small" disabled>
-				<option value="">Select Status</option>
-				<option value="active">active</option>
-				<option value="stockroom">stockroom</option>
-				<option value="service unit">service unit</option>
-				<option value="for disposal">for disposal</option>
-				<option value="disposed">disposed</option>
-				<option value="repair">repair</option>
-				
-			</select>
+			<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 
-			</div>
-			<div class="radio">
-			  <label>
-			    <input type="radio" name="report-type" id="asset-salvagevalue" value="asset-salvagevalue">
-			    Salvage Value of Selected Assets
-			  </label>
-			</div>
+			<div class="panel-body asset-info-panel" id="scan-panel-body">
 
+				<form method="post" id="report-type" name="form_mode">
 
-
-
-			<input type="submit" class="btn btn-warning pull-right"  name="form_mode" value="Generate Report">
-		
-		</form>
-
-
-		</div>
-	</div>
-
-
-
-
-
-	<div class="panel panel-danger panel-personnel">
-			<div class="panel-heading filter-heading">Filter By:</div>
-			<div class="panel-body asset-info-panel">
-
-
-	    		<form name="filter_search" role="form">
-
-				<div class="form-group">
-				    <label class= "control-label col-md-12" >Employee ID</label>
-				    <div class="col-md-12 controls">
-				    	<input type="text" class="form-control-small form-control" name="emp_id" placeholder="Employee Name">
-				    </div>
+				  	<div class="radio">
+					  <label>
+					    <input type="radio" name="report-type" id="asset-replacement" value="asset-replacement" checked>
+					    Assets Due for Replacement
+					  </label>
+					</div>
 					
-				</div>
+					<div class="radio">
+					  <label>
+					    <input type="radio" name="report-type" id="asset-recentlyadded" value="asset-recentlyadded">
+					    Recently Added Assets
+					  </label>
+					</div>
 
-				<div class="form-group">
-				    <label class= "control-label col-md-12">Asset Office</label>
-				    <div class="col-md-12 controls">
-						<select name="har_office" class="input-medium form-control form-control-small">
-							<option selected value=''>Select Office</option>
-							<option value="PBI ROCES">PBI ROCES</option>
-							<option value="OMMC">OMMC</option>
-							<option value="PBI STAMM">PBI STAMM</option>
-							<option value="RTI">RTI</option>
-							<option value="SMIP">SMIP</option>
-							<option value="EG">EG</option>
-						</select>
-						
-				    </div>				
-				</div>
-
-				<div class="form-group">
-				    <label class= "control-label col-md-12" >Asset Model</label>
-				    <div class="col-md-12 controls">
-				    	<input type="text" class="form-control-small form-control" name="har_model" placeholder="Asset Model">
-				    </div>
-					
-				</div>
-
-				<div class="form-group">
-				    <label class= "control-label col-md-12" >Asset Number</label>
-				    <div class="col-md-12 controls">
-				    	<input type="text" class="form-control-small form-control" name="har_asset_number" placeholder="Asset Model">
-				    </div>
-					
-				</div>
-
-				<div class="form-group">
-				    <label class= "control-label col-md-12" >Asset Type</label>
-				    <div class="col-md-12 controls">
-					<select name="har_asset_type" class="input-medium form-control form-control-small">
-						<option selected value=''>Select Asset Type</option>
-						<option value="Access Point">Access Point</option>
-						<option value="Camera">Camera</option>
-						<option value="Desktop">Desktop</option>
-						<option value="Digital Camera">Digital Camera</option>
-						<option value="External Hard Disk">External Hard Disk</option>
-						<option value="Laptop">Laptop</option>
-						<option value="Monitor">Monitor</option>
-						<option value="Mouse">Mouse</option>
-						<option value="Printer">Printer</option>
-						<option value="Projector">Projector</option>
-						<option value="Server">Server</option>
-						<option value="Switch">Switch</option>
-						<option value="TV">TV</option>
-						<option value="UPS">UPS</option>
-						<option value="Video Conference">Video Conference</option>
-					</select>
-				    </div>				
-				</div>
-
-
-				<div class="form-group">
-				    <label class= "control-label col-md-12">Asset Status</label>
-				    <div class="col-md-12 controls">
-					<select name="har_status" class="input-medium form-control form-control-small">
-						<option selected value=''>Select Status</option>
+					<div class="radio">
+					  <label>
+					    <input type="radio" name="report-type" id="asset-status" value="asset-status">
+					    Assets Status
+					  </label>
+					<select name="status_type" id="aud_status" class="input-medium form-control form-control-small" disabled>
+						<option value="">Select Status</option>
 						<option value="active">active</option>
 						<option value="stockroom">stockroom</option>
 						<option value="service unit">service unit</option>
 						<option value="for disposal">for disposal</option>
+						<option value="disposed">disposed</option>
 						<option value="repair">repair</option>
+						
 					</select>
-				    </div>				
+
+					</div>
+					<div class="radio">
+					  <label>
+					    <input type="radio" name="report-type" id="asset-salvagevalue" value="asset-salvagevalue">
+					    Salvage Value of Selected Assets
+					  </label>
+					</div>
+
+
+
+
+					<input type="submit" class="btn btn-warning pull-right"  name="form_mode" value="Generate Report">
+				
+				</form>
+
+
+			</div>
+			</div>
+		</div>
+
+
+		<div class="panel panel-danger panel-personnel">
+			<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="text-decoration: none;">
+				<div class="panel-heading filter-heading" role="tab" id="headingTwo" style="text-decoration: none;">Filter By:</div>
+			</a>
+
+			<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+				<div class="panel-body asset-info-panel">
+
+
+		    		<form name="filter_search" role="form">
+
+
+					<div class="form-group">
+					    <label class= "control-label col-md-12">Asset Office</label>
+					    <div class="col-md-12 controls">
+							<select name="har_office" class="input-medium form-control form-control-small">
+								<option selected value=''>Select Office</option>
+								<option value="PBI ROCES">PBI ROCES</option>
+								<option value="OMMC">OMMC</option>
+								<option value="PBI STAMM">PBI STAMM</option>
+								<option value="RTI">RTI</option>
+								<option value="SMIP">SMIP</option>
+								<option value="EG">EG</option>
+							</select>
+							
+					    </div>				
+					</div>
+
+					<div class="form-group">
+					    <label class= "control-label col-md-12" >Asset Model</label>
+					    <div class="col-md-12 controls">
+					    	<input type="text" class="form-control-small form-control" name="har_model" placeholder="Asset Model">
+					    </div>
+						
+					</div>
+
+					<div class="form-group">
+					    <label class= "control-label col-md-12" >Asset Number</label>
+					    <div class="col-md-12 controls">
+					    	<input type="text" class="form-control-small form-control" name="har_asset_number" placeholder="Asset Model">
+					    </div>
+						
+					</div>
+
+					<div class="form-group">
+					    <label class= "control-label col-md-12" >Asset Type</label>
+					    <div class="col-md-12 controls">
+						<select name="har_asset_type" class="input-medium form-control form-control-small">
+							<option selected value=''>Select Asset Type</option>
+							<option value="Access Point">Access Point</option>
+							<option value="Camera">Camera</option>
+							<option value="Desktop">Desktop</option>
+							<option value="Digital Camera">Digital Camera</option>
+							<option value="External Hard Disk">External Hard Disk</option>
+							<option value="Laptop">Laptop</option>
+							<option value="Monitor">Monitor</option>
+							<option value="Mouse">Mouse</option>
+							<option value="Printer">Printer</option>
+							<option value="Projector">Projector</option>
+							<option value="Server">Server</option>
+							<option value="Switch">Switch</option>
+							<option value="TV">TV</option>
+							<option value="UPS">UPS</option>
+							<option value="Video Conference">Video Conference</option>
+						</select>
+					    </div>				
+					</div>
+
+
+					<div class="form-group">
+					    <label class= "control-label col-md-12">Asset Status</label>
+					    <div class="col-md-12 controls">
+						<select name="har_status" class="input-medium form-control form-control-small">
+							<option selected value=''>Select Status</option>
+							<option value="active">active</option>
+							<option value="stockroom">stockroom</option>
+							<option value="service unit">service unit</option>
+							<option value="for disposal">for disposal</option>
+							<option value="repair">repair</option>
+						</select>
+					    </div>				
+					</div>
+
+
+					
 				</div>
 
 
+				<div class="panel-footer" style="height: 5em">
 				
-	
-			</div>
+					
+					<input type="submit" id ="filter_search" name="generate_csv" class="btn btn-success pull-right" value="Filter">
 
-			<div class="panel-footer" style="height: 5em">
-			
+					</form>
+
 				
-				<input type="submit" id ="filter_search" name="generate_csv" class="btn btn-success pull-right" value="Filter">
-
-				</form>
-
-			
+				</div>
 			</div>
-</div>
+		</div>
+
+	</div><!--panel-group-->
 
 </div>
 
@@ -241,7 +249,6 @@ if($hardware_assets->num_rows())
 		$('form[name="filter_search"]').submit(function(e){
 			e.preventDefault(); 
 			
-			var emp_id = $( 'input:text[name=emp_id]').val();	
 			var har_office = $( 'select[name=har_office]').val();
 
 			var har_model = $( 'input:text[name=har_model]').val();
@@ -252,16 +259,16 @@ if($hardware_assets->num_rows())
 
 			var har_status = $( 'select[name=har_status]').val();
 
-			ajax_call(emp_id, har_office, har_model, har_asset_number, har_asset_type, har_status);
+			ajax_call(har_office, har_model, har_asset_number, har_asset_type, har_status);
 
 		});	
 
-	function ajax_call(emp_id, har_office, har_model,har_asset_number, har_asset_type, har_status){
+	function ajax_call(har_office, har_model,har_asset_number, har_asset_type, har_status){
 			
 			var request = $.ajax({					
 				url: '<?php echo site_url("admin/hardware_assets/results"); ?>',
 				type: "POST",	
-				data: { emp_id : emp_id, har_office : har_office, har_model : har_model,har_asset_number : har_asset_number, har_asset_type : har_asset_type, har_status : har_status
+				data: { har_office : har_office, har_model : har_model,har_asset_number : har_asset_number, har_asset_type : har_asset_type, har_status : har_status
 					}
 				//dataType: "json"
 			});

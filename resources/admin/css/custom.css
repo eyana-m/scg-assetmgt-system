@@ -256,8 +256,13 @@ h5 {
   background-color: #f9f9f9;
   margin-bottom: 4px;
   padding: 0;
+  border-color: #bbb;
 }
 
+.panel-personnel > a > .panel-heading {
+  background-color: #ccc;
+  color: #797979;
+}
 
 .table-audit-trail
  {
@@ -480,6 +485,9 @@ label {
 .nav-tabs>li.active>#ALL-tab, #ALL-tab:hover  {
   background-color: #8e44ad;
 }
+
+
+
 
 /**KEN's**/
 .tab-headers {
