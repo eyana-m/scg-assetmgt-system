@@ -25,6 +25,8 @@ class Template extends MYTHOS_Template
 		
 		return parent::show($template_folder, $template_view, $return_string);
 	}
+
+
 	
 	/*
 	Notification types: warning (yellow), error (red), success (green), and info (blue)

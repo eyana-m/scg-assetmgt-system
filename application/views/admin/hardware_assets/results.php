@@ -49,5 +49,9 @@
 		?>
 		</tbody>
 	</table>
-	<?php echo $hardware_assets_pagination; ?>
+<?php
+	if($hardware_assets->num_rows()>20):
+	 echo $hardware_assets_pagination;
+	endif;
+  ?>
 	

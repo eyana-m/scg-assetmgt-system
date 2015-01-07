@@ -606,7 +606,6 @@ class Hardware_assets extends CI_Controller
 
 	}
 
-
 	private function auto_untag($current_audit_entry)
 	{
 		$audit_update = array();
@@ -643,33 +642,91 @@ class Hardware_assets extends CI_Controller
 		}
 	}
 
-	public function assets()
+	public function results()
 	{
 		$emp_id = $this->check_postvar($this->input->post('emp_id'));
 
+		//
+
 		$har_office = $this->check_postvar($this->input->post('har_office'));
 
-		$har_asset_model = $this->check_postvar($this->input->post('har_asset_model'));
+		$har_model = $this->check_postvar($this->input->post('har_model'));
 
 		$har_asset_number = $this->check_postvar($this->input->post('har_asset_number'));
 
 		$har_asset_type = $this->check_postvar($this->input->post('har_asset_type'));
 
-		$har_asset_status = $this->check_postvar($this->input->post('har_asset_status'));
+		$har_status = $this->check_postvar($this->input->post('har_status'));
 
 		$page = array();
 
-		$params = array('har_status' => $har_asset_status);
-		
-		$page["hardware_assets"] = $this->hardware_asset_model->get_all($params);
+		$params = array();
 
-		// $this->load->view('templates/manage_assets');
+		//$params = array('har_office' => $har_office);
+
+		//EMPLOYEE SEARCH
+
+		// if ($emp_id!=null):
+		// 	$params[] = array('emp_id' => $emp_id);
+		// endif;
+
+		//HARDWARE ASSET
+
+		if ($har_office!=null):
+			$params['har_office'] = $har_office;
+		endif;
+
+		if ($har_model!=null):
+			$params['har_model'] = $har_model;
+		endif;	
+
+		if ($har_asset_number!=null):
+			$params['$har_asset_number'] = $$har_asset_number;
+		endif;
+
+		if ($har_asset_type!=null):
+			$params['har_asset_type'] = $har_asset_type;
+		endif;
+
+		if ($har_status!=null):
+			$params['har_status'] = $har_status;
+		endif;	
+
+		// $params = array('har_office' => $har_office);
+		// $params = array('har_model' => $har_model);	
+		// $params = array('har_asset_number' => $har_asset_number);
+		// $params = array('har_asset_type' => $har_asset_type);
+		// $params = array('har_status' => $har_asset_status);
+
+
+		 if ($emp_id==null):
+			//$page["hardware_assets"] = $this->hardware_asset_model->get_all($params);
+
+			$page['hardware_assets'] = $this->hardware_asset_model->pagination("admin/hardware_assets/index/__PAGE__", 'get_all_reverse', $params);
+
+			$page['hardware_assets_pagination'] = $this->hardware_asset_model->pagination_links();
+			
+		 else:
+
+		 endif;
+
+		//echo $this->load->view('hardware_assets/results', $page);
 		// $this->template->show();
 
-	 	//echo $page["hardware_assets"];
-	 	$this->template->content('hardware_assets-index', $page);
-	 	$reload->show();
+		// foreach($page["hardware_assets"]->result() as $hardware_asset)
+		// {
+		// 	print_r($hardware_asset);
+		// }
 
+		//var_dump($page["hardware_assets"]->result());
+
+	 	//echo $page["hardware_assets"];
+	 	$this->template->content('hardware_assets-results', $page);
+	 	$this->template->show('admin/templates','partial');
+
+	 	
+	 	
+	 
 	}
 
 	// public function assets(){
