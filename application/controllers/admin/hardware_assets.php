@@ -237,6 +237,7 @@ class Hardware_assets extends CI_Controller
 	
 			$this->form_validation->set_rules('har_asset_number', 'Asset Number', 'trim|required|integer|max_length[15]');
 			$this->form_validation->set_rules('har_asset_type', 'Asset Type', 'trim|required');
+			$this->form_validation->set_rules('har_office', 'Asset Office', 'trim|required');
 			$this->form_validation->set_rules('har_erf_number', 'Erf Number', 'trim|required|integer|max_length[11]');
 			$this->form_validation->set_rules('har_model', 'Model', 'trim|required|max_length[30]');
 			$this->form_validation->set_rules('har_serial_number', 'Serial Number', 'trim|required|max_length[30]');
@@ -308,6 +309,7 @@ class Hardware_assets extends CI_Controller
 
 		$this->form_validation->set_rules('har_asset_number', 'Asset Number', 'trim|required|integer|max_length[15]');
 		$this->form_validation->set_rules('har_asset_type', 'Asset Type', 'trim|required');
+		$this->form_validation->set_rules('har_office', 'Asset Office', 'trim|required');
 		$this->form_validation->set_rules('har_erf_number', 'Erf Number', 'trim|required|integer|max_length[11]');
 		$this->form_validation->set_rules('har_model', 'Model', 'trim|required|max_length[30]');
 		$this->form_validation->set_rules('har_serial_number', 'Serial Number', 'trim|required|max_length[30]');
@@ -631,7 +633,7 @@ class Hardware_assets extends CI_Controller
 		$bc = $data["barcode"];
 		$hardware_asset = $this->hardware_asset_model->get_one($bc);
 
-		if($hardware_asset !=null)
+		if($hardware_asset != null)
 		{
 			$this->template->notification("Hardware ".$bc." found!", 'success');
 			redirect('admin/hardware_assets/view/'.$bc);
@@ -642,6 +644,31 @@ class Hardware_assets extends CI_Controller
 			redirect('admin/hardware_assets/');
 
 		}
+	}
+
+	public function filter_search()
+	{
+		$reg_id = $this->check_postvar($this->input->post('reg_id'));
+		$pro_id = $this->check_postvar($this->input->post('pro_id'));
+		$mun_id = $this->check_postvar($this->input->post('mun_id'));
+		$are_id = $this->check_postvar($this->input->post('are_id'));
+		$start_date = $this->check_postvar($this->input->post('start_date'));
+		$end_date = $this->check_postvar($this->input->post('end_date'));
+		$end_date = $this->check_postvar($this->input->post('end_date'));
+
+	}
+
+	private function check_postvar($postvar)
+	{
+		if($postvar==false)
+		{
+			return null;
+		}
+		if($postvar=="")
+		{
+			return null;
+		}
+		return $postvar;
 	}
 
 

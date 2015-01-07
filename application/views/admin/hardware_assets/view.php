@@ -171,9 +171,14 @@
 				<?php endif; ?>
 
 
-
+				<?php if(($current_audit_entry->aud_status=='active')):?>
 				<div class="col-xs-5 panel-personnel-content">Date Tagged:
 				</div>
+				<?php else: ?>
+				<div class="col-xs-5 panel-personnel-content">Date Updated:
+				</div>
+				<?php endif; ?>
+
 				<div class="col-xs-7 text-right panel-personnel-content">
 					<?php echo $current_audit_entry->aud_datetime; ?> 
 				</div>

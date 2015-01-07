@@ -29,6 +29,19 @@
 					</select>
 				</td>
 			</tr>
+		<tr>
+			<th>Office</th>
+			<td>
+				<select name="har_office" class="form-control">
+					<option value="PBI ROCES">PBI ROCES</option>
+					<option value="OMMC">OMMC</option>
+					<option value="PBI STAMM">PBI STAMM</option>
+					<option value="RTI">RTI</option>
+					<option value="SMIP">SMIP</option>
+					<option value="EG">EG</option>
+				</select>
+			</td>
+		</tr>
 			<tr>
 				<th>Erf Number</th>
 				<td><input type="text" name="har_erf_number" class="form-control" size="11" maxlength="11"/></td>
@@ -150,6 +163,7 @@
 		<div class="well" style="width: 550px">
 			<p class="har_asset_number"></p>
 			<p class="har_asset_type" ></p>
+			<p class="har_office" ></p>
 			<p class="har_erf_number"></p>
 			<p class="har_model"></p>
 			<p class="har_serial_number"></p>
@@ -179,6 +193,9 @@
 	        $(this).find(':input').removeAttr('disabled');
 	    });
 
+	    $("select[name=har_asset_type]").prop("selectedIndex", -1);
+	    $("select[name=har_office]").prop("selectedIndex", -1);
+
 	});
 
 
@@ -199,6 +216,11 @@
 		$('select[name=har_asset_type]').change(function(){
     		var har_asset_type = $(this).val();
     		$("p.har_asset_type").html("<strong>Asset Type:</strong>&nbsp;&nbsp;&nbsp;" + har_asset_type);
+  		});
+
+		$('select[name=har_office]').change(function(){
+    		var har_office = $(this).val();
+    		$("p.har_office").html("<strong>Office:</strong>&nbsp;&nbsp;&nbsp;" + har_office);
   		});
 
 

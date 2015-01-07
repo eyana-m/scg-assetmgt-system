@@ -142,7 +142,7 @@
 				<div class="jumbotron">
 					<h2 class="exo-font" style="margin-top:10px;">Scan Now...</h2>
 					<form  method="post" action="<?php echo site_url("admin/hardware_assets/catch_barcode"); ?>"  name="barcode-form" id="barcode-form">
-					    <input id="barcode" class="form-control" name="barcode" type="text" autofocus>
+					    <input id="barcode" class="form-control" name="barcode" type="text">
 					</form>
 				</div>
 			</div></center>
@@ -173,26 +173,10 @@ $('#barcode').on("input", function() {
 
 });
 
-// function ajax_call(barcode){
-			
-// 			var request = $.ajax({					
-// 				url: '<?php echo site_url("admin/hardware_assets/catch_barcode"); ?>',
-// 				type: "POST",	
-// 				data: { barcode : barcode },
-// 				dataType: "json"
-// 			});
-			 
-// 			request.done(function( msg ) {
-// 				//var x = msg["xaxis"];
 
-// 				alert(msg);
-// 			});
-			 
-// 			request.fail(function( jqXHR, textStatus ) {
-// 				alert( "Request failed: " + textStatus );
-// 			});
-// 	}
-
+$('#barcode').change(function(event) {
+	$(this).attr('disabled');
+)};
 
 
 </script>

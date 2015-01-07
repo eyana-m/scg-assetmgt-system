@@ -48,7 +48,7 @@ class Accounts extends CI_Controller
 		$page['accounts_pagination'] = $this->account_model->pagination_links();
 		
 		$this->template->content('accounts-index', $page);
-		$this->template->content('menu-accounts', null, 'admin', 'page-nav');
+		//$this->template->content('menu-accounts', null, 'admin', 'page-nav');
 		$this->template->show();
 	}
 	

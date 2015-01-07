@@ -142,7 +142,8 @@
 <script type="text/javascript">
 $(function() {		
 	$('form').floodling('har_asset_number', "<?php echo addslashes($hardware_asset->har_asset_number); ?>");		
-	$('form').floodling('har_asset_type', "<?php echo addslashes($hardware_asset->har_asset_type); ?>");		
+	$('form').floodling('har_asset_type', "<?php echo addslashes($hardware_asset->har_asset_type); ?>");
+	$('form').floodling('har_office', "<?php echo addslashes($hardware_asset->har_office); ?>");		
 	$('form').floodling('har_erf_number', "<?php echo addslashes($hardware_asset->har_erf_number); ?>");		
 	$('form').floodling('har_model', "<?php echo addslashes($hardware_asset->har_model); ?>");		
 	$('form').floodling('har_serial_number', "<?php echo addslashes($hardware_asset->har_serial_number); ?>");		
