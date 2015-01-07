@@ -1,6 +1,6 @@
 
 
-<?php echo $temp; ?>
+<?php echo $roces; ?>
 
 <div class="container">
   <div class="row dashboard-row">

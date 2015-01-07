@@ -39,7 +39,12 @@ class Dashboard extends CI_Controller
 
 
 	}
-	
 
+	public function view($har_office, $har_asset_type)
+	{
+		$page['roces'] = $this->hardware_asset_model->get_asset_type_count("PBI Roces", "Camera");
+		
+
+	}
 	
 }

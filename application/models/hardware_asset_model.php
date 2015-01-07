@@ -331,8 +331,12 @@ class Hardware_asset_model extends Base_model
 
 	}
 
-
-
-
-
+	public function get_asset_type_count($har_office, $har_asset_type)
+	{
+		$this->db->where('har_office', $har_office);
+		$this->db->where('har_asset_type', $har_asset_type);
+		$query = $this->db->get($this->table);
+		$rowcount = $query->num_rows();
+		return $rowcount;
+	}
 }
