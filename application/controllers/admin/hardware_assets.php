@@ -630,7 +630,7 @@ class Hardware_assets extends CI_Controller
 		$bc = $data["barcode"];
 		$hardware_asset = $this->hardware_asset_model->get_one($bc);
 
-		if($hardware_asset != null)
+		if($hardware_asset!=null)
 		{
 			$this->template->notification("Hardware ".$bc." found!", 'success');
 			redirect('admin/hardware_assets/view/'.$bc);
@@ -642,6 +642,10 @@ class Hardware_assets extends CI_Controller
 
 		}
 	}
+
+
+	}
+
 
 	public function results()
 	{

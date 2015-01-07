@@ -54,7 +54,7 @@
 						<li><a href="<?php echo site_url('admin/employees/create'); ?>">Add</a></li>
 					</ul>
 				</li>
-			<?php if($this->access_control->check_account_type('superadmin') || $this->access_control->check_user('admin@gmail.com')  ):?>
+			<?php if($this->access_control->check_account_type('superadmin') || $this->access_control->check_account_type('admin@gmail.com')  ):?>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" style="color:white;" data-toggle="dropdown">Accounts<span class="caret"></span></a>
 					<ul class="dropdown-menu" style="color:white;" role="menu">
@@ -75,7 +75,7 @@
 		          <a id="scanbutton" class="btn btn-danger navbar-btn" href="#scanbarcode" role="button" data-toggle="modal" style="color:white; padding:5px; margin-left:25px;">Scan Barcode</a>
 		        </li>
 		        <li>
-		          <a id="findemployee" class="btn btn-danger navbar-btn" href="#findemployee" role="button" data-toggle="modal" style="color:white; padding:5px; margin-left:25px;">Find Employee</a>
+		          <a id="findemployee" class="btn btn-danger navbar-btn" href="#findtagged" role="button" data-toggle="modal" style="color:white; padding:5px; margin-left:25px;">Find Employee</a>
 		        </li>
 
 
@@ -118,19 +118,7 @@
 	Ateneo de Manila University</p>
 	</div>
 </footer>
-<div class="modal hide fade" id="confirm-modal">
-	<div class="modal-header center">
-		<a class="close" data-dismiss="modal">&times;</a>
-		<h3>Confirm Action</h3>
-	</div>
-	<div class="modal-body center">
-		<p>Are you sure you want to continue?</p>
-	</div>
-	<div class="modal-footer center">
-		<a href="#" class="btn btn-primary btn-large">Yes</a>
-		<a href="#" class="btn btn-large" data-dismiss="modal">No</a>
-	</div>
-</div>
+
 
 
 
@@ -149,11 +137,38 @@
 				</div>
 			</div></center>
 			<div class = "modal-footer">
-				<button class = "btn btn-danger btn-lg no-border-radius" data-dismiss = "modal">Close</button>
+				<button class = "btn btn-default btn-lg no-border-radius" data-dismiss = "modal" style="background-color: #95a5a6; outline: 0">Close</button>
 			</div>
 		</div>
 	</div>
 </div>
+
+
+<div id = "findtagged" class = "modal fade">
+	<div class = "modal-dialog">
+		<div class = "modal-content">
+			<div class = "modal-header">
+				<h3 class="no-margin exo-font">Find Employee</h3>
+			</div>
+			<center><div class = "modal-body">
+				<div class="jumbotron">
+					<h4>Find current assets tagged to a specific employee.</h4>
+					<form  method="post" action="<?php echo site_url("admin/employees/catch_employee"); ?>"  name="employee-form" id="employee-form">
+					    <input id="employee_id" class="form-control" name="employee_id" type="text">
+					
+				</div>
+			</div></center>
+			<div class = "modal-footer">
+				<input class="btn btn-success btn-lg no-border-radius" name="submit" type="submit" style="border: none; outline: 0;">
+					</form>
+				<button class = "btn btn-default btn-lg no-border-radius" data-dismiss = "modal" style="background-color: #95a5a6; outline: 0;">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
 
 
 
@@ -176,9 +191,6 @@ $('#barcode').on("input", function() {
 });
 
 
-$('#barcode').change(function(event) {
-	$(this).attr('disabled');
-)};
 
 
 </script>

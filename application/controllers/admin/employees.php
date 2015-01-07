@@ -306,5 +306,30 @@ class Employees extends CI_Controller
 		$this->audit_entry_model->update($audit_update, $audit_update_fields);	
 	}
 
+	public function catch_employee()
+	{
+		$data = $this->extract->post();
+		$emp_id = $data["employee_id"];
+		$employee = $this->employee_model->get_one($emp_id);
+
+		if($employee!=null)
+		{
+			$fn = $employee->emp_first_name;
+			$ln = $employee->emp_last_name;
+
+			$this->template->notification("Employee ".$fn." ".$ln." found!", 'success');
+			redirect('admin/employees/view/'.$emp_id);
+		}
+		else
+		{
+			$this->template->notification($emp_id." not found!", 'danger');
+			redirect('admin/employees/');
+
+		}
+	}
+
+
+
+
 
 }
