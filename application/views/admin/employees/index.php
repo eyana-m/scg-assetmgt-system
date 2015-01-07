@@ -3,13 +3,13 @@ if($employees->num_rows())
 {
 	?>
 
-<div class="col-md-12 col-sm-12" style="margin: 0; padding: 0">
+<div class="col-md-9 col-sm-12" style="margin: 0; padding: 0">
 
 	<form method="post">
 		<table class="table-list table-striped table-bordered">
 			<thead>
 				<tr>
-					<th></th>
+					
 					<th>Employee ID</th>
 					<th>Last Name</th>
 					<th>First Name</th>
@@ -24,7 +24,7 @@ if($employees->num_rows())
 			{
 				?>
 				<tr>
-					<td class="center"><input type="checkbox" name="emp_ids[]" value="<?php echo $employee->emp_id; ?>" /></td>
+					
 					<td><a href="<?php echo site_url('admin/employees/view/' . $employee->emp_id); ?>"><?php echo $employee->emp_id; ?></a></td>					
 					<td><?php echo $employee->emp_last_name; ?></td>
 					<td><?php echo $employee->emp_first_name; ?></td>

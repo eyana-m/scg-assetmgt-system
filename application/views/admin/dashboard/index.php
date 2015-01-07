@@ -172,4 +172,5 @@
   </div>
 </div>
 
-</body>
+  <script type="text/javascript" src="<?php echo res_url('admin/js/highcharts.js'); ?>"></script>
+  <script type="text/javascript" src="<?php echo res_url('admin/js/main.js'); ?>"></script>
