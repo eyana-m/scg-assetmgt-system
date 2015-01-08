@@ -8,8 +8,7 @@
 	<script type="text/javascript" src="<?php echo res_url('mythos/js/jquery-ui-1.8.16.custom.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo res_url('mythos/js/jquery.floodling.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo res_url('mythos/js/jquery.validate.complete.min.js'); ?>"></script>
-	<script type="text/javascript" src="<?php echo res_url('admin/js/highcharts.js'); ?>"></script>
-	<script type="text/javascript" src="<?php echo res_url('admin/js/main.js'); ?>"></script>
+
 
 	<?php echo template('bootstrap'); ?>
 	<?php echo template('head'); ?>
