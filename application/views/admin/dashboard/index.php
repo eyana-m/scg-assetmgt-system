@@ -176,6 +176,8 @@
 </div>
 
 <script type="text/javascript">
+
+// Graph 1: PBI Roces
 $(function () {
     $('#barchart-PBI-1').highcharts({
         chart: {
@@ -202,6 +204,7 @@ $(function () {
     });
 });
 
+// Graph 1: PBI STAM
 $(function () {
     $('#barchart-STAM-1').highcharts({
         chart: {
@@ -228,6 +231,7 @@ $(function () {
     });
 });
 
+// Graph 3: All
 $(function () {
     $('#barchart-ALL-1').highcharts({
         chart: {
@@ -250,6 +254,123 @@ $(function () {
         }, {
             name: 'Inactive',
             data: [<?php echo $all_access_point_inactive ?>, <?php echo $all_camera_inactive ?>, <?php echo $all_desktop_inactive ?>, <?php echo $all_digital_camera_inactive ?>, <?php echo $all_external_hard_disk_inactive ?>, <?php echo $all_laptop_inactive ?>, <?php echo $all_monitor_inactive ?>, <?php echo $all_mouse_inactive ?>, <?php echo $all_printer_inactive ?>, <?php echo $all_projector_inactive ?>, <?php echo $all_server_inactive ?>, <?php echo $all_switch_inactive?>, <?php echo $all_tv_inactive ?>, <?php echo $all_ups_inactive ?>, <?php echo $all_video_conference_inactive ?>]
+        }]
+    });
+});
+
+// Graph 2: PBI Roces
+$(function () {
+    $('#barchart-PBI-2').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Inventory Status'
+        },
+        xAxis: {
+            categories: ['Access Point', 'Camera', 'Desktop', 'Digital Camera', 'External Hard Disk', 'Laptop', 'Monitor', 'Mouse', 'Printer', 'Projector', 'Server', 'Switch', 'TV', 'UPS', 'Video Conference']
+        },
+        yAxis: {
+            title: {
+                text: 'Quantity'
+            }
+        },
+        series: [{
+            name: 'Active',
+            data: [18, 47, 37, 60, 63, 35, 25, 31,36, 56, 35, 56, 26, 31, 16]
+        }, {
+            name: 'For Repair',
+            data: [23, 11, 30, 32, 43, 73, 74, 27, 64, 64, 83, 91, 92, 61, 73]
+        }, {
+            name: 'Stockroom',
+            data: [32, 43, 47, 49, 32, 58, 75, 37, 65, 82, 52, 46, 21, 53, 42]
+        }, {
+            name: 'Service Unit',
+            data: [23, 42, 45, 24, 54, 27, 85, 35, 63, 76, 53, 76, 43, 43, 74]
+        }, {
+            name: 'For Disposal',
+            data: [23, 42, 45, 24, 54, 27, 85, 35, 63, 76, 53, 76, 43, 43, 74]
+        }, {
+            name: 'Disposed',
+            data: [23, 42, 45, 24, 54, 27, 85, 35, 63, 76, 53, 76, 43, 43, 74]
+        }]
+    });
+});
+
+// Graph 2: PBI STAM
+$(function () {
+    $('#barchart-STAM-2').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Inventory Status'
+        },
+        xAxis: {
+            categories: ['Access Point', 'Camera', 'Desktop', 'Digital Camera', 'External Hard Disk', 'Laptop', 'Monitor', 'Mouse', 'Printer', 'Projector', 'Server', 'Switch', 'TV', 'UPS', 'Video Conference']
+        },
+        yAxis: {
+            title: {
+                text: 'Quantity'
+            }
+        },
+        series: [{
+            name: 'Active',
+            data: [18, 47, 37, 60, 63, 35, 25, 31,36, 56, 35, 56, 26, 31, 16]
+        }, {
+            name: 'For Repair',
+            data: [23, 11, 30, 32, 43, 73, 74, 27, 64, 64, 83, 91, 92, 61, 73]
+        }, {
+            name: 'Stockroom',
+            data: [32, 43, 47, 49, 32, 58, 75, 37, 65, 82, 52, 46, 21, 53, 42]
+        }, {
+            name: 'Service Unit',
+            data: [23, 42, 45, 24, 54, 27, 85, 35, 63, 76, 53, 76, 43, 43, 74]
+        }, {
+            name: 'For Disposal',
+            data: [23, 42, 45, 24, 54, 27, 85, 35, 63, 76, 53, 76, 43, 43, 74]
+        }, {
+            name: 'Disposed',
+            data: [23, 42, 45, 24, 54, 27, 85, 35, 63, 76, 53, 76, 43, 43, 74]
+        }]
+    });
+});
+
+// Graph 2: All
+$(function () {
+    $('#barchart-ALL-2').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Inventory Status'
+        },
+        xAxis: {
+            categories: ['Access Point', 'Camera', 'Desktop', 'Digital Camera', 'External Hard Disk', 'Laptop', 'Monitor', 'Mouse', 'Printer', 'Projector', 'Server', 'Switch', 'TV', 'UPS', 'Video Conference']
+        },
+        yAxis: {
+            title: {
+                text: 'Quantity'
+            }
+        },
+        series: [{
+            name: 'Active',
+            data: [18, 47, 37, 60, 63, 35, 25, 31,36, 56, 35, 56, 26, 31, 16]
+        }, {
+            name: 'For Repair',
+            data: [23, 11, 30, 32, 43, 73, 74, 27, 64, 64, 83, 91, 92, 61, 73]
+        }, {
+            name: 'Stockroom',
+            data: [32, 43, 47, 49, 32, 58, 75, 37, 65, 82, 52, 46, 21, 53, 42]
+        }, {
+            name: 'Service Unit',
+            data: [23, 42, 45, 24, 54, 27, 85, 35, 63, 76, 53, 76, 43, 43, 74]
+        }, {
+            name: 'For Disposal',
+            data: [23, 42, 45, 24, 54, 27, 85, 35, 63, 76, 53, 76, 43, 43, 74]
+        }, {
+            name: 'Disposed',
+            data: [23, 42, 45, 24, 54, 27, 85, 35, 63, 76, 53, 76, 43, 43, 74]
         }]
     });
 });
