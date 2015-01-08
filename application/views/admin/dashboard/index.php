@@ -1,6 +1,5 @@
 
 
-<?php echo $roces; ?>
 
 <div class="container">
   <div class="row dashboard-row">
@@ -14,60 +13,64 @@
           </thead>
           <tbody class="font-eleven">
             <tr>
+              <td>Access Point</td>
+              <td><?php echo $all_access_point ?></td>
+            </tr>
+            <tr>
               <td>Camera</td>
-              <td>10</td>
+              <td><?php echo $all_camera ?></td>
             </tr>
             <tr>
               <td>Desktop</td>
-              <td>10</td>
+              <td><?php echo $all_desktop ?></td>
             </tr>
             <tr>
               <td>Digital Camera</td>
-              <td>10</td>
+              <td><?php echo $all_digital_camera ?></td>
             </tr>
             <tr>
               <td>External HDD</td>
-              <td>10</td>
+              <td><?php echo $all_external_hard_disk ?></td>
             </tr>
             <tr>
               <td>Laptop</td>
-              <td>10</td>
+              <td><?php echo $all_laptop ?></td>
             </tr>
             <tr>
               <td>Monitor</td>
-              <td>10</td>
+              <td><?php echo $all_monitor ?></td>
             </tr>
             <tr>
               <td>Mouse</td>
-              <td>10</td>
+              <td><?php echo $all_mouse ?></td>
             </tr>
             <tr>
               <td>Printer</td>
-              <td>10</td>
+              <td><?php echo $all_printer ?></td>
             </tr>
             <tr>
               <td>Projector</td>
-              <td>10</td>
+              <td><?php echo $all_projector ?></td>
             </tr>
             <tr>
               <td>Server</td>
-              <td>10</td>
+              <td><?php echo $all_server ?></td>
             </tr>
             <tr>
               <td>Switch</td>
-              <td>10</td>
+              <td><?php echo $all_switch?></td>
             </tr>
             <tr>
               <td>TV</td>
-              <td>10</td>
+              <td><?php echo $all_tv ?></td>
             </tr>
             <tr>
               <td>UPS</td>
-              <td>10</td>
+              <td><?php echo $all_ups ?></td>
             </tr>
             <tr>
               <td>Video Conference</td>
-              <td>10</td>
+              <td><?php echo $all_video_conference ?></td>
             </tr>
             <tr>
               <td><b>Grand Total</b></td>
@@ -171,6 +174,86 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+$(function () {
+    $('#barchart-PBI-1').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Philippine Batteries, Inc.'
+        },
+        xAxis: {
+            categories: ['Access Point', 'Camera', 'Desktop', 'Digital Camera', 'External Hard Disk', 'Laptop', 'Monitor', 'Mouse', 'Printer', 'Projector', 'Server', 'Switch', 'TV', 'UPS', 'Video Conference']
+        },
+        yAxis: {
+            title: {
+                text: 'Quantity'
+            }
+        },
+        series: [{
+            name: 'Active',
+            data: [<?php echo $roces_access_point_active ?>, <?php echo $roces_camera_active ?>, <?php echo $roces_desktop_active ?>, <?php echo $roces_digital_camera_active ?>, <?php echo $roces_external_hard_disk_active ?>, <?php echo $roces_laptop_active ?>, <?php echo $roces_monitor_active ?>, <?php echo $roces_mouse_active ?>, <?php echo $roces_printer_active ?>, <?php echo $roces_projector_active ?>, <?php echo $roces_server_active ?>, <?php echo $roces_switch_active?>, <?php echo $roces_tv_active ?>, <?php echo $roces_ups_active ?>, <?php echo $roces_video_conference_active ?>]
+        }, {
+            name: 'Inactive',
+            data: [<?php echo $roces_access_point_inactive ?>, <?php echo $roces_camera_inactive ?>, <?php echo $roces_desktop_inactive ?>, <?php echo $roces_digital_camera_inactive ?>, <?php echo $roces_external_hard_disk_inactive ?>, <?php echo $roces_laptop_inactive ?>, <?php echo $roces_monitor_inactive ?>, <?php echo $roces_mouse_inactive ?>, <?php echo $roces_printer_inactive ?>, <?php echo $roces_projector_inactive ?>, <?php echo $roces_server_inactive ?>, <?php echo $roces_switch_inactive?>, <?php echo $roces_tv_inactive ?>, <?php echo $roces_ups_inactive ?>, <?php echo $roces_video_conference_inactive ?>]
+        }]
+    });
+});
+
+$(function () {
+    $('#barchart-STAM-1').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'STAM'
+        },
+        xAxis: {
+            categories: ['Access Point', 'Camera', 'Desktop', 'Digital Camera', 'External Hard Disk', 'Laptop', 'Monitor', 'Mouse', 'Printer', 'Projector', 'Server', 'Switch', 'TV', 'UPS', 'Video Conference']
+        },
+        yAxis: {
+            title: {
+                text: 'Quantity'
+            }
+        },
+        series: [{
+            name: 'Active',
+            data: [<?php echo $stam_access_point_active ?>, <?php echo $stam_camera_active ?>, <?php echo $stam_desktop_active ?>, <?php echo $stam_digital_camera_active ?>, <?php echo $stam_external_hard_disk_active ?>, <?php echo $stam_laptop_active ?>, <?php echo $stam_monitor_active ?>, <?php echo $stam_mouse_active ?>, <?php echo $stam_printer_active ?>, <?php echo $stam_projector_active ?>, <?php echo $stam_server_active ?>, <?php echo $stam_switch_active?>, <?php echo $stam_tv_active ?>, <?php echo $stam_ups_active ?>, <?php echo $stam_video_conference_active ?>]
+        }, {
+            name: 'Inactive',
+            data: [<?php echo $stam_access_point_inactive ?>, <?php echo $stam_camera_inactive ?>, <?php echo $stam_desktop_inactive ?>, <?php echo $stam_digital_camera_inactive ?>, <?php echo $stam_external_hard_disk_inactive ?>, <?php echo $stam_laptop_inactive ?>, <?php echo $stam_monitor_inactive ?>, <?php echo $stam_mouse_inactive ?>, <?php echo $stam_printer_inactive ?>, <?php echo $stam_projector_inactive ?>, <?php echo $stam_server_inactive ?>, <?php echo $stam_switch_inactive?>, <?php echo $stam_tv_inactive ?>, <?php echo $stam_ups_inactive ?>, <?php echo $stam_video_conference_inactive ?>]
+        }]
+    });
+});
+
+$(function () {
+    $('#barchart-ALL-1').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'ALL'
+        },
+        xAxis: {
+            categories: ['Access Point', 'Camera', 'Desktop', 'Digital Camera', 'External Hard Disk', 'Laptop', 'Monitor', 'Mouse', 'Printer', 'Projector', 'Server', 'Switch', 'TV', 'UPS', 'Video Conference']
+        },
+        yAxis: {
+            title: {
+                text: 'Quantity'
+            }
+        },
+        series: [{
+            name: 'Active',
+            data: [<?php echo $all_access_point_active ?>, <?php echo $all_camera_active ?>, <?php echo $all_desktop_active ?>, <?php echo $all_digital_camera_active ?>, <?php echo $all_external_hard_disk_active ?>, <?php echo $all_laptop_active ?>, <?php echo $all_monitor_active ?>, <?php echo $all_mouse_active ?>, <?php echo $all_printer_active ?>, <?php echo $all_projector_active ?>, <?php echo $all_server_active ?>, <?php echo $all_switch_active?>, <?php echo $all_tv_active ?>, <?php echo $all_ups_active ?>, <?php echo $all_video_conference_active ?>]
+        }, {
+            name: 'Inactive',
+            data: [<?php echo $all_access_point_inactive ?>, <?php echo $all_camera_inactive ?>, <?php echo $all_desktop_inactive ?>, <?php echo $all_digital_camera_inactive ?>, <?php echo $all_external_hard_disk_inactive ?>, <?php echo $all_laptop_inactive ?>, <?php echo $all_monitor_inactive ?>, <?php echo $all_mouse_inactive ?>, <?php echo $all_printer_inactive ?>, <?php echo $all_projector_inactive ?>, <?php echo $all_server_inactive ?>, <?php echo $all_switch_inactive?>, <?php echo $all_tv_inactive ?>, <?php echo $all_ups_inactive ?>, <?php echo $all_video_conference_inactive ?>]
+        }]
+    });
+});
+</script>
 
   <script type="text/javascript" src="<?php echo res_url('admin/js/highcharts.js'); ?>"></script>
   <script type="text/javascript" src="<?php echo res_url('admin/js/main.js'); ?>"></script>

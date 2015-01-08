@@ -309,12 +309,50 @@ class Hardware_asset_model extends Base_model
 
 	}
 
-	public function get_asset_type_count($har_office, $har_asset_type)
+	public function get_asset_type_count_active($har_office, $har_asset_type, $har_status)
 	{
 		$this->db->where('har_office', $har_office);
+		$this->db->where('har_asset_type', $har_asset_type);
+		$this->db->where('har_status', $har_status);
+		$query = $this->db->get($this->table);
+		$rowcount = $query->num_rows();
+		return $rowcount;
+	}
+
+	public function get_asset_type_count_inactive($har_office, $har_asset_type, $har_status)
+	{
+		$this->db->where('har_office', $har_office);
+		$this->db->where('har_asset_type', $har_asset_type);
+		$this->db->where_not_in('har_status', $har_status);
+		$query = $this->db->get($this->table);
+		$rowcount = $query->num_rows();
+		return $rowcount;
+	}
+
+	public function get_asset_type_count_active_all($har_asset_type, $har_status)
+	{
+		$this->db->where('har_asset_type', $har_asset_type);
+		$this->db->where('har_status', $har_status);
+		$query = $this->db->get($this->table);
+		$rowcount = $query->num_rows();
+		return $rowcount;
+	}
+
+	public function get_asset_type_count_inactive_all($har_asset_type, $har_status)
+	{
+		$this->db->where('har_asset_type', $har_asset_type);
+		$this->db->where_not_in('har_status', $har_status);
+		$query = $this->db->get($this->table);
+		$rowcount = $query->num_rows();
+		return $rowcount;
+	}
+
+	public function get_asset_type_count_all($har_asset_type)
+	{
 		$this->db->where('har_asset_type', $har_asset_type);
 		$query = $this->db->get($this->table);
 		$rowcount = $query->num_rows();
 		return $rowcount;
 	}
+
 }
