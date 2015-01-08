@@ -1,3 +1,4 @@
+<?php echo $roces_camera_active_count ?>
 <div class="container">
   <div class="row dashboard-row">
     <h4 class="exo-font"><center><b>Current Inventory Count</b></center></h4>
@@ -282,22 +283,22 @@ $(function () {
         },
         series: [{
             name: 'Active',
-            data: [18, 47, 37, 60, 63, 35, 25, 31,36, 56, 35, 56, 26, 31, 16]
+            data: [<?php echo $roces_access_point_active_count ?>, <?php echo $roces_camera_active_count ?>, <?php echo $roces_desktop_active_count ?>, <?php echo $roces_digital_camera_active_count ?>, <?php echo $roces_external_hard_disk_active_count ?>, <?php echo $roces_laptop_active_count ?>, <?php echo $roces_monitor_active_count ?>, <?php echo $roces_mouse_active_count ?>,<?php echo $roces_printer_active_count ?>, <?php echo $roces_projector_active_count ?>, <?php echo $roces_server_active_count ?>, <?php echo $roces_switch_active_count ?>, <?php echo $roces_tv_active_count ?>, <?php echo $roces_ups_active_count ?>, <?php echo $roces_video_conference_active_count ?>]
         }, {
             name: 'For Repair',
-            data: [23, 11, 30, 32, 43, 73, 74, 27, 64, 64, 83, 91, 92, 61, 73]
+            data: [<?php echo $roces_access_point_for_repair_count ?>, <?php echo $roces_camera_for_repair_count ?>, <?php echo $roces_desktop_for_repair_count ?>, <?php echo $roces_digital_camera_for_repair_count ?>, <?php echo $roces_external_hard_disk_for_repair_count ?>, <?php echo $roces_laptop_for_repair_count ?>, <?php echo $roces_monitor_for_repair_count ?>, <?php echo $roces_mouse_for_repair_count ?>,<?php echo $roces_printer_for_repair_count ?>, <?php echo $roces_projector_for_repair_count ?>, <?php echo $roces_server_for_repair_count ?>, <?php echo $roces_switch_for_repair_count ?>, <?php echo $roces_tv_for_repair_count ?>, <?php echo $roces_ups_for_repair_count ?>, <?php echo $roces_video_conference_for_repair_count ?>]
         }, {
             name: 'Stockroom',
-            data: [32, 43, 47, 49, 32, 58, 75, 37, 65, 82, 52, 46, 21, 53, 42]
+            data: [<?php echo $roces_access_point_stockroom_count ?>, <?php echo $roces_camera_stockroom_count ?>, <?php echo $roces_desktop_stockroom_count ?>, <?php echo $roces_digital_camera_stockroom_count ?>, <?php echo $roces_external_hard_disk_stockroom_count ?>, <?php echo $roces_laptop_stockroom_count ?>, <?php echo $roces_monitor_stockroom_count ?>, <?php echo $roces_mouse_stockroom_count ?>,<?php echo $roces_printer_stockroom_count ?>, <?php echo $roces_projector_stockroom_count ?>, <?php echo $roces_server_stockroom_count ?>, <?php echo $roces_switch_stockroom_count ?>, <?php echo $roces_tv_stockroom_count ?>, <?php echo $roces_ups_stockroom_count ?>, <?php echo $roces_video_conference_stockroom_count ?>]
         }, {
             name: 'Service Unit',
-            data: [23, 42, 45, 24, 54, 27, 85, 35, 63, 76, 53, 76, 43, 43, 74]
-        }, {
-            name: 'For Disposal',
-            data: [23, 42, 45, 24, 54, 27, 85, 35, 63, 76, 53, 76, 43, 43, 74]
+            data: [<?php echo $roces_access_point_service_unit_count ?>, <?php echo $roces_camera_service_unit_count ?>, <?php echo $roces_desktop_service_unit_count ?>, <?php echo $roces_digital_camera_service_unit_count ?>, <?php echo $roces_external_hard_disk_service_unit_count ?>, <?php echo $roces_laptop_service_unit_count ?>, <?php echo $roces_monitor_service_unit_count ?>, <?php echo $roces_mouse_service_unit_count ?>,<?php echo $roces_printer_service_unit_count ?>, <?php echo $roces_projector_service_unit_count ?>, <?php echo $roces_server_service_unit_count ?>, <?php echo $roces_switch_service_unit_count ?>, <?php echo $roces_tv_service_unit_count ?>, <?php echo $roces_ups_service_unit_count ?>, <?php echo $roces_video_conference_service_unit_count ?>]
         }, {
             name: 'Disposed',
-            data: [23, 42, 45, 24, 54, 27, 85, 35, 63, 76, 53, 76, 43, 43, 74]
+            data: [<?php echo $roces_access_point_disposed_count ?>, <?php echo $roces_camera_disposed_count ?>, <?php echo $roces_desktop_disposed_count ?>, <?php echo $roces_digital_camera_disposed_count ?>, <?php echo $roces_external_hard_disk_disposed_count ?>, <?php echo $roces_laptop_disposed_count ?>, <?php echo $roces_monitor_disposed_count ?>, <?php echo $roces_mouse_disposed_count ?>,<?php echo $roces_printer_disposed_count ?>, <?php echo $roces_projector_disposed_count ?>, <?php echo $roces_server_disposed_count ?>, <?php echo $roces_switch_disposed_count ?>, <?php echo $roces_tv_disposed_count ?>, <?php echo $roces_ups_disposed_count ?>, <?php echo $roces_video_conference_disposed_count ?>]
+        }, {
+            name: 'For Disposal',
+            data: [<?php echo $roces_access_point_for_disposal_count ?>, <?php echo $roces_camera_for_disposal_count ?>, <?php echo $roces_desktop_for_disposal_count ?>, <?php echo $roces_digital_camera_for_disposal_count ?>, <?php echo $roces_external_hard_disk_for_disposal_count ?>, <?php echo $roces_laptop_for_disposal_count ?>, <?php echo $roces_monitor_for_disposal_count ?>, <?php echo $roces_mouse_for_disposal_count ?>,<?php echo $roces_printer_for_disposal_count ?>, <?php echo $roces_projector_for_disposal_count ?>, <?php echo $roces_server_for_disposal_count ?>, <?php echo $roces_switch_for_disposal_count ?>, <?php echo $roces_tv_for_disposal_count ?>, <?php echo $roces_ups_for_disposal_count ?>, <?php echo $roces_video_conference_for_disposal_count ?>]
         }]
     });
 });
@@ -321,22 +322,22 @@ $(function () {
         },
         series: [{
             name: 'Active',
-            data: [18, 47, 37, 60, 63, 35, 25, 31,36, 56, 35, 56, 26, 31, 16]
+            data: [<?php echo $stam_access_point_active_count ?>, <?php echo $stam_camera_active_count ?>, <?php echo $stam_desktop_active_count ?>, <?php echo $stam_digital_camera_active_count ?>, <?php echo $stam_external_hard_disk_active_count ?>, <?php echo $stam_laptop_active_count ?>, <?php echo $stam_monitor_active_count ?>, <?php echo $stam_mouse_active_count ?>,<?php echo $stam_printer_active_count ?>, <?php echo $stam_projector_active_count ?>, <?php echo $stam_server_active_count ?>, <?php echo $stam_switch_active_count ?>, <?php echo $stam_tv_active_count ?>, <?php echo $stam_ups_active_count ?>, <?php echo $stam_video_conference_active_count ?>]
         }, {
             name: 'For Repair',
-            data: [23, 11, 30, 32, 43, 73, 74, 27, 64, 64, 83, 91, 92, 61, 73]
+            data: [<?php echo $stam_access_point_for_repair_count ?>, <?php echo $stam_camera_for_repair_count ?>, <?php echo $stam_desktop_for_repair_count ?>, <?php echo $stam_digital_camera_for_repair_count ?>, <?php echo $stam_external_hard_disk_for_repair_count ?>, <?php echo $stam_laptop_for_repair_count ?>, <?php echo $stam_monitor_for_repair_count ?>, <?php echo $stam_mouse_for_repair_count ?>,<?php echo $stam_printer_for_repair_count ?>, <?php echo $stam_projector_for_repair_count ?>, <?php echo $stam_server_for_repair_count ?>, <?php echo $stam_switch_for_repair_count ?>, <?php echo $stam_tv_for_repair_count ?>, <?php echo $stam_ups_for_repair_count ?>, <?php echo $stam_video_conference_for_repair_count ?>]
         }, {
             name: 'Stockroom',
-            data: [32, 43, 47, 49, 32, 58, 75, 37, 65, 82, 52, 46, 21, 53, 42]
+            data: [<?php echo $stam_access_point_stockroom_count ?>, <?php echo $stam_camera_stockroom_count ?>, <?php echo $stam_desktop_stockroom_count ?>, <?php echo $stam_digital_camera_stockroom_count ?>, <?php echo $stam_external_hard_disk_stockroom_count ?>, <?php echo $stam_laptop_stockroom_count ?>, <?php echo $stam_monitor_stockroom_count ?>, <?php echo $stam_mouse_stockroom_count ?>,<?php echo $stam_printer_stockroom_count ?>, <?php echo $stam_projector_stockroom_count ?>, <?php echo $stam_server_stockroom_count ?>, <?php echo $stam_switch_stockroom_count ?>, <?php echo $stam_tv_stockroom_count ?>, <?php echo $stam_ups_stockroom_count ?>, <?php echo $stam_video_conference_stockroom_count ?>]
         }, {
             name: 'Service Unit',
-            data: [23, 42, 45, 24, 54, 27, 85, 35, 63, 76, 53, 76, 43, 43, 74]
-        }, {
-            name: 'For Disposal',
-            data: [23, 42, 45, 24, 54, 27, 85, 35, 63, 76, 53, 76, 43, 43, 74]
+            data: [<?php echo $stam_access_point_service_unit_count ?>, <?php echo $stam_camera_service_unit_count ?>, <?php echo $stam_desktop_service_unit_count ?>, <?php echo $stam_digital_camera_service_unit_count ?>, <?php echo $stam_external_hard_disk_service_unit_count ?>, <?php echo $stam_laptop_service_unit_count ?>, <?php echo $stam_monitor_service_unit_count ?>, <?php echo $stam_mouse_service_unit_count ?>,<?php echo $stam_printer_service_unit_count ?>, <?php echo $stam_projector_service_unit_count ?>, <?php echo $stam_server_service_unit_count ?>, <?php echo $stam_switch_service_unit_count ?>, <?php echo $stam_tv_service_unit_count ?>, <?php echo $stam_ups_service_unit_count ?>, <?php echo $stam_video_conference_service_unit_count ?>]
         }, {
             name: 'Disposed',
-            data: [23, 42, 45, 24, 54, 27, 85, 35, 63, 76, 53, 76, 43, 43, 74]
+            data: [<?php echo $stam_access_point_disposed_count ?>, <?php echo $stam_camera_disposed_count ?>, <?php echo $stam_desktop_disposed_count ?>, <?php echo $stam_digital_camera_disposed_count ?>, <?php echo $stam_external_hard_disk_disposed_count ?>, <?php echo $stam_laptop_disposed_count ?>, <?php echo $stam_monitor_disposed_count ?>, <?php echo $stam_mouse_disposed_count ?>,<?php echo $stam_printer_disposed_count ?>, <?php echo $stam_projector_disposed_count ?>, <?php echo $stam_server_disposed_count ?>, <?php echo $stam_switch_disposed_count ?>, <?php echo $stam_tv_disposed_count ?>, <?php echo $stam_ups_disposed_count ?>, <?php echo $stam_video_conference_disposed_count ?>]
+        }, {
+            name: 'For Disposal',
+            data: [<?php echo $stam_access_point_for_disposal_count ?>, <?php echo $stam_camera_for_disposal_count ?>, <?php echo $stam_desktop_for_disposal_count ?>, <?php echo $stam_digital_camera_for_disposal_count ?>, <?php echo $stam_external_hard_disk_for_disposal_count ?>, <?php echo $stam_laptop_for_disposal_count ?>, <?php echo $stam_monitor_for_disposal_count ?>, <?php echo $stam_mouse_for_disposal_count ?>,<?php echo $stam_printer_for_disposal_count ?>, <?php echo $stam_projector_for_disposal_count ?>, <?php echo $stam_server_for_disposal_count ?>, <?php echo $stam_switch_for_disposal_count ?>, <?php echo $stam_tv_for_disposal_count ?>, <?php echo $stam_ups_for_disposal_count ?>, <?php echo $stam_video_conference_for_disposal_count ?>]
         }]
     });
 });
@@ -360,22 +361,22 @@ $(function () {
         },
         series: [{
             name: 'Active',
-            data: [18, 47, 37, 60, 63, 35, 25, 31,36, 56, 35, 56, 26, 31, 16]
+            data: [<?php echo $all_access_point_active_count ?>, <?php echo $all_camera_active_count ?>, <?php echo $all_desktop_active_count ?>, <?php echo $all_digital_camera_active_count ?>, <?php echo $all_external_hard_disk_active_count ?>, <?php echo $all_laptop_active_count ?>, <?php echo $all_monitor_active_count ?>, <?php echo $all_mouse_active_count ?>,<?php echo $all_printer_active_count ?>, <?php echo $all_projector_active_count ?>, <?php echo $all_server_active_count ?>, <?php echo $all_switch_active_count ?>, <?php echo $all_tv_active_count ?>, <?php echo $all_ups_active_count ?>, <?php echo $all_video_conference_active_count ?>]
         }, {
             name: 'For Repair',
-            data: [23, 11, 30, 32, 43, 73, 74, 27, 64, 64, 83, 91, 92, 61, 73]
+            data: [<?php echo $all_access_point_for_repair_count ?>, <?php echo $all_camera_for_repair_count ?>, <?php echo $all_desktop_for_repair_count ?>, <?php echo $all_digital_camera_for_repair_count ?>, <?php echo $all_external_hard_disk_for_repair_count ?>, <?php echo $all_laptop_for_repair_count ?>, <?php echo $all_monitor_for_repair_count ?>, <?php echo $all_mouse_for_repair_count ?>,<?php echo $all_printer_for_repair_count ?>, <?php echo $all_projector_for_repair_count ?>, <?php echo $all_server_for_repair_count ?>, <?php echo $all_switch_for_repair_count ?>, <?php echo $all_tv_for_repair_count ?>, <?php echo $all_ups_for_repair_count ?>, <?php echo $all_video_conference_for_repair_count ?>]
         }, {
             name: 'Stockroom',
-            data: [32, 43, 47, 49, 32, 58, 75, 37, 65, 82, 52, 46, 21, 53, 42]
+            data: [<?php echo $all_access_point_stockroom_count ?>, <?php echo $all_camera_stockroom_count ?>, <?php echo $all_desktop_stockroom_count ?>, <?php echo $all_digital_camera_stockroom_count ?>, <?php echo $all_external_hard_disk_stockroom_count ?>, <?php echo $all_laptop_stockroom_count ?>, <?php echo $all_monitor_stockroom_count ?>, <?php echo $all_mouse_stockroom_count ?>,<?php echo $all_printer_stockroom_count ?>, <?php echo $all_projector_stockroom_count ?>, <?php echo $all_server_stockroom_count ?>, <?php echo $all_switch_stockroom_count ?>, <?php echo $all_tv_stockroom_count ?>, <?php echo $all_ups_stockroom_count ?>, <?php echo $all_video_conference_stockroom_count ?>]
         }, {
             name: 'Service Unit',
-            data: [23, 42, 45, 24, 54, 27, 85, 35, 63, 76, 53, 76, 43, 43, 74]
-        }, {
-            name: 'For Disposal',
-            data: [23, 42, 45, 24, 54, 27, 85, 35, 63, 76, 53, 76, 43, 43, 74]
+            data: [<?php echo $all_access_point_service_unit_count ?>, <?php echo $all_camera_service_unit_count ?>, <?php echo $all_desktop_service_unit_count ?>, <?php echo $all_digital_camera_service_unit_count ?>, <?php echo $all_external_hard_disk_service_unit_count ?>, <?php echo $all_laptop_service_unit_count ?>, <?php echo $all_monitor_service_unit_count ?>, <?php echo $all_mouse_service_unit_count ?>,<?php echo $all_printer_service_unit_count ?>, <?php echo $all_projector_service_unit_count ?>, <?php echo $all_server_service_unit_count ?>, <?php echo $all_switch_service_unit_count ?>, <?php echo $all_tv_service_unit_count ?>, <?php echo $all_ups_service_unit_count ?>, <?php echo $all_video_conference_service_unit_count ?>]
         }, {
             name: 'Disposed',
-            data: [23, 42, 45, 24, 54, 27, 85, 35, 63, 76, 53, 76, 43, 43, 74]
+            data: [<?php echo $all_access_point_disposed_count ?>, <?php echo $all_camera_disposed_count ?>, <?php echo $all_desktop_disposed_count ?>, <?php echo $all_digital_camera_disposed_count ?>, <?php echo $all_external_hard_disk_disposed_count ?>, <?php echo $all_laptop_disposed_count ?>, <?php echo $all_monitor_disposed_count ?>, <?php echo $all_mouse_disposed_count ?>,<?php echo $all_printer_disposed_count ?>, <?php echo $all_projector_disposed_count ?>, <?php echo $all_server_disposed_count ?>, <?php echo $all_switch_disposed_count ?>, <?php echo $all_tv_disposed_count ?>, <?php echo $all_ups_disposed_count ?>, <?php echo $all_video_conference_disposed_count ?>]
+        }, {
+            name: 'For Disposal',
+            data: [<?php echo $all_access_point_for_disposal_count ?>, <?php echo $all_camera_for_disposal_count ?>, <?php echo $all_desktop_for_disposal_count ?>, <?php echo $all_digital_camera_for_disposal_count ?>, <?php echo $all_external_hard_disk_for_disposal_count ?>, <?php echo $all_laptop_for_disposal_count ?>, <?php echo $all_monitor_for_disposal_count ?>, <?php echo $all_mouse_for_disposal_count ?>,<?php echo $all_printer_for_disposal_count ?>, <?php echo $all_projector_for_disposal_count ?>, <?php echo $all_server_for_disposal_count ?>, <?php echo $all_switch_for_disposal_count ?>, <?php echo $all_tv_for_disposal_count ?>, <?php echo $all_ups_for_disposal_count ?>, <?php echo $all_video_conference_for_disposal_count ?>]
         }]
     });
 });
