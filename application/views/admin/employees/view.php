@@ -88,9 +88,9 @@
 				<strong><?php echo $employee->emp_last_name; ?>, <?php echo $employee->emp_first_name; ?> <?php echo $employee->emp_middle_name; ?></strong>
 			</div>
 
-			<div class="col-xs-5 panel-personnel-content"><small>Email:</small>
+			<div class="col-xs-3 panel-personnel-content"><small>Email:</small>
 			</div>
-			<div class="col-xs-7 text-right panel-personnel-content">
+			<div class="col-xs-9 text-right panel-personnel-content">
 				<?php echo $employee->emp_email; ?>
 			</div>
 

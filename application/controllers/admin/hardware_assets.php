@@ -37,6 +37,8 @@ class Hardware_assets extends CI_Controller
 
 		$hardware_assets = $page['hardware_assets'];
 
+		//$this->email_by_tech_refresher($hardware_assets);
+
 		$page['hardware_assets_pagination'] = $this->hardware_asset_model->pagination_links();
 		
 
@@ -209,6 +211,14 @@ class Hardware_assets extends CI_Controller
 		$this->template->content('hardware_assets-index', $page);
 		$this->template->content('menu-hardware_assets', null, 'admin', 'page-nav');
 		$this->template->show();
+	}
+
+	public function email_by_tech_refresher($hardware_assets)
+	{
+		foreach ($hardware_assets as $hardware_asset) {
+			# if har_tech_refresher is 30 days from now
+			#activate mailer
+		
 	}
 
 	public function create()
