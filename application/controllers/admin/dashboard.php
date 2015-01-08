@@ -143,39 +143,16 @@ class Dashboard extends CI_Controller
 			$page['all_video_conference'] = $this->hardware_asset_model->get_asset_type_count_all("Video Conference");
 
 
-			// PBI Roces: Active
-			$page['roces_access_point_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("Access Point", "Active");
-			$page['roces_camera_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("Camera", "Active");
-			$page['roces_desktop_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("Desktop", "Active");
-			$page['roces_digital_camera_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("Digital Camera", "Active");
-			$page['roces_external_hard_disk_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("External Hard Disk", "Active");
-			$page['roces_laptop_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("Laptop", "Active");
-			$page['roces_monitor_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("Monitor", "Active");
-			$page['roces_mouse_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("Mouse", "Active");
-			$page['roces_printer_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("Printer", "Active");
-			$page['roces_projector_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("Projector", "Active");
-			$page['roces_server_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("Server", "Active");
-			$page['roces_switch_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("Switch", "Active");
-			$page['roces_tv_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("TV", "Active");
-			$page['roces_ups_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("UPS", "Active");
-			$page['roces_video_conference_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("Video Conference", "Active");
 
-			// PBI Roces: For Repair
-			$page['roces_access_point_repair_count'] = $this->hardware_asset_model->get_asset_type_active_count("Access Point", "For Repair");
-			$page['roces_camera_repair_count'] = $this->hardware_asset_model->get_asset_type_active_count("Camera", "For Repair");
-			$page['roces_desktop_repair_count'] = $this->hardware_asset_model->get_asset_type_active_count("Desktop", "For Repair");
-			$page['roces_digital_camera_repair_count'] = $this->hardware_asset_model->get_asset_type_active_count("Digital Camera", "For Repair");
-			$page['roces_external_hard_disk_repair_count'] = $this->hardware_asset_model->get_asset_type_active_count("External Hard Disk", "For Repair");
-			$page['roces_laptop_repair_count'] = $this->hardware_asset_model->get_asset_type_active_count("Laptop", "For Repair");
-			$page['roces_monitor_repair_count'] = $this->hardware_asset_model->get_asset_type_active_count("Monitor", "For Repair");
-			$page['roces_mouse_repair_count'] = $this->hardware_asset_model->get_asset_type_active_count("Mouse", "For Repair");
-			$page['roces_printer_repair_count'] = $this->hardware_asset_model->get_asset_type_active_count("Printer", "For Repair");
-			$page['roces_projector_repair_count'] = $this->hardware_asset_model->get_asset_type_active_count("Projector", "For Repair");
-			$page['roces_server_repair_count'] = $this->hardware_asset_model->get_asset_type_active_count("Server", "For Repair");
-			$page['roces_switch_repair_count'] = $this->hardware_asset_model->get_asset_type_active_count("Switch", "For Repair");
-			$page['roces_tv_repair_count'] = $this->hardware_asset_model->get_asset_type_active_count("TV", "For Repair");
-			$page['roces_ups_repair_count'] = $this->hardware_asset_model->get_asset_type_active_count("UPS", "For Repair");
-			$page['roces_video_conference_repair_count'] = $this->hardware_asset_model->get_asset_type_active_count("Video Conference", "For Repair");
+			
+			//TABLE
+			$page['all_active'] = $this->hardware_asset_model->get_status_count_all("Active");
+			$page['all_for_repair'] = $this->hardware_asset_model->get_status_count_all("For Repair");
+			$page['all_stockroom'] = $this->hardware_asset_model->get_status_count_all("Stockroom");
+			$page['all_service_unit'] = $this->hardware_asset_model->get_status_count_all("Service Unit");
+			$page['all_disposed'] = $this->hardware_asset_model->get_status_count_all("Disposed");
+			$page['all_for_disposal'] = $this->hardware_asset_model->get_status_count_all("For Disposal");
+
 
 			$this->template->content('dashboard-index', $page);
 			$this->template->show();

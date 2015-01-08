@@ -1,6 +1,3 @@
-<?php echo $roces_access_point_active_count; ?>
-
-
 <div class="container">
   <div class="row dashboard-row">
     <h4 class="exo-font"><center><b>Current Inventory Count</b></center></h4>
@@ -74,7 +71,7 @@
             </tr>
             <tr>
               <td><b>Grand Total</b></td>
-              <td>100</td>
+              <td><?php echo $all_access_point + $all_camera + $all_desktop + $all_digital_camera + $all_external_hard_disk + $all_laptop + $all_monitor + $all_mouse + $all_printer + $all_projector + $all_server + $all_switch + $all_tv + $all_ups + $all_video_conference ?></td>
             </tr>
           </tbody>
         </table>
@@ -123,23 +120,31 @@
           <tbody class="font-eleven">
             <tr>
               <td>Active</td>
-              <td>10</td>
-            </tr>
-            <tr>
-              <td>Service unit</td>
-              <td>10</td>
+              <td><?php echo $all_active; ?></td>
             </tr>
             <tr>
               <td>For Repair</td>
-              <td>10</td>
+              <td><?php echo $all_for_repair; ?></td>
             </tr>
             <tr>
-              <td>Unknown</td>
-              <td>10</td>
+              <td>Stockroom</td>
+              <td><?php echo $all_stockroom; ?></td>
+            </tr>
+            <tr>
+              <td>Service Unit</td>
+              <td><?php echo $all_service_unit; ?></td>
+            </tr>
+            <tr>
+              <td>Disposed</td>
+              <td><?php echo $all_disposed; ?></td>
+            </tr>
+            <tr>
+              <td>For Disposal</td>
+              <td><?php echo $all_for_disposal; ?></td>
             </tr>
             <tr>
               <td><b>Grand Total</b></td>
-              <td>10</td>
+              <td><?php echo $all_active + $all_for_repair + $all_stockroom + $all_service_unit + $all_disposed + $all_for_disposal; ?></td>
             </tr>
           </tbody>
         </table>
@@ -258,7 +263,7 @@ $(function () {
     });
 });
 
-// Graph 2: PBI Roces
+// Graph 4: PBI Roces
 $(function () {
     $('#barchart-PBI-2').highcharts({
         chart: {
@@ -297,7 +302,7 @@ $(function () {
     });
 });
 
-// Graph 2: PBI STAM
+// Graph 5: PBI STAM
 $(function () {
     $('#barchart-STAM-2').highcharts({
         chart: {
@@ -336,7 +341,7 @@ $(function () {
     });
 });
 
-// Graph 2: All
+// Graph 6: All
 $(function () {
     $('#barchart-ALL-2').highcharts({
         chart: {
