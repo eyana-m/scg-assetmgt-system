@@ -21,7 +21,7 @@
 		<th>Employee</th>
 		<td>
 		<a href="<?php echo site_url('admin/employees/view/' . $audit_entry->aud_per); ?>">
-		<?php echo number_format($audit_entry->aud_per); ?>
+		<?php echo $audit_entry->aud_per; ?>
 		</a>
 
 		</td>

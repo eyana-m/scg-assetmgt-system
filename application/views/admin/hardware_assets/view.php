@@ -110,7 +110,7 @@
 
 				<?php if($current_audit_entry->aud_status=='active'):?>
 
-					<span class="label label-success" style="font-size: 1em"><?php echo $audit_entry->aud_status; ?></span>
+					<span class="label label-success" style="font-size: 1em"><?php echo $current_audit_entry->aud_status; ?></span>
 
 				<?php elseif ($current_audit_entry->aud_status=='repair'): ?>
 

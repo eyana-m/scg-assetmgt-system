@@ -271,12 +271,30 @@ class Hardware_assets extends CI_Controller
 
 			$hardware_asset['har_last_update'] = date('Y-m-d H:i:s');
 
+			//FIRST AUDIT ENTRY
+
+			$audit_entry = array();
+
+			$audit_entry['aud_datetime'] = date('Y-m-d H:i:s');
+			$audit_entry['aud_status'] = "stockroom";
+			$audit_entry['aud_comment'] = "Hardware added to the system";
+			$audit_entry['aud_har'] = $hardware_asset['har_barcode'];
+			$audit_entry['aud_per'] = null;
+			$audit_entry['aud_confirm'] = null;
+			$audit_entry['aud_untag'] = null;
+			$audit_entry['aud_date_untagged'] = null;
+
+
+
+			$audit_field_list = array('aud_id', 'aud_datetime', 'aud_status', 'aud_comment', 'aud_har', 'aud_per', 'aud_confirm', 'aud_untag', 'aud_date_untagged');
+
 	
 
 			// Call run method from Form_validation to check
 			if($this->form_validation->run() !== false)
 			{
 				$this->hardware_asset_model->create($hardware_asset, $this->hardware_asset_model->get_fields());
+				$this->audit_entry_model->create($audit_entry, $audit_field_list);
 
 				//$this->template->notification("New hardware asset created. <a class='label label-success' href=".site_url('admin/hardware_assets/create').">Add More Asset</a>", 'success');
 				$this->template->notification("Hardware asset ".$hardware_asset['har_barcode']." created. <br><a class='label label-primary' href=".site_url('admin/hardware_assets').">Back to Asset List</a> <a class='label label-success' href=".site_url('admin/hardware_assets/view/')."/".$hardware_asset['har_barcode'].">View Asset</a>", 'success');
@@ -467,25 +485,44 @@ class Hardware_assets extends CI_Controller
 			elseif($this->input->post("emp_id"))
 			{
 
-				$audit_entry['aud_status'] = 'active';	
-				$hardware_update['har_status'] = $audit_entry['aud_status'];
+				$employee = $this->employee_model->get_one($this->input->post("emp_id"));
 
-				if($this->input->post('aud_comment')):
-					$audit_entry['aud_comment'] = $this->input->post("aud_comment");
-				else:				
-					$audit_entry['aud_comment'] = 'Normal condition';		
-				endif;
+				if ($employee!=null)
+				{
+					$audit_entry['aud_status'] = 'active';	
+					$hardware_update['har_status'] = $audit_entry['aud_status'];
 
-				$audit_entry['aud_har'] = $hardware_asset_id;
-				$audit_entry['aud_per'] = $this->input->post("emp_id");	
-				$audit_entry['aud_confirm'] = null;	
-				$audit_entry['aud_untag'] = FALSE;	
-				$audit_entry['aud_date_untagged'] = null;	
+					if($this->input->post('aud_comment')):
+						$audit_entry['aud_comment'] = $this->input->post("aud_comment");
+					else:				
+						$audit_entry['aud_comment'] = 'Normal condition';		
+					endif;
+
+					$audit_entry['aud_har'] = $hardware_asset_id;
+					$audit_entry['aud_per'] = $this->input->post("emp_id");	
+					$audit_entry['aud_confirm'] = null;	
+					$audit_entry['aud_untag'] = FALSE;	
+					$audit_entry['aud_date_untagged'] = null;	
+
+
+					$this->audit_entry_model->create($audit_entry, $field_list);
+					$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);	
+
+				}
+				else
+				{
+					$this->template->notification('Invalid entry', 'danger');
+					redirect('admin/hardware_assets/view/' . $hardware_asset_id);
+				}
 
 
 
-				$this->audit_entry_model->create($audit_entry, $field_list);
-				$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);	
+
+
+
+
+
+				//$current_audit_entry = $this->audit_entry_model->get_by_hardware($hardware_asset_id)->first_row();
 
 			}
 
@@ -767,9 +804,6 @@ class Hardware_assets extends CI_Controller
 
 
 		return $out;
-
-
-
 
 	}
 

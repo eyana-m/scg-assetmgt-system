@@ -276,8 +276,8 @@ if($hardware_assets->num_rows())
 			 
 			request.done(function( msg ) {
 				$(".manage-assets").fadeOut(800, function(){
-                     $(".manage-assets").html(msg).fadeIn().delay(2000);    
-                     //$(".salvagevalue").hide();            
+                     $(".manage-assets").html(msg).fadeIn().delay(1500);    
+                     $(".salvagevalue").hide();            
                 });
 			
 			});
