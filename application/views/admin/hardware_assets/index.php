@@ -63,7 +63,6 @@ if($hardware_assets->num_rows())
 		<?php echo $hardware_assets_pagination; ?>
 		
 
-
 	</div>
 	
 
@@ -278,7 +277,7 @@ if($hardware_assets->num_rows())
 			request.done(function( msg ) {
 				$(".manage-assets").fadeOut(800, function(){
                      $(".manage-assets").html(msg).fadeIn().delay(2000);    
-                     $(".salvagevalue").hide();            
+                     //$(".salvagevalue").hide();            
                 });
 			
 			});

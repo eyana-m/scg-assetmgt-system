@@ -773,66 +773,6 @@ class Hardware_assets extends CI_Controller
 
 	}
 
-public function query_hardware_asset_array($args=array())
-	{
-
-
-		$params = array();
-
-		$key = array();
-
-		$out = array();
-
-
-
-
-
-		if (in_array($args["har_office"], $args)):
-			$params['har_office'] = $args["har_office"];
-			$key['Office'] = $args["har_office"];
-
-		endif;
-
-		if (in_array($args["har_model"], $args)):
-			$params['har_model'] = $args["har_model"];
-			$key['Model'] = $args["har_model"];
-	
-
-		endif;	
-
-		if (in_array($args["har_asset_number"], $args)):
-			$params['har_asset_number'] = $args["har_asset_number"];
-			$key['Asset_Number'] = $args["har_asset_number"];
-
-		endif;
-
-		if (in_array($args["har_asset_type"], $args)):
-			$params['har_asset_type'] = $args["har_asset_type"];
-			$key['Type'] = $args["har_asset_type"];
-
-		endif;
-
-		if (in_array($args["har_status"], $args)):
-			$params['har_status'] = $args["har_status"];
-			$key['Status'] = $args["har_status"];
-
-		endif;	
-
-	
-
-		$out["hardware_assets"] = $this->hardware_asset_model->pagination("admin/hardware_assets/index/__PAGE__", 'get_all_reverse', $params);
-
-		$out["key"] = $key;
-		$out["params"] = $params;
-
-
-
-		return $out;
-
-
-
-
-	}
 
 
 	public function filter_csv()
