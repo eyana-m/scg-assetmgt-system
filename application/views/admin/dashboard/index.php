@@ -1,4 +1,4 @@
-
+<?php echo $roces_access_point_active_count; ?>
 
 
 <div class="container">

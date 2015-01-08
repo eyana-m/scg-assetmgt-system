@@ -142,6 +142,24 @@ class Dashboard extends CI_Controller
 			$page['all_ups'] = $this->hardware_asset_model->get_asset_type_count_all("UPS");
 			$page['all_video_conference'] = $this->hardware_asset_model->get_asset_type_count_all("Video Conference");
 
+
+			// ROCES
+			$page['roces_access_point_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("Access Point", "Active");
+			$page['roces_camera_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("Camera", "Active");
+			$page['roces_desktop_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("Desktop", "Active");
+			$page['roces_digital_camera_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("Digital Camera", "Active");
+			$page['roces_external_hard_disk_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("External Hard Disk", "Active");
+			$page['roces_laptop_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("Laptop", "Active");
+			$page['roces_monitor_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("Monitor", "Active");
+			$page['roces_mouse_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("Mouse", "Active");
+			$page['roces_printer_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("Printer", "Active");
+			$page['roces_projector_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("Projector", "Active");
+			$page['roces_server_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("Server", "Active");
+			$page['roces_switch_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("Switch", "Active");
+			$page['roces_tv_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("TV", "Active");
+			$page['roces_ups_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("UPS", "Active");
+			$page['roces_video_conference_active_count'] = $this->hardware_asset_model->get_asset_type_active_count("Video Conference", "Active");
+
 			$this->template->content('dashboard-index', $page);
 			$this->template->show();
 		}

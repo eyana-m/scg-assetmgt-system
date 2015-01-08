@@ -355,4 +355,13 @@ class Hardware_asset_model extends Base_model
 		return $rowcount;
 	}
 
+	public function get_asset_type_active_count($har_asset_type, $har_status)
+	{
+		$this->db->where('har_asset_type', $har_asset_type);
+		$this->db->where('har_status', $har_status);
+		$query = $this->db->get($this->table);
+		$rowcount = $query->num_rows();
+		return $rowcount;
+	}
+
 }
