@@ -1,4 +1,4 @@
-X<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
 * CSVReader Class
 *
@@ -53,12 +53,15 @@ class CSVReader {
  
                 if( !is_array($content) ) { // the first line contains fields names
                     $this->fields = $elements;
+                    foreach ($elements as $element){
+                        trim($element);
+                    }
                     $content = array();
                 } else {
                     $item = array();
                     foreach( $this->fields as $id => $field ) {
                         if( isset($elements[$id]) ) {
-                            $item[$field] = $elements[$id];
+                            $item[trim($field)] = trim($elements[$id]);
                         }
                     }
                     $content[] = $item;

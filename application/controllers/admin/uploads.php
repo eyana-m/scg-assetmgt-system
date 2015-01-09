@@ -31,27 +31,22 @@ class Uploads extends CI_Controller {
 	              'max_size'        => "1000MB"
 	        );	
 
-		$this->upload->initialize($config);
-
-		$data = $this->extract->post();
-
-		$file = $this->input->post("import_batch");	
+			$this->upload->initialize($config);
+			$data = $this->extract->post();
+			$har_asset = array();
+			$file = $this->input->post("import_batch");	
 
 		
 
 
 		if ( ! $this->upload->do_upload("import_batch"))
 		{
-			//$error = array('error' => $this->upload->display_errors());
-
-			//var_dump($file); die();
 
 			$this->template->notification($this->upload->display_errors(), 'danger');
 		}
 		else
 		{
 		
-			//$data = array('upload_data' => $this->upload->data());
 			$data =  $this->upload->data();
 
 			$filepath = base_url()."uploads/batch_csv/".$data["file_name"];
@@ -59,40 +54,21 @@ class Uploads extends CI_Controller {
 			//Read csv file
 			$hardware_assets_csv = $this->csvreader->parse_file($filepath);
 
-			//var_dump($hardware_assets_csv); die();
-
-//har_asset_number, har_asset_type, har_office, har_erf_number, har_model, har_serial_number,har_hostname,har_status, har_vendor,har_date_purchase, har_po_number,har_cost
-			
-			//$page["hardware_assets"] = 
-
-			// foreach($hardware_assets_csv as $hardware_asset) 
-			// {
-
-
-			// 	$this->asset_create($hardware_asset);			
-			// }	
-
-			//$count = 0;
-
-			$har_asset = array();
+			$i = 0;
 
 			foreach($hardware_assets_csv as $hardware_asset) 
 			{
 				
 				
-				//$this->asset_create($hardware_asset);
-
-				$har_asset["har_asset_number"];
-
-				var_dump($hardware_asset); die();
-
+				$this->asset_create($hardware_asset);
+				
+				$i++;
 				
 			}
 
-		
+			//var_dump($hardware_assets_csv); die();
 
-
-			$this->template->notification("Import successful!", 'success');
+			$this->template->notification($i." assets were imported successfully!", 'success');
 			redirect('admin/hardware_assets');
 		}
 
@@ -112,7 +88,9 @@ class Uploads extends CI_Controller {
 	public function asset_create($hardware_asset)
 	{
 
-		$hardware_asset['har_date_added'] = date('Y-m-d H:i:s');
+		$hardware_asset['har_date_added'] = date('Y-m-d');
+
+		$hardware_asset['har_status'] = "stockroom";
 
 		$hardware_asset['har_barcode'] = $this->hardware_asset_model->generate_barcode($hardware_asset['har_asset_type'],$hardware_asset['har_asset_number'],$hardware_asset['har_date_added']);
 
