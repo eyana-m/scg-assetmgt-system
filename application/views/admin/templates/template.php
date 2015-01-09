@@ -43,6 +43,8 @@
 					<ul class="dropdown-menu" style="color:white;" role="menu">
 						<li><a href="<?php echo site_url('admin/hardware_assets'); ?>">Manage</a></li>
 						<li><a href="<?php echo site_url('admin/hardware_assets/create'); ?>">Add</a></li>
+
+						<li><a id="import" href="#importcsv" role="button" data-toggle="modal">Import CSV</a></li>
 					
 					</ul>
 				</li>
@@ -154,6 +156,29 @@
 					<h4>Find current assets tagged to a specific employee.</h4>
 					<form  method="post" action="<?php echo site_url("admin/employees/catch_employee"); ?>"  name="employee-form" id="employee-form">
 					    <input id="employee_id" class="form-control" name="employee_id" type="text">
+					
+				</div>
+			</div></center>
+			<div class = "modal-footer">
+				<input class="btn btn-success btn-lg no-border-radius" name="submit" type="submit" style="border: none; outline: 0;">
+					</form>
+				<button class = "btn btn-default btn-lg no-border-radius" data-dismiss = "modal" style="background-color: #95a5a6; outline: 0;">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id = "importcsv" class = "modal fade">
+	<div class = "modal-dialog">
+		<div class = "modal-content">
+			<div class = "modal-header">
+				<h3 class="no-margin exo-font">Import Multiple Assets</h3>
+			</div>
+			<center><div class = "modal-body">
+				<div class="jumbotron">
+					<h4>Import multiple assets in csv format</h4>
+					<form  method="post" action="<?php echo site_url("admin/hardware_assets/import_csv"); ?>"  name="import-csv" id="import-csv">
+					    <input id="import_file" name="import_file" type="file">
 					
 				</div>
 			</div></center>

@@ -158,7 +158,8 @@
 
 	</form>
 
-	<br>
+
+	<br><br>
 	<h4>Asset Information Preview</h4>
 		<div class="well" style="width: 550px">
 			<p class="har_asset_number"></p>

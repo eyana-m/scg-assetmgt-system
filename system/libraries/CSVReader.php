@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+X<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
 * CSVReader Class
 *
