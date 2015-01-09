@@ -847,65 +847,6 @@ class Hardware_assets extends CI_Controller
 
 
 
-	public function import_csv()
-	{
-
-
-		$config =  array(
-              'upload_path'     => dirname($_SERVER["SCRIPT_FILENAME"])."/uploads/batch_csv",
-              'upload_url'      => base_url()."uploads/batch_csv/",
-              'allowed_types'   => "csv",
-              'overwrite'       => TRUE,
-              'max_size'        => "1000MB"
-            );
-
-
-
-		$this->upload->initialize($config);
-
-		$file = $this->input->post("import_file");	
-
-		var_dump($file); die();
-
-
-		if ( ! $this->upload->do_upload($file))
-		{
-			//$error = array('error' => $this->upload->display_errors());
-
-			$this->template->notification($this->upload->display_errors(), 'danger');
-		}
-		else
-		{
-
-	
-		// 'file_name'			=> $this->file_name,
-		// 'file_type'			=> $this->file_type,
-		// 'file_path'			=> $this->upload_path,
-		// 'full_path'			=> $this->upload_path.$this->file_name,
-		// 'raw_name'			=> str_replace($this->file_ext, '', $this->file_name),
-		// 'orig_name'			=> $this->orig_name,
-		// 'client_name'		=> $this->client_name,
-		// 'file_ext'			=> $this->file_ext,
-		// 'file_size'			=> $this->file_size,
-		// 'is_image'			=> $this->is_image(),
-		// 'image_width'		=> $this->image_width,
-		// 'image_height'		=> $this->image_height,
-		// 'image_type'		=> $this->image_type,
-		// 'image_size_str'	=> $this->image_size_str,
-				
-
-			$data =  $this->upload->data();
-
-			$this->template->notification("Confirmation file ".$data['file_name']." uploaded! <br> Check this path: ".$data['full_path'] , 'success');
-
-		}
-
-		
-
-
-	}
-
-
 
 
 }															

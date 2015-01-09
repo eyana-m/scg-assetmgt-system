@@ -49,7 +49,7 @@ class CSVReader {
         $content = FALSE;
         foreach( $p_CSVLines as $line_num => $line ) {
             if( $line != '' ) { // skip empty lines
-                $elements = split($this->separator, $line);
+                $elements = explode($this->separator, $line);
  
                 if( !is_array($content) ) { // the first line contains fields names
                     $this->fields = $elements;

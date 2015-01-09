@@ -206,6 +206,7 @@ class CI_Upload {
 		// Is the file type allowed to be uploaded?
 		if ( ! $this->is_allowed_filetype())
 		{
+			//var_dump($this->file_type); die();
 			$this->set_error('upload_invalid_filetype');
 			return FALSE;
 		}
@@ -229,6 +230,7 @@ class CI_Upload {
 
 			if ( ! $this->is_allowed_filetype(TRUE))
 			{
+
 				$this->set_error('upload_invalid_filetype');
 				return FALSE;
 			}

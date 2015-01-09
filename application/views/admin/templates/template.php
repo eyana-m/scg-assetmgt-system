@@ -44,7 +44,7 @@
 						<li><a href="<?php echo site_url('admin/hardware_assets'); ?>">Manage</a></li>
 						<li><a href="<?php echo site_url('admin/hardware_assets/create'); ?>">Add</a></li>
 
-						<li><a id="import" href="#importcsv" role="button" data-toggle="modal">Import CSV</a></li>
+						<li><a id="import" href="<?php echo site_url('admin/uploads/index'); ?>" role="button" data-toggle="modal">Import CSV</a></li>
 					
 					</ul>
 				</li>
@@ -177,13 +177,14 @@
 			<center><div class = "modal-body">
 				<div class="jumbotron">
 					<h4>Import multiple assets in csv format</h4>
-					<form  method="post" action="<?php echo site_url("admin/hardware_assets/import_csv"); ?>"  name="import-csv" id="import-csv">
-					    <input id="import_file" name="import_file" type="file">
+					<form  method="post" id="import" action="<?php echo site_url("admin/hardware_assets/import_csv"); ?>"  name="import-csv" id="import-csv" enctype="multipart/form-data">
+>
+					    <input id="import_file" name="import_file" type="file" value="">
 					
 				</div>
 			</div></center>
 			<div class = "modal-footer">
-				<input class="btn btn-success btn-lg no-border-radius" name="submit" type="submit" style="border: none; outline: 0;">
+				<input class="btn btn-success btn-lg no-border-radius" type="submit" style="border: none; outline: 0;" name="upload" value="Upload">
 					</form>
 				<button class = "btn btn-default btn-lg no-border-radius" data-dismiss = "modal" style="background-color: #95a5a6; outline: 0;">Close</button>
 			</div>
