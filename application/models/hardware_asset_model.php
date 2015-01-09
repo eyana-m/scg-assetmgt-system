@@ -259,6 +259,15 @@ class Hardware_asset_model extends Base_model
 		}
 	}
 
+	public function get_total_value()
+	{
+		$this->db->select_sum('har_asset_value');
+		$this->db->where('DATEDIFF(har_tech_refresher, CURDATE()) <=', 30);
+
+		return $this->db->get($this->table)->row()->har_asset_value;
+
+	}
+
 
 	public function get_current_by_hardware($har_id)
 	{

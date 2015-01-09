@@ -136,6 +136,25 @@ if($hardware_assets->num_rows())
 			</div>
 		</div>
 
+		<div class="panel panel-danger panel-personnel" style="margin-left: 0;">
+		    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style="text-decoration: none;">
+				<div class="panel-heading" role="tab" id="headingThree" style="text-decoration: none;">
+				Total Value of Assets Due for Replacement
+				</div>
+			</a>
+
+			<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+
+			<div class="panel-body asset-info-panel" id="scan-panel-body">
+			
+
+				 Php <?php echo number_format($hardware_assets_value); ?>
+
+			</div>
+			</div>
+		</div>
+
+
 
 		<div class="panel panel-danger panel-personnel">
 			<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo" style="text-decoration: none;">

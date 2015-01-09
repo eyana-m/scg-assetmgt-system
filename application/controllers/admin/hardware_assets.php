@@ -37,6 +37,10 @@ class Hardware_assets extends CI_Controller
 
 		$hardware_assets = $page['hardware_assets'];
 
+		
+		$page['hardware_assets_value'] = $this->hardware_asset_model->get_total_value();
+
+
 		//$this->email_by_tech_refresher($hardware_assets);
 
 		$page['hardware_assets_pagination'] = $this->hardware_asset_model->pagination_links();
