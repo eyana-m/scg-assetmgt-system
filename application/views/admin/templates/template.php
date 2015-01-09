@@ -44,7 +44,7 @@
 						<li><a href="<?php echo site_url('admin/hardware_assets'); ?>">Manage</a></li>
 						<li><a href="<?php echo site_url('admin/hardware_assets/create'); ?>">Add</a></li>
 
-						<li><a id="import" href="<?php echo site_url('admin/uploads/index'); ?>" role="button" data-toggle="modal">Import CSV</a></li>
+						<li><a id="import" href="<?php echo site_url('admin/uploads/hardware_assets'); ?>" role="button" data-toggle="modal">Import CSV</a></li>
 					
 					</ul>
 				</li>
@@ -53,6 +53,7 @@
 					<ul class="dropdown-menu" style="color:white;" role="menu">
 						<li><a href="<?php echo site_url('admin/employees'); ?>">Manage</a></li>
 						<li><a href="<?php echo site_url('admin/employees/create'); ?>">Add</a></li>
+						<li><a href="<?php echo site_url('admin/uploads/employees'); ?>" role="button" data-toggle="modal">Import CSV</a></li>
 					</ul>
 				</li>
 			<?php if($this->access_control->check_user('admin@gmail.com')  ):?>

@@ -205,6 +205,8 @@ class Hardware_asset_model extends Base_model
 		$date2 = new DateTime($har_tech_refresher);
 		$interval = $date1->diff($date2);
 
+		$har_cost = 
+
 		$sign = $interval->format('%R%');
 
 		$gap = $interval->y + $interval->m / 12;

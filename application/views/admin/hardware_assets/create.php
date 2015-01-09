@@ -152,7 +152,7 @@
 
 	<a href="<?php echo site_url('admin/hardware_assets'); ?>" class="btn btn-small btn-info pull-right"><small>Back to Assets Page</small></a>
 
-	<form role="form" method="post" id ="generate_csv" name="generate_csv">
+	<form role="form" method="post" id ="generate_csv" action="<?php echo site_url("admin/hardware_assets/generate_csv"); ?>" name="generate_csv">
 		
 		<input type="submit" id ="generate_csv" name="generate_csv" class="btn btn-small btn-success pull-right" style="margin-right: 0.5em; font-size: 1.02em;" value="Print Barcode Added Today">
 

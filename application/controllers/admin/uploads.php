@@ -16,9 +16,9 @@ class Uploads extends CI_Controller {
 		$this->load->helper(array('form', 'url'));
 	}
 
-	public function index()
+	public function hardware_assets()
 	{
-		$this->template->title('Import Batch Files');
+		$this->template->title('Import Multiple Assets');
 		$page = array();
 
 		if($this->input->post('import'))
@@ -36,49 +36,44 @@ class Uploads extends CI_Controller {
 			$har_asset = array();
 			$file = $this->input->post("import_batch");	
 
-		
-
-
-		if ( ! $this->upload->do_upload("import_batch"))
-		{
-
-			$this->template->notification($this->upload->display_errors(), 'danger');
-		}
-		else
-		{
-		
-			$data =  $this->upload->data();
-
-			$filepath = base_url()."uploads/batch_csv/".$data["file_name"];
-
-			//Read csv file
-			$hardware_assets_csv = $this->csvreader->parse_file($filepath);
-
-			$i = 0;
-
-			foreach($hardware_assets_csv as $hardware_asset) 
+	
+			if ( ! $this->upload->do_upload("import_batch"))
 			{
-				
-				
-				$this->asset_create($hardware_asset);
-				
-				$i++;
-				
+				$this->template->notification($this->upload->display_errors(), 'danger');
 			}
+			else
+			{
+			
+				$data =  $this->upload->data();
+
+				$filepath = base_url()."uploads/batch_csv/".$data["file_name"];
+
+				//Read csv file
+				$hardware_assets_csv = $this->csvreader->parse_file($filepath);
+
+				$i = 0;
+
+				foreach($hardware_assets_csv as $hardware_asset) 
+				{
+					
+					
+					$this->asset_create($hardware_asset);
+					
+					$i++;
+					
+				}
 
 			//var_dump($hardware_assets_csv); die();
 
-			$this->template->notification($i." assets were imported successfully!", 'success');
-			redirect('admin/hardware_assets');
+				$this->template->notification($i." assets were imported successfully!", 'success');
+				redirect('admin/hardware_assets');
+			}
 		}
 
 
 
 
-		}
-
-
-		$this->template->content('uploads-index', $page);
+		$this->template->content('uploads-hardware_assets');
 		$this->template->show();
 	
 	}
@@ -135,25 +130,72 @@ class Uploads extends CI_Controller {
 
 	}
 
-	// function do_upload()
-	// {
-	// 	$config['upload_path'] = './uploads/';
-	// 	$config['allowed_types'] = 'csv';
-	// 	$config['max_size']	= '100';
-	// 	$this->load->library('upload', $config);
+	public function employees()
+	{
+		$this->template->title('Import Multiple Employees');
+		$page = array();
 
-	// 	if ( ! $this->upload->do_upload())
-	// 	{
-	// 		$error = array('error' => $this->upload->display_errors());
+		if($this->input->post('import'))
+		{
+			$config =  array(
+	              'upload_path'     => dirname($_SERVER["SCRIPT_FILENAME"])."/uploads/batch_csv",
+	              'upload_url'      => base_url()."uploads/batch_csv/",
+	              'allowed_types'   => 'text/csv|csv|text/plain',
+	              'overwrite'       => TRUE,
+	              'max_size'        => "1000MB"
+	        );	
 
-	// 		$this->load->view('upload_form', $error);
-	// 	}
-	// 	else
-	// 	{
-	// 		$data = array('upload_data' => $this->upload->data());
+			$this->upload->initialize($config);
+			$data = $this->extract->post();
+			$har_asset = array();
+			$file = $this->input->post("import_batch");	
 
-	// 		$this->template->notification('Batch upload complete!', 'success');
-	// 	}
-	// }
+		
+
+
+		if ( ! $this->upload->do_upload("import_batch"))
+		{
+
+			$this->template->notification($this->upload->display_errors(), 'danger');
+		}
+		else
+		{
+		
+			$data =  $this->upload->data();
+
+			$filepath = base_url()."uploads/batch_csv/".$data["file_name"];
+
+			//Read csv file
+			$hardware_assets_csv = $this->csvreader->parse_file($filepath);
+
+			$i = 0;
+
+			foreach($hardware_assets_csv as $hardware_asset) 
+			{
+				
+				
+				$this->asset_create($hardware_asset);
+				
+				$i++;
+				
+			}
+
+			//var_dump($hardware_assets_csv); die();
+
+			$this->template->notification($i." assets were imported successfully!", 'success');
+			redirect('admin/hardware_assets');
+		}
+
+
+
+		}
+
+
+		$this->template->content('uploads-employees', $page);
+		$this->template->show();
+	
+	}
+
+
 }
 ?>

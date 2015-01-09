@@ -218,28 +218,7 @@ class Hardware_assets extends CI_Controller
 	public function create()
 	{
 		$this->template->title('Create Hardware Asset');
-
-	
-		if ($this->input->post('generate_csv'))
-		{
-			$this->load->dbutil();
-	    	$page['hardware_today'] = $this->hardware_asset_model->get_asset_today();
-	    	$hardware_today = $page['hardware_today'];
-
-	    	$date = date('Y-m-d');
-	    	$filename = 'asset_addedtoday_'.$date.'.csv';
-
-	    	$data = $this->dbutil->csv_from_result($hardware_today);
-	    	force_download($filename, $data); 
-			
-			
-		}
-
-
-
-		if($this->input->post('add_asset'))
-		{
-
+		
 		$this->form_validation->set_rules('har_asset_number', 'Asset Number', 'trim|required|max_length[15]');
 		$this->form_validation->set_rules('har_asset_type', 'Asset Type', 'trim|required');
 		$this->form_validation->set_rules('har_office', 'Asset Office', 'trim|required');
@@ -255,6 +234,10 @@ class Hardware_assets extends CI_Controller
 		$this->form_validation->set_rules('har_date_added', 'Date Added', 'trim|required|date');
 		$this->form_validation->set_rules('har_specs', 'Specs', 'trim|required');
 
+	
+
+		if($this->input->post('add_asset'))
+		{
 
 			$hardware_asset = $this->extract->post();
 			
@@ -846,6 +829,23 @@ class Hardware_assets extends CI_Controller
 			return null;
 		}
 		return $postvar;
+	}
+
+
+	public function generate_csv()
+	{
+		
+		$this->load->dbutil();
+    	$page['hardware_today'] = $this->hardware_asset_model->get_asset_today();
+    	$hardware_today = $page['hardware_today'];
+
+    	$date = date('Y-m-d');
+    	$filename = 'asset_addedtoday_'.$date.'.csv';
+
+    	$data = $this->dbutil->csv_from_result($hardware_today);
+    	force_download($filename, $data); 
+			
+		
 	}
 
 
