@@ -263,3 +263,6 @@ function export_information_excel($DB_TBLName, $sql, $filename)
     });
 111457
 111457
+
+
+<input class ="btn btn-danger no-border-radius" type="submit" name="untag" value="Untag">

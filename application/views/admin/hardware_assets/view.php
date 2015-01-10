@@ -492,6 +492,7 @@
 			<div class="col-xs-12">
 			<div class="panel-personnel-content">Select new <strong>Asset Status</strong> after untagging:</div>
 			<form method="post" id="untag">
+
 			<select name="aud_status" id="aud_status" class="input-medium form-control form-control-small">
 				<option value="">Select Status</option>				
 				<option value="stockroom" selected>stockroom</option>
@@ -500,13 +501,13 @@
 				<option value="disposed">disposed</option>
 			</select>
 
+			<input id="untag_barcode" class="form-control form-control-small" name="untag_barcode" type="text" placeholder="Scan code here to untag">
+
 			</div>
 
 
 			</div>
 			<div class = "modal-footer">
-			
-				<input class ="btn btn-danger no-border-radius" type="submit" name="untag" value="Untag">
 			</form>
 				<button class ="btn btn-default no-border-radius" data-dismiss = "modal">Cancel</button>
 			</div>
@@ -625,3 +626,29 @@
 		</div>
 	</div>
 </div>
+
+
+
+<script type="text/javascript">
+
+
+
+$('#untag_barcode').on("input", function() {
+
+   var bc;
+   setTimeout(function() {
+      	bc = $("input:text[name=untag_barcode]").val(); 
+    }, 2000);
+
+   $("form#untag").submit();
+
+});
+
+
+
+
+</script>
+
+
+
+

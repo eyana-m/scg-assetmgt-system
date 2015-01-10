@@ -169,32 +169,6 @@
 	</div>
 </div>
 
-<div id = "importcsv" class = "modal fade">
-	<div class = "modal-dialog">
-		<div class = "modal-content">
-			<div class = "modal-header">
-				<h3 class="no-margin exo-font">Import Multiple Assets</h3>
-			</div>
-			<center><div class = "modal-body">
-				<div class="jumbotron">
-					<h4>Import multiple assets in csv format</h4>
-					<form  method="post" id="import" action="<?php echo site_url("admin/hardware_assets/import_csv"); ?>"  name="import-csv" id="import-csv" enctype="multipart/form-data">
->
-					    <input id="import_file" name="import_file" type="file" value="">
-					
-				</div>
-			</div></center>
-			<div class = "modal-footer">
-				<input class="btn btn-success btn-lg no-border-radius" type="submit" style="border: none; outline: 0;" name="upload" value="Upload">
-					</form>
-				<button class = "btn btn-default btn-lg no-border-radius" data-dismiss = "modal" style="background-color: #95a5a6; outline: 0;">Close</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-
 
 
 

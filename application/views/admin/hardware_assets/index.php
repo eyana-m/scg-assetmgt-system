@@ -1,5 +1,4 @@
 
-
 <div class="col-md-9 col-sm-12" style="margin: 0; padding: 0">
 
 <?php
