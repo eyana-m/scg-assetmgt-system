@@ -79,12 +79,19 @@
       </div>
       <div class="col-md-9">
         <ul class="nav nav-tabs">
-          <li class="nav active"><a class="tab-headers" id="PBI-tab"href="#PBI-1" data-toggle="tab" style="border-radius:0px;">PBI</a></li>
-          <li class="nav nav-two"><a class="tab-headers" id="STAM-tab" href="#STAM-1" data-toggle="tab" style="border-radius:0px;">STAM</a></li>
-          <li class="nav"><a class="tab-headers" id="ALL-tab" href="#ALL-1" data-toggle="tab" style="border-radius:0px;">ALL</a></li>
+
+          <li class="nav active exo-font"><a class="tab-headers" id="ALL-tab" href="#ALL-1" data-toggle="tab" style="border-radius:0px;">ALL</a></li>
+          <li class="nav nav-two exo-font"><a class="tab-headers" id="PBI-tab"href="#PBI-1" data-toggle="tab" style="border-radius:0px;">Roces</a></li>
+          <li class="nav nav-two exo-font"><a class="tab-headers" id="STAM-tab" href="#STAM-1" data-toggle="tab" style="border-radius:0px;">Sta. Maria</a></li>
         </ul>
         <div class="tab-content" style="background-color:#cccccb;">
-          <div class="tab-pane fade in active" id="PBI-1">
+          <div class="tab-pane fade in active" id="ALL-1">
+              <div class="padding-fifteen no-side-padding" style="background-color:#8e44ad;">
+                <div id="barchart-ALL-1" class="chart-class">
+                </div>
+              </div>
+          </div>
+          <div class="tab-pane fade in" id="PBI-1">
               <div class="padding-fifteen no-side-padding" style="background-color:#2980b9;">
                 <div id="barchart-PBI-1" class="chart-class">
                 </div>
@@ -95,13 +102,7 @@
                 <div id="barchart-STAM-1" class="chart-class">
                 </div>
               </div>
-          </div>
-          <div class="tab-pane fade in" id="ALL-1">
-              <div class="padding-fifteen no-side-padding" style="background-color:#8e44ad;">
-                <div id="barchart-ALL-1" class="chart-class">
-                </div>
-              </div>
-          </div>
+          </div>          
         </div>
       </div>
     </div>
@@ -152,12 +153,18 @@
       </div>
       <div class="col-md-9">
         <ul class="nav nav-tabs">
-          <li class="nav active"><a class="tab-headers" id="PBI-tab"href="#PBI-2" data-toggle="tab" style="border-radius:0px;">PBI</a></li>
-          <li class="nav"><a class="tab-headers" id="STAM-tab" href="#STAM-2" data-toggle="tab" style="border-radius:0px;">STAM</a></li>
-          <li class="nav"><a class="tab-headers" id="ALL-tab" href="#ALL-2" data-toggle="tab" style="border-radius:0px;">All</a></li>
+          <li class="nav active exo-font"><a class="tab-headers" id="ALL-tab" href="#ALL-2" data-toggle="tab" style="border-radius:0px;">All</a></li>
+          <li class="nav exo-font"><a class="tab-headers" id="PBI-tab"href="#PBI-2" data-toggle="tab" style="border-radius:0px;">Roces</a></li>
+          <li class="nav exo-font"><a class="tab-headers" id="STAM-tab" href="#STAM-2" data-toggle="tab" style="border-radius:0px;">Sta. Maria</a></li>
         </ul>
         <div class="tab-content" style="background-color:#cccccb;">
-          <div class="tab-pane fade in active" id="PBI-2">
+          <div class="tab-pane fade in active" id="ALL-2">
+              <div class="padding-fifteen no-side-padding" style="background-color:#8e44ad;">
+                <div id="barchart-ALL-2" class="chart-class">
+                </div>
+              </div>
+          </div>
+          <div class="tab-pane fade in" id="PBI-2">
               <div class="padding-fifteen no-side-padding" style="background-color:#2980b9;">
                 <div id="barchart-PBI-2" class="chart-class">
                 </div>
@@ -168,13 +175,7 @@
                 <div id="barchart-STAM-2" class="chart-class">
                 </div>
               </div>
-          </div>
-          <div class="tab-pane fade in" id="ALL-2">
-              <div class="padding-fifteen no-side-padding" style="background-color:#8e44ad;">
-                <div id="barchart-ALL-2" class="chart-class">
-                </div>
-              </div>
-          </div>
+          </div>          
         </div>
       </div>
     </div>
