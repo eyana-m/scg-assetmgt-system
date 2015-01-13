@@ -24,13 +24,13 @@ class Dashboard extends CI_Controller
 		$filename = 'backup_'.$date.'.sql';
 
 		$prefs = array(
-                'tables'      => array('hardware_asset', 'employee','account','audit_entry','page','page_category','photo_album','session','software_asset'),  // Array of tables to backup.
-                'ignore'      => array(),           // List of tables to omit from the backup
-                'format'      => 'zip',             // gzip, zip, txt
-                'filename'    => $filename,    // File name - NEEDED ONLY WITH ZIP FILES
-                'add_drop'    => TRUE,              // Whether to add DROP TABLE statements to backup file
-                'add_insert'  => TRUE,              // Whether to add INSERT data to backup file
-                'newline'     => "\n"               // Newline character used in backup file
+                'tables'      => array('hardware_asset', 'employee','account','audit_entry','page','page_category','photo_album','session','software_asset'),  
+                'ignore'      => array(),           
+                'format'      => 'zip',            
+                'filename'    => $filename,    
+                'add_drop'    => TRUE,             
+                'add_insert'  => TRUE,              
+                'newline'     => "\n"              
               );
 
 		// Load the DB utility class

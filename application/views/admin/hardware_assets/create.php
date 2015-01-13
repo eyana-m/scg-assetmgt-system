@@ -35,7 +35,7 @@
 				<select name="har_office" class="form-control">
 					<option value="PBI ROCES">PBI ROCES</option>
 					<option value="OMMC">OMMC</option>
-					<option value="PBI STAMM">PBI STAMM</option>
+					<option value="PBI STAM">PBI STAM</option>
 					<option value="RTI">RTI</option>
 					<option value="SMIP">SMIP</option>
 					<option value="EG">EG</option>
