@@ -12,6 +12,7 @@ class Uploads extends CI_Controller {
 		$this->load->library('upload');
 		$this->load->library('csvreader');
 		$this->load->model('hardware_asset_model');
+		$this->load->model('employee_model');
 		$this->load->model('audit_entry_model');
 		$this->load->helper(array('form', 'url'));
 	}
@@ -166,15 +167,14 @@ class Uploads extends CI_Controller {
 			$filepath = base_url()."uploads/batch_csv/".$data["file_name"];
 
 			//Read csv file
-			$hardware_assets_csv = $this->csvreader->parse_file($filepath);
+			$employeees_csv = $this->csvreader->parse_file($filepath);
 
 			$i = 0;
 
-			foreach($hardware_assets_csv as $hardware_asset) 
+			foreach($employees_csv as $employee) 
 			{
-				
-				
-				$this->asset_create($hardware_asset);
+							
+				$this->employee_create($employee);
 				
 				$i++;
 				
@@ -182,8 +182,8 @@ class Uploads extends CI_Controller {
 
 			//var_dump($hardware_assets_csv); die();
 
-			$this->template->notification($i." assets were imported successfully!", 'success');
-			redirect('admin/hardware_assets');
+			$this->template->notification($i." employees were imported successfully!", 'success');
+			redirect('admin/employees');
 		}
 
 
@@ -194,6 +194,19 @@ class Uploads extends CI_Controller {
 		$this->template->content('uploads-employees', $page);
 		$this->template->show();
 	
+	}
+
+
+	public function employee_create($employee)
+	{
+
+
+		
+		$this->employee_model->create($employee, $this->employee_model->get_fields());
+		
+		
+
+
 	}
 
 
