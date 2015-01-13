@@ -69,6 +69,11 @@
 					<a href="#" class="dropdown-toggle" style="color:white;"  data-toggle="dropdown"><?php echo $this->session->userdata('acc_name'); ?><b class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li><a href="<?php echo site_url('admin/profile'); ?>">Profile</a></li>
+					<form  method="post" action="<?php echo site_url("admin/hardware_assets/backup"); ?>" name="backup" id="backup">	
+						<li><input type="submit" value="Backup Database" id="backup-li"></li>					
+					</form>	
+
+
 						<li class="divider"></li>
 						<li><a href="<?php echo site_url('admin/index/logout'); ?>">Logout</a></li>
 					</ul>
@@ -89,8 +94,6 @@
 			
 			</ul>
 		</div><!-- /.navbar-collapse -->
-	
-			
 	
 
 
@@ -189,6 +192,8 @@ $('#barcode').on("input", function() {
    $("form#barcode-form").submit();
 
 });
+
+
 
 
 
