@@ -15,6 +15,7 @@ class Employees extends CI_Controller
 
 
 		$this->load->library('upload');
+		//$this->mythos->library("form_validation");
 
 		$this->load->model('employee_model');
 		$this->load->model('hardware_asset_model');
@@ -41,12 +42,7 @@ class Employees extends CI_Controller
 	public function batch_upload()
 	{
 		$this->template->title('Batch Upload');
-
 		$page = array();
-
-
-
-
 		$this->template->content('employees-batch_upload', $page);
 		$this->template->show();
 

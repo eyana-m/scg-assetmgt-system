@@ -260,32 +260,6 @@
 <?php if ($audit_entries->num_rows()): ?>
 	<?php if($current_audit_entry->aud_status!='active'): ?>
 
-		<div class="panel panel-default panel-personnel " style="margin-left: 0">
-			<div class="panel-heading">
-			Manual Tag to Personnel
-			</div>
-			<div class="panel-body">
-
-			<form method="post" id="employee-tag">
-
-			<select class="input-medium form-control form-control-small"  name="emp_id" id="emp_id">
-				<option value="">Select Employee</option>
-				<?php foreach($employees->result() as $employee): ?>
-					<option value="<?php echo $employee->emp_id; ?>"><?php echo $employee->emp_last_name; ?>, <?php echo $employee->emp_first_name; ?></option>	
-				<?php endforeach ?>
-			</select> 
-
-			<input type="text" class="form-control form-control-small" id="aud_comment" name="aud_comment" placeholder="Remark (e.g. 'Normal Condition')">
-
-
-			<input type="submit" class="btn btn-small btn-warning pull-right" style="font-size:12px" name="submit" value="Tag">
-
-			</form>
-
-
-
-			</div>
-		</div>
 
 
 		<div class="panel panel-default panel-personnel " style="margin-left: 0">

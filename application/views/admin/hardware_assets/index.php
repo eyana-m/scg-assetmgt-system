@@ -73,7 +73,9 @@ if($hardware_assets->num_rows())
 
 	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
-		<div class="panel panel-danger panel-personnel" style="margin-left: 0;">
+
+
+		<div class="panel panel-danger panel-personnel generate-report" style="margin-left: 0;">
 		    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="text-decoration: none;">
 				<div class="panel-heading" role="tab" id="headingOne" style="text-decoration: none;">
 				Generate Report for <strong>ALL</strong> Assets.
@@ -85,21 +87,21 @@ if($hardware_assets->num_rows())
 			<div class="panel-body asset-info-panel" id="scan-panel-body">
 			
 
-				  	<div class="radio">
+				  	<div class="radio asset-replacement">
 					  <label>
 					    <input type="radio" name="report-type" id="asset-replacement" value="asset-replacement" checked>
 					    Assets Due for Replacement
 					  </label>
 					</div>
 					
-					<div class="radio">
+					<div class="radio asset-recentlyadded">
 					  <label>
 					    <input type="radio" name="report-type" id="asset-recentlyadded" value="asset-recentlyadded">
 					    Assets Added in the Past 7 Days
 					  </label>
 					</div>
 
-					<div class="radio">
+					<div class="radio asset-status">
 					  <label>
 					    <input type="radio" name="report-type" id="asset-status" value="asset-status">
 					    Assets Status
@@ -110,7 +112,6 @@ if($hardware_assets->num_rows())
 						<option value="stockroom">stockroom</option>
 						<option value="service unit">service unit</option>
 						<option value="for disposal">for disposal</option>
-						<option value="disposed">disposed</option>
 						<option value="repair">repair</option>
 						
 					</select>
@@ -135,25 +136,6 @@ if($hardware_assets->num_rows())
 			</div>
 		</div>
 
-		<div class="panel panel-danger panel-personnel" style="margin-left: 0;">
-		    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style="text-decoration: none;">
-				<div class="panel-heading" role="tab" id="headingThree" style="text-decoration: none;">
-				Total Value of Assets Due for Replacement
-				</div>
-			</a>
-
-			<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-
-			<div class="panel-body asset-info-panel" id="scan-panel-body">
-			
-
-				 Php <?php echo number_format($hardware_assets_value); ?>
-
-			</div>
-			</div>
-		</div>
-
-
 
 		<div class="panel panel-danger panel-personnel">
 			<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo" style="text-decoration: none;">
@@ -174,7 +156,7 @@ if($hardware_assets->num_rows())
 								<option selected value=''>Select Office</option>
 								<option value="PBI ROCES">PBI ROCES</option>
 								<option value="OMMC">OMMC</option>
-								<option value="PBI STAMM">PBI STAMM</option>
+								<option value="PBI STAM">PBI STAM</option>
 								<option value="RTI">RTI</option>
 								<option value="SMIP">SMIP</option>
 								<option value="EG">EG</option>
@@ -255,6 +237,26 @@ if($hardware_assets->num_rows())
 			</div>
 		</div>
 
+
+		<div class="panel panel-danger panel-personnel" style="margin-left: 0;">
+		    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style="text-decoration: none;">
+				<div class="panel-heading" role="tab" id="headingThree" style="text-decoration: none;">
+				Total Value of Assets Due for Replacement
+				</div>
+			</a>
+
+			<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+
+			<div class="panel-body asset-info-panel" id="scan-panel-body">
+			
+
+				 Php <?php echo number_format($hardware_assets_value); ?>
+
+			</div>
+			</div>
+		</div>
+
+
 	</div><!--panel-group-->
 
 </div>
@@ -295,7 +297,15 @@ if($hardware_assets->num_rows())
 			request.done(function( msg ) {
 				$(".manage-assets").fadeOut(800, function(){
                      $(".manage-assets").html(msg).fadeIn().delay(1500);    
-                     $(".salvagevalue").hide();            
+                     // $(".salvagevalue").hide();  
+                     // $(".asset-replacement").hide(); 
+                     // $(".asset-recentlyadded").hide();   
+                     // $(".asset-status").hide();   
+                    	$(".generate-report").hide(); 
+
+
+                     
+                             
                 });
 			
 			});

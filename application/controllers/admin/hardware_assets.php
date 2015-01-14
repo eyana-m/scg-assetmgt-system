@@ -13,6 +13,8 @@ class Hardware_assets extends CI_Controller
 		$this->load->helper('csv');
 		$this->load->helper('download');
 		$this->load->library('upload');
+		//$this->load->library('form_validation');
+
 
 		$this->load->helper(array('dompdf', 'file'));
 		$this->load->helper('file'); 
@@ -711,11 +713,10 @@ class Hardware_assets extends CI_Controller
     		"har_status" => $har_status
 		);
 
-		$page = array();
-
-		//print_r($args); die();
-
+	
 		$assets = $this->query_hardware_asset($args);
+
+		$page = array();
 
 		$page['hardware_assets'] = $assets["hardware_assets"];
 
@@ -819,7 +820,7 @@ class Hardware_assets extends CI_Controller
 		$data = $this->extract->post();
 		$this->load->dbutil();
 
-		$assets = $this->query_hardware_asset($data["filters"]);
+		$assets = $this->query_hardware_asset($data["filters"], null);
 
 		$date = date('Y-m-d');
 		$filename = 'asset_filtered_'.$date.'.csv';
@@ -831,6 +832,27 @@ class Hardware_assets extends CI_Controller
 
 
 	}
+
+	public function filter_csv_replacement()
+	{
+
+		$data = $this->extract->post();
+		$this->load->dbutil();
+
+		$assets = $this->query_hardware_asset_repair($data["filters"]);
+
+		$date = date('Y-m-d');
+		$filename = 'asset_repair_'.$date.'.csv';
+
+		$data = $this->dbutil->csv_from_result($assets["hardware_assets"]);
+
+		force_download($filename, $data); 
+
+
+
+	}
+
+
 
 
 	private function check_postvar($postvar)
