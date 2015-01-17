@@ -17,7 +17,7 @@ class Template extends MYTHOS_Template
 		if($validator !== false)
 		{
 			$this->set('head', $validator);
-			var_dump($validator); die();
+			
 		}
 
 
