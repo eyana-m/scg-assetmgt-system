@@ -79,7 +79,6 @@
       </div>
       <div class="col-md-9">
         <ul class="nav nav-tabs">
-
           <li class="nav active exo-font"><a class="tab-headers" id="ALL-tab" href="#ALL-1" data-toggle="tab" style="border-radius:0px;">ALL</a></li>
           <li class="nav nav-two exo-font"><a class="tab-headers" id="PBI-tab"href="#PBI-1" data-toggle="tab" style="border-radius:0px;">Roces</a></li>
           <li class="nav nav-two exo-font"><a class="tab-headers" id="STAM-tab" href="#STAM-1" data-toggle="tab" style="border-radius:0px;">Sta. Maria</a></li>

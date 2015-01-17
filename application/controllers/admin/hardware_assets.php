@@ -759,7 +759,6 @@ class Hardware_assets extends CI_Controller
 	 	foreach($assets["params"] as $p){
 	 		$temp = strtoupper($p);
 	 		$this->template->set("content-top", $temp." ");
-	 		
 	 	}
 
 
@@ -829,7 +828,7 @@ class Hardware_assets extends CI_Controller
 
 	
 
-		$out["hardware_assets"] = $this->hardware_asset_model->pagination("admin/hardware_assets/index/__PAGE__", 'get_all_reverse', $params);
+		$out["hardware_assets"] = $this->hardware_asset_model->pagination("admin/hardware_assets/index/__PAGE__", 'get_all_reverse_filtered', $params);
 
 		$out["key"] = $key;
 		$out["params"] = $params;

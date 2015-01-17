@@ -274,8 +274,8 @@ if($hardware_assets->num_rows())
 
 			var har_asset_number = $( 'input:text[name=har_asset_number]').val();
 
+			//var har_asset_type = $( 'select[name=har_asset_type]').val();
 			var har_asset_type = $( 'select[name=har_asset_type]').val();
-
 			var har_status = $( 'select[name=har_status]').val();
 
 
