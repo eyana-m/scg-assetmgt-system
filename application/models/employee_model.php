@@ -44,4 +44,7 @@ class Employee_model extends Base_model
 		return $this->db->insert_id();
 	}
 
+
+	
+
 }

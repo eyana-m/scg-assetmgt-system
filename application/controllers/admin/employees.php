@@ -300,6 +300,108 @@ class Employees extends CI_Controller
 
 
 
+	public function results()
+	{
+
+		$emp_last_name = $this->check_postvar($this->input->post('emp_last_name'));
+
+		$emp_first_name = $this->check_postvar($this->input->post('emp_first_name'));
+
+
+
+		$args = array(
+    		"emp_last_name" => $emp_last_name,
+    		"emp_first_name" => $emp_first_name
+		);
+
+	
+		$emps = $this->query_employee($args);
+
+
+
+		$page = array();
+
+		$page['employees'] = $emps["employees"];
+
+		$page['employees_pagination'] = $this->employee_model->pagination_links();
+
+		$page["keys"] = $emps["key"];
+		$page["params"] = $emps["params"];
+
+
+
+
+	 	foreach($emps["params"] as $p){
+	 		$temp = strtoupper($p);
+	 		$this->template->set("content-top", $temp." ");
+	 		
+	 	}
+
+
+
+	 	
+	 	$this->template->content('employees-results', $page);
+	 	$this->template->show('admin/templates','emppartial');	
+
+
+	}
+
+	public function query_employee($args=array())
+	{
+
+
+		$params = array();
+
+		$key = array();
+
+		$out = array();
+
+
+
+
+
+		if ($args["emp_last_name"]!=null ):
+			$params['emp_last_name'] = $args["emp_last_name"];
+			$key['emp_last_name'] = $args["emp_last_name"];
+		else:
+			$key['emp_last_name'] = null;
+
+		endif;
+
+		if ($args["emp_first_name"]!=null):
+			$params['emp_first_name'] = $args["emp_first_name"];
+			$key['emp_first_name'] = $args["emp_first_name"];
+		else:
+			$key['emp_first_name'] = $args["emp_first_name"];
+
+		endif;	
+
+
+	
+
+		$out["employees"] = $this->employee_model->pagination("admin/employees/index/__PAGE__", 'get_all', $params);
+
+		$out["key"] = $key;
+		$out["params"] = $params;
+
+
+
+		return $out;
+
+	}
+
+	private function check_postvar($postvar)
+	{
+		if($postvar==false)
+		{
+			return null;
+		}
+		if($postvar=="")
+		{
+			return null;
+		}
+		return $postvar;
+	}
 
 
 }
