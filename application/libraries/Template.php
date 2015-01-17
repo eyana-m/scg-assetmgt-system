@@ -17,8 +17,10 @@ class Template extends MYTHOS_Template
 		if($validator !== false)
 		{
 			$this->set('head', $validator);
+			var_dump($validator); die();
 		}
-		
+
+
 		$this->set('mythos', $this->mythos());
 		$this->set('bootstrap', $this->bootstrap());
 		$this->set('notification', $this->render_notification());

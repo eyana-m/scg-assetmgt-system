@@ -229,7 +229,7 @@
 		Update Status
 		</div>
 		<div class="panel-body">
-			<form method="post" id="change-status">
+			<form method="post" id="change-status" name="change-status">
 
 			<select name="aud_status" id="aud_status" class="input-medium form-control form-control-small">
 				<option value="">Select Status</option>
@@ -250,7 +250,8 @@
 
 			<input type="text" class="form-control form-control-small" id="aud_comment" name="aud_comment" placeholder="Remark (e.g. 'Normal Condition')">
 
-			<input type="submit" class="btn btn-small btn-warning pull-right" name="submit" value="Change Status" style="font-size:12px">
+			<input id="tag_barcode_status" class="form-control form-control-small" name="tag_barcode_status" type="text" placeholder="Scan code here to tag">
+			<!--<input type="submit" class="btn btn-small btn-warning pull-right" name="change-status" value="Change Status" style="font-size:12px">-->
 
 			</form>
 		</div>
@@ -268,15 +269,16 @@
 			</div>
 			<div class="panel-body">
 
-			<form method="post" id="employee-tag-type">
+			<form method="post" id="employee-tag-type" name="employee-tag-type">
 
 
 			<input type="number" class="form-control form-control-small" id="emp_id" name="emp_id" placeholder="Employee ID (e.g. '10000022')">
 
 			<input type="text" class="form-control form-control-small" id="aud_comment" name="aud_comment" placeholder="Remark (e.g. 'Normal Condition')">
 
+			<input id="tag_barcode" class="form-control form-control-small" name="tag_barcode" type="text" placeholder="Scan code here to tag">
 
-			<input type="submit" class="btn btn-small btn-warning pull-right" style="font-size:12px" name="submit" value="Tag">
+		
 
 			</form>
 
@@ -306,7 +308,7 @@
 
 			<input type="text" class="form-control form-control-small" id="aud_comment" name="aud_comment" placeholder="Remark (e.g. 'Normal Condition')">
 
-			<input type="submit" class="btn btn-small btn-warning pull-right" style="font-size:12px" name="submit" value="Tag">
+			<input id="tag_barcode" class="form-control form-control-small" name="tag_barcode" type="text" placeholder="Scan code here to tag">
 
 			</form>
 
@@ -329,7 +331,7 @@
 			<input type="text" class="form-control form-control-small" id="aud_comment" name="aud_comment" placeholder="Remark (e.g. 'Normal Condition')">
 
 
-			<input type="submit" class="btn btn-small btn-warning pull-right" style="font-size:12px" name="submit" value="Tag">
+			<input id="tag_barcode" class="form-control form-control-small" name="tag_barcode" type="text" placeholder="Scan code here to tag">
 
 			</form>
 
@@ -616,6 +618,36 @@ $('#untag_barcode').on("input", function() {
 
    $("form#untag").submit();
 
+});
+
+$('#tag_barcode').on("input", function() {
+
+   var bc;
+   setTimeout(function() {
+      	bc = $("input:text[name=tag_barcode]").val(); 
+    }, 2000);
+
+   $("form#employee-tag-type").submit();
+
+});
+
+$('#tag_barcode_status').on("input", function() {
+
+   var bc;
+   setTimeout(function() {
+      	bc = $("input:text[name=tag_barcode_status]").val(); 
+    }, 2000);
+
+   $("form#change-status").submit();
+
+});
+
+$('#untag_barcode').bind('copy paste',function(e) {
+    e.preventDefault(); return false; 
+});
+
+$('#tag_barcode').bind('copy paste',function(e) {
+    e.preventDefault(); return false; 
 });
 
 

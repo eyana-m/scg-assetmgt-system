@@ -225,20 +225,20 @@ class Hardware_assets extends CI_Controller
 	{
 		$this->template->title('Create Hardware Asset');
 		
-		$this->form_validation->set_rules('har_asset_number', 'Asset Number', 'trim|required|max_length[15]');
-		$this->form_validation->set_rules('har_asset_type', 'Asset Type', 'trim|required');
-		$this->form_validation->set_rules('har_office', 'Asset Office', 'trim|required');
-		$this->form_validation->set_rules('har_erf_number', 'Erf Number', 'trim|required|integer|max_length[11]');
-		$this->form_validation->set_rules('har_model', 'Model', 'trim|required|max_length[30]');
-		$this->form_validation->set_rules('har_serial_number', 'Serial Number', 'trim|required|max_length[30]');
-		$this->form_validation->set_rules('har_hostname', 'Hostname', 'trim|required|max_length[30]');
-		$this->form_validation->set_rules('har_status', 'Status', 'trim|required');
-		$this->form_validation->set_rules('har_vendor', 'Vendor', 'trim|required|max_length[30]');
-		$this->form_validation->set_rules('har_date_purchase', 'Date of Purchase', 'trim|required|date');
-		$this->form_validation->set_rules('har_po_number', 'Po Number', 'trim|required|integer|max_length[11]');
-		$this->form_validation->set_rules('har_cost', 'Cost', 'trim|required|double');
-		$this->form_validation->set_rules('har_date_added', 'Date Added', 'trim|required|date');
-		$this->form_validation->set_rules('har_specs', 'Specs', 'trim|required');
+		$this->form_validation->set_rules('har_asset_number', 'Asset Number', 'trim|required|max_length[15]', 'add_asset');
+		$this->form_validation->set_rules('har_asset_type', 'Asset Type', 'trim|required', 'add_asset');
+		$this->form_validation->set_rules('har_office', 'Asset Office', 'trim|required', 'add_asset');
+		$this->form_validation->set_rules('har_erf_number', 'Erf Number', 'trim|required|integer|max_length[11]', 'add_asset');
+		$this->form_validation->set_rules('har_model', 'Model', 'trim|required|max_length[30]', 'add_asset');
+		$this->form_validation->set_rules('har_serial_number', 'Serial Number', 'trim|required|max_length[30]', 'add_asset');
+		$this->form_validation->set_rules('har_hostname', 'Hostname', 'trim|required|max_length[30]', 'add_asset');
+		$this->form_validation->set_rules('har_status', 'Status', 'trim|required', 'add_asset');
+		$this->form_validation->set_rules('har_vendor', 'Vendor', 'trim|required|max_length[30]', 'add_asset');
+		$this->form_validation->set_rules('har_date_purchase', 'Date of Purchase', 'trim|required|date', 'add_asset');
+		$this->form_validation->set_rules('har_po_number', 'Po Number', 'trim|required|integer|max_length[11]', 'add_asset');
+		$this->form_validation->set_rules('har_cost', 'Cost', 'trim|required|double', 'add_asset');
+		$this->form_validation->set_rules('har_date_added', 'Date Added', 'trim|required|date', 'add_asset');
+		$this->form_validation->set_rules('har_specs', 'Specs', 'trim|required', 'add_asset');
 
 	
 
@@ -437,14 +437,17 @@ class Hardware_assets extends CI_Controller
 		}
 
 
-		if($this->input->post('submit'))
-		{
 			
 			$audit_entry['aud_datetime'] = date('Y-m-d H:i:s');
 
 			
-			if($this->input->post('aud_status'))
+		if($this->input->post('tag_barcode_status'))
+		{
+
+
+			if($this->input->post('tag_barcode_status')==$hardware_asset_id)
 			{
+
 				if($current_audit_entry->aud_status=='active'):
 				 	$this->auto_untag($current_audit_entry);				
 				endif;
@@ -475,9 +478,26 @@ class Hardware_assets extends CI_Controller
 				$this->audit_entry_model->create($audit_entry, $field_list);
 				$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);
 
+				$this->template->notification('New audit entry created.', 'success');
+				redirect('admin/hardware_assets/view/' . $hardware_asset_id);
+		
+				$this->template->autofill($audit_entry);
+			}
+			else
+			{
+				$this->template->notification('Wrong barcode', 'danger');
+				//redirect($this->uri->uri_string());
+				redirect('admin/hardware_assets/view/' . $hardware_asset_id);
+				$this->template->autofill($audit_entry);
 
 			}
-			elseif($this->input->post("emp_id"))
+
+		}
+	
+		if($this->input->post("tag_barcode"))
+		{
+
+			if($this->input->post('tag_barcode')==$hardware_asset_id)
 			{
 
 				$employee = $this->employee_model->get_one($this->input->post("emp_id"));
@@ -503,6 +523,10 @@ class Hardware_assets extends CI_Controller
 					$this->audit_entry_model->create($audit_entry, $field_list);
 					$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);	
 
+					$this->template->notification('New audit entry created.', 'success');
+					redirect('admin/hardware_assets/view/' . $hardware_asset_id);
+		
+					$this->template->autofill($audit_entry);
 				}
 				else
 				{
@@ -511,27 +535,31 @@ class Hardware_assets extends CI_Controller
 				}
 
 
+			}
 
-
-
-
-
-
-				//$current_audit_entry = $this->audit_entry_model->get_by_hardware($hardware_asset_id)->first_row();
+			else
+			{
+				$this->template->notification('Wrong barcode', 'danger');
+				//redirect($this->uri->uri_string());
+				redirect('admin/hardware_assets/view/' . $hardware_asset_id);
+				$this->template->autofill($audit_entry);
 
 			}
+
+
+
+			//$current_audit_entry = $this->audit_entry_model->get_by_hardware($hardware_asset_id)->first_row();
+
+		}
 
 			// var_dump($audit_entry);
 			// var_dump($field_list);
 			// die();	
 			
 
-			$this->template->notification('New audit entry created.', 'success');
-			redirect('admin/hardware_assets/view/' . $hardware_asset_id);
-		
-			$this->template->autofill($audit_entry);
+
 			
-		}
+		
 
 
 		if($this->input->post('untag_barcode'))
@@ -566,12 +594,12 @@ class Hardware_assets extends CI_Controller
 		if($this->input->post('confirm'))
 		{
 			$config =  array(
-                  'upload_path'     => dirname($_SERVER["SCRIPT_FILENAME"])."/uploads/confirmation",
-                  'upload_url'      => base_url()."uploads/confirmation/",
-                  'allowed_types'   => "gif|jpg|png|jpeg|pdf|mwb",
-                  'overwrite'       => TRUE,
-                  'max_size'        => "1000MB"
-                );
+	              'upload_path'     => dirname($_SERVER["SCRIPT_FILENAME"])."/uploads/confirmation",
+	              'upload_url'      => base_url()."uploads/confirmation/",
+	              'allowed_types'   => "gif|jpg|png|jpeg|pdf|mwb",
+	              'overwrite'       => TRUE,
+	              'max_size'        => "1000MB"
+	            );
 
 			$this->upload->initialize($config);
 
