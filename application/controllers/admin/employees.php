@@ -69,15 +69,7 @@ class Employees extends CI_Controller
 			$this->template->notification('File Uploaded!', 'success');
 		}
 
-
-
-
-
-
 	}
-
-
-
 
 
 	public function create()
@@ -132,10 +124,6 @@ class Employees extends CI_Controller
 	public function edit($emp_id)
 	{
 		$this->template->title('Edit Employee '.$emp_id);
-
-
-
-
 
 		//$this->form_validation->set_rules('emp_id', 'ID Number', 'trim|required|integer|max_length[10]');
 		$this->form_validation->set_rules('emp_last_name', 'Last Name', 'trim|required|max_length[30]');
@@ -202,24 +190,35 @@ class Employees extends CI_Controller
 
 
 
-		if($this->input->post('untag'))
+		if($this->input->post('untag_barcode'))
 		{
-			if($current_audit_entry->aud_status=='active'):
-			 	$this->auto_untag($current_audit_entry);				
-			endif;
-
 			$hardware_asset_id = $current_audit_entry->aud_har;
 
-			$new_status = $this->input->post("aud_status");	
-			$this->untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status);
+			if($this->input->post('untag_barcode')==$hardware_asset_id)
+			{			
+				if($current_audit_entry->aud_status=='active'):
+				 	$this->auto_untag($current_audit_entry);				
+				endif;
 
-			$page['current_audit_entry']= $this->audit_entry_model->get_by_employee($employee_id)->first_row();
-			$current_audit_entry = $page['current_audit_entry'];
+				$new_status = $this->input->post("aud_status");	
+				$this->untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status);
 
-			$this->template->notification('Asset is now untagged.', 'success');
-			//redirect($this->uri->uri_string());
-			redirect('admin/employees/view/' . $employee_id);
-			$this->template->autofill($audit_entry);
+				$page['current_audit_entry']= $this->audit_entry_model->get_by_employee($employee_id)->first_row();
+				$current_audit_entry = $page['current_audit_entry'];
+
+				$this->template->notification('Asset is now untagged.', 'success');
+				//redirect($this->uri->uri_string());
+				redirect('admin/employees/view/' . $employee_id);
+				$this->template->autofill($audit_entry);
+			}
+			else
+			{
+				$this->template->notification('Wrong barcode', 'danger');
+				//redirect($this->uri->uri_string());
+				redirect('admin/employees/view/' . $employee_id);
+				$this->template->autofill($audit_entry);
+
+			}
 		}
 
 		

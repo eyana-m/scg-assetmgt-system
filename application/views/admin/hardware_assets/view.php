@@ -646,10 +646,13 @@ $('#untag_barcode').bind('copy paste',function(e) {
     e.preventDefault(); return false; 
 });
 
-$('#tag_barcode').bind('copy paste',function(e) {
+// $('#tag_barcode').bind('copy paste',function(e) {
+//     e.preventDefault(); return false; 
+// });
+
+$('#tag_barcode_status').bind('copy paste',function(e) {
     e.preventDefault(); return false; 
 });
-
 
 
 
