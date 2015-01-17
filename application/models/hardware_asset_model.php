@@ -58,6 +58,24 @@ class Hardware_asset_model extends Base_model
 
 		return $this->db->get($this->table);
 	}
+
+	//get all arranged by latest har_date_added
+	public function get_all_reverse_filtered($params = array())
+	{
+		if(is_array($params))
+		{
+			foreach($params as $key=> $value)
+			{
+				//$this->db->where($key, $value);
+				$this->db->like($key, $value,'both');
+			}
+		}
+
+		$this->db->order_by("har_last_update","desc");
+		//$this->db->order_by("har_date_added","desc");
+
+		return $this->db->get($this->table);
+	}
 	
 	//LAP-112864-100717
 	//{har_asset_type}-{har_asset_number}-{har_date_added}
