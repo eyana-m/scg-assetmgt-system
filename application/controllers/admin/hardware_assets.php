@@ -308,9 +308,6 @@ class Hardware_assets extends CI_Controller
 
 		
 
-
-
-
 		$page = array();
 		
 		$this->template->content('hardware_assets-create', $page);
@@ -918,6 +915,21 @@ class Hardware_assets extends CI_Controller
 
 	}
 
+
+	public function generate_csv()
+	{
+		$this->load->dbutil();
+  		
+     	$page['hardware_today'] =  $this->hardware_asset_model->get_asset_today();
+     	$hardware_today = $page['hardware_today'];
+
+		$date = date('Y-m-d');
+		$filename = 'assets_printed_'.$date.'.csv';
+
+		$data = $this->dbutil->csv_from_result($hardware_today);
+
+	    force_download($filename, $data); 		
+	}
 
 
 
