@@ -16,7 +16,7 @@ if($employees->num_rows())
 						<th>Employee ID</th>
 						<th>Last Name</th>
 						<th>First Name</th>
-						<th>Middle Name</th>
+						<th>Office</th>
 						<th>Department</th>
 						<th>Position</th>
 					</tr>
@@ -31,7 +31,7 @@ if($employees->num_rows())
 						<td><a href="<?php echo site_url('admin/employees/view/' . $employee->emp_id); ?>"><?php echo $employee->emp_id; ?></a></td>					
 						<td><?php echo $employee->emp_last_name; ?></td>
 						<td><?php echo $employee->emp_first_name; ?></td>
-						<td><?php echo $employee->emp_middle_name; ?></td>
+						<td><?php echo $employee->emp_office; ?></td>
 						<td><?php echo $employee->emp_department; ?></td>
 						<td><?php echo $employee->emp_position; ?></td>				
 					</tr>
@@ -72,6 +72,29 @@ if($employees->num_rows())
 			    </div>				
 			</div>
 
+			<div class="form-group">
+			    <label class= "control-label col-md-12" >Department</label>
+			    <div class="col-md-12 controls">
+			    	<input type="text" class="form-control-small form-control" name="emp_department" placeholder="Department">
+			    </div>				
+			</div>
+
+			<div class="form-group">
+			    <label class= "control-label col-md-12">Office</label>
+			    <div class="col-md-12 controls">
+					<select name="emp_office" class="input-medium form-control form-control-small">
+						<option disabled value=''>Select Office</option>
+						<option value="PBI ROCES">PBI ROCES</option>
+						<option value="OMMC">OMMC</option>
+						<option value="PBI STAM">PBI STAM</option>
+						<option value="RTI">RTI</option>
+						<option value="SMIP">SMIP</option>
+						<option value="EG">EG</option>
+					</select>
+					
+			    </div>				
+			</div>
+
 		</div>
 
 
@@ -93,18 +116,21 @@ if($employees->num_rows())
 
 			var emp_first_name = $( 'input:text[name=emp_first_name]').val();
 
+			var emp_department= $( 'input:text[name=emp_department]').val();
+
+			var emp_office  = $( 'select[name=emp_office]').val();
 
 
-			ajax_call(emp_last_name, emp_first_name);
+			ajax_call(emp_last_name, emp_first_name, emp_department, emp_office);
 
 		});	
 
-	function ajax_call(emp_last_name, emp_first_name){
+	function ajax_call(emp_last_name, emp_first_name, emp_department, emp_office){
 			
 			var request = $.ajax({					
 				url: '<?php echo site_url("admin/employees/results"); ?>',
 				type: "POST",	
-				data: { emp_last_name : emp_last_name, emp_first_name: emp_first_name 
+				data: { emp_last_name : emp_last_name, emp_first_name: emp_first_name, emp_department: emp_department, emp_office: emp_office 
 					}
 				//dataType: "json"
 			});

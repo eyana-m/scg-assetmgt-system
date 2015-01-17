@@ -308,11 +308,17 @@ class Employees extends CI_Controller
 
 		$emp_first_name = $this->check_postvar($this->input->post('emp_first_name'));
 
+		$emp_department = $this->check_postvar($this->input->post('emp_department'));
+
+		$emp_office = $this->check_postvar($this->input->post('emp_office'));
+
 
 
 		$args = array(
     		"emp_last_name" => $emp_last_name,
-    		"emp_first_name" => $emp_first_name
+    		"emp_first_name" => $emp_first_name,
+    		"emp_department" => $emp_department,
+    		"emp_office" => $emp_office
 		);
 
 	
@@ -378,9 +384,24 @@ class Employees extends CI_Controller
 		endif;	
 
 
+		if ($args["emp_department"]!=null ):
+			$params['emp_department'] = $args["emp_department"];
+			$key['emp_department'] = $args["emp_department"];
+		else:
+			$key['emp_department'] = null;
+
+		endif;
+
+		if ($args["emp_office"]!=null):
+			$params['emp_office'] = $args["emp_office"];
+			$key['emp_office'] = $args["emp_office"];
+		else:
+			$key['emp_office'] = $args["emp_office"];
+
+		endif;	
 	
 
-		$out["employees"] = $this->employee_model->pagination("admin/employees/index/__PAGE__", 'get_all', $params);
+		$out["employees"] = $this->employee_model->pagination("admin/employees/index/__PAGE__", 'get_all_filtered', $params);
 
 		$out["key"] = $key;
 		$out["params"] = $params;

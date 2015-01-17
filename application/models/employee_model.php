@@ -44,6 +44,20 @@ class Employee_model extends Base_model
 		return $this->db->insert_id();
 	}
 
+	public function get_all_filtered($params = array())
+	{
+		if(is_array($params))
+		{
+			foreach($params as $key=> $value)
+			{
+				//$this->db->where($key, $value);
+				$this->db->like($key, $value,'both');
+			}
+		}
+
+		return $this->db->get($this->table);
+	}
+
 
 	
 
