@@ -642,17 +642,17 @@ $('#tag_barcode_status').on("input", function() {
 
 });
 
-$('#untag_barcode').bind('copy paste',function(e) {
-    e.preventDefault(); return false; 
-});
+// $('#untag_barcode').bind('copy paste',function(e) {
+//     e.preventDefault(); return false; 
+// });
 
 // $('#tag_barcode').bind('copy paste',function(e) {
 //     e.preventDefault(); return false; 
 // });
 
-$('#tag_barcode_status').bind('copy paste',function(e) {
-    e.preventDefault(); return false; 
-});
+// $('#tag_barcode_status').bind('copy paste',function(e) {
+//     e.preventDefault(); return false; 
+// });
 
 
 

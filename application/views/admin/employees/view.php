@@ -180,7 +180,7 @@
 			<div class="panel-personnel-content">Select new <strong>Asset Status</strong> after untagging:</div>
 			<form method="post" id="untag">
 			<select name="aud_status" id="aud_status" class="input-medium form-control form-control-small">
-				<option value="">Select Status</option>				
+				<option value="" disabled>Select Status</option>				
 				<option value="stockroom" selected>stockroom</option>
 				<option value="service unit">service unit</option>
 				<option value="for disposal">for disposal</option>
@@ -205,15 +205,20 @@
 
 
 <script type="text/javascript">
-$('#untag_barcode').on("input", function() {
+	$('#untag_barcode').on("input", function() {
 
-   var bc;
-   setTimeout(function() {
-      	bc = $("input:text[name=untag_barcode]").val(); 
-    }, 2000);
+	   var bc;
+	   setTimeout(function() {
+	      	bc = $("input:text[name=untag_barcode]").val(); 
+	    }, 2000);
 
-   $("form#untag").submit();
+	   $("form#untag").submit();
 
-});
+	});
+
+	// $('#untag_barcode').bind('copy paste',function(e) {
+	//     e.preventDefault(); return false; 
+	// });
+
 
 </script>

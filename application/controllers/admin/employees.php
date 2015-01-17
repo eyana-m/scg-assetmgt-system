@@ -201,6 +201,7 @@ class Employees extends CI_Controller
 				endif;
 
 				$new_status = $this->input->post("aud_status");	
+
 				$this->untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status);
 
 				$page['current_audit_entry']= $this->audit_entry_model->get_by_employee($employee_id)->first_row();
@@ -220,11 +221,6 @@ class Employees extends CI_Controller
 
 			}
 		}
-
-		
-		//$page['audit_entries'] = $this->audit_entry_model->pagination("admin/employees/index/__PAGE__", 'get_by_employee($employee_id)'
-
-		//$page['audit_entries_pagination'] = $this->audit_entry_model->pagination_links();
 
 		$employees =  $this->employee_model->get_all();
 		
@@ -249,7 +245,7 @@ class Employees extends CI_Controller
 
 		$audit_entry['aud_datetime'] = date('Y-m-d H:i:s');
 		$audit_entry['aud_status'] = $new_status;
-		$hardware_update['har_status'] = $audit_entry['aud_status'];
+		$hardware_update['har_status'] = $new_status;
 
 		$name = $current_audit_entry->emp_first_name." ".$current_audit_entry->emp_last_name;
 			
