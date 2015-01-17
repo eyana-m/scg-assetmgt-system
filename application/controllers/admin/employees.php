@@ -11,6 +11,7 @@ class Employees extends CI_Controller
 		$this->access_control->validate();
 		$this->load->model('page_model');
 		$this->load->helper('format');
+		$this->load->helper('download');
 
 
 
@@ -389,6 +390,28 @@ class Employees extends CI_Controller
 		return $out;
 
 	}
+
+	public function audit_entries_csv()
+	{
+
+		$data = $this->extract->post();
+		$this->load->dbutil();
+
+		
+		$audit_entries =  $this->audit_entry_model->get_by_employee($data["employee"]);
+
+
+		$page['audit_entries'] = $audit_entries;
+
+		$date = date('Y-m-d');
+		$filename = 'audit_entries_'.$data["employee"].'_'.$date.'.csv';
+
+		$data = $this->dbutil->csv_from_result($page['audit_entries']);
+
+		force_download($filename, $data); 
+
+	}
+
 
 	private function check_postvar($postvar)
 	{

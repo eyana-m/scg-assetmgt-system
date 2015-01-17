@@ -897,21 +897,29 @@ class Hardware_assets extends CI_Controller
 	}
 
 
-	public function generate_csv()
+
+	public function audit_entries_csv()
 	{
-		
+
+		$data = $this->extract->post();
 		$this->load->dbutil();
-    	$page['hardware_today'] = $this->hardware_asset_model->get_asset_today();
-    	$hardware_today = $page['hardware_today'];
 
-    	$date = date('Y-m-d');
-    	$filename = 'asset_addedtoday_'.$date.'.csv';
-
-    	$data = $this->dbutil->csv_from_result($hardware_today);
-    	force_download($filename, $data); 
-			
 		
+		$audit_entries =  $this->audit_entry_model->get_by_hardware($data["hardware_asset"]);
+
+
+		$page['audit_entries'] = $audit_entries;
+
+		$date = date('Y-m-d');
+		$filename = 'audit_entries_'.$data["hardware_asset"].'_'.$date.'.csv';
+
+		$data = $this->dbutil->csv_from_result($page['audit_entries']);
+
+		force_download($filename, $data); 
+
 	}
+
+
 
 
 	public function backup()

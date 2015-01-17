@@ -425,9 +425,30 @@
 			</div>
 			</div>
 		</div>
-	
+
+		<div class="panel panel-default panel-personnel " style="margin-left: 0">
+			<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive" style="text-decoration: none">
+				<div class="panel-heading" id="headingFive">				
+					Actions			
+				</div>
+			</a>
+
+			<div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+
+				<div class="panel-body">
+					<form  method="post" action="<?php echo site_url("admin/hardware_assets/audit_entries_csv"); ?>"  name="audit_entries_csv" id="audit_entries_csv">
+						<input type="hidden" name="hardware_asset" value="<?php echo $hardware_asset->har_barcode; ?>">
+						<input class="btn btn-primary no-border-radius" name="submit" type="submit" style="font-size: 1em; margin-right: 0.5em;" value="Generate CSV">
+					</form>
+
+
+				</div>
+			</div><!--panel-collapse-->
+		</div><!--end panel-->		
 
 	</div>
+
+
 
 </div>
 

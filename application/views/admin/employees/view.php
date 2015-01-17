@@ -115,6 +115,12 @@
 		</div>
 		<div class="panel-footer">
 			<a href="<?php echo site_url('admin/employees/edit/' . $employee->emp_id); ?>" class="btn btn-default btn-small" style="font-size:12px">Edit Employee Details</a>
+			<form  method="post" class="pull-right" action="<?php echo site_url("admin/employees/audit_entries_csv"); ?>"  name="audit_entries_csv" id="audit_entries_csv">
+				<input type="hidden" name="employee" value="<?php echo $employee->emp_id; ?>">
+				<input class="btn btn-primary btn-small" name="submit" type="submit" style="font-size: 1em; margin-right: 0.5em;" value="Generate CSV">
+			</form>
+
+
 		</div>
 	</div>
 
