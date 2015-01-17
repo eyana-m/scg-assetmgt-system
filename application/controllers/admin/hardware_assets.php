@@ -13,10 +13,7 @@ class Hardware_assets extends CI_Controller
 		$this->load->helper('csv');
 		$this->load->helper('download');
 		$this->load->library('upload');
-		//$this->load->library('form_validation');
-
-
-		$this->load->helper(array('dompdf', 'file'));
+		
 		$this->load->helper('file'); 
 
 		
@@ -224,6 +221,8 @@ class Hardware_assets extends CI_Controller
 	public function create()
 	{
 		$this->template->title('Create Hardware Asset');
+
+
 		
 		$this->form_validation->set_rules('har_asset_number', 'Asset Number', 'trim|required|max_length[15]', 'add_asset');
 		$this->form_validation->set_rules('har_asset_type', 'Asset Type', 'trim|required', 'add_asset');

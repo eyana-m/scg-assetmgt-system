@@ -5,7 +5,7 @@
 		<table class="table-form table-bordered">
 			<tr>
 				<th>Asset Number</th>
-			<td><input type="text" name="har_asset_number" class="form-control" size="11" maxlength="11" autofocus/></td>
+			<td><input type="text" value="" name="har_asset_number" class="form-control" size="11" maxlength="11" autofocus/></td>
 			</tr>
 			<tr>
 				<th>Asset Type</th>
@@ -44,19 +44,19 @@
 		</tr>
 			<tr>
 				<th>Erf Number</th>
-				<td><input type="text" name="har_erf_number" class="form-control" size="11" maxlength="11"/></td>
+				<td><input type="text" value="" name="har_erf_number" class="form-control" size="11" maxlength="11"/></td>
 			</tr>
 			<tr>
 				<th>Model</th>
-				<td><input type="text" name="har_model" class="form-control" size="30" maxlength="30" /></td>
+				<td><input type="text" value="" name="har_model" class="form-control" size="30" maxlength="30" /></td>
 			</tr>
 			<tr>
 				<th>Serial Number</th>
-				<td><input type="text" name="har_serial_number" class="form-control" size="30" maxlength="30"/></td>
+				<td><input type="text"  value="" name="har_serial_number" class="form-control" size="30" maxlength="30"/></td>
 			</tr>
 			<tr>
 				<th>Hostname</th>
-				<td><input type="text" name="har_hostname" class="form-control" size="30" maxlength="30"/></td>
+				<td><input type="text" value="" name="har_hostname" class="form-control" size="30" maxlength="30"/></td>
 			</tr>
 			<tr>
 				<th>Status</th>
@@ -73,24 +73,24 @@
 			</tr>
 			<tr>
 				<th>Vendor</th>
-				<td><input type="text" name="har_vendor" class="form-control" size="30" maxlength="30"/></td>
+				<td><input type="text" value="" name="har_vendor" class="form-control" size="30" maxlength="30"/></td>
 			</tr>
 			<tr>
 				<th>Date of Purchase</th>
-				<td><input type="date" name="har_date_purchase" class="form-control" class="form-control"/></td>
+				<td><input type="date" value="" name="har_date_purchase" class="form-control" class="form-control"/></td>
 			</tr>
 
 
 
 			<tr>
 				<th>Po Number</th>
-				<td><input type="text" name="har_po_number" class="form-control" size="11" maxlength="11" /></td>
+				<td><input type="text" value="" name="har_po_number" class="form-control" size="11" maxlength="11" /></td>
 			</tr>
 			<tr>
 				<th>Cost</th>
 				<td>
 				<div class="input-group">
-					<span class="input-group-addon">Php</span> <input type="text" name="har_cost" class="form-control"/>
+					<span class="input-group-addon">Php</span> <input type="text"  value="" name="har_cost" class="form-control"/>
 				</div>
 				</td>
 			</tr>
@@ -101,7 +101,7 @@
 			</tr>
 			<tr>
 				<th>Specs</th>
-				<td><textarea name="har_specs" rows="5" cols="80" class="form-control"></textarea></td>
+				<td><textarea name="har_specs" value=""  rows="5" cols="80" class="form-control"></textarea></td>
 			</tr>
 			<tr>
 				<th></th>
@@ -183,7 +183,7 @@
 
 
 
-
+<script type="text/javascript" src="<?php echo res_url('mythos/js/jquery.validate.complete.min.js'); ?>"></script>
 
 
 

@@ -161,6 +161,9 @@ $(function() {
 });
 </script>
 
+<script type="text/javascript" src="<?php echo res_url('mythos/js/jquery.validate.complete.min.js'); ?>"></script>
+
+
 <script type="text/javascript">
 	jQuery(function($) {
 

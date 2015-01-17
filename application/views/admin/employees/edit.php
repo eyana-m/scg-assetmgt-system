@@ -51,6 +51,9 @@
 		</tr>
 	</table>
 </form>
+
+<script type="text/javascript" src="<?php echo res_url('mythos/js/jquery.validate.complete.min.js'); ?>"></script>
+
 <script type="text/javascript">
 $(function() {		
 	$('form').floodling('emp_last_name', "<?php echo addslashes($employee->emp_last_name); ?>");		

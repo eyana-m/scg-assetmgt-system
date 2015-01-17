@@ -20,7 +20,6 @@ class Template extends MYTHOS_Template
 			
 		}
 
-
 		$this->set('mythos', $this->mythos());
 		$this->set('bootstrap', $this->bootstrap());
 		$this->set('notification', $this->render_notification());
