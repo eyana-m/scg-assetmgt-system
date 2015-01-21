@@ -157,7 +157,7 @@ class Audit_entries extends CI_Controller
 			$config =  array(
                   'upload_path'     => dirname($_SERVER["SCRIPT_FILENAME"])."/uploads/confirmation",
                   'upload_url'      => base_url()."uploads/confirmation/",
-                  'allowed_types'   => "gif|jpg|png|jpeg|pdf|mwb",
+                  'allowed_types'   => "gif|jpg|png|jpeg|pdf|msg",
                   'overwrite'       => TRUE,
                   'max_size'        => "1000MB"
                 );

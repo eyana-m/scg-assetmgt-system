@@ -167,8 +167,9 @@ class Uploads extends CI_Controller {
 			$filepath = base_url()."uploads/batch_csv/".$data["file_name"];
 
 			//Read csv file
-			$employeees_csv = $this->csvreader->parse_file($filepath);
+			$employees_csv = $this->csvreader->parse_file($filepath);
 
+		
 			$i = 0;
 
 			foreach($employees_csv as $employee) 
