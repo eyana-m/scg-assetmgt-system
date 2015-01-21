@@ -64,6 +64,20 @@ class Uploads extends CI_Controller {
 					
 				}
 
+				//KEN'S EXPERIMENT FOR ASSET RECORD CONFLICT
+				/**foreach($hardware_assets_csv as $hardware_asset) 
+				{
+								
+					if ($this->hardware_asset_model->check_conflict($hardware_asset) == 0) {
+						
+						$this->asset_create($hardware_asset);
+
+						$i++;
+					}
+					
+					
+				}**/
+
 			//var_dump($hardware_assets_csv); die();
 
 				$this->template->notification($i." assets were imported successfully!", 'success');
@@ -181,15 +195,15 @@ class Uploads extends CI_Controller {
 				
 			}
 
-			/**KEN'S EXPERIMENT FOR EMPLOYEE RECORD CONFLICT
-			foreach($employees_csv as $employee) 
+			//KEN'S EXPERIMENT FOR EMPLOYEE RECORD CONFLICT
+			/**foreach($employees_csv as $employee) 
 			{
 							
 				//$this->employee_create($employee);
 
 				$q =  $this->db->select('*')->from('employee')->where('employee', $employee)->get();
 				if($q->num_rows() == 0){
-    				echo "HELLO";
+    				$this->employee_create($employee);
 				}
 				
 				$i++;

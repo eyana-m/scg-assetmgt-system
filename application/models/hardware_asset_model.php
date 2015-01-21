@@ -42,6 +42,17 @@ class Hardware_asset_model extends Base_model
 		return $this->db->insert_id();
 	}
 
+	public function check_conflict($hardware = array())
+	{
+		$q =  $this->db->select('*')->from('hardware_asset')->where('har_asset_number', $hardware['har_asset_number'])->get();
+		if($q->num_rows() == 0){
+			return 0;
+		}
+		else {
+			return 1;
+		}
+	}
+
 	//get all arranged by latest har_date_added
 	public function get_all_reverse($params = array())
 	{
