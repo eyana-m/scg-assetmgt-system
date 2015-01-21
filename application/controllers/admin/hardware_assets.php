@@ -519,6 +519,14 @@ class Hardware_assets extends CI_Controller
 					$this->audit_entry_model->create($audit_entry, $field_list);
 					$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);	
 
+
+					//EMAIL 
+
+					//$this->email_employee($employee, $hardware_asset);
+
+
+					//END EMAIL
+
 					$this->template->notification('New audit entry created.', 'success');
 					redirect('admin/hardware_assets/view/' . $hardware_asset_id);
 		
@@ -651,6 +659,27 @@ class Hardware_assets extends CI_Controller
 		
 		$this->template->content('hardware_assets-view', $page);
 		$this->template->show();
+	}
+
+
+	public function email_employee($employee, $hardware_asset)
+	{
+		$this->load->library('email');
+
+		$this->email->from('abcerdino@motolite.com', 'Motolite IT Dept');
+		$this->email->reply_to('you@example.com', 'Your Name');
+
+		$this->email->to($employee['emp_email']); 
+		//$this->email->cc('another@another-example.com'); 
+
+
+		$this->email->subject('Asset '.$hardware_asset['har_barcode'].
+			' tagged');
+		$this->email->message('This asset, <strong>'.$hardware_asset['har_model'].'</strong> has been tagged to you on '.$hardware['har_last_update'].' Please reply to acknowledge. Thank you.');	
+
+		$this->email->send();
+
+		echo $this->email->print_debugger();
 	}
 
 	private function untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status)

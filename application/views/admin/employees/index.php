@@ -83,7 +83,7 @@ if($employees->num_rows())
 			    <label class= "control-label col-md-12">Office</label>
 			    <div class="col-md-12 controls">
 					<select name="emp_office" class="input-medium form-control form-control-small">
-						<option disabled value=''>Select Office</option>
+						<option value=''>Select Office</option>
 						<option value="PBI ROCES">PBI ROCES</option>
 						<option value="OMMC">OMMC</option>
 						<option value="PBI STAM">PBI STAM</option>
