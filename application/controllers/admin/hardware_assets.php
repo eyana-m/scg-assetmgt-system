@@ -227,14 +227,14 @@ class Hardware_assets extends CI_Controller
 		$this->form_validation->set_rules('har_asset_number', 'Asset Number', 'trim|required|max_length[15]', 'add_asset');
 		$this->form_validation->set_rules('har_asset_type', 'Asset Type', 'trim|required', 'add_asset');
 		$this->form_validation->set_rules('har_office', 'Asset Office', 'trim|required', 'add_asset');
-		$this->form_validation->set_rules('har_erf_number', 'Erf Number', 'trim|required|integer|max_length[11]', 'add_asset');
+		$this->form_validation->set_rules('har_erf_number', 'Erf Number', 'trim|required', 'add_asset');
 		$this->form_validation->set_rules('har_model', 'Model', 'trim|required|max_length[30]', 'add_asset');
-		$this->form_validation->set_rules('har_serial_number', 'Serial Number', 'trim|required|max_length[30]', 'add_asset');
-		$this->form_validation->set_rules('har_hostname', 'Hostname', 'trim|required|max_length[30]', 'add_asset');
+		$this->form_validation->set_rules('har_serial_number', 'Serial Number', 'trim|required|max_length[100]', 'add_asset');
+		$this->form_validation->set_rules('har_hostname', 'Hostname', 'trim|max_length[30]', 'add_asset');
 		$this->form_validation->set_rules('har_status', 'Status', 'trim|required', 'add_asset');
-		$this->form_validation->set_rules('har_vendor', 'Vendor', 'trim|required|max_length[30]', 'add_asset');
+		$this->form_validation->set_rules('har_vendor', 'Vendor', 'trim|required|max_length[100]', 'add_asset');
 		$this->form_validation->set_rules('har_date_purchase', 'Date of Purchase', 'trim|required|date', 'add_asset');
-		$this->form_validation->set_rules('har_po_number', 'Po Number', 'trim|required|integer|max_length[11]', 'add_asset');
+		$this->form_validation->set_rules('har_po_number', 'Po Number', 'trim|max_length[11]', 'add_asset');
 		$this->form_validation->set_rules('har_cost', 'Cost', 'trim|required|double', 'add_asset');
 		$this->form_validation->set_rules('har_date_added', 'Date Added', 'trim|required|date', 'add_asset');
 		$this->form_validation->set_rules('har_specs', 'Specs', 'trim|required', 'add_asset');
@@ -246,7 +246,7 @@ class Hardware_assets extends CI_Controller
 
 			$hardware_asset = $this->extract->post();
 			
-			$hardware_asset['har_barcode'] = $this->hardware_asset_model->generate_barcode($hardware_asset['har_asset_type'],$hardware_asset['har_asset_number'],$hardware_asset['har_date_added']);
+			$hardware_asset['har_barcode'] = $this->hardware_asset_model->generate_barcode($hardware_asset['har_asset_type'],$hardware_asset['har_asset_number'],$hardware_asset['har_date_purchase']);
 
 			$hardware_asset['har_tech_refresher'] = $this->hardware_asset_model->get_tech_refresher_date($hardware_asset['har_asset_type'],$hardware_asset['har_date_purchase']);
 
@@ -339,7 +339,7 @@ class Hardware_assets extends CI_Controller
 		{
 			$hardware_asset = $this->extract->post();
 
-			$hardware_asset['har_barcode'] = $this->hardware_asset_model->generate_barcode($hardware_asset['har_asset_type'],$hardware_asset['har_asset_number'],$hardware_asset['har_date_added']);
+			$hardware_asset['har_barcode'] = $this->hardware_asset_model->generate_barcode($hardware_asset['har_asset_type'],$hardware_asset['har_asset_number'],$hardware_asset['har_date_purchase']);
 
 			$hardware_asset['har_tech_refresher'] = $this->hardware_asset_model->get_tech_refresher_date($hardware_asset['har_asset_type'],$hardware_asset['har_date_purchase']);
 
@@ -729,12 +729,16 @@ class Hardware_assets extends CI_Controller
 
 		$har_status = $this->check_postvar($this->input->post('har_status'));
 
+		$har_date_added = $this->check_postvar($this->input->post('har_date_added'));
+
 		$args = array(
     		"har_office" => $har_office,
     		"har_model" => $har_model,
     		"har_asset_number" => $har_asset_number,
     		"har_asset_type" => $har_asset_type,
-    		"har_status" => $har_status
+    		"har_status" => $har_status,
+    		"har_date_added" => $har_date_added
+
 		);
 
 	
@@ -822,6 +826,14 @@ class Hardware_assets extends CI_Controller
 
 		endif;	
 
+		if ($args["har_date_added"]!=null):
+			$params['har_date_added'] = $args["har_date_added"];
+			$key['har_date_added'] = $args["har_date_added"];
+		else:
+			$key['har_date_added'] = $args["har_date_added"];
+
+
+		endif;	
 	
 
 		$out["hardware_assets"] = $this->hardware_asset_model->pagination("admin/hardware_assets/index/__PAGE__", 'get_all_reverse_filtered', $params);

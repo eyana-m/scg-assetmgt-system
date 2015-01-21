@@ -83,7 +83,7 @@
 
 
 			<tr>
-				<th>Po Number</th>
+				<th>Po Number or DR Number</th>
 				<td><input type="text" value="" name="har_po_number" class="form-control" size="11" maxlength="11" /></td>
 			</tr>
 			<tr>
@@ -100,7 +100,7 @@
 				<td><input type="date" name="har_date_added" class="form-control" class="form-control" value="<?php echo date('Y-m-d'); ?>" disabled/></td>
 			</tr>
 			<tr>
-				<th>Specs</th>
+				<th>Remarks</th>
 				<td><textarea name="har_specs" value=""  rows="5" cols="80" class="form-control"></textarea></td>
 			</tr>
 			<tr>

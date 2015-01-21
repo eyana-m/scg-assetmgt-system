@@ -93,7 +93,8 @@ if($hardware_assets->num_rows())
 					    Assets Due for Replacement
 					  </label>
 					</div>
-					
+
+				
 					<div class="radio asset-recentlyadded">
 					  <label>
 					    <input type="radio" name="report-type" id="asset-recentlyadded" value="asset-recentlyadded">
@@ -166,12 +167,21 @@ if($hardware_assets->num_rows())
 					</div>
 
 					<div class="form-group">
+					    <label class= "control-label col-md-12" >Date Added</label>
+					    <div class="col-md-12 controls">
+					    	<input type="date" class="form-control-small form-control" name="har_date_added" placeholder="Asset Model">
+					    </div>						
+					</div>
+
+					<div class="form-group">
 					    <label class= "control-label col-md-12" >Asset Model</label>
 					    <div class="col-md-12 controls">
 					    	<input type="text" class="form-control-small form-control" name="har_model" placeholder="Asset Model">
-					    </div>
-						
+					    </div>						
 					</div>
+
+
+
 
 					<div class="form-group">
 					    <label class= "control-label col-md-12" >Asset Number</label>
@@ -219,6 +229,8 @@ if($hardware_assets->num_rows())
 						</select>
 					    </div>				
 					</div>
+
+
 
 
 					
@@ -277,19 +289,19 @@ if($hardware_assets->num_rows())
 			//var har_asset_type = $( 'select[name=har_asset_type]').val();
 			var har_asset_type = $( 'select[name=har_asset_type]').val();
 			var har_status = $( 'select[name=har_status]').val();
+			var har_date_added = $( 'select[name=har_date_added]').val();
 
 
-
-			ajax_call(har_office, har_model, har_asset_number, har_asset_type, har_status);
+			ajax_call(har_office, har_model, har_asset_number, har_asset_type, har_status, har_date_added);
 
 		});	
 
-	function ajax_call(har_office, har_model, har_asset_number, har_asset_type, har_status){
+	function ajax_call(har_office, har_model, har_asset_number, har_asset_type, har_status, har_date_added){
 			
 			var request = $.ajax({					
 				url: '<?php echo site_url("admin/hardware_assets/results"); ?>',
 				type: "POST",	
-				data: { har_office : har_office, har_model : har_model,har_asset_number : har_asset_number, har_asset_type : har_asset_type, har_status : har_status
+				data: { har_office : har_office, har_model : har_model,har_asset_number : har_asset_number, har_asset_type : har_asset_type, har_status : har_status, har_date_added : har_date_added
 					}
 				//dataType: "json"
 			});
