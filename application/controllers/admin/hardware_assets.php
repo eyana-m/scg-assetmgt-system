@@ -664,6 +664,20 @@ class Hardware_assets extends CI_Controller
 
 	public function email_employee($employee, $hardware_asset)
 	{
+
+		$config = Array(
+			'protocol' => 'smtp',
+			'smtp_host' => 'ssl://smtp.googlemail.com',
+			'smtp_port' => 465,
+			'smtp_user' => 'xxx@gmail.com', // change it to yours
+			'smtp_pass' => 'xxx', // change it to yours
+			'mailtype' => 'html',
+			'charset' => 'iso-8859-1',
+			'wordwrap' => TRUE
+		);
+
+
+
 		$this->load->library('email');
 
 		$this->email->from('abcerdino@motolite.com', 'Motolite IT Dept');
@@ -679,7 +693,14 @@ class Hardware_assets extends CI_Controller
 
 		$this->email->send();
 
-		echo $this->email->print_debugger();
+		//echo $this->email->print_debugger();
+
+		if (!$this->email->send()) {
+			show_error($this->email->print_debugger()); }
+		else {
+			echo 'Your e-mail has been sent!';
+		}
+
 	}
 
 	private function untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status)
