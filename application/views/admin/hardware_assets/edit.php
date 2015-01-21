@@ -31,20 +31,20 @@
 			</td>
 		</tr>
 		<tr>
-			<th>Erf Number</th>
-			<td><input type="text" name="har_erf_number" class="form-control" size="11" maxlength="11" value="" /></td>
+			<th>ERF Number</th>
+			<td><input type="text" name="har_erf_number" class="form-control" size="11" maxlength="11" value="<?php echo $hardware_asset->har_erf_number; ?>" /></td>
 		</tr>
 		<tr>
 			<th>Model</th>
-			<td><input type="text" name="har_model" class="form-control" size="30" maxlength="30" value="" /></td>
+			<td><input type="text" name="har_model" class="form-control" size="30" maxlength="30" value="<?php echo $hardware_asset->har_model; ?>" /></td>
 		</tr>
 		<tr>
 			<th>Serial Number</th>
-			<td><input type="text" name="har_serial_number" class="form-control" size="30" maxlength="30" value="" /></td>
+			<td><input type="text" name="har_serial_number" class="form-control" size="30" maxlength="30" value="<?php echo $hardware_asset->har_serial_number; ?>" /></td>
 		</tr>
 		<tr>
 			<th>Hostname</th>
-			<td><input type="text" name="har_hostname" class="form-control" size="30" maxlength="30" value="" /></td>
+			<td><input type="text" name="har_hostname" class="form-control" size="30" maxlength="30" value="<?php echo $hardware_asset->har_hostname; ?>" /></td>
 		</tr>
 		<tr>
 			<th>Status</th>
@@ -63,7 +63,7 @@
 
 		<tr>
 			<th>Vendor</th>
-			<td><input type="text" name="har_vendor" class="form-control" size="30" maxlength="30" value="" /></td>
+			<td><input type="text" name="har_vendor" class="form-control" size="30" maxlength="30" value="<?php echo $hardware_asset->har_vendor; ?>" /></td>
 		</tr>
 		<tr>
 			<th>Date of Purchase</th>
@@ -73,15 +73,15 @@
 
 
 		<tr>
-			<th>Po Number</th>
-			<td><input type="text" name="har_po_number" class="form-control" size="11" maxlength="11" value="" /></td>
+			<th>PO Number</th>
+			<td><input type="text" name="har_po_number" class="form-control" size="11" maxlength="11" value="<?php echo $hardware_asset->har_po_number; ?>" /></td>
 		</tr>
 		<tr>
 			<th>Cost</th>
 			<td>
 
 			<div class="input-group">
-				<span class="input-group-addon">Php</span> <input type="text" name="har_cost" class="form-control" value="" />
+				<span class="input-group-addon">Php</span> <input type="text" name="har_cost" class="form-control" value="<?php echo $hardware_asset->har_cost; ?>" />
 			</div>
 
 
@@ -126,7 +126,7 @@
 		</tr>
 		<tr>
 			<th>Specs</th>
-			<td><textarea name="har_specs" rows="5" cols="80" class="form-control"></textarea></td>
+			<td><textarea name="har_specs" rows="5" cols="80" class="form-control"><?php echo $hardware_asset->har_specs; ?></textarea></td>
 		</tr>
 		<tr>
 			<th></th>

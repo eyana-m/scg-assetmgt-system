@@ -42,6 +42,8 @@ class Hardware_asset_model extends Base_model
 		return $this->db->insert_id();
 	}
 
+
+
 	//get all arranged by latest har_date_added
 	public function get_all_reverse($params = array())
 	{
