@@ -181,6 +181,21 @@ class Uploads extends CI_Controller {
 				
 			}
 
+			/**KEN'S EXPERIMENT FOR EMPLOYEE RECORD CONFLICT
+			foreach($employees_csv as $employee) 
+			{
+							
+				//$this->employee_create($employee);
+
+				$q =  $this->db->select('*')->from('employee')->where('employee', $employee)->get();
+				if($q->num_rows() == 0){
+    				echo "HELLO";
+				}
+				
+				$i++;
+				
+			}**/
+
 			//var_dump($hardware_assets_csv); die();
 
 			$this->template->notification($i." employees were imported successfully!", 'success');
@@ -199,15 +214,8 @@ class Uploads extends CI_Controller {
 
 
 	public function employee_create($employee)
-	{
-
-
-		
+	{		
 		$this->employee_model->create($employee, $this->employee_model->get_fields());
-		
-		
-
-
 	}
 
 
