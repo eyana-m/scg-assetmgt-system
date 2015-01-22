@@ -6,7 +6,7 @@
 	<table class="table-form table-bordered">
 		<tr>
 			<th>Asset Number</th>
-			<td><input type="text" name="har_asset_number" class="form-control" size="11" maxlength="11" value="" disabled/></td>
+			<td><input type="text" name="har_asset_number" class="form-control" size="11" maxlength="11" value="<?php echo $hardware_asset->har_asset_number; ?>" disabled/></td>
 		</tr>
 		<tr>
 			<th>Asset Type</th>
@@ -67,7 +67,7 @@
 		</tr>
 		<tr>
 			<th>Date of Purchase</th>
-			<td><input type="date" name="har_date_purchase" class="form-control" class="form-control" value="" disabled /></td>
+			<td><input type="date" name="har_date_purchase" class="form-control" class="form-control" value="<?php echo $hardware_asset->har_date_purchase; ?>" disabled /></td>
 		</tr>
 
 
@@ -94,7 +94,7 @@
 
 
 			<div class="input-group">
-				<span class="input-group-addon">Php</span> <input type="text" name="har_book_value" class="form-control" value="" disabled />
+				<span class="input-group-addon">Php</span> <input type="text" name="har_book_value" class="form-control" value="<?php echo $hardware_asset->har_book_value; ?>" disabled />
 			</div>
 
 			</td>
@@ -105,7 +105,7 @@
 			<td>
 
 			<div class="input-group">
-				<span class="input-group-addon">Php</span> <input type="text" name="har_predetermined_value" class="form-control" value="" disabled />
+				<span class="input-group-addon">Php</span> <input type="text" name="har_predetermined_value" class="form-control" value="<?php echo $hardware_asset->har_predetermined_value; ?>" disabled />
 			</div>
 
 			</td>
@@ -115,7 +115,7 @@
 			<td>
 
 			<div class="input-group">
-				<span class="input-group-addon">Php</span> <input type="text" name="har_asset_value" class="form-control" value="" disabled/>
+				<span class="input-group-addon">Php</span> <input type="text" name="har_asset_value" class="form-control" value="<?php echo $hardware_asset->har_asset_value; ?>" disabled/>
 			</div>
 
 			</td>
@@ -131,7 +131,7 @@
 		<tr>
 			<th></th>
 			<td>
-				<input type="submit" name="submit" value="Submit" class="btn btn-primary" />
+				<input type="submit" name="edit_asset" value="Submit" class="btn btn-primary" />
 				
 			</td>
 		</tr>

@@ -316,55 +316,55 @@ class Hardware_assets extends CI_Controller
 	public function edit($har_barcode)
 	{
 		
-
 		$this->template->title('Edit Asset: '.$har_barcode);
 
-		$this->form_validation->set_rules('har_asset_number', 'Asset Number', 'trim|required|integer|max_length[15]');
-		$this->form_validation->set_rules('har_asset_type', 'Asset Type', 'trim|required');
-		$this->form_validation->set_rules('har_office', 'Asset Office', 'trim|required');
+		//$this->form_validation->set_rules('har_asset_number', 'Asset Number', 'trim|required|integer|max_length[15]');
+		//$this->form_validation->set_rules('har_asset_type', 'Asset Type', 'trim|required');
+		//$this->form_validation->set_rules('har_office', 'Asset Office', 'trim|required');
 		$this->form_validation->set_rules('har_erf_number', 'Erf Number', 'trim|required|integer|max_length[11]');
 		$this->form_validation->set_rules('har_model', 'Model', 'trim|required|max_length[30]');
 		$this->form_validation->set_rules('har_serial_number', 'Serial Number', 'trim|required|max_length[30]');
 		$this->form_validation->set_rules('har_hostname', 'Hostname', 'trim|required|max_length[30]');
-		$this->form_validation->set_rules('har_status', 'Status', 'trim|required');
+		//$this->form_validation->set_rules('har_status', 'Status', 'trim|required');
 		$this->form_validation->set_rules('har_vendor', 'Vendor', 'trim|required|max_length[30]');
-		$this->form_validation->set_rules('har_date_purchase', 'Date of Purchase', 'trim|required|date');
+		//$this->form_validation->set_rules('har_date_purchase', 'Date of Purchase', 'trim|required|date');
 		$this->form_validation->set_rules('har_po_number', 'Po Number', 'trim|required|integer|max_length[11]');
-		$this->form_validation->set_rules('har_cost', 'Cost', 'trim|required|double');
-		$this->form_validation->set_rules('har_date_added', 'Date Added', 'trim|required|date');
-		$this->form_validation->set_rules('har_specs', 'Specs', 'trim|required');
+		// $this->form_validation->set_rules('har_cost', 'Cost', 'trim|required|double');
+		// $this->form_validation->set_rules('har_date_added', 'Date Added', 'trim|required|date');
+		// $this->form_validation->set_rules('har_specs', 'Specs', 'trim|required');
 		//$this->form_validation->set_rules('har_barcode', 'Barcode', 'trim|required');
 
-		if($this->input->post('submit'))
+		if($this->input->post('edit_asset'))
 		{
 			$hardware_asset = $this->extract->post();
 
-			$hardware_asset['har_barcode'] = $this->hardware_asset_model->generate_barcode($hardware_asset['har_asset_type'],$hardware_asset['har_asset_number'],$hardware_asset['har_date_purchase']);
+			// $hardware_asset['har_barcode'] = $this->hardware_asset_model->generate_barcode($hardware_asset['har_asset_type'],$hardware_asset['har_asset_number'],$hardware_asset['har_date_purchase']);
 
-			$hardware_asset['har_tech_refresher'] = $this->hardware_asset_model->get_tech_refresher_date($hardware_asset['har_asset_type'],$hardware_asset['har_date_purchase']);
+			// $hardware_asset['har_tech_refresher'] = $this->hardware_asset_model->get_tech_refresher_date($hardware_asset['har_asset_type'],$hardware_asset['har_date_purchase']);
 
-			$tech_year = $this->hardware_asset_model->get_tech_refresher_year($hardware_asset['har_asset_type']);
+			// $tech_year = $this->hardware_asset_model->get_tech_refresher_year($hardware_asset['har_asset_type']);
 
-			$you = $this->hardware_asset_model->get_you($hardware_asset['har_date_purchase']);
+			// $you = $this->hardware_asset_model->get_you($hardware_asset['har_date_purchase']);
 		
-			$hardware_asset['har_book_value'] = $this->hardware_asset_model-> get_book_value($hardware_asset['har_cost'], $tech_year, $you);
+			// $hardware_asset['har_book_value'] = $this->hardware_asset_model-> get_book_value($hardware_asset['har_cost'], $tech_year, $you);
 
-			$hardware_asset['har_predetermined_value']  = $this->hardware_asset_model->get_market_value($hardware_asset['har_tech_refresher'],$hardware_asset['har_cost']);
+			// $hardware_asset['har_predetermined_value']  = $this->hardware_asset_model->get_market_value($hardware_asset['har_tech_refresher'],$hardware_asset['har_cost']);
 
-			$hardware_asset['har_asset_value'] = $this->hardware_asset_model->get_asset_value($hardware_asset['har_book_value'], $hardware_asset['har_predetermined_value']);
+			// $hardware_asset['har_asset_value'] = $this->hardware_asset_model->get_asset_value($hardware_asset['har_book_value'], $hardware_asset['har_predetermined_value']);
 
-			$hardware_asset['har_last_update'] = date('Y-m-d H:i:s');
-
-
+			// $hardware_asset['har_last_update'] = date('Y-m-d H:i:s');
+			
 			if($this->form_validation->run() !== false)
 			{
+				$data = array(
+						'har_model' => $hardware_asset['har_model'],
+						'har_erf_number' => $hardware_asset['har_erf_number']
+					);
 
-
-			
-			
-			$rows_affected = $this->hardware_asset_model->update($hardware_asset, $this->hardware_asset_model->get_fields());
-			$this->template->notification('Hardware asset updated.', 'success');
-			redirect('admin/hardware_assets/view/'.$hardware_asset['har_barcode']);
+				//$rows_affected = $this->hardware_asset_model->update($hardware_asset, $this->hardware_asset_model->get_fields());
+				$rows_affected = $this->hardware_asset_model->update($this->hardware_asset, $data);
+				$this->template->notification('Hardware asset updated.', 'success');
+				redirect('admin/hardware_assets/view/'.$har_barcode);
 			}
 			else
 			{
@@ -381,7 +381,6 @@ class Hardware_assets extends CI_Controller
 			$this->template->notification('Hardware asset was not found.', 'danger');
 			redirect('admin/hardware_assets');
 		}
-
 		$this->template->content('hardware_assets-edit', $page);
 		$this->template->show();
 	}
