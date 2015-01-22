@@ -82,8 +82,41 @@ class Uploads extends CI_Controller {
 				}
 
 			//var_dump($hardware_assets_csv); die();
-				$this->template->notification($i. " assets were imported successfully! " . $j . " assets were already found in the database.", 'success');
+				if ($i == 1) {
+					if ($j == 1) {
+						$this->template->notification($i. " asset was imported successfully! " . $j . " asset was already found in the database.", 'success');
+					}
+					else if ($j == 0) {
+						$this->template->notification($i. " asset was imported successfully! No duplicates were found in the database.", 'success');
+					}
+					else {
+						$this->template->notification($i. " asset was imported successfully! " . $j . " assets were already found in the database.", 'success');
+					}
+				}
+				else if ($i == 0) {
+					if ($j == 1) {
+						$this->template->notification("No assets were added. " . $j . " asset was already found in the database.", 'success');
+					}
+					else if ($j == 0) {
+						$this->template->notification("The CSV file uploaded does not contain any data.", 'success');
+					}
+					else {
+						$this->template->notification("No assets were added. " . $j . " assets were already found in the database.", 'success');
+					}
+				}
+				else {
+					if ($j == 1) {
+						$this->template->notification($i. " assets were imported successfully! " . $j . " asset was already found in the database.", 'success');
+					}
+					else if ($j == 0) {
+						$this->template->notification($i. " assets were imported successfully! No duplicates were found in the database.", 'success');
+					}
+					else {
+						$this->template->notification($i. " assets were imported successfully! " . $j . " assets were already found in the database.", 'success');
+					}
+				}
 				redirect('admin/hardware_assets');
+				
 			}
 		}
 
@@ -201,7 +234,7 @@ class Uploads extends CI_Controller {
 
 			//KEN'S EXPERIMENT FOR ASSET RECORD CONFLICT
 			//Working but not yet tested thoroughly
-			foreach($employee_csv as $employee) 
+			foreach($employees_csv as $employee) 
 			{
 							
 				if ($this->employee_model->check_conflict($employee) == 0) {
@@ -217,6 +250,39 @@ class Uploads extends CI_Controller {
 			}
 
 			//var_dump($hardware_assets_csv); die();
+			if ($i == 1) {
+				if ($j == 1) {
+					$this->template->notification($i. " employee was imported successfully! " . $j . " asset was already found in the database.", 'success');
+				}
+				else if ($j == 0) {
+					$this->template->notification($i. " employee was imported successfully! No duplicates were found in the database.", 'success');
+				}
+				else {
+					$this->template->notification($i. " employee was imported successfully! " . $j . " assets were already found in the database.", 'success');
+				}
+			}
+			else if ($i == 0) {
+				if ($j == 1) {
+					$this->template->notification("No employees were added. " . $j . " employee was already found in the database.", 'success');
+				}
+				else if ($j == 0) {
+					$this->template->notification("The CSV file uploaded does not contain any data.", 'success');
+				}
+				else {
+					$this->template->notification("No employees were added. " . $j . " employees were already found in the database.", 'success');
+				}
+			}
+			else {
+				if ($j == 1) {
+					$this->template->notification($i. " employees were imported successfully! " . $j . " employee was already found in the database.", 'success');
+				}
+				else if ($j == 0) {
+					$this->template->notification($i. " employees were imported successfully! No duplicates were found in the database.", 'success');
+				}
+				else {
+					$this->template->notification($i. " employees were imported successfully! " . $j . " employees were already found in the database.", 'success');
+				}
+			}
 			$this->template->notification($i. " assets were imported successfully! " . $j . " employees were already found in the database.", 'success');
 			redirect('admin/employees');
 		}

@@ -120,7 +120,7 @@
 					<div class = "modal-header">
 					<h4>Please review the following information before adding this asset:</h4>
 					</div>
-					<div class = "modal-body">
+					<!--<div class = "modal-body">
 						<p class="har_asset_number"></p>
 						<p class="har_asset_type" ></p>
 						<p class="har_erf_number"></p>
@@ -134,10 +134,70 @@
 						<p class="har_date_purchase"></p>
 						<p class="har_date_added"></p>
 						<p class="har_specs"></p>
-						</div>
+					</div>-->
+					<div class="col-md-12" style = "padding-top:15px;">
+						<table style = "font-size: 11px;" class = "exo-font table table-bordered table-compact">
+							<tr>
+								<td><strong>Asset Number</strong></td>
+								<td><text class="har_asset_number"></text></td>
+							</tr>
+							<tr>
+								<td><strong>Asset Type</strong></td>
+								<td><text class="har_asset_type"></text></td>
+							</tr>
+							<tr>
+								<td><strong>Office</strong></td>
+								<td><text class="har_office"></text></td>
+							</tr>
+							<tr>
+								<td><strong>ERF Number</strong></td>
+								<td><text class="har_erf_number"></text></td>
+							</tr>
+							<tr>
+								<td><strong>Model</strong></td>
+								<td><text class="har_model"></text></td>
+							</tr>
+							<tr>
+								<td><strong>Serial Number:</strong></td>
+								<td><text class="har_serial_number"></text></td>
+							</tr>
+							<tr>
+								<td><strong>Hostname</strong></td>
+								<td><text class="har_hostname"></text></td>
+							</tr>
+							<tr>
+								<td><strong>Status</strong></text></td>
+								<td><text class="har_status"></text></td>
+							</tr>
+							<tr>
+								<td><strong>Vendor</strong></td>
+								<td><text class="har_vendor"></text></td>
+							</tr>
+							<tr>
+								<td><strong>PO Number</strong></td>
+								<td><text class="har_po_number"></text></td>
+							</tr>
+							<tr>
+								<td><strong>Cost</strong></td>
+								<td><text class="har_cost"></text></td>
+							</tr>
+							<tr>
+								<td><strong>Date of Purchase:</strong></td>
+								<td><text class="har_date_purchase"></text></td>
+							</tr>
+							<tr>
+								<td><strong>Date Added</strong></td>
+								<td><text class="har_date_added"></text></td>
+							</tr>
+							<tr>
+								<td><strong>Remarks</strong></td>
+								<td><text  class="har_specs"></text></td>
+							</tr>
+						</table>
+					</div>
 					<div class = "modal-footer">
-						<input type="submit" name="add_asset" id="postsubmit" data-toggle="modal" value="Submit" class="btn btn-primary btn-lg no-border-radius" />
-						<button class = "btn btn-danger btn-lg no-border-radius" data-dismiss = "modal">Back</button>
+						<input type="submit" name="add_asset" id="postsubmit" data-toggle="modal" value="Submit" class="btn btn-primary" />
+						<button class = "btn btn-danger" data-dismiss = "modal">Back</button>
 					</div>
 				</div>
 			</div>
@@ -162,21 +222,22 @@
 	<br><br>
 	<h4>Asset Information Preview</h4>
 		<div class="well" style="width: 550px">
-			<p class="har_asset_number"></p>
-			<p class="har_asset_type" ></p>
-			<p class="har_office" ></p>
-			<p class="har_erf_number"></p>
-			<p class="har_model"></p>
-			<p class="har_serial_number"></p>
-			<p class="har_hostname"></p>
-			<p class="har_status"></p>
-			<p class="har_vendor"></p>
-			<p class="har_po_number"></p>
-			<p class="har_cost"></p>
-			<p class="har_date_purchase"></p>
-			<p class="har_date_added"></p>
-			<p class="har_specs"></p>	
+			<strong>Asset Number: &nbsp;</strong><text class="har_asset_number"></text></br>
+			<strong>Asset Type: &nbsp;</strong><text class="har_asset_type" ></text></br>
+			<strong>Office: &nbsp;</strong><text class="har_office" ></text></br>
+			<strong>ERF Number: &nbsp;</strong><text class="har_erf_number"></text></br>
+			<strong>Model: &nbsp;</strong><text class="har_model"></text></br>
+			<strong>Serial Number: &nbsp;</strong><text class="har_serial_number"></text></br>
+			<strong>Hostname: &nbsp;</strong><text class="har_hostname"></text></br>
+			<strong>Status: &nbsp;</strong><text class="har_status"></text></br>
+			<strong>Vendor: &nbsp;</strong><text class="har_vendor"></text></br>
+			<strong>PO Number: &nbsp;</strong><text class="har_po_number"></text></br>
+			<strong>Cost: &nbsp;</strong><text class="har_cost"></text></br>
+			<strong>Date of Purchase: &nbsp;</strong><text class="har_date_purchase"></text></br>
+			<strong>Date added: </strong><text class="har_date_added"></text></br>
+			<strong>Remarks: </strong><text class="har_specs"></text>	</br>
 		</div>
+		
 	</div>
 		
 </div>
@@ -208,7 +269,7 @@
 		$( "input:text[name=har_asset_number]" )
 		  .keyup(function() {
 			var har_asset_number= $( this ).val();
-			$("p.har_asset_number").html("<strong>Asset Number:</strong>&nbsp;&nbsp;&nbsp;" + har_asset_number);
+			$("text.har_asset_number").html(har_asset_number);
 		  })
 		  .keyup();
 
@@ -216,66 +277,66 @@
 
 		$('select[name=har_asset_type]').change(function(){
     		var har_asset_type = $(this).val();
-    		$("p.har_asset_type").html("<strong>Asset Type:</strong>&nbsp;&nbsp;&nbsp;" + har_asset_type);
+    		$("text.har_asset_type").html(har_asset_type);
   		});
 
 		$('select[name=har_office]').change(function(){
     		var har_office = $(this).val();
-    		$("p.har_office").html("<strong>Office:</strong>&nbsp;&nbsp;&nbsp;" + har_office);
+    		$("text.har_office").html(har_office);
   		});
 
 
 		$( "input:text[name=har_erf_number]" )
 		  .keyup(function() {
 			var har_erf_number = $( this ).val();
-			$("p.har_erf_number").html("<strong>ERF Number:</strong>&nbsp;&nbsp;&nbsp;" + har_erf_number );
+			$("text.har_erf_number").html(har_erf_number );
 		  })
 		  .keyup();
 
 		$( "input:text[name=har_model]" )
 		  .keyup(function() {
 			var har_model= $( this ).val();
-			$("p.har_model").html("<strong>Model:</strong>&nbsp;&nbsp;&nbsp;" + har_model );
+			$("text.har_model").html(har_model );
 		  })
 		  .keyup();
 
 		$( "input:text[name=har_serial_number]" )
 		  .keyup(function() {
 			var har_serial_number = $( this ).val();
-			$("p.har_serial_number").html("<strong>Serial Number:</strong>&nbsp;&nbsp;&nbsp;" + har_serial_number );
+			$("text.har_serial_number").html(har_serial_number );
 		  })
 		  .keyup();
 
 		$( "input:text[name=har_hostname]" )
 		  .keyup(function() {
 			var har_hostname = $( this ).val();
-			$("p.har_hostname").html("<strong>Host Name:</strong>&nbsp;&nbsp;&nbsp;" + har_hostname );
+			$("text.har_hostname").html(har_hostname );
 		  })
 		  .keyup();
 
 		 //status select
 		
 		var har_status = $('select[name=har_status]').val();
-		$("p.har_status").html("<strong>Status:</strong>&nbsp;&nbsp;&nbsp;" + har_status);
+		$("text.har_status").html(har_status);
   		
 
 		$( "input:text[name=har_vendor]" )
 		  .keyup(function() {
 			var har_vendor = $( this ).val();
-			$("p.har_vendor").html("<strong>Vendor:</strong>&nbsp;&nbsp;&nbsp;" + har_vendor );
+			$("text.har_vendor").html(har_vendor );
 		  })
 		  .keyup();
 
 		  //date purchase
 		$('input[name=har_date_purchase]').change(function(){
     		var har_date_purchase = $(this).val();
-    		$("p.har_date_purchase").html("<strong>Date Purchased:</strong>&nbsp;&nbsp;&nbsp;" + har_date_purchase);
+    		$("text.har_date_purchase").html(har_date_purchase);
   		});
 
 		$( "input:text[name=har_cost]" )
 		  .keyup(function() {
 			var har_cost = $( this ).val();
-			$("p.har_cost").html("<strong>Cost:</strong>&nbsp;&nbsp;&nbsp;Php " + har_cost );
+			$("text.har_cost").html("Php " + har_cost );
 		  })
 		  .keyup();
 
@@ -283,21 +344,21 @@
 		$( "input:text[name=har_po_number]" )
 		  .keyup(function() {
 			var har_po_number = $( this ).val();
-			$("p.har_po_number").html("<strong>PO Number:</strong>&nbsp;&nbsp;&nbsp;" + har_po_number );
+			$("text.har_po_number").html(har_po_number );
 		  })
 		  .keyup();
 
 		  //date_added
 	
     	var har_date_added = $('input[name=har_date_added]').val();
-    	$("p.har_date_added").html("<strong>Date Added:</strong>&nbsp;&nbsp;&nbsp;" + har_date_added);
+    	$("text.har_date_added").html(har_date_added);
   	
 
 
 		$( "textarea[name=har_specs]" )
 		  .keyup(function() {
 			var har_specs = $( this ).val();
-			$("p.har_specs").html("<strong>Specifications:</strong>&nbsp;&nbsp;&nbsp;" + har_specs );
+			$("text.har_specs").html(har_specs );
 		  })
 		  .keyup();
 		
