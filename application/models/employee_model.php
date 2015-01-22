@@ -44,6 +44,18 @@ class Employee_model extends Base_model
 		return $this->db->insert_id();
 	}
 
+	//KEN'S ADDED FUNCTION
+	public function check_conflict($employee = array())
+	{
+		$rows_found =  $this->db->select('*')->from('employee')->where('emp_id', $employee['emp_id'])->get();
+		if($rows_found->num_rows() == 0){
+			return 0;
+		}
+		else {
+			return 1;
+		}
+	}
+
 	public function get_all_filtered($params = array())
 	{
 		if(is_array($params))

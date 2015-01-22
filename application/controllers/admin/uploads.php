@@ -53,8 +53,8 @@ class Uploads extends CI_Controller {
 				$hardware_assets_csv = $this->csvreader->parse_file($filepath);
 
 				$i = 0;
-
-				foreach($hardware_assets_csv as $hardware_asset) 
+				$j = 0;
+				/**foreach($hardware_assets_csv as $hardware_asset) 
 				{
 					
 					
@@ -62,10 +62,11 @@ class Uploads extends CI_Controller {
 					
 					$i++;
 					
-				}
+				}**/
 
 				//KEN'S EXPERIMENT FOR ASSET RECORD CONFLICT
-				/**foreach($hardware_assets_csv as $hardware_asset) 
+				//Working but not yet tested thoroughly
+				foreach($hardware_assets_csv as $hardware_asset) 
 				{
 								
 					if ($this->hardware_asset_model->check_conflict($hardware_asset) == 0) {
@@ -74,13 +75,14 @@ class Uploads extends CI_Controller {
 
 						$i++;
 					}
+					else {
+						$j++;
+					}
 					
-					
-				}**/
+				}
 
 			//var_dump($hardware_assets_csv); die();
-
-				$this->template->notification($i." assets were imported successfully!", 'success');
+				$this->template->notification($i. " assets were imported successfully! " . $j . " assets were already found in the database.", 'success');
 				redirect('admin/hardware_assets');
 			}
 		}
@@ -185,34 +187,37 @@ class Uploads extends CI_Controller {
 
 		
 			$i = 0;
+			$j = 0;
 
-			foreach($employees_csv as $employee) 
+			/**foreach($employees_csv as $employee) 
 			{
 							
 				$this->employee_create($employee);
 				
 				$i++;
 				
-			}
-
-			//KEN'S EXPERIMENT FOR EMPLOYEE RECORD CONFLICT
-			/**foreach($employees_csv as $employee) 
-			{
-							
-				//$this->employee_create($employee);
-
-				$q =  $this->db->select('*')->from('employee')->where('employee', $employee)->get();
-				if($q->num_rows() == 0){
-    				$this->employee_create($employee);
-				}
-				
-				$i++;
-				
 			}**/
 
-			//var_dump($hardware_assets_csv); die();
 
-			$this->template->notification($i." employees were imported successfully!", 'success');
+			//KEN'S EXPERIMENT FOR ASSET RECORD CONFLICT
+			//Working but not yet tested thoroughly
+			foreach($employee_csv as $employee) 
+			{
+							
+				if ($this->employee_model->check_conflict($employee) == 0) {
+					
+					$this->employee_create($employee);
+
+					$i++;
+				}
+				else {
+					$j++;
+				}
+				
+			}
+
+			//var_dump($hardware_assets_csv); die();
+			$this->template->notification($i. " assets were imported successfully! " . $j . " employees were already found in the database.", 'success');
 			redirect('admin/employees');
 		}
 

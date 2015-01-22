@@ -42,10 +42,11 @@ class Hardware_asset_model extends Base_model
 		return $this->db->insert_id();
 	}
 
+	//KEN'S ADDED FUNCTION
 	public function check_conflict($hardware = array())
 	{
-		$q =  $this->db->select('*')->from('hardware_asset')->where('har_asset_number', $hardware['har_asset_number'])->get();
-		if($q->num_rows() == 0){
+		$rows_found =  $this->db->select('*')->from('hardware_asset')->where('har_asset_number', $hardware['har_asset_number'])->get();
+		if($rows_found->num_rows() == 0){
 			return 0;
 		}
 		else {
