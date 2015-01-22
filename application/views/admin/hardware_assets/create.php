@@ -138,8 +138,8 @@
 					<div class="col-md-12" style = "padding-top:15px;">
 						<table style = "font-size: 11px;" class = "exo-font table table-bordered table-compact">
 							<tr>
-								<td><strong>Asset Number</strong></td>
-								<td><text class="har_asset_number"></text></td>
+								<td style="width:33%;"><strong>Asset Number</strong></td>
+								<td style="width:67%;"><text class="har_asset_number"></text></td>
 							</tr>
 							<tr>
 								<td><strong>Asset Type</strong></td>
