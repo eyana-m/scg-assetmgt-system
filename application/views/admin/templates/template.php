@@ -70,7 +70,7 @@
 					<ul class="dropdown-menu">
 						<li><a href="<?php echo site_url('admin/profile'); ?>">Profile</a></li>
 					<form  method="post" action="<?php echo site_url("admin/hardware_assets/backup"); ?>" name="backup" id="backup">	
-						<li><input type="submit" value="Backup Database" id="backup-li"></li>					
+						<li><input type="submit" value="Backup Database" id="backup-li" style="margin-left:-5px;"></li>					
 					</form>	
 
 
