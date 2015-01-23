@@ -48,7 +48,6 @@ class Audit_entry_model extends Base_model
 
 	public function get_by_hardware($har_barcode)
 	{
-
 		$this->db->join('hardware_asset', "hardware_asset.har_barcode = {$this->table}.aud_har");				
 		$this->db->join('employee', "employee.emp_id = {$this->table}.aud_per", "left outer");
 		$this->db->where('aud_har', $har_barcode);	

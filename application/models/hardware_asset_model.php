@@ -127,7 +127,6 @@ class Hardware_asset_model extends Base_model
 		$date_purchase = str_replace('-','',$temp2);
 
 		return $asset_type."-".$har_asset_number."-".$date_purchase;
-
 	}
 
 
@@ -364,6 +363,7 @@ class Hardware_asset_model extends Base_model
 	{
 		$date = date('Y-m-d');
 
+		$this->db->select('har_barcode AS `Asset Barcode`, har_vendor AS `Vendor`, har_serial_number AS `Serial Number`, har_tech_refresher AS `Technology Refresher`');
 		$this->db->where('har_date_added',$date);
 
 		$query = $this->db->get($this->table); 
