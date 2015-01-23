@@ -348,7 +348,7 @@ class Hardware_asset_model extends Base_model
 		$date_0 = "0000-00-00";
 		$date_minus_7 = date('Y-m-d', strtotime('-7 days'));
 			
-
+		$this->db->select('har_date_added AS `Date Added`, har_barcode AS `Asset Barcode`, har_asset_type AS `Asset Type`, har_model AS `Model`, har_serial_number AS `Serial Number`, har_vendor AS `Vendor`');
 		$this->db->where('har_date_added >',$date_minus_7);
 		$this->db->where('har_date_added <=',$date);
 		$this->db->where('har_date_added !=',$date_0);
@@ -378,9 +378,46 @@ class Hardware_asset_model extends Base_model
 		$this->db->where_in('har_barcode', $params);
 		$query = $this->db->get($this->table); 
 		return $query;
-
 	}
 
+	// Manage Asset: Report Types
+	// Assets Due For Replacement
+	public function get_assets_due_for_replacement()
+	{
+		$date = date("Y-m-d");
+		$date_0 = "0000-00-00";
+
+		$start_date = strtotime(date('Y-m-d'));
+		$end_date = strtotime("-4 weeks",$start_date);
+		$period_of_replacement = date("Y-m-d", $end_date);
+
+		$this->db->select('har_tech_refresher AS `Technology Refresher`, har_barcode AS `Asset Barcode`, har_asset_type AS `Asset Type`, har_office AS `Office`, har_model AS `Model`, har_status AS `Status`');
+		$this->db->where('har_tech_refresher >', $period_of_replacement);
+		$this->db->where('har_tech_refresher <=', $date);
+		$this->db->where('har_tech_refresher !=', $date_0);
+		$query = $this->db->get($this->table);
+		return $query;
+	}
+
+	// Status
+	public function get_asset_status($params)
+	{
+		$this->db->select('har_status AS `Status`, har_asset_type AS `Asset Type`, har_office AS `Office`, har_barcode AS `Asset Barcode`, har_model AS `Model`');
+		$this->db->where_in('har_status', $params);
+		$query = $this->db->get($this->table);
+		return $query;
+	}
+
+	// Salvage Value
+	public function get_salvage_value($params=array())
+	{
+		$this->db->select('har_barcode AS `Asset Barcode`, har_asset_type AS `Asset Type`, har_model AS `Model`, har_tech_refresher AS `Technology Refrehser`, har_cost AS `Cost`, har_asset_value AS `Asset Value`');
+		$this->db->where_in('har_barcode', $params);
+		$query = $this->db->get($this->table);
+		return $query;
+	}
+
+	// Dashboard
 	public function get_asset_type_count_active($har_office, $har_asset_type, $har_status)
 	{
 		$this->db->where('har_office', $har_office);

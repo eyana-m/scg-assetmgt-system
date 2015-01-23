@@ -57,7 +57,8 @@ class Hardware_assets extends CI_Controller
 			    	
 
 			  		$params = array('har_status' => 'repair');
-			     	$page['hardware_repair'] =  $this->hardware_asset_model->get_all($params);
+			  		// $page['hardware_repair'] =  $this->hardware_asset_model->get_all($params);
+			     	$page['hardware_repair'] =  $this->hardware_asset_model->get_assets_due_for_replacement();
 			     	$hardware_repair = $page['hardware_repair'];
 
 					$date = date('Y-m-d');
@@ -88,7 +89,7 @@ class Hardware_assets extends CI_Controller
 			    		case 'active':
 
 					    	$params = array('har_status' => 'active');
-					    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_all($params);
+					    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_asset_status($params);
 					    	$hardware_asset_status = $page['hardware_asset_status'];
 
 					    	$date = date('Y-m-d');
@@ -104,7 +105,7 @@ class Hardware_assets extends CI_Controller
 			    		case 'stockroom':
 
 					    	$params = array('har_status' => 'stockroom');
-					    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_all($params);
+					    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_asset_status($params);
 					    	$hardware_asset_status = $page['hardware_asset_status'];
 
 					    	$date = date('Y-m-d');
@@ -118,7 +119,7 @@ class Hardware_assets extends CI_Controller
 			    		case 'service unit':
 
 				    	$params = array('har_status' => 'service unit');
-				    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_all($params);
+				    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_asset_status($params);
 				    	$hardware_asset_status = $page['hardware_asset_status'];
 
 				    	$date = date('Y-m-d');
@@ -132,7 +133,7 @@ class Hardware_assets extends CI_Controller
 
 			    		case 'for disposal':
 				    	$params = array('har_status' => 'for disposal');
-				    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_all($params);
+				    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_asset_status($params);
 				    	$hardware_asset_status = $page['hardware_asset_status'];
 
 				    	$date = date('Y-m-d');
@@ -146,7 +147,7 @@ class Hardware_assets extends CI_Controller
 			    		case 'repair':
 			    		
 				    	$params = array('har_status' => 'repair');
-				    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_all($params);
+				    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_asset_status($params);
 				    	$hardware_asset_status = $page['hardware_asset_status'];
 
 				    	$date = date('Y-m-d');
@@ -161,7 +162,7 @@ class Hardware_assets extends CI_Controller
 			    		case 'disposed':
 			    		
 				    	$params = array('har_status' => 'disposed');
-				    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_all($params);
+				    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_asset_status($params);
 				    	$hardware_asset_status = $page['hardware_asset_status'];
 
 				    	$date = date('Y-m-d');
@@ -187,7 +188,8 @@ class Hardware_assets extends CI_Controller
 				$filename = 'asset_computation_'.$date.'.csv';
 
 
-				$page['hardware_selected'] =  $this->hardware_asset_model->get_selected($report_type['har_barcodes']);
+				// $page['hardware_selected'] =  $this->hardware_asset_model->get_selected($report_type['har_barcodes']);
+				$page['hardware_selected'] =  $this->hardware_asset_model->get_salvage_value($report_type['har_barcodes']);
 
 				$hardware_selected = $page['hardware_selected'] ;
 
@@ -195,16 +197,8 @@ class Hardware_assets extends CI_Controller
 				$data = $this->dbutil->csv_from_result($hardware_selected);
 
 				force_download($filename, $data);
-
-
-
-
-
 			    
-			    break;
-
-
-			    	 
+			    break;		    	 
 			}
 
 		}
