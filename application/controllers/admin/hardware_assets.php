@@ -356,13 +356,14 @@ class Hardware_assets extends CI_Controller
 			
 			if($this->form_validation->run() !== false)
 			{
-				$data = array(
-						'har_model' => $hardware_asset['har_model'],
-						'har_erf_number' => $hardware_asset['har_erf_number']
-					);
+				// $data = array(
+				// 		'har_model' => $hardware_asset['har_model'],
+				// 		'har_erf_number' => $hardware_asset['har_erf_number']
+				// 	);
 
-				//$rows_affected = $this->hardware_asset_model->update($hardware_asset, $this->hardware_asset_model->get_fields());
-				$rows_affected = $this->hardware_asset_model->update($this->hardware_asset, $data);
+				$hardware_asset['har_barcode'] = $har_barcode;
+				$rows_affected = $this->hardware_asset_model->update($hardware_asset, $this->form_validation->get_fields());
+				// $rows_affected = $this->hardware_asset_model->update($this->hardware_asset, $data);
 				$this->template->notification('Hardware asset updated.', 'success');
 				redirect('admin/hardware_assets/view/'.$har_barcode);
 			}
