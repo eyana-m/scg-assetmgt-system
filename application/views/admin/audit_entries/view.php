@@ -63,7 +63,7 @@
 	<tr>
 		<th></th>
 		<td>
-			<a href="<?php echo site_url('admin/audit_entries/edit/' . $audit_entry->aud_id); ?>" class="btn btn-primary">Edit</a>
+			<!-- <a href="<?php echo site_url('admin/audit_entries/edit/' . $audit_entry->aud_id); ?>" class="btn btn-primary">Edit</a> -->
 			<a href="<?php echo site_url('admin/hardware_assets'); ?>" class="btn">Back</a>
 		</td>
 	</tr>

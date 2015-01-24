@@ -283,7 +283,7 @@ class Uploads extends CI_Controller {
 					$this->template->notification($i. " employees were imported successfully! " . $j . " employees were already found in the database.", 'success');
 				}
 			}
-			$this->template->notification($i. " assets were imported successfully! " . $j . " employees were already found in the database.", 'success');
+			$this->template->notification($i. " employees were imported successfully! " . $j . " employees were already found in the database.", 'success');
 			redirect('admin/employees');
 		}
 
