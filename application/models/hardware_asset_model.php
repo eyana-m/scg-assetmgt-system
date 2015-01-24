@@ -388,7 +388,7 @@ class Hardware_asset_model extends Base_model
 		$date_0 = "0000-00-00";
 
 		$start_date = strtotime(date('Y-m-d'));
-		$end_date = strtotime("-4 weeks",$start_date);
+		$end_date = strtotime("-30 days",$start_date);
 		$period_of_replacement = date("Y-m-d", $end_date);
 
 		$this->db->select('har_tech_refresher AS `Technology Refresher`, har_barcode AS `Asset Barcode`, har_asset_type AS `Asset Type`, har_office AS `Office`, har_model AS `Model`, har_status AS `Status`');

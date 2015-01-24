@@ -16,7 +16,11 @@ class Audit_entry_model extends Base_model
 
 		
 	public function get_one($id)
-	{				
+	{		
+		// $this->db->select('har_barcode AS `Asset Barcode');
+		// $this->db->from('hardware_asset');
+		// $this->db->select('aud_har AS `Hardware`');
+		// $this->db->from('audit_entry');		
 		$this->db->join('hardware_asset', "hardware_asset.har_barcode = {$this->table}.aud_har", 'Right');				
 		$this->db->join('employee', "employee.emp_id = {$this->table}.aud_per", 'Right');
 		
@@ -32,6 +36,8 @@ class Audit_entry_model extends Base_model
 
 	public function get_by_employee($emp_id)
 	{
+		$this->db->select('har_barcode AS `Asset Barcode`, aud_har AS `Hardware`');
+		$this->db->from('hardware_asset');
 		$this->db->join('hardware_asset', "hardware_asset.har_barcode= {$this->table}.aud_har");				
 		$this->db->join('employee', "employee.emp_id = {$this->table}.aud_per", 'Right');
 		$this->db->where('aud_per', $emp_id);
@@ -41,8 +47,6 @@ class Audit_entry_model extends Base_model
 
 
 		return $query;
-
-
 	}
 
 
