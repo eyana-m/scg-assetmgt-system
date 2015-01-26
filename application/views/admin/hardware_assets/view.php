@@ -249,22 +249,39 @@
 					<form method="post" id="change-status" name="change-status">
 
 						<select name="aud_status" id="aud_status" class="input-medium form-control form-control-small">
-							<option value="">Select Status</option>
+							<?php $current_cap = ucfirst( $current_audit_entry->aud_status ); ?>
+							<option value=""><?php echo $current_cap ?></option>
 
-						<?php if ($current_audit_entry->aud_status == 'repair') : ?>	
-							<option value="active">active</option>
-						<?php endif; ?>
-
-							<option value="stockroom">stockroom</option>
-							<option value="service unit">service unit</option>
-							<option value="for disposal">for disposal</option>
-							<option value="disposed">disposed</option>
-
-						<?php if ($current_audit_entry->aud_status == 'active'): ?>
-							<option value="repair">repair</option>
-						<?php endif; ?>	
+							<?php if ($current_audit_entry->aud_status == 'stockroom') : ?>	
+								<option value="service unit">Service Unit</option>
+								<option value="repair">In Repair</option>
+								<option value="for disposal">For Disposal</option>
+								<option value="disposed">Disposed</option>
+							<?php elseif ($current_audit_entry->aud_status == 'service unit') : ?>	
+								<option value="stockroom">Stockroom</option>
+								<option value="repair">In Repair</option>
+								<option value="for disposal">For Disposal</option>
+								<option value="disposed">Disposed</option>
+							<?php elseif ($current_audit_entry->aud_status == 'active') : ?>	
+								<option value="stockroom">Stockroom</option>
+								<option value="service unit">Service Unit</option>
+								<option value="repair">For Repair</option>
+								<option value="for disposal">For Disposal</option>
+								<option value="disposed">Disposed</option>
+							<?php elseif ($current_audit_entry->aud_status == 'repair') : ?>	
+								<option value="stockroom">Stockroom</option>
+								<option value="service unit">Service Unit</option>
+								<option value="for disposal">For Disposal</option>
+								<option value="disposed">Disposed</option>
+							<?php elseif ($current_audit_entry->aud_status == 'for disposal') : ?>	
+								<option value="stockroom">Stockroom</option>
+								<option value="service unit">Service Unit</option>
+								<option value="repair">In Repair</option>
+								<option value="disposed">Disposed</option>
+							<?php elseif ($current_audit_entry->aud_status == 'disposed') : ?>	
+								<option value="disposed">Already Disposed Asset</option>
+							<?php endif; ?>
 						</select>
-
 						<input type="text" class="form-control form-control-small" id="aud_comment" name="aud_comment" placeholder="Remark (e.g. 'Normal Condition')">
 
 						<input id="tag_barcode_status" class="form-control form-control-small" name="tag_barcode_status" type="text" placeholder="Scan code here to tag">
