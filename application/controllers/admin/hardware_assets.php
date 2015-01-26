@@ -463,13 +463,23 @@ class Hardware_assets extends CI_Controller
 
 				$audit_entry['aud_status'] = $this->input->post('aud_status');
 
-				if ($audit_entry['aud_status'] == "") {
-					$audit_entry['aud_status'] = "active";
+				if ($audit_entry['aud_status'] == "") 
+				{
+					$audit_entry['aud_status'] = $current_audit_entry->aud_status;
 				}
-				else if ($audit_entry['aud_status'] != "") {
-					//$audit_entry['aud_status'] = "active";
+				else if ($audit_entry['aud_status'] != "" && $current_audit_entry == "active") 
+				{
 					$this->auto_untag($current_audit_entry);
 				}
+
+				// if ($audit_entry['aud_status'] == "" && ) 
+				// {
+				// 	$audit_entry['aud_status'] = "active";
+				// }
+				// else if ($audit_entry['aud_status'] != "") 
+				// {
+				// 	$this->auto_untag($current_audit_entry);
+				// }
 
 				$hardware_update['har_status'] = $audit_entry['aud_status'];
 
