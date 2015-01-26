@@ -418,6 +418,14 @@ class Hardware_asset_model extends Base_model
 	}
 
 	// Dashboard
+	public function get_enum_values($table, $field)
+	{
+	    $type = $this->db->query( "SHOW COLUMNS FROM {$table} WHERE Field = '{$field}'" )->row( 0 )->Type;
+	    preg_match("/^enum\(\'(.*)\'\)$/", $type, $matches);
+	    $enum = explode("','", $matches[1]);
+	    return $enum;
+	}
+
 	public function get_asset_type_count_active($har_office, $har_asset_type, $har_status)
 	{
 		$this->db->where('har_office', $har_office);
