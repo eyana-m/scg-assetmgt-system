@@ -279,7 +279,7 @@
 								<option value="repair">In Repair</option>
 								<option value="disposed">Disposed</option>
 							<?php elseif ($current_audit_entry->aud_status == 'disposed') : ?>	
-								<option value="disposed">Already Disposed Asset</option>
+								<option value="disposed" disabled>Already Disposed Asset</option>
 							<?php endif; ?>
 						</select>
 						<input type="text" class="form-control form-control-small" id="aud_comment" name="aud_comment" placeholder="Remark (e.g. 'Normal Condition')">
@@ -294,34 +294,25 @@
 
 <?php if ($audit_entries->num_rows()): ?>
 
-		<?php if($current_audit_entry->aud_status!='active'):   ?>
-
-
-		<div class="panel panel-default panel-personnel " style="margin-left: 0">
-			<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style="text-decoration: none">
-				<div class="panel-heading" id="headingThree">				
-					Manual Tag to Personnel				
-				</div>
-			</a>
-
-			<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-
-				<div class="panel-body">
-
-					<form method="post" id="employee-tag-type" name="employee-tag-type">
-						<input type="number" class="form-control form-control-small" id="emp_id" name="emp_id" placeholder="Employee ID (e.g. '10000022')">
-
-						<input type="text" class="form-control form-control-small" id="aud_comment" name="aud_comment" placeholder="Remark (e.g. 'Normal Condition')">
-
-						<input id="tag_barcode" class="form-control form-control-small" name="tag_barcode" type="text" placeholder="Scan code here to tag">
-					</form>
-
-
-
-				</div>
-			</div><!--panel-collapse-->
-		</div><!--end panel-->
-
+		<?php if(($current_audit_entry->aud_status=='disposed') || ($current_audit_entry->aud_status=='active')):   ?>
+				
+		<?php else :   ?>
+			<div class="panel panel-default panel-personnel " style="margin-left: 0">
+				<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style="text-decoration: none">
+					<div class="panel-heading" id="headingThree">				
+						Manual Tag to Personnel				
+					</div>
+				</a>
+				<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+					<div class="panel-body">
+						<form method="post" id="employee-tag-type" name="employee-tag-type">
+							<input type="number" class="form-control form-control-small" id="emp_id" name="emp_id" placeholder="Employee ID (e.g. '10000022')">
+							<input type="text" class="form-control form-control-small" id="aud_comment" name="aud_comment" placeholder="Remark (e.g. 'Normal Condition')">
+							<input id="tag_barcode" class="form-control form-control-small" name="tag_barcode" type="text" placeholder="Scan code here to tag">
+						</form>
+					</div>
+				</div><!--panel-collapse-->
+			</div><!--end panel-->
 		<?php endif;?>
 
 <?php else: ?>
