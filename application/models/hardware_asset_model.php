@@ -78,8 +78,12 @@ class Hardware_asset_model extends Base_model
 		{
 			foreach($params as $key=> $value)
 			{
-				//$this->db->where($key, $value);
-				$this->db->like($key, $value,'both');
+				if ($key== "har_asset_type" && ($value == "camera" || $value == "Camera" || $value == "CAMERA")) {
+					$this->db->where($key, $value);
+				}
+				else {
+					$this->db->like($key, $value,'both');
+				}
 			}
 		}
 
@@ -88,6 +92,7 @@ class Hardware_asset_model extends Base_model
 
 		return $this->db->get($this->table);
 	}
+
 	
 	//LAP-112864-100717
 	//{har_asset_type}-{har_asset_number}-{har_date_added}

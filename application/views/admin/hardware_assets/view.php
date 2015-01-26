@@ -249,17 +249,18 @@
 					<form method="post" id="change-status" name="change-status">
 
 						<select name="aud_status" id="aud_status" class="input-medium form-control form-control-small">
-							<?php $current_cap = ucfirst( $current_audit_entry->aud_status ); ?>
-							<option value=""><?php echo $current_cap ?></option>
+							<?php $current_cap = ucfirst( $current_audit_entry->aud_status ); 
+							$current = $current_audit_entry->aud_status?>
+							<option value="<?php echo $current?>"><?php echo $current_cap ?></option>
 
 							<?php if ($current_audit_entry->aud_status == 'stockroom') : ?>	
 								<option value="service unit">Service Unit</option>
-								<option value="repair">In Repair</option>
+								<option value="repair">For Repair</option>
 								<option value="for disposal">For Disposal</option>
 								<option value="disposed">Disposed</option>
 							<?php elseif ($current_audit_entry->aud_status == 'service unit') : ?>	
 								<option value="stockroom">Stockroom</option>
-								<option value="repair">In Repair</option>
+								<option value="repair">For Repair</option>
 								<option value="for disposal">For Disposal</option>
 								<option value="disposed">Disposed</option>
 							<?php elseif ($current_audit_entry->aud_status == 'active') : ?>	
@@ -276,7 +277,7 @@
 							<?php elseif ($current_audit_entry->aud_status == 'for disposal') : ?>	
 								<option value="stockroom">Stockroom</option>
 								<option value="service unit">Service Unit</option>
-								<option value="repair">In Repair</option>
+								<option value="repair">For Repair</option>
 								<option value="disposed">Disposed</option>
 							<?php elseif ($current_audit_entry->aud_status == 'disposed') : ?>	
 								<option value="disposed" disabled>Already Disposed Asset</option>
