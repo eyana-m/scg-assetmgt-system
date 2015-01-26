@@ -520,7 +520,7 @@ class Hardware_assets extends CI_Controller
 
 		}
 
-		if($this->input->post('add-remarks'))
+		if($this->input->post('add_remarks_button'))
 		{
 			// if($current_audit_entry->aud_status=='active'):
 
@@ -573,8 +573,7 @@ class Hardware_assets extends CI_Controller
 
 			$this->template->notification('New audit entry created.', 'success');
 
-			// redirect('admin/hardware_assets/view/' . $hardware_asset_id);
-			redirect('admin/hardware_assets');
+			redirect('admin/hardware_assets/view/' . $hardware_asset_id);
 	
 			$this->template->autofill($audit_entry);
 

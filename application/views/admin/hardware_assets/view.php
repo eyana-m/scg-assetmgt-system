@@ -289,10 +289,11 @@
 								<option value="disposed" disabled>Already Disposed Asset</option>
 							<?php endif; ?>
 						</select>
+
 						<input type="text" class="form-control form-control-small" id="aud_comment" name="aud_comment" placeholder="Remark (e.g. 'Normal Condition')">
 
 						<?php if ($current_audit_entry->aud_status == 'active') : ?>	
-							<input type = "submit" id ="add_remarks_button" class="btn btn-success pull-right" value="Add Remark">
+							<input type = "submit" name ="add_remarks_button" class="btn btn-success pull-right" value="Add Remark">
 						<?php else : ?>	
 							<input id="tag_barcode_status" class="form-control form-control-small" name="tag_barcode_status" type="text" placeholder="Scan code here to tag">
 						<?php endif; ?>	
@@ -695,8 +696,9 @@ $('#tag_barcode_status').on("input", function() {
 
 });
 
-$('#add_remarks_button').click( function() {
-	window.alert("HELLO");
+$('#add_remarks_button').click(function() {
+	var bc;
+	bc = $("input:text[name=add_remarks_button]").val();
 
    $("form#add-remarks").submit();
 });

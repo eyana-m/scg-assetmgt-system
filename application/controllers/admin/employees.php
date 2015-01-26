@@ -96,7 +96,7 @@ class Employees extends CI_Controller
 			$employee = $this->extract->post();
 
 			// Call run method from Form_validation to check
-			if($this->form_validation->run() !== false)
+			if($this->form_validation->run() !== false && $this->employee_model->check_conflict($employee) == 0)
 			{
 				$this->employee_model->create($employee, $this->employee_model->get_fields());
 				// Set a notification using notification method from Template.
@@ -108,7 +108,7 @@ class Employees extends CI_Controller
 			else
 			{
 				// To display validation errors caught by the Form_validation, you should have the code below.
-				$this->template->notification(validation_errors(), 'error');
+				$this->template->notification("Employee is already found in the database.", 'danger');
 				redirect('admin/employees/create');
 			}
 
