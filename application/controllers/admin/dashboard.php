@@ -19,14 +19,36 @@ class Dashboard extends CI_Controller
 		$this->load->model('account_model');
 		$username = $this->session->userdata('acc_username');
 		$account = $this->account_model->get_by_username($username);
+		// $offices = $this->hardware_asset_model->get_enum_values('hardware_asset', 'har_office');
+		// $asset_types = $this->hardware_asset_model->get_enum_values('hardware_asset', 'har_asset_type');
+		// $statuses = $this->hardware_asset_model->get_enum_values('hardware_asset', 'har_status');
 		
 		$this->template->title('Hello, '. $account->acc_first_name . ' ' . $account->acc_last_name);
-		
+
 		$page = array(); 
+
 		if($account !== false)
 		{
-			//ROCES TAB
 			$page['account'] = $account;
+			
+			// foreach($offices as $office)
+			// {
+			// 	$har_office = strtolower(str_replace(' ', '_', $office));
+			// 	foreach($asset_types as $asset_type)
+			// 	{
+			// 		$har_asset_type = strtolower(str_replace(' ', '_', $asset_type));
+			// 		foreach($statuses as $status)
+			// 		{
+			// 			$har_status = strtolower(str_replace(' ', '_', $har_status));
+			// 			//$page[$har_office.'_'.$har_asset_type.'_'.$har_status;];
+			// 		}
+			// 	}
+			// }
+
+			// $page = array();
+			// $page['offices'] = $this->hardware_asset_model->pagination("admin/audit_entries/index/__PAGE__", 'get_all');
+
+			//ROCES TAB
 			$page['roces_access_point_active'] = $this->hardware_asset_model->get_asset_type_count_active('PBI Roces', "Access Point", 'Active');
 			$page['roces_camera_active'] = $this->hardware_asset_model->get_asset_type_count_active('PBI Roces', "Camera", "Active");
 			$page['roces_desktop_active'] = $this->hardware_asset_model->get_asset_type_count_active('PBI Roces', "Desktop", "Active");

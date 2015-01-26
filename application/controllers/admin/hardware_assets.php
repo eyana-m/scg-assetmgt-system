@@ -456,11 +456,20 @@ class Hardware_assets extends CI_Controller
 			if($this->input->post('tag_barcode_status')==$hardware_asset_id)
 			{
 
-				if($current_audit_entry->aud_status=='active'):
-				 	$this->auto_untag($current_audit_entry);				
-				endif;
+				// if($current_audit_entry->aud_status=='active'):
+
+				//  	$this->auto_untag($current_audit_entry);				
+				// endif;
 
 				$audit_entry['aud_status'] = $this->input->post('aud_status');
+
+				if ($audit_entry['aud_status'] == "") {
+					$audit_entry['aud_status'] = "active";
+				}
+				else if ($audit_entry['aud_status'] != "") {
+					//$audit_entry['aud_status'] = "active";
+					$this->auto_untag($current_audit_entry);
+				}
 
 				$hardware_update['har_status'] = $audit_entry['aud_status'];
 

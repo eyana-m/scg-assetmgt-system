@@ -16,10 +16,4 @@ Filtered Results: <small><?php echo template('content-top'); ?>
 
 </div>
 
-
-
-
-
-
-
 <?php echo template('content'); ?>
