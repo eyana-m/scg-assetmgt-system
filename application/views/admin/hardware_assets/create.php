@@ -120,21 +120,6 @@
 					<div class = "modal-header">
 					<h4>Please review the following information before adding this asset:</h4>
 					</div>
-					<!--<div class = "modal-body">
-						<p class="har_asset_number"></p>
-						<p class="har_asset_type" ></p>
-						<p class="har_erf_number"></p>
-						<p class="har_model"></p>
-						<p class="har_serial_number"></p>
-						<p class="har_hostname"></p>
-						<p class="har_status"></p>
-						<p class="har_vendor"></p>
-						<p class="har_po_number"></p>
-						<p class="har_cost"></p>
-						<p class="har_date_purchase"></p>
-						<p class="har_date_added"></p>
-						<p class="har_specs"></p>
-					</div>-->
 					<div class="col-md-12" style = "padding-top:15px;">
 						<table style = "font-size: 11px;" class = "exo-font table table-bordered table-compact">
 							<tr>

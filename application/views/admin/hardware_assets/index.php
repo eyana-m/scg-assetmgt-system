@@ -13,7 +13,7 @@ if($hardware_assets->num_rows())
 			<thead>
 				<tr>
 					<th></th>
-					<th>Asset Barcode</th>
+					<th>Asset Barode</th>
 					<th>Asset Type</th>
 					<th>Model</th>
 					<th>Status</th>

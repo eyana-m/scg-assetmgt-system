@@ -21,7 +21,7 @@ if($hardwares->num_rows())
 				?>
 				<tr>
 					<td class="center"><input type="checkbox" name="har_ids[]" value="<?php echo $hardware->har_id; ?>" /></td>
-					<td><a href="<?php echo site_url('admin/hardwares/view/' . $hardware->har_id); ?>"><?php echo number_format($hardware->har_asset_number); ?></a></td>
+					<td><a href="<?php echo site_url('admin/hardwares/view/' . $hardware->har_asset); ?>"><?php echo number_format($hardware->har_asset_number); ?></a></td>
 					<td><?php echo $hardware->har_asset_type; ?></td>
 					<td><?php echo number_format($hardware->har_erf_number); ?></td>
 					<td><?php echo $hardware->har_model; ?></td>

@@ -276,7 +276,25 @@ class Hardware_assets extends CI_Controller
 	
 
 			// Call run method from Form_validation to check
-			if($this->form_validation->run() !== false)
+			// if($this->form_validation->run() !== false)
+			// {
+			// 	$this->hardware_asset_model->create($hardware_asset, $this->hardware_asset_model->get_fields());
+			// 	$this->audit_entry_model->create($audit_entry, $audit_field_list);
+
+			// 	//$this->template->notification("New hardware asset created. <a class='label label-success' href=".site_url('admin/hardware_assets/create').">Add More Asset</a>", 'success');
+			// 	$this->template->notification("Hardware asset ".$hardware_asset['har_barcode']." created. <br><a class='label label-primary' href=".site_url('admin/hardware_assets').">Back to Asset List</a> <a class='label label-success' href=".site_url('admin/hardware_assets/view/')."/".$hardware_asset['har_barcode'].">View Asset</a>", 'success');
+			// 	//redirect('admin/hardware_assets');
+			// 	//redirect('admin/hardware_assets/view/' . $hardware_asset['har_barcode']);
+			// 	redirect('admin/hardware_assets/create');
+			// }
+			// else
+			// {
+			// 	// To display validation errors caught by the Form_validation, you should have the code below.
+			// 	$this->template->notification(validation_errors(), 'danger');
+			// 	redirect('admin/hardware_assets/create');
+			// }
+
+			if($this->form_validation->run() !== false && $this->hardware_asset_model->check_conflict($hardware_asset) == 0)
 			{
 				$this->hardware_asset_model->create($hardware_asset, $this->hardware_asset_model->get_fields());
 				$this->audit_entry_model->create($audit_entry, $audit_field_list);
@@ -290,7 +308,7 @@ class Hardware_assets extends CI_Controller
 			else
 			{
 				// To display validation errors caught by the Form_validation, you should have the code below.
-				$this->template->notification(validation_errors(), 'danger');
+				$this->template->notification("Asset number is already found in the database.", 'danger');
 				redirect('admin/hardware_assets/create');
 			}
 
