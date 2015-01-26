@@ -292,16 +292,11 @@
 				<div class="panel-body">
 
 					<form method="post" id="employee-tag-type" name="employee-tag-type">
+						<input type="number" class="form-control form-control-small" id="emp_id" name="emp_id" placeholder="Employee ID (e.g. '10000022')">
 
+						<input type="text" class="form-control form-control-small" id="aud_comment" name="aud_comment" placeholder="Remark (e.g. 'Normal Condition')">
 
-					<input type="number" class="form-control form-control-small" id="emp_id" name="emp_id" placeholder="Employee ID (e.g. '10000022')">
-
-					<input type="text" class="form-control form-control-small" id="aud_comment" name="aud_comment" placeholder="Remark (e.g. 'Normal Condition')">
-
-					<input id="tag_barcode" class="form-control form-control-small" name="tag_barcode" type="text" placeholder="Scan code here to tag">
-
-				
-
+						<input id="tag_barcode" class="form-control form-control-small" name="tag_barcode" type="text" placeholder="Scan code here to tag">
 					</form>
 
 
@@ -508,25 +503,22 @@
 			</div>
 
 			<div class="col-xs-12">
-			<div class="panel-personnel-content">Select new <strong>Asset Status</strong> after untagging:</div>
-			<form method="post" id="untag">
+				<div class="panel-personnel-content">Select new <strong>Asset Status</strong> after untagging:</div>
+				<form method="post" id="untag">
 
-			<select name="aud_status" id="aud_status" class="input-medium form-control form-control-small">
-				<option value="">Select Status</option>				
-				<option value="stockroom" selected>stockroom</option>
-				<option value="service unit">service unit</option>
-				<option value="for disposal">for disposal</option>
-				<option value="disposed">disposed</option>
-			</select>
+					<select name="aud_status" id="aud_status" class="input-medium form-control form-control-small">
+						<option value="">Select Status</option>				
+						<option value="stockroom" selected>stockroom</option>
+						<option value="service unit">service unit</option>
+						<option value="for disposal">for disposal</option>
+						<option value="disposed">disposed</option>
+					</select>
 
-			<input id="untag_barcode" class="form-control form-control-small" name="untag_barcode" type="text" placeholder="Scan code here to untag">
+					<input id="untag_barcode" class="form-control form-control-small" name="untag_barcode" type="text" placeholder="Scan code here to untag">
 
-			</div>
-
-
+				</form>
 			</div>
 			<div class = "modal-footer">
-			</form>
 				<button class ="btn btn-default no-border-radius" data-dismiss = "modal">Cancel</button>
 			</div>
 		</div>
@@ -540,7 +532,7 @@
 		<div class = "modal-content">
 			<div class = "modal-header"><h3>Upload Employee Confirmation</h3></div>
 			<div class = "modal-body">
-				0It's highly recommended ask an employee for an acknowledgement of the tagged asset.
+				It's highly recommended ask an employee for an acknowledgement of the tagged asset.
 			<div class="well row" style="margin-top: 1em; background-color: #bbb; border-color: #bbb">
 
 

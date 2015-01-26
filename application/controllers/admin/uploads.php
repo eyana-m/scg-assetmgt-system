@@ -54,6 +54,7 @@ class Uploads extends CI_Controller {
 
 				$i = 0;
 				$j = 0;
+				$date_error_count = 0;
 				/**foreach($hardware_assets_csv as $hardware_asset) 
 				{
 					
@@ -71,9 +72,15 @@ class Uploads extends CI_Controller {
 								
 					if ($this->hardware_asset_model->check_conflict($hardware_asset) == 0) {
 						
-						$this->asset_create($hardware_asset);
+						//Test for date validation
+						if (preg_match("/^[[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$hardware_asset['har_date_purchase']))
+					    {
+					        $this->asset_create($hardware_asset);
+					        $i++;
 
-						$i++;
+					    } else{
+					        $date_error_count++;
+					    }
 					}
 					else {
 						$j++;
@@ -84,37 +91,102 @@ class Uploads extends CI_Controller {
 			//var_dump($hardware_assets_csv); die();
 				if ($i == 1) {
 					if ($j == 1) {
-						$this->template->notification($i. " asset was imported successfully! " . $j . " asset was already found in the database.", 'success');
+						$date_error = "";
+						if ($date_error_count > 1) {
+							$date_error = " " . $date_error_count . " assets were not imported due to date formatting.";
+						}
+						else if ($date_error_count == 1) {
+							$date_error = " " . $date_error_count . " asset was not imported due to date formatting.";
+						}
+						$this->template->notification($i. " asset was imported successfully! " . $j . " asset was already found in the database." . $date_error, 'success');
+						
 					}
 					else if ($j == 0) {
-						$this->template->notification($i. " asset was imported successfully! No duplicates were found in the database.", 'success');
+						$date_error = "";
+						if ($date_error_count > 1) {
+							$date_error = " " . $date_error_count . " assets were not imported due to date formatting.";
+						}
+						else if ($date_error_count == 1) {
+							$date_error = " " . $date_error_count . " asset was not imported due to date formatting.";
+						}
+						$this->template->notification($i. " asset was imported successfully! No duplicates were found in the database.". $date_error, 'success');
 					}
 					else {
-						$this->template->notification($i. " asset was imported successfully! " . $j . " assets were already found in the database.", 'success');
+						$date_error = "";
+						if ($date_error_count > 1) {
+							$date_error = " " . $date_error_count . " assets were not imported due to date formatting.";
+						}
+						else if ($date_error_count == 1) {
+							$date_error = " " . $date_error_count . " asset was not imported due to date formatting.";
+						}
+						$this->template->notification($i. " asset was imported successfully! " . $j . " assets were already found in the database.". $date_error, 'success');
 					}
 				}
 				else if ($i == 0) {
 					if ($j == 1) {
-						$this->template->notification("No assets were added. " . $j . " asset was already found in the database.", 'success');
+						$date_error = "";
+						if ($date_error_count > 1) {
+							$date_error = " " . $date_error_count . " assets were not imported due to date formatting.";
+						}
+						else if ($date_error_count == 1) {
+							$date_error = " " . $date_error_count . " asset was not imported due to date formatting.";
+						}
+						$this->template->notification("No assets were added. " . $j . " asset was already found in the database.". $date_error, 'success');
 					}
 					else if ($j == 0) {
-						$this->template->notification("The CSV file uploaded does not contain any data.", 'success');
+						$date_error = "";
+						if ($date_error_count > 1) {
+							$date_error = " " . $date_error_count . " assets were not imported due to date formatting.";
+						}
+						else if ($date_error_count == 1) {
+							$date_error = " " . $date_error_count . " asset was not imported due to date formatting.";
+						}
+						$this->template->notification("The CSV file uploaded does not contain any data." . $date_error  , 'success');
 					}
 					else {
-						$this->template->notification("No assets were added. " . $j . " assets were already found in the database.", 'success');
+						$date_error = "";
+						if ($date_error_count > 1) {
+							$date_error = " " . $date_error_count . " assets were not imported due to date formatting.";
+						}
+						else if ($date_error_count == 1) {
+							$date_error = " " . $date_error_count . " asset was not imported due to date formatting.";
+						}
+						$this->template->notification("No assets were added. " . $j . " assets were already found in the database."  . $date_error, 'success');
 					}
 				}
 				else {
 					if ($j == 1) {
-						$this->template->notification($i. " assets were imported successfully! " . $j . " asset was already found in the database.", 'success');
+						$date_error = "";
+						if ($date_error_count > 1) {
+							$date_error = " " . $date_error_count . " assets were not imported due to date formatting.";
+						}
+						else if ($date_error_count == 1) {
+							$date_error = " " . $date_error_count . " asset was not imported due to date formatting.";
+						}
+						$this->template->notification($i. " assets were imported successfully! " . $j . " asset was already found in the database."  . $date_error , 'success');
 					}
 					else if ($j == 0) {
-						$this->template->notification($i. " assets were imported successfully! No duplicates were found in the database.", 'success');
+						$date_error = "";
+						if ($date_error_count > 1) {
+							$date_error = " " . $date_error_count . " assets were not imported due to date formatting.";
+						}
+						else if ($date_error_count == 1) {
+							$date_error = " " . $date_error_count . " asset was not imported due to date formatting.";
+						}
+						$this->template->notification($i. " assets were imported successfully! No duplicates were found in the database." . $date_error , 'success');
 					}
 					else {
-						$this->template->notification($i. " assets were imported successfully! " . $j . " assets were already found in the database.", 'success');
+						$date_error = "";
+						if ($date_error_count > 1) {
+							$date_error = " " . $date_error_count . " assets were not imported due to date formatting.";
+						}
+						else if ($date_error_count == 1) {
+							$date_error = " " . $date_error_count . " asset was not imported due to date formatting.";
+						}
+						$this->template->notification($i. " assets were imported successfully! " . $j . " assets were already found in the database." . $date_error , 'success');
 					}
 				}
+
 				redirect('admin/hardware_assets');
 				
 			}

@@ -438,11 +438,20 @@ class Hardware_assets extends CI_Controller
 			if($this->input->post('tag_barcode_status')==$hardware_asset_id)
 			{
 
-				if($current_audit_entry->aud_status=='active'):
-				 	$this->auto_untag($current_audit_entry);				
-				endif;
+				// if($current_audit_entry->aud_status=='active'):
+
+				//  	$this->auto_untag($current_audit_entry);				
+				// endif;
 
 				$audit_entry['aud_status'] = $this->input->post('aud_status');
+
+				if ($audit_entry['aud_status'] == "") {
+					$audit_entry['aud_status'] = "active";
+				}
+				else if ($audit_entry['aud_status'] != "") {
+					//$audit_entry['aud_status'] = "active";
+					$this->auto_untag($current_audit_entry);
+				}
 
 				$hardware_update['har_status'] = $audit_entry['aud_status'];
 
@@ -461,7 +470,6 @@ class Hardware_assets extends CI_Controller
 				else 
 				{
 				$audit_entry['aud_per'] = null;
-
 				$audit_entry['aud_confirm'] = null;	
 				}
 
@@ -568,7 +576,7 @@ class Hardware_assets extends CI_Controller
 				 	$this->auto_untag($current_audit_entry);				
 				endif;
 
-				$new_status = $this->input->post("aud_status");	
+				$new_status = $this->input->post('aud_status');	
 				$this->untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status);
 				$current_audit_entry = $this->audit_entry_model->get_by_hardware($hardware_asset_id)->first_row();
 				$page['current_audit_entry'] = $current_audit_entry;
