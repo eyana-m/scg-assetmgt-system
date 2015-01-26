@@ -238,15 +238,25 @@
 		</div>
 		<div class="panel panel-default panel-personnel " style="margin-left: 0">
 			<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="text-decoration: none">
-				<div class="panel-heading" style="overflow:auto;" id="headingTwo">			
-						Update Status
-				</div>
+				<?php if ($current_audit_entry->aud_status == 'active') : ?>	
+					<div class="panel-heading" style="overflow:auto;" id="headingTwo">			
+							Add Remarks
+					</div>
+				<?php else : ?>	
+					<div class="panel-heading" style="overflow:auto;" id="headingTwo">			
+							Update Status
+					</div>
+				<?php endif ?>
 			</a>
 
 			<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 
 				<div class="panel-body">
+				<?php if ($current_audit_entry->aud_status == 'active') : ?>
+					<form method="post" id="add-remarks" name="add-remarks">
+				<?php else : ?>	
 					<form method="post" id="change-status" name="change-status">
+				<?php endif ?>
 
 						<select name="aud_status" id="aud_status" class="input-medium form-control form-control-small">
 							<?php $current_cap = ucfirst( $current_audit_entry->aud_status ); 
@@ -264,11 +274,7 @@
 								<option value="for disposal">For Disposal</option>
 								<option value="disposed">Disposed</option>
 							<?php elseif ($current_audit_entry->aud_status == 'active') : ?>	
-								<option value="stockroom">Stockroom</option>
-								<option value="service unit">Service Unit</option>
-								<option value="repair">For Repair</option>
-								<option value="for disposal">For Disposal</option>
-								<option value="disposed">Disposed</option>
+								
 							<?php elseif ($current_audit_entry->aud_status == 'repair') : ?>	
 								<option value="stockroom">Stockroom</option>
 								<option value="service unit">Service Unit</option>
@@ -285,7 +291,11 @@
 						</select>
 						<input type="text" class="form-control form-control-small" id="aud_comment" name="aud_comment" placeholder="Remark (e.g. 'Normal Condition')">
 
-						<input id="tag_barcode_status" class="form-control form-control-small" name="tag_barcode_status" type="text" placeholder="Scan code here to tag">
+						<?php if ($current_audit_entry->aud_status == 'active') : ?>	
+							<input type = "submit" id ="add_remarks_button" class="btn btn-success pull-right" value="Add Remark">
+						<?php else : ?>	
+							<input id="tag_barcode_status" class="form-control form-control-small" name="tag_barcode_status" type="text" placeholder="Scan code here to tag">
+						<?php endif; ?>	
 
 					</form>
 				</div><!--panel body-->
@@ -684,6 +694,14 @@ $('#tag_barcode_status').on("input", function() {
    $("form#change-status").submit();
 
 });
+
+$('#add_remarks_button').click( function() {
+	window.alert("HELLO");
+
+   $("form#add-remarks").submit();
+});
+
+
 
 // $('#untag_barcode').bind('copy paste',function(e) {
 //     e.preventDefault(); return false; 

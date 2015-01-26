@@ -452,7 +452,6 @@ class Hardware_assets extends CI_Controller
 		if($this->input->post('tag_barcode_status'))
 		{
 
-
 			if($this->input->post('tag_barcode_status')==$hardware_asset_id)
 			{
 
@@ -518,6 +517,66 @@ class Hardware_assets extends CI_Controller
 				$this->template->autofill($audit_entry);
 
 			}
+
+		}
+
+		if($this->input->post('add-remarks'))
+		{
+			// if($current_audit_entry->aud_status=='active'):
+
+			//  	$this->auto_untag($current_audit_entry);				
+			// endif;
+
+			$audit_entry['aud_status'] = "active";
+
+			// if ($audit_entry['aud_status'] == "") 
+			// {
+			// 	$audit_entry['aud_status'] = $current_audit_entry->aud_status;
+			// }
+			// else 
+			// if ($current_audit_entry == "active") 
+			// {
+			// 	$this->auto_untag($current_audit_entry);
+			// }
+
+			// if ($audit_entry['aud_status'] == "" && ) 
+			// {
+			// 	$audit_entry['aud_status'] = "active";
+			// }
+			// else if ($audit_entry['aud_status'] != "") 
+			// {
+			// 	$this->auto_untag($current_audit_entry);
+			// }
+
+			$hardware_update['har_status'] = $audit_entry['aud_status'];
+
+			if($this->input->post('aud_comment')):
+				$audit_entry['aud_comment'] = $this->input->post("aud_comment");
+			else:				
+				$audit_entry['aud_comment'] = 'Normal condition';		
+			endif;
+
+			$audit_entry['aud_har'] = $hardware_asset_id;
+
+			if (($audit_entry['aud_status'] == 'repair') || ($audit_entry['aud_status'] == 'active') )
+			{
+				$audit_entry['aud_per'] = $current_audit_entry->aud_per;
+			}
+			else 
+			{
+			$audit_entry['aud_per'] = null;
+			$audit_entry['aud_confirm'] = null;	
+			}
+
+			$this->audit_entry_model->create($audit_entry, $field_list);
+			$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);
+
+			$this->template->notification('New audit entry created.', 'success');
+
+			// redirect('admin/hardware_assets/view/' . $hardware_asset_id);
+			redirect('admin/hardware_assets');
+	
+			$this->template->autofill($audit_entry);
 
 		}
 	
