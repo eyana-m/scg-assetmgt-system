@@ -7,7 +7,7 @@ class Employees extends CI_Controller
 	{
 		parent::__construct();
 		$this->access_control->logged_in();
-		$this->access_control->account_type('admin', ' user', ' dev', 'superadmin');
+		$this->access_control->account_type('admin', 'user');
 		$this->access_control->validate();
 		$this->load->model('page_model');
 		$this->load->helper('format');
@@ -75,95 +75,112 @@ class Employees extends CI_Controller
 
 	public function create()
 	{
-		$this->template->title('Create Employee');
 
-
-		// Use the set_rules from the Form_validation class for form validation.
-		// Already combined with jQuery. No extra coding required for JS validation.
-		// We get both JS and PHP validation which makes it both secure and user friendly.
-		// NOTE: Set the rules before you check if $_POST is set so that the jQuery validation will work.
-		$this->form_validation->set_rules('emp_id', 'ID Number', 'trim|required|integer|max_length[10]');
-		$this->form_validation->set_rules('emp_last_name', 'Last Name', 'trim|required|max_length[30]');
-		$this->form_validation->set_rules('emp_first_name', 'First Name', 'trim|required|max_length[30]');
-		$this->form_validation->set_rules('emp_middle_name', 'Middle Name', 'trim|required|max_length[30]');
-		$this->form_validation->set_rules('emp_email', 'Email', 'trim|required|max_length[30]');
-		$this->form_validation->set_rules('emp_position', 'Position', 'trim|required|max_length[30]');
-		$this->form_validation->set_rules('emp_department', 'Department', 'trim|required|max_length[30]');
-		$this->form_validation->set_rules('emp_office', 'Office', 'trim|required');
-
-		if($this->input->post('submit'))
+		if($this->access_control->account_type('admin')) 
 		{
-			$employee = $this->extract->post();
+			$this->template->title('Create Employee');
 
-			// Call run method from Form_validation to check
-			if($this->form_validation->run() !== false && $this->employee_model->check_conflict($employee) == 0)
+
+			// Use the set_rules from the Form_validation class for form validation.
+			// Already combined with jQuery. No extra coding required for JS validation.
+			// We get both JS and PHP validation which makes it both secure and user friendly.
+			// NOTE: Set the rules before you check if $_POST is set so that the jQuery validation will work.
+			$this->form_validation->set_rules('emp_id', 'ID Number', 'trim|required|integer|max_length[10]');
+			$this->form_validation->set_rules('emp_last_name', 'Last Name', 'trim|required|max_length[30]');
+			$this->form_validation->set_rules('emp_first_name', 'First Name', 'trim|required|max_length[30]');
+			$this->form_validation->set_rules('emp_middle_name', 'Middle Name', 'trim|required|max_length[30]');
+			$this->form_validation->set_rules('emp_email', 'Email', 'trim|required|max_length[30]');
+			$this->form_validation->set_rules('emp_position', 'Position', 'trim|required|max_length[30]');
+			$this->form_validation->set_rules('emp_department', 'Department', 'trim|required|max_length[30]');
+			$this->form_validation->set_rules('emp_office', 'Office', 'trim|required');
+
+			if($this->input->post('submit'))
 			{
-				$this->employee_model->create($employee, $this->employee_model->get_fields());
-				// Set a notification using notification method from Template.
-				// It is okay to redirect after and the notification will be displayed on the redirect page.
-				$this->template->notification('New employee created.', 'success');
-				$this->template->notification("Employee ".$employee['emp_first_name']." ".$employee['emp_last_name']." created. <br><a class='label label-primary' href=".site_url('admin/employees').">Back to Employees Page</a> <a class='label label-success' href=".site_url('admin/employees/view/')."/".$employee['emp_id'].">View Employee</a>", 'success');
-				redirect('admin/employees/create');
-			}
-			else
-			{
-				// To display validation errors caught by the Form_validation, you should have the code below.
-				$this->template->notification("Employee is already found in the database.", 'danger');
-				redirect('admin/employees/create');
+				$employee = $this->extract->post();
+
+				// Call run method from Form_validation to check
+				if($this->form_validation->run() !== false && $this->employee_model->check_conflict($employee) == 0)
+				{
+					$this->employee_model->create($employee, $this->employee_model->get_fields());
+					// Set a notification using notification method from Template.
+					// It is okay to redirect after and the notification will be displayed on the redirect page.
+					$this->template->notification('New employee created.', 'success');
+					$this->template->notification("Employee ".$employee['emp_first_name']." ".$employee['emp_last_name']." created. <br><a class='label label-primary' href=".site_url('admin/employees').">Back to Employees Page</a> <a class='label label-success' href=".site_url('admin/employees/view/')."/".$employee['emp_id'].">View Employee</a>", 'success');
+					redirect('admin/employees/create');
+				}
+				else
+				{
+					// To display validation errors caught by the Form_validation, you should have the code below.
+					$this->template->notification("Employee is already found in the database.", 'danger');
+					redirect('admin/employees/create');
+				}
+
+				$this->template->autofill($employee);
+
 			}
 
-			$this->template->autofill($employee);
-
+			$page = array();
+			
+			$this->template->content('employees-create', $page);
+			$this->template->show();
 		}
-
-		$page = array();
-		
-		$this->template->content('employees-create', $page);
-		$this->template->show();
+		else
+		{
+			redirect('admin/forbidden');
+		}
 	}
 
 	public function edit($emp_id)
 	{
-		$this->template->title('Edit Employee '.$emp_id);
 
-		//$this->form_validation->set_rules('emp_id', 'ID Number', 'trim|required|integer|max_length[10]');
-		$this->form_validation->set_rules('emp_last_name', 'Last Name', 'trim|required|max_length[30]');
-		$this->form_validation->set_rules('emp_first_name', 'First Name', 'trim|required|max_length[30]');
-		$this->form_validation->set_rules('emp_middle_name', 'Middle Name', 'trim|required|max_length[30]');
-		$this->form_validation->set_rules('emp_email', 'Email', 'trim|required|max_length[30]');
-		$this->form_validation->set_rules('emp_position', 'Position', 'trim|required|max_length[30]');
-		$this->form_validation->set_rules('emp_department', 'Department', 'trim|required|max_length[30]');
-		$this->form_validation->set_rules('emp_office', 'Office', 'trim|required');
-
-		if($this->input->post('submit'))
+		if($this->access_control->account_type('admin')) 
 		{
-			$employee = $this->extract->post();
-			if($this->form_validation->run() !== false)
-			{
-				$employee['emp_id'] = $emp_id;
-				$rows_affected = $this->employee_model->update($employee, $this->form_validation->get_fields());
 
-				$this->template->notification('Employee updated.', 'success');
-				redirect('admin/employees/view/'.$emp_id);
-			}
-			else
+			$this->template->title('Edit Employee '.$emp_id);
+
+			//$this->form_validation->set_rules('emp_id', 'ID Number', 'trim|required|integer|max_length[10]');
+			$this->form_validation->set_rules('emp_last_name', 'Last Name', 'trim|required|max_length[30]');
+			$this->form_validation->set_rules('emp_first_name', 'First Name', 'trim|required|max_length[30]');
+			$this->form_validation->set_rules('emp_middle_name', 'Middle Name', 'trim|required|max_length[30]');
+			$this->form_validation->set_rules('emp_email', 'Email', 'trim|required|max_length[30]');
+			$this->form_validation->set_rules('emp_position', 'Position', 'trim|required|max_length[30]');
+			$this->form_validation->set_rules('emp_department', 'Department', 'trim|required|max_length[30]');
+			$this->form_validation->set_rules('emp_office', 'Office', 'trim|required');
+
+			if($this->input->post('submit'))
 			{
-				$this->template->notification(validation_errors());
+				$employee = $this->extract->post();
+				if($this->form_validation->run() !== false)
+				{
+					$employee['emp_id'] = $emp_id;
+					$rows_affected = $this->employee_model->update($employee, $this->form_validation->get_fields());
+
+					$this->template->notification('Employee updated.', 'success');
+					redirect('admin/employees/view/'.$emp_id);
+				}
+				else
+				{
+					$this->template->notification(validation_errors());
+				}
+				$this->template->autofill($employee);
 			}
-			$this->template->autofill($employee);
+
+			$page = array();
+			$page['employee'] = $this->employee_model->get_one($emp_id);
+
+			if($page['employee'] === false)
+			{
+				$this->template->notification('Employee was not found.', 'error');
+				redirect('admin/employees');
+			}
+
+			$this->template->content('employees-edit', $page);
+			$this->template->show();
 		}
-
-		$page = array();
-		$page['employee'] = $this->employee_model->get_one($emp_id);
-
-		if($page['employee'] === false)
+		else
 		{
-			$this->template->notification('Employee was not found.', 'error');
-			redirect('admin/employees');
+			redirect('admin/forbidden');
 		}
-
-		$this->template->content('employees-edit', $page);
-		$this->template->show();
 	}
 
 	public function view($employee_id)
@@ -193,37 +210,41 @@ class Employees extends CI_Controller
 
 		if($this->input->post('untag_barcode'))
 		{
-			$hardware_asset_id = $current_audit_entry->aud_har;
 
-			if($this->input->post('untag_barcode')==$hardware_asset_id)
-			{			
-				if($current_audit_entry->aud_status=='active'):
-				 	$this->auto_untag($current_audit_entry);				
-				endif;
-
-				$new_status = $this->input->post("aud_status");	
-
-				$this->untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status);
-				$hardware_update['har_id'] = $hardware_asset_id;
-				$hardware_update['har_status'] = $new_status;
-				$hardware_update['har_last_update'] = date('Y-m-d H:i:s');
-
-				$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);	
-				$page['current_audit_entry']= $this->audit_entry_model->get_by_employee($employee_id)->first_row();
-				$current_audit_entry = $page['current_audit_entry'];
-
-				$this->template->notification("Asset is now untagged. <a class='label label-success' href=".site_url('admin/hardware_assets').">Back to Asset List</a>", 'success');
-				//redirect($this->uri->uri_string());
-				redirect('admin/employees/view/' . $employee_id);
-				$this->template->autofill($audit_entry);
-			}
-			else
+			if($this->access_control->account_type('admin'))
 			{
-				$this->template->notification('Wrong barcode', 'danger');
-				//redirect($this->uri->uri_string());
-				redirect('admin/employees/view/' . $employee_id);
-				$this->template->autofill($audit_entry);
+				$hardware_asset_id = $current_audit_entry->aud_har;
 
+				if($this->input->post('untag_barcode')==$hardware_asset_id)
+				{			
+					if($current_audit_entry->aud_status=='active'):
+					 	$this->auto_untag($current_audit_entry);				
+					endif;
+
+					$new_status = $this->input->post("aud_status");	
+
+					$this->untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status);
+					$hardware_update['har_id'] = $hardware_asset_id;
+					$hardware_update['har_status'] = $new_status;
+					$hardware_update['har_last_update'] = date('Y-m-d H:i:s');
+
+					$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);	
+					$page['current_audit_entry']= $this->audit_entry_model->get_by_employee($employee_id)->first_row();
+					$current_audit_entry = $page['current_audit_entry'];
+
+					$this->template->notification("Asset is now untagged. <a class='label label-success' href=".site_url('admin/hardware_assets').">Back to Asset List</a>", 'success');
+					//redirect($this->uri->uri_string());
+					redirect('admin/employees/view/' . $employee_id);
+					$this->template->autofill($audit_entry);
+				}
+				else
+				{
+					$this->template->notification('Wrong barcode', 'danger');
+					//redirect($this->uri->uri_string());
+					redirect('admin/employees/view/' . $employee_id);
+					$this->template->autofill($audit_entry);
+
+				}
 			}
 		}
 

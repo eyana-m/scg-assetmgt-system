@@ -104,8 +104,10 @@ class Index extends CI_Controller
 		$this->template->title('Forbidden');
 		
 		$this->template->content('index-forbidden');
-			
+
+
 		$this->template->show();
+		
 	}
 	
 	public function logout()

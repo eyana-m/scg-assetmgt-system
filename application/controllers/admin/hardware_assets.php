@@ -7,7 +7,7 @@ class Hardware_assets extends CI_Controller
 	{
 		parent::__construct();
 		$this->access_control->logged_in();
-		$this->access_control->account_type('admin', ' user', ' dev', 'superadmin');
+		$this->access_control->account_type('admin', 'user', 'dev');
 		$this->access_control->validate();
 		$this->load->helper('url');
 		$this->load->helper('csv');
@@ -40,164 +40,171 @@ class Hardware_assets extends CI_Controller
 		$page['hardware_assets_value'] = $this->hardware_asset_model->get_total_value();
 		$page['hardware_assets_pagination'] = $this->hardware_asset_model->pagination_links();
 		
-
+	
 		if($this->input->post('form_mode'))
 		{
-			$report_type = $this->extract->post();
+			if($this->access_control->account_type('admin')) 
+			{
+				$report_type = $this->extract->post();
+				switch ($report_type["report-type"]) {
+
+				    case 'asset-replacement':
+				    	
+
+				  		$params = array('har_status' => 'repair');
+				  		// $page['hardware_repair'] =  $this->hardware_asset_model->get_all($params);
+				     	$page['hardware_repair'] =  $this->hardware_asset_model->get_assets_due_for_replacement();
+				     	$hardware_repair = $page['hardware_repair'];
+
+						$date = date('Y-m-d');
+						$filename = 'asset_replacement_'.$date.'.csv';
+
+						$data = $this->dbutil->csv_from_result($hardware_repair);
+
+					    force_download($filename, $data); 
+				  
+				    	break; 
+
+				    case 'asset-recentlyadded':
+				    	$page['hardware_recentlyadded'] = $this->hardware_asset_model->get_asset_past_week();
+				    	$hardware_recentlyadded = $page['hardware_recentlyadded'];
+
+				    	$date = date('Y-m-d');
+				    	$filename = 'asset_addedthisweek_'.$date.'.csv';
+
+				    	$data = $this->dbutil->csv_from_result($hardware_recentlyadded);
+				    	force_download($filename, $data); 
+
+				    	break;
+
+				    case 'asset-status':
+
+				    	switch ($report_type["status_type"]) {
+
+				    		case 'active':
+
+						    	$params = array('har_status' => 'active');
+						    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_asset_status($params);
+						    	$hardware_asset_status = $page['hardware_asset_status'];
+
+						    	$date = date('Y-m-d');
+						    	$filename = 'asset_active_'.$date.'.csv';
+
+						    	$data = $this->dbutil->csv_from_result($hardware_asset_status);
+						    	force_download($filename, $data); 
 
 
+				    			
+				    			break;
 
-			switch ($report_type["report-type"]) {
+				    		case 'stockroom':
 
-			    case 'asset-replacement':
-			    	
+						    	$params = array('har_status' => 'stockroom');
+						    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_asset_status($params);
+						    	$hardware_asset_status = $page['hardware_asset_status'];
 
-			  		$params = array('har_status' => 'repair');
-			  		// $page['hardware_repair'] =  $this->hardware_asset_model->get_all($params);
-			     	$page['hardware_repair'] =  $this->hardware_asset_model->get_assets_due_for_replacement();
-			     	$hardware_repair = $page['hardware_repair'];
+						    	$date = date('Y-m-d');
+						    	$filename = 'asset_stockroom_'.$date.'.csv';
 
-					$date = date('Y-m-d');
-					$filename = 'asset_replacement_'.$date.'.csv';
+						    	$data = $this->dbutil->csv_from_result($hardware_asset_status);
+						    	force_download($filename, $data); 
+				    			
+				    			break;
 
-					$data = $this->dbutil->csv_from_result($hardware_repair);
+				    		case 'service unit':
 
-				    force_download($filename, $data); 
-			  
-			    	break; 
-
-			    case 'asset-recentlyadded':
-			    	$page['hardware_recentlyadded'] = $this->hardware_asset_model->get_asset_past_week();
-			    	$hardware_recentlyadded = $page['hardware_recentlyadded'];
-
-			    	$date = date('Y-m-d');
-			    	$filename = 'asset_addedthisweek_'.$date.'.csv';
-
-			    	$data = $this->dbutil->csv_from_result($hardware_recentlyadded);
-			    	force_download($filename, $data); 
-
-			    	break;
-
-			    case 'asset-status':
-
-			    	switch ($report_type["status_type"]) {
-
-			    		case 'active':
-
-					    	$params = array('har_status' => 'active');
+					    	$params = array('har_status' => 'service unit');
 					    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_asset_status($params);
 					    	$hardware_asset_status = $page['hardware_asset_status'];
 
 					    	$date = date('Y-m-d');
-					    	$filename = 'asset_active_'.$date.'.csv';
+					    	$filename = 'asset_service_unit_'.$date.'.csv';
+
+					    	$data = $this->dbutil->csv_from_result($hardware_asset_status);
+					    	force_download($filename, $data); 
+
+				    			
+				    			break;
+
+				    		case 'for disposal':
+					    	$params = array('har_status' => 'for disposal');
+					    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_asset_status($params);
+					    	$hardware_asset_status = $page['hardware_asset_status'];
+
+					    	$date = date('Y-m-d');
+					    	$filename = 'asset_for_disposal_'.$date.'.csv';
+
+					    	$data = $this->dbutil->csv_from_result($hardware_asset_status);
+					    	force_download($filename, $data); 	    		
+				    			
+				    			break;
+
+				    		case 'repair':
+				    		
+					    	$params = array('har_status' => 'repair');
+					    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_asset_status($params);
+					    	$hardware_asset_status = $page['hardware_asset_status'];
+
+					    	$date = date('Y-m-d');
+					    	$filename = 'asset_repair_'.$date.'.csv';
 
 					    	$data = $this->dbutil->csv_from_result($hardware_asset_status);
 					    	force_download($filename, $data); 
 
 
-			    			
-			    			break;
+				    			break;	
 
-			    		case 'stockroom':
-
-					    	$params = array('har_status' => 'stockroom');
+				    		case 'disposed':
+				    		
+					    	$params = array('har_status' => 'disposed');
 					    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_asset_status($params);
 					    	$hardware_asset_status = $page['hardware_asset_status'];
 
 					    	$date = date('Y-m-d');
-					    	$filename = 'asset_stockroom_'.$date.'.csv';
+					    	$filename = 'asset_disposed_'.$date.'.csv';
 
 					    	$data = $this->dbutil->csv_from_result($hardware_asset_status);
-					    	force_download($filename, $data); 
-			    			
-			    			break;
-
-			    		case 'service unit':
-
-				    	$params = array('har_status' => 'service unit');
-				    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_asset_status($params);
-				    	$hardware_asset_status = $page['hardware_asset_status'];
-
-				    	$date = date('Y-m-d');
-				    	$filename = 'asset_service_unit_'.$date.'.csv';
-
-				    	$data = $this->dbutil->csv_from_result($hardware_asset_status);
-				    	force_download($filename, $data); 
-
-			    			
-			    			break;
-
-			    		case 'for disposal':
-				    	$params = array('har_status' => 'for disposal');
-				    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_asset_status($params);
-				    	$hardware_asset_status = $page['hardware_asset_status'];
-
-				    	$date = date('Y-m-d');
-				    	$filename = 'asset_for_disposal_'.$date.'.csv';
-
-				    	$data = $this->dbutil->csv_from_result($hardware_asset_status);
-				    	force_download($filename, $data); 	    		
-			    			
-			    			break;
-
-			    		case 'repair':
-			    		
-				    	$params = array('har_status' => 'repair');
-				    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_asset_status($params);
-				    	$hardware_asset_status = $page['hardware_asset_status'];
-
-				    	$date = date('Y-m-d');
-				    	$filename = 'asset_repair_'.$date.'.csv';
-
-				    	$data = $this->dbutil->csv_from_result($hardware_asset_status);
-				    	force_download($filename, $data); 
+					    	force_download($filename, $data); 	
 
 
-			    			break;	
-
-			    		case 'disposed':
-			    		
-				    	$params = array('har_status' => 'disposed');
-				    	$page['hardware_asset_status'] =  $this->hardware_asset_model->get_asset_status($params);
-				    	$hardware_asset_status = $page['hardware_asset_status'];
-
-				    	$date = date('Y-m-d');
-				    	$filename = 'asset_disposed_'.$date.'.csv';
-
-				    	$data = $this->dbutil->csv_from_result($hardware_asset_status);
-				    	force_download($filename, $data); 	
+				    			break;	
 
 
-			    			break;	
+				    		default:
+				    			
+				    			break;
+				    	}
 
 
-			    		default:
-			    			
-			    			break;
-			    	}
+				    	break;
+
+				    case 'asset-salvagevalue':
+				    $date = date('Y-m-d');
+					$filename = 'asset_computation_'.$date.'.csv';
 
 
-			    	break;
+					// $page['hardware_selected'] =  $this->hardware_asset_model->get_selected($report_type['har_barcodes']);
+					$page['hardware_selected'] =  $this->hardware_asset_model->get_salvage_value($report_type['har_barcodes']);
 
-			    case 'asset-salvagevalue':
-			    $date = date('Y-m-d');
-				$filename = 'asset_computation_'.$date.'.csv';
+					$hardware_selected = $page['hardware_selected'] ;
 
+					
+					$data = $this->dbutil->csv_from_result($hardware_selected);
 
-				// $page['hardware_selected'] =  $this->hardware_asset_model->get_selected($report_type['har_barcodes']);
-				$page['hardware_selected'] =  $this->hardware_asset_model->get_salvage_value($report_type['har_barcodes']);
-
-				$hardware_selected = $page['hardware_selected'] ;
-
-				
-				$data = $this->dbutil->csv_from_result($hardware_selected);
-
-				force_download($filename, $data);
-			    
-			    break;		    	 
+					force_download($filename, $data);
+				    
+				    break;		    	 
+				}
+			}
+			else 
+			{
+				$this->template->notification('You are forbidden to do that task', 'danger');
+				redirect('admin/hardware_assets');
 			}
 
 		}
+		
+
 
 
 
@@ -210,167 +217,177 @@ class Hardware_assets extends CI_Controller
 	
 	public function create()
 	{
-		$this->template->title('Create Hardware Asset');
 
+		if($this->access_control->account_type('admin')) 
+		{	
+			$this->template->title('Create Hardware Asset');		
+			$this->form_validation->set_rules('har_asset_number', 'Asset Number', 'trim|required|max_length[15]', 'add_asset');
+			$this->form_validation->set_rules('har_asset_type', 'Asset Type', 'trim|required', 'add_asset');
+			$this->form_validation->set_rules('har_office', 'Asset Office', 'trim|required', 'add_asset');
+			$this->form_validation->set_rules('har_erf_number', 'Erf Number', 'trim|required', 'add_asset');
+			$this->form_validation->set_rules('har_model', 'Model', 'trim|required|max_length[30]', 'add_asset');
+			$this->form_validation->set_rules('har_serial_number', 'Serial Number', 'trim|required|max_length[100]', 'add_asset');
+			$this->form_validation->set_rules('har_hostname', 'Hostname', 'trim|max_length[30]', 'add_asset');
+			$this->form_validation->set_rules('har_status', 'Status', 'trim|required', 'add_asset');
+			$this->form_validation->set_rules('har_vendor', 'Vendor', 'trim|required|max_length[100]', 'add_asset');
+			$this->form_validation->set_rules('har_date_purchase', 'Date of Purchase', 'trim|required|date', 'add_asset');
+			$this->form_validation->set_rules('har_po_number', 'Po Number', 'trim|max_length[11]', 'add_asset');
+			$this->form_validation->set_rules('har_cost', 'Cost', 'trim|required|double', 'add_asset');
+			$this->form_validation->set_rules('har_date_added', 'Date Added', 'trim|required|date', 'add_asset');
+			$this->form_validation->set_rules('har_specs', 'Specs', 'trim|required', 'add_asset');
 
 		
-		$this->form_validation->set_rules('har_asset_number', 'Asset Number', 'trim|required|max_length[15]', 'add_asset');
-		$this->form_validation->set_rules('har_asset_type', 'Asset Type', 'trim|required', 'add_asset');
-		$this->form_validation->set_rules('har_office', 'Asset Office', 'trim|required', 'add_asset');
-		$this->form_validation->set_rules('har_erf_number', 'Erf Number', 'trim|required', 'add_asset');
-		$this->form_validation->set_rules('har_model', 'Model', 'trim|required|max_length[30]', 'add_asset');
-		$this->form_validation->set_rules('har_serial_number', 'Serial Number', 'trim|required|max_length[100]', 'add_asset');
-		$this->form_validation->set_rules('har_hostname', 'Hostname', 'trim|max_length[30]', 'add_asset');
-		$this->form_validation->set_rules('har_status', 'Status', 'trim|required', 'add_asset');
-		$this->form_validation->set_rules('har_vendor', 'Vendor', 'trim|required|max_length[100]', 'add_asset');
-		$this->form_validation->set_rules('har_date_purchase', 'Date of Purchase', 'trim|required|date', 'add_asset');
-		$this->form_validation->set_rules('har_po_number', 'Po Number', 'trim|max_length[11]', 'add_asset');
-		$this->form_validation->set_rules('har_cost', 'Cost', 'trim|required|double', 'add_asset');
-		$this->form_validation->set_rules('har_date_added', 'Date Added', 'trim|required|date', 'add_asset');
-		$this->form_validation->set_rules('har_specs', 'Specs', 'trim|required', 'add_asset');
 
-	
+			if($this->input->post('add_asset'))
+			{
 
-		if($this->input->post('add_asset'))
-		{
+				$hardware_asset = $this->extract->post();
+				
+				$hardware_asset['har_barcode'] = $this->hardware_asset_model->generate_barcode($hardware_asset['har_asset_type'],$hardware_asset['har_asset_number'],$hardware_asset['har_date_purchase']);
 
-			$hardware_asset = $this->extract->post();
+				$hardware_asset['har_tech_refresher'] = $this->hardware_asset_model->get_tech_refresher_date($hardware_asset['har_asset_type'],$hardware_asset['har_date_purchase']);
+
+				$tech_year = $this->hardware_asset_model->get_tech_refresher_year($hardware_asset['har_asset_type']);
+
+				$you = $this->hardware_asset_model->get_you($hardware_asset['har_date_purchase']);
 			
-			$hardware_asset['har_barcode'] = $this->hardware_asset_model->generate_barcode($hardware_asset['har_asset_type'],$hardware_asset['har_asset_number'],$hardware_asset['har_date_purchase']);
+				$hardware_asset['har_book_value'] = $this->hardware_asset_model-> get_book_value($hardware_asset['har_cost'], $tech_year, $you);
 
-			$hardware_asset['har_tech_refresher'] = $this->hardware_asset_model->get_tech_refresher_date($hardware_asset['har_asset_type'],$hardware_asset['har_date_purchase']);
+				$hardware_asset['har_predetermined_value']  = $this->hardware_asset_model->get_market_value($hardware_asset['har_tech_refresher'],$hardware_asset['har_cost']);
 
-			$tech_year = $this->hardware_asset_model->get_tech_refresher_year($hardware_asset['har_asset_type']);
+				$hardware_asset['har_asset_value'] = $this->hardware_asset_model->get_asset_value($hardware_asset['har_book_value'], $hardware_asset['har_predetermined_value']);
 
-			$you = $this->hardware_asset_model->get_you($hardware_asset['har_date_purchase']);
-		
-			$hardware_asset['har_book_value'] = $this->hardware_asset_model-> get_book_value($hardware_asset['har_cost'], $tech_year, $you);
+				$hardware_asset['har_last_update'] = date('Y-m-d H:i:s');
 
-			$hardware_asset['har_predetermined_value']  = $this->hardware_asset_model->get_market_value($hardware_asset['har_tech_refresher'],$hardware_asset['har_cost']);
+				//FIRST AUDIT ENTRY
 
-			$hardware_asset['har_asset_value'] = $this->hardware_asset_model->get_asset_value($hardware_asset['har_book_value'], $hardware_asset['har_predetermined_value']);
+				$audit_entry = array();
 
-			$hardware_asset['har_last_update'] = date('Y-m-d H:i:s');
-
-			//FIRST AUDIT ENTRY
-
-			$audit_entry = array();
-
-			$audit_entry['aud_datetime'] = date('Y-m-d H:i:s');
-			$audit_entry['aud_status'] = $hardware_asset['har_status'];
-			$audit_entry['aud_comment'] = "Hardware added to the system";
-			$audit_entry['aud_har'] = $hardware_asset['har_barcode'];
-			$audit_entry['aud_per'] = null;
-			$audit_entry['aud_confirm'] = null;
-			$audit_entry['aud_untag'] = null;
-			$audit_entry['aud_date_untagged'] = null;
+				$audit_entry['aud_datetime'] = date('Y-m-d H:i:s');
+				$audit_entry['aud_status'] = $hardware_asset['har_status'];
+				$audit_entry['aud_comment'] = "Hardware added to the system";
+				$audit_entry['aud_har'] = $hardware_asset['har_barcode'];
+				$audit_entry['aud_per'] = null;
+				$audit_entry['aud_confirm'] = null;
+				$audit_entry['aud_untag'] = null;
+				$audit_entry['aud_date_untagged'] = null;
 
 
 
-			$audit_field_list = array('aud_id', 'aud_datetime', 'aud_status', 'aud_comment', 'aud_har', 'aud_per', 'aud_confirm', 'aud_untag', 'aud_date_untagged');
+				$audit_field_list = array('aud_id', 'aud_datetime', 'aud_status', 'aud_comment', 'aud_har', 'aud_per', 'aud_confirm', 'aud_untag', 'aud_date_untagged');
 
-			if($this->form_validation->run() !== false && $this->hardware_asset_model->check_conflict($hardware_asset) == 0)
-			{
-				$this->hardware_asset_model->create($hardware_asset, $this->hardware_asset_model->get_fields());
-				$this->audit_entry_model->create($audit_entry, $audit_field_list);
+				if($this->form_validation->run() !== false && $this->hardware_asset_model->check_conflict($hardware_asset) == 0)
+				{
+					$this->hardware_asset_model->create($hardware_asset, $this->hardware_asset_model->get_fields());
+					$this->audit_entry_model->create($audit_entry, $audit_field_list);
 
-				//$this->template->notification("New hardware asset created. <a class='label label-success' href=".site_url('admin/hardware_assets/create').">Add More Asset</a>", 'success');
-				$this->template->notification("Hardware asset ".$hardware_asset['har_barcode']." created. <br><a class='label label-primary' href=".site_url('admin/hardware_assets').">Back to Asset List</a> <a class='label label-success' href=".site_url('admin/hardware_assets/view/')."/".$hardware_asset['har_barcode'].">View Asset</a>", 'success');
-				//redirect('admin/hardware_assets');
-				//redirect('admin/hardware_assets/view/' . $hardware_asset['har_barcode']);
-				redirect('admin/hardware_assets/create');
-			}
-			else
-			{
-				// To display validation errors caught by the Form_validation, you should have the code below.
-				$this->template->notification("Asset number is already found in the database.", 'danger');
-				redirect('admin/hardware_assets/create');
+					//$this->template->notification("New hardware asset created. <a class='label label-success' href=".site_url('admin/hardware_assets/create').">Add More Asset</a>", 'success');
+					$this->template->notification("Hardware asset ".$hardware_asset['har_barcode']." created. <br><a class='label label-primary' href=".site_url('admin/hardware_assets').">Back to Asset List</a> <a class='label label-success' href=".site_url('admin/hardware_assets/view/')."/".$hardware_asset['har_barcode'].">View Asset</a>", 'success');
+					//redirect('admin/hardware_assets');
+					//redirect('admin/hardware_assets/view/' . $hardware_asset['har_barcode']);
+					redirect('admin/hardware_assets/create');
+				}
+				else
+				{
+					// To display validation errors caught by the Form_validation, you should have the code below.
+					$this->template->notification("Asset number is already found in the database.", 'danger');
+					redirect('admin/hardware_assets/create');
+				}
+
+				$this->template->autofill($hardware_asset);
 			}
 
-			$this->template->autofill($hardware_asset);
+
+			$page = array();
+			
+			$this->template->content('hardware_assets-create', $page);
+			$this->template->show();
+		}
+		else
+		{
+			redirect('admin/forbidden');
 		}
 
-
-
-		
-
-		$page = array();
-		
-		$this->template->content('hardware_assets-create', $page);
-		$this->template->show();
 	}
 
 	public function edit($har_barcode)
 	{
-		
-		$this->template->title('Edit Asset: '.$har_barcode);
 
-		//$this->form_validation->set_rules('har_asset_number', 'Asset Number', 'trim|required|integer|max_length[15]');
-		//$this->form_validation->set_rules('har_asset_type', 'Asset Type', 'trim|required');
-		//$this->form_validation->set_rules('har_office', 'Asset Office', 'trim|required');
-		$this->form_validation->set_rules('har_erf_number', 'Erf Number', 'trim|required|integer|max_length[11]');
-		$this->form_validation->set_rules('har_model', 'Model', 'trim|required|max_length[30]');
-		$this->form_validation->set_rules('har_serial_number', 'Serial Number', 'trim|required|max_length[30]');
-		$this->form_validation->set_rules('har_hostname', 'Hostname', 'trim|required|max_length[30]');
-		//$this->form_validation->set_rules('har_status', 'Status', 'trim|required');
-		$this->form_validation->set_rules('har_vendor', 'Vendor', 'trim|required|max_length[30]');
-		//$this->form_validation->set_rules('har_date_purchase', 'Date of Purchase', 'trim|required|date');
-		$this->form_validation->set_rules('har_po_number', 'Po Number', 'trim|required|integer|max_length[11]');
-		// $this->form_validation->set_rules('har_cost', 'Cost', 'trim|required|double');
-		// $this->form_validation->set_rules('har_date_added', 'Date Added', 'trim|required|date');
-		// $this->form_validation->set_rules('har_specs', 'Specs', 'trim|required');
-		//$this->form_validation->set_rules('har_barcode', 'Barcode', 'trim|required');
+		if($this->access_control->account_type('admin')) 
+		{			
+			$this->template->title('Edit Asset: '.$har_barcode);
+			//$this->form_validation->set_rules('har_asset_number', 'Asset Number', 'trim|required|integer|max_length[15]');
+			//$this->form_validation->set_rules('har_asset_type', 'Asset Type', 'trim|required');
+			//$this->form_validation->set_rules('har_office', 'Asset Office', 'trim|required');
+			$this->form_validation->set_rules('har_erf_number', 'Erf Number', 'trim|required|integer|max_length[11]');
+			$this->form_validation->set_rules('har_model', 'Model', 'trim|required|max_length[30]');
+			$this->form_validation->set_rules('har_serial_number', 'Serial Number', 'trim|required|max_length[30]');
+			$this->form_validation->set_rules('har_hostname', 'Hostname', 'trim|required|max_length[30]');
+			//$this->form_validation->set_rules('har_status', 'Status', 'trim|required');
+			$this->form_validation->set_rules('har_vendor', 'Vendor', 'trim|required|max_length[30]');
+			//$this->form_validation->set_rules('har_date_purchase', 'Date of Purchase', 'trim|required|date');
+			$this->form_validation->set_rules('har_po_number', 'Po Number', 'trim|required|integer|max_length[11]');
+			// $this->form_validation->set_rules('har_cost', 'Cost', 'trim|required|double');
+			// $this->form_validation->set_rules('har_date_added', 'Date Added', 'trim|required|date');
+			// $this->form_validation->set_rules('har_specs', 'Specs', 'trim|required');
+			//$this->form_validation->set_rules('har_barcode', 'Barcode', 'trim|required');
 
-		if($this->input->post('edit_asset'))
-		{
-			$hardware_asset = $this->extract->post();
+			if($this->input->post('edit_asset'))
+			{
+				$hardware_asset = $this->extract->post();
 
-			$hardware_asset['har_barcode'] = $this->hardware_asset_model->generate_barcode($hardware_asset['har_asset_type'],$hardware_asset['har_asset_number'],$hardware_asset['har_date_purchase']);
+				$hardware_asset['har_barcode'] = $this->hardware_asset_model->generate_barcode($hardware_asset['har_asset_type'],$hardware_asset['har_asset_number'],$hardware_asset['har_date_purchase']);
 
-			$hardware_asset['har_tech_refresher'] = $this->hardware_asset_model->get_tech_refresher_date($hardware_asset['har_asset_type'],$hardware_asset['har_date_purchase']);
+				$hardware_asset['har_tech_refresher'] = $this->hardware_asset_model->get_tech_refresher_date($hardware_asset['har_asset_type'],$hardware_asset['har_date_purchase']);
 
-			$tech_year = $this->hardware_asset_model->get_tech_refresher_year($hardware_asset['har_asset_type']);
+				$tech_year = $this->hardware_asset_model->get_tech_refresher_year($hardware_asset['har_asset_type']);
 
-			$you = $this->hardware_asset_model->get_you($hardware_asset['har_date_purchase']);
-		
-			$hardware_asset['har_book_value'] = $this->hardware_asset_model-> get_book_value($hardware_asset['har_cost'], $tech_year, $you);
-
-			$hardware_asset['har_predetermined_value']  = $this->hardware_asset_model->get_market_value($hardware_asset['har_tech_refresher'],$hardware_asset['har_cost']);
-
-			$hardware_asset['har_asset_value'] = $this->hardware_asset_model->get_asset_value($hardware_asset['har_book_value'], $hardware_asset['har_predetermined_value']);
-
-			$hardware_asset['har_last_update'] = date('Y-m-d H:i:s');
+				$you = $this->hardware_asset_model->get_you($hardware_asset['har_date_purchase']);
 			
-			if($this->form_validation->run() !== false)
-			{
-				// $data = array(
-				// 		'har_model' => $hardware_asset['har_model'],
-				// 		'har_erf_number' => $hardware_asset['har_erf_number']
-				// 	);
+				$hardware_asset['har_book_value'] = $this->hardware_asset_model-> get_book_value($hardware_asset['har_cost'], $tech_year, $you);
 
-				$hardware_asset['har_barcode'] = $har_barcode;
-				$rows_affected = $this->hardware_asset_model->update($hardware_asset, $this->form_validation->get_fields());
-				// $rows_affected = $this->hardware_asset_model->update($this->hardware_asset, $data);
-				$this->template->notification('Hardware asset updated.', 'success');
-				redirect('admin/hardware_assets/view/'.$har_barcode);
+				$hardware_asset['har_predetermined_value']  = $this->hardware_asset_model->get_market_value($hardware_asset['har_tech_refresher'],$hardware_asset['har_cost']);
+
+				$hardware_asset['har_asset_value'] = $this->hardware_asset_model->get_asset_value($hardware_asset['har_book_value'], $hardware_asset['har_predetermined_value']);
+
+				$hardware_asset['har_last_update'] = date('Y-m-d H:i:s');
+				
+				if($this->form_validation->run() !== false)
+				{
+					// $data = array(
+					// 		'har_model' => $hardware_asset['har_model'],
+					// 		'har_erf_number' => $hardware_asset['har_erf_number']
+					// 	);
+
+					$hardware_asset['har_barcode'] = $har_barcode;
+					$rows_affected = $this->hardware_asset_model->update($hardware_asset, $this->form_validation->get_fields());
+					// $rows_affected = $this->hardware_asset_model->update($this->hardware_asset, $data);
+					$this->template->notification('Hardware asset updated.', 'success');
+					redirect('admin/hardware_assets/view/'.$har_barcode);
+				}
+				else
+				{
+					$this->template->notification(validation_errors());
+				}
+				$this->template->autofill($hardware_asset);
 			}
-			else
+
+			$page = array();
+			$page['hardware_asset'] = $this->hardware_asset_model->get_one($har_barcode);
+
+			if($page['hardware_asset'] === false)
 			{
-				$this->template->notification(validation_errors());
+				$this->template->notification('Hardware asset was not found.', 'danger');
+				redirect('admin/hardware_assets');
 			}
-			$this->template->autofill($hardware_asset);
+			$this->template->content('hardware_assets-edit', $page);
+			$this->template->show();
 		}
 
-		$page = array();
-		$page['hardware_asset'] = $this->hardware_asset_model->get_one($har_barcode);
-
-		if($page['hardware_asset'] === false)
+		else
 		{
-			$this->template->notification('Hardware asset was not found.', 'danger');
-			redirect('admin/hardware_assets');
+			redirect('admin/forbidden');
 		}
-		$this->template->content('hardware_assets-edit', $page);
-		$this->template->show();
 	}
 
 	public function view($hardware_asset_id)
@@ -414,22 +431,70 @@ class Hardware_assets extends CI_Controller
 		}
 			
 		$audit_entry['aud_datetime'] = date('Y-m-d H:i:s');
-
 			
 		if($this->input->post('tag_barcode_status'))
 		{
-
-			if($this->input->post('tag_barcode_status')==$hardware_asset_id)
+			if($this->access_control->account_type('admin')) 
 			{
-
-
-				$audit_entry['aud_status'] = $this->input->post('aud_status');
-
-
-				if ($current_audit_entry == "active") 
+				if($this->input->post('tag_barcode_status')==$hardware_asset_id)
 				{
-					$this->auto_untag($current_audit_entry);
+
+
+					$audit_entry['aud_status'] = $this->input->post('aud_status');
+
+
+					if ($current_audit_entry == "active") 
+					{
+						$this->auto_untag($current_audit_entry);
+					}
+
+
+					$hardware_update['har_status'] = $audit_entry['aud_status'];
+					$hardware_update['har_last_update'] = date('Y-m-d H:i:s');
+
+					if($this->input->post('aud_comment')):
+						$audit_entry['aud_comment'] = $this->input->post("aud_comment");
+					else:				
+						$audit_entry['aud_comment'] = 'Normal condition';		
+					endif;
+
+					$audit_entry['aud_har'] = $hardware_asset_id;
+
+					if (($audit_entry['aud_status'] == 'repair') || ($audit_entry['aud_status'] == 'active') )
+					{
+						$audit_entry['aud_per'] = $current_audit_entry->aud_per;
+					}
+					else 
+					{
+					$audit_entry['aud_per'] = null;
+					$audit_entry['aud_confirm'] = null;	
+					}
+
+					$this->audit_entry_model->create($audit_entry, $field_list);
+					$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);
+
+					$this->template->notification("New audit entry created. <a class='label label-success' href=".site_url('admin/hardware_assets').">Back to Asset List</a>", 'success');
+					redirect('admin/hardware_assets/view/' . $hardware_asset_id);
+			
+					$this->template->autofill($audit_entry);
 				}
+				else
+				{
+					$this->template->notification('Wrong Barcode Number', 'danger');
+					//redirect($this->uri->uri_string());
+					redirect('admin/hardware_assets/view/' . $hardware_asset_id);
+					$this->template->autofill($audit_entry);
+
+				}
+			}
+		}
+
+		if($this->input->post('add_remarks_button'))
+		{
+
+			if($this->access_control->account_type('admin')) 
+			{
+				$audit_entry['aud_status'] = "active";
 
 
 				$hardware_update['har_status'] = $audit_entry['aud_status'];
@@ -457,198 +522,163 @@ class Hardware_assets extends CI_Controller
 				$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);
 
 				$this->template->notification("New audit entry created. <a class='label label-success' href=".site_url('admin/hardware_assets').">Back to Asset List</a>", 'success');
+
 				redirect('admin/hardware_assets/view/' . $hardware_asset_id);
 		
 				$this->template->autofill($audit_entry);
 			}
-			else
-			{
-				$this->template->notification('Wrong Barcode Number', 'danger');
-				//redirect($this->uri->uri_string());
-				redirect('admin/hardware_assets/view/' . $hardware_asset_id);
-				$this->template->autofill($audit_entry);
-
-			}
-
-		}
-
-		if($this->input->post('add_remarks_button'))
-		{
-
-
-			$audit_entry['aud_status'] = "active";
-
-
-			$hardware_update['har_status'] = $audit_entry['aud_status'];
-			$hardware_update['har_last_update'] = date('Y-m-d H:i:s');
-
-			if($this->input->post('aud_comment')):
-				$audit_entry['aud_comment'] = $this->input->post("aud_comment");
-			else:				
-				$audit_entry['aud_comment'] = 'Normal condition';		
-			endif;
-
-			$audit_entry['aud_har'] = $hardware_asset_id;
-
-			if (($audit_entry['aud_status'] == 'repair') || ($audit_entry['aud_status'] == 'active') )
-			{
-				$audit_entry['aud_per'] = $current_audit_entry->aud_per;
-			}
-			else 
-			{
-			$audit_entry['aud_per'] = null;
-			$audit_entry['aud_confirm'] = null;	
-			}
-
-			$this->audit_entry_model->create($audit_entry, $field_list);
-			$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);
-
-			$this->template->notification("New audit entry created. <a class='label label-success' href=".site_url('admin/hardware_assets').">Back to Asset List</a>", 'success');
-
-			redirect('admin/hardware_assets/view/' . $hardware_asset_id);
-	
-			$this->template->autofill($audit_entry);
 
 		}
 	
 		if($this->input->post("tag_barcode"))
 		{
 
-			if($this->input->post('tag_barcode')==$hardware_asset_id)
+			if($this->access_control->account_type('admin')) 
 			{
-
-				$employee = $this->employee_model->get_one($this->input->post("emp_id"));
-
-				if ($employee!=null)
+				if($this->input->post('tag_barcode')==$hardware_asset_id)
 				{
-					$audit_entry['aud_status'] = 'active';	
-					$hardware_update['har_status'] = $audit_entry['aud_status'];
-					$hardware_update['har_last_update'] = date('Y-m-d H:i:s');
 
-					if($this->input->post('aud_comment')):
-						$audit_entry['aud_comment'] = $this->input->post("aud_comment");
-					else:				
-						$audit_entry['aud_comment'] = 'Normal condition';		
-					endif;
+					$employee = $this->employee_model->get_one($this->input->post("emp_id"));
 
-					$audit_entry['aud_har'] = $hardware_asset_id;
-					$audit_entry['aud_per'] = $this->input->post("emp_id");	
-					$audit_entry['aud_confirm'] = null;	
-					$audit_entry['aud_untag'] = FALSE;	
-					$audit_entry['aud_date_untagged'] = null;	
+					if ($employee!=null)
+					{
+						$audit_entry['aud_status'] = 'active';	
+						$hardware_update['har_status'] = $audit_entry['aud_status'];
+						$hardware_update['har_last_update'] = date('Y-m-d H:i:s');
+
+						if($this->input->post('aud_comment')):
+							$audit_entry['aud_comment'] = $this->input->post("aud_comment");
+						else:				
+							$audit_entry['aud_comment'] = 'Normal condition';		
+						endif;
+
+						$audit_entry['aud_har'] = $hardware_asset_id;
+						$audit_entry['aud_per'] = $this->input->post("emp_id");	
+						$audit_entry['aud_confirm'] = null;	
+						$audit_entry['aud_untag'] = FALSE;	
+						$audit_entry['aud_date_untagged'] = null;	
 
 
-					$this->audit_entry_model->create($audit_entry, $field_list);
-					$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);	
+						$this->audit_entry_model->create($audit_entry, $field_list);
+						$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);	
 
 
-					//EMAIL 
+						//EMAIL 
 
-					//$this->email_employee($employee, $hardware_asset);
+						//$this->email_employee($employee, $hardware_asset);
 
-					//END EMAIL
+						//END EMAIL
 
-					$this->template->notification("New audit entry created. <a class='label label-success' href=".site_url('admin/hardware_assets').">Back to Asset List</a>", 'success');
-					redirect('admin/hardware_assets/view/' . $hardware_asset_id);
-		
-					$this->template->autofill($audit_entry);
+						$this->template->notification("New audit entry created. <a class='label label-success' href=".site_url('admin/hardware_assets').">Back to Asset List</a>", 'success');
+						redirect('admin/hardware_assets/view/' . $hardware_asset_id);
+			
+						$this->template->autofill($audit_entry);
+					}
+					else
+					{
+						$this->template->notification('Invalid entry', 'danger');
+						redirect('admin/hardware_assets/view/' . $hardware_asset_id);
+					}
+
+
 				}
+
 				else
 				{
-					$this->template->notification('Invalid entry', 'danger');
+					$this->template->notification('Wrong barcode', 'danger');
+					//redirect($this->uri->uri_string());
 					redirect('admin/hardware_assets/view/' . $hardware_asset_id);
+					$this->template->autofill($audit_entry);
+
 				}
 
-
 			}
-
-			else
-			{
-				$this->template->notification('Wrong barcode', 'danger');
-				//redirect($this->uri->uri_string());
-				redirect('admin/hardware_assets/view/' . $hardware_asset_id);
-				$this->template->autofill($audit_entry);
-
-			}
-
 		}
 
 
 		if($this->input->post('untag_barcode'))
 		{
-			if($this->input->post('untag_barcode')==$hardware_asset_id)
+
+			if($this->access_control->account_type('admin')) 
 			{
-				if($current_audit_entry->aud_status=='active'):
-				 	$this->auto_untag($current_audit_entry);			 					
-				endif;
+				if($this->input->post('untag_barcode')==$hardware_asset_id)
+				{
+					if($current_audit_entry->aud_status=='active'):
+					 	$this->auto_untag($current_audit_entry);			 					
+					endif;
 
-				$new_status = $this->input->post('aud_status');	
-				$this->untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status);
-				$hardware_update['har_id'] = $hardware_asset_id;
-				$hardware_update['har_status'] = $new_status;
-				$hardware_update['har_last_update'] = date('Y-m-d H:i:s');
+					$new_status = $this->input->post('aud_status');	
+					$this->untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status);
+					$hardware_update['har_id'] = $hardware_asset_id;
+					$hardware_update['har_status'] = $new_status;
+					$hardware_update['har_last_update'] = date('Y-m-d H:i:s');
 
-				$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);	
-				$current_audit_entry = $this->audit_entry_model->get_by_hardware($hardware_asset_id)->first_row();
-				$page['current_audit_entry'] = $current_audit_entry;
-				
+					$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);	
+					$current_audit_entry = $this->audit_entry_model->get_by_hardware($hardware_asset_id)->first_row();
+					$page['current_audit_entry'] = $current_audit_entry;
+					
 
-				$this->template->notification("Asset is now untagged. <a class='label label-success' href=".site_url('admin/hardware_assets').">Back to Asset List</a>", 'success');
-				//redirect($this->uri->uri_string());
-				redirect('admin/hardware_assets/view/' . $hardware_asset_id);
-				$this->template->autofill($audit_entry);
-			}
-			else
-			{
-				$this->template->notification('Wrong barcode', 'danger');
-				//redirect($this->uri->uri_string());
-				redirect('admin/hardware_assets/view/' . $hardware_asset_id);
-				$this->template->autofill($audit_entry);
+					$this->template->notification("Asset is now untagged. <a class='label label-success' href=".site_url('admin/hardware_assets').">Back to Asset List</a>", 'success');
+					//redirect($this->uri->uri_string());
+					redirect('admin/hardware_assets/view/' . $hardware_asset_id);
+					$this->template->autofill($audit_entry);
+				}
+				else
+				{
+					$this->template->notification('Wrong barcode', 'danger');
+					//redirect($this->uri->uri_string());
+					redirect('admin/hardware_assets/view/' . $hardware_asset_id);
+					$this->template->autofill($audit_entry);
 
+				}
 			}
 		}
 
 
 		if($this->input->post('confirm'))
 		{
-			$config =  array(
-	              'upload_path'     => dirname($_SERVER["SCRIPT_FILENAME"])."/uploads/confirmation",
-	              'upload_url'      => base_url()."uploads/confirmation/",
-	              'allowed_types'   => "gif|jpg|png|jpeg|pdf|mwb",
-	              'overwrite'       => TRUE,
-	              'max_size'        => "1000MB"
-	            );
 
-			$this->upload->initialize($config);
-
-			$file = $this->input->post("aud_confirm");	
-
-
-			if ( ! $this->upload->do_upload("aud_confirm"))
+			if($this->access_control->account_type('admin')) 
 			{
-				$this->template->notification($this->upload->display_errors(), 'danger');
-			}
-			else
-			{
+				$config =  array(
+		              'upload_path'     => dirname($_SERVER["SCRIPT_FILENAME"])."/uploads/confirmation",
+		              'upload_url'      => base_url()."uploads/confirmation/",
+		              'allowed_types'   => "gif|jpg|png|jpeg|pdf|mwb",
+		              'overwrite'       => TRUE,
+		              'max_size'        => "1000MB"
+		            );
 
-		
+				$this->upload->initialize($config);
 
-				$data =  $this->upload->data();
+				$file = $this->input->post("aud_confirm");	
 
-				foreach ($current_audit_entry as $field => $value){
-					$audit_entry[$field] = $value;
+
+				if ( ! $this->upload->do_upload("aud_confirm"))
+				{
+					$this->template->notification($this->upload->display_errors(), 'danger');
 				}
+				else
+				{
 
-				
-				$audit_entry['aud_confirm'] = $data['full_path'];
-
-				$this->audit_entry_model->update($audit_entry, $field_list);
 			
-				$this->template->notification("Confirmation file ".$data['file_name']." uploaded! <br> Check this path: ".$data['full_path'] , 'success');
 
+					$data =  $this->upload->data();
+
+					foreach ($current_audit_entry as $field => $value){
+						$audit_entry[$field] = $value;
+					}
+
+					
+					$audit_entry['aud_confirm'] = $data['full_path'];
+
+					$this->audit_entry_model->update($audit_entry, $field_list);
+				
+					$this->template->notification("Confirmation file ".$data['file_name']." uploaded! <br> Check this path: ".$data['full_path'] , 'success');
+
+				}
 			}
-
 		}
+		
 
 
 

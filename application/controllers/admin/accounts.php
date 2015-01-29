@@ -65,7 +65,8 @@ class Accounts extends CI_Controller
 		$this->form_validation->set_rules('acc_password2', 'Retype Password', 'required|matches[acc_password]');
 		$this->form_validation->set_rules('acc_first_name', 'First Name', 'trim|required|max_length[60]');
 		$this->form_validation->set_rules('acc_last_name', 'Last Name', 'trim|required|max_length[30]');
-		
+		$this->form_validation->set_rules('acc_type', 'Account Type', 'trim|required');
+
 		if($this->input->post('submit'))
 		{
 			// Extract all $_POST variables using the method post from Extract

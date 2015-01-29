@@ -11,7 +11,9 @@
 			<th>Status</th>
 			<th>Remarks</th>
 			<th>Date Assigned</th>
-			<th>Actions</th>
+			<?php if($this->access_control->account_type('admin')):  ?>
+				<th>Actions</th>
+			<?php endif; ?>
 		</thead>
 
 		<?php foreach($audit_entries->result() as $audit_entry): ?>
@@ -55,9 +57,11 @@
 				?>
 
 
+			<?php if($this->access_control->account_type('admin')):  ?>	
 				<td>
-			<a href="#untag" class="label label-default" style="text-decoration: none" role="button" data-toggle="modal" data-dismiss = "modal">untag</a>
+				<a href="#untag" class="label label-default" style="text-decoration: none" role="button" data-toggle="modal" data-dismiss = "modal">untag</a>
 				</td>
+			<?php endif;?>
     	</tr>
 
     	<?php endforeach; ?>
@@ -113,6 +117,8 @@
 			</div>
 
 		</div>
+
+	<?php if($this->access_control->account_type('admin')):  ?>
 		<div class="panel-footer">
 			<a href="<?php echo site_url('admin/employees/edit/' . $employee->emp_id); ?>" class="btn btn-default btn-small" style="font-size:12px">Edit Employee Details</a>
 			<form  method="post" class="pull-right" action="<?php echo site_url("admin/employees/audit_entries_csv"); ?>"  name="audit_entries_csv" id="audit_entries_csv">
@@ -122,6 +128,7 @@
 
 
 		</div>
+	<?php endif; ?>
 	</div>
 
 

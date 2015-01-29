@@ -26,7 +26,17 @@
 		</tr>
 		<tr>
 			<th>Account Type</th>
-			<td>Admin</td>
+			<td>
+
+			<select name="acc_type" class="form-control" style="width: 80%" >
+				<option value="admin" selected="true">Admin</option>
+				<option value="user">User</option>
+			</select>
+
+
+
+
+			</td>
 		</tr>
 		<tr>
 			<th></th>

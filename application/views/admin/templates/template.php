@@ -42,22 +42,28 @@
 					<a href="#" class="dropdown-toggle" style="color:white;" data-toggle="dropdown">Assets<span class="caret"></span></a>
 					<ul class="dropdown-menu" style="color:white;" role="menu">
 						<li><a href="<?php echo site_url('admin/hardware_assets'); ?>">Manage</a></li>
+						
+					<?php if($this->access_control->account_type('admin')  ):?>
 						<li><a href="<?php echo site_url('admin/hardware_assets/create'); ?>">Add</a></li>
-
 						<li><a id="import" href="<?php echo site_url('admin/uploads/hardware_assets'); ?>" role="button" data-toggle="modal">Import CSV</a></li>
-					
+					<?php endif; ?>
+
 					</ul>
 				</li>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" style="color:white;" data-toggle="dropdown">Employees<span class="caret"></span></a>
 					<ul class="dropdown-menu" style="color:white;" role="menu">
 						<li><a href="<?php echo site_url('admin/employees'); ?>">Manage</a></li>
+						
+					<?php if($this->access_control->account_type('admin')  ):?>	
 						<li><a href="<?php echo site_url('admin/employees/create'); ?>">Add</a></li>
 						<li><a href="<?php echo site_url('admin/uploads/employees'); ?>" role="button" data-toggle="modal">Import CSV</a></li>
+					<?php endif; ?>
+
 					</ul>
 				</li>
 
-			<?php if($this->access_control->check_user('admin@gmail.com')  ):?>
+			<?php if($this->access_control->account_type('admin')  ):?>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" style="color:white;" data-toggle="dropdown">Accounts<span class="caret"></span></a>
 					<ul class="dropdown-menu" style="color:white;" role="menu">
@@ -71,9 +77,12 @@
 					<a href="#" class="dropdown-toggle" style="color:white;"  data-toggle="dropdown"><?php echo $this->session->userdata('acc_name'); ?><b class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li><a href="<?php echo site_url('admin/profile'); ?>">Profile</a></li>
+
+				<?php if($this->access_control->account_type('admin')  ):?>	
 					<form  method="post" action="<?php echo site_url("admin/hardware_assets/backup"); ?>" name="backup" id="backup">	
 						<li><input type="submit" value="Backup Database" id="backup-li" style="margin-left:-5px;"></li>					
 					</form>	
+				<?php endif; ?>
 
 
 						<li class="divider"></li>
