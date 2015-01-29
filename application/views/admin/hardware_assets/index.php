@@ -19,6 +19,7 @@ if($hardware_assets->num_rows())
 					<th>Model</th>
 					<th>Status</th>
 					<th>Tech Refresher</th>
+					<th>Last Update</th>
 
 					
 				</tr>
@@ -54,6 +55,7 @@ if($hardware_assets->num_rows())
 
 					</td>
 					<td><?php echo $hardware_asset->har_tech_refresher; ?></td>
+					<td><?php echo $hardware_asset->har_last_update; ?></td>
 					
 				</tr>
 				<?php

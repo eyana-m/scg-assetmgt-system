@@ -38,10 +38,6 @@ class Hardware_assets extends CI_Controller
 
 		
 		$page['hardware_assets_value'] = $this->hardware_asset_model->get_total_value();
-
-
-		//$this->email_by_tech_refresher($hardware_assets);
-
 		$page['hardware_assets_pagination'] = $this->hardware_asset_model->pagination_links();
 		
 
@@ -261,7 +257,7 @@ class Hardware_assets extends CI_Controller
 			$audit_entry = array();
 
 			$audit_entry['aud_datetime'] = date('Y-m-d H:i:s');
-			$audit_entry['aud_status'] = "stockroom";
+			$audit_entry['aud_status'] = $hardware_asset['har_status'];
 			$audit_entry['aud_comment'] = "Hardware added to the system";
 			$audit_entry['aud_har'] = $hardware_asset['har_barcode'];
 			$audit_entry['aud_per'] = null;
@@ -272,27 +268,6 @@ class Hardware_assets extends CI_Controller
 
 
 			$audit_field_list = array('aud_id', 'aud_datetime', 'aud_status', 'aud_comment', 'aud_har', 'aud_per', 'aud_confirm', 'aud_untag', 'aud_date_untagged');
-
-	
-
-			// Call run method from Form_validation to check
-			// if($this->form_validation->run() !== false)
-			// {
-			// 	$this->hardware_asset_model->create($hardware_asset, $this->hardware_asset_model->get_fields());
-			// 	$this->audit_entry_model->create($audit_entry, $audit_field_list);
-
-			// 	//$this->template->notification("New hardware asset created. <a class='label label-success' href=".site_url('admin/hardware_assets/create').">Add More Asset</a>", 'success');
-			// 	$this->template->notification("Hardware asset ".$hardware_asset['har_barcode']." created. <br><a class='label label-primary' href=".site_url('admin/hardware_assets').">Back to Asset List</a> <a class='label label-success' href=".site_url('admin/hardware_assets/view/')."/".$hardware_asset['har_barcode'].">View Asset</a>", 'success');
-			// 	//redirect('admin/hardware_assets');
-			// 	//redirect('admin/hardware_assets/view/' . $hardware_asset['har_barcode']);
-			// 	redirect('admin/hardware_assets/create');
-			// }
-			// else
-			// {
-			// 	// To display validation errors caught by the Form_validation, you should have the code below.
-			// 	$this->template->notification(validation_errors(), 'danger');
-			// 	redirect('admin/hardware_assets/create');
-			// }
 
 			if($this->form_validation->run() !== false && $this->hardware_asset_model->check_conflict($hardware_asset) == 0)
 			{
@@ -350,21 +325,21 @@ class Hardware_assets extends CI_Controller
 		{
 			$hardware_asset = $this->extract->post();
 
-			// $hardware_asset['har_barcode'] = $this->hardware_asset_model->generate_barcode($hardware_asset['har_asset_type'],$hardware_asset['har_asset_number'],$hardware_asset['har_date_purchase']);
+			$hardware_asset['har_barcode'] = $this->hardware_asset_model->generate_barcode($hardware_asset['har_asset_type'],$hardware_asset['har_asset_number'],$hardware_asset['har_date_purchase']);
 
-			// $hardware_asset['har_tech_refresher'] = $this->hardware_asset_model->get_tech_refresher_date($hardware_asset['har_asset_type'],$hardware_asset['har_date_purchase']);
+			$hardware_asset['har_tech_refresher'] = $this->hardware_asset_model->get_tech_refresher_date($hardware_asset['har_asset_type'],$hardware_asset['har_date_purchase']);
 
-			// $tech_year = $this->hardware_asset_model->get_tech_refresher_year($hardware_asset['har_asset_type']);
+			$tech_year = $this->hardware_asset_model->get_tech_refresher_year($hardware_asset['har_asset_type']);
 
-			// $you = $this->hardware_asset_model->get_you($hardware_asset['har_date_purchase']);
+			$you = $this->hardware_asset_model->get_you($hardware_asset['har_date_purchase']);
 		
-			// $hardware_asset['har_book_value'] = $this->hardware_asset_model-> get_book_value($hardware_asset['har_cost'], $tech_year, $you);
+			$hardware_asset['har_book_value'] = $this->hardware_asset_model-> get_book_value($hardware_asset['har_cost'], $tech_year, $you);
 
-			// $hardware_asset['har_predetermined_value']  = $this->hardware_asset_model->get_market_value($hardware_asset['har_tech_refresher'],$hardware_asset['har_cost']);
+			$hardware_asset['har_predetermined_value']  = $this->hardware_asset_model->get_market_value($hardware_asset['har_tech_refresher'],$hardware_asset['har_cost']);
 
-			// $hardware_asset['har_asset_value'] = $this->hardware_asset_model->get_asset_value($hardware_asset['har_book_value'], $hardware_asset['har_predetermined_value']);
+			$hardware_asset['har_asset_value'] = $this->hardware_asset_model->get_asset_value($hardware_asset['har_book_value'], $hardware_asset['har_predetermined_value']);
 
-			// $hardware_asset['har_last_update'] = date('Y-m-d H:i:s');
+			$hardware_asset['har_last_update'] = date('Y-m-d H:i:s');
 			
 			if($this->form_validation->run() !== false)
 			{
@@ -407,19 +382,15 @@ class Hardware_assets extends CI_Controller
 		$audit_entry = array();
 
 		$page['specific'] = "";
-
 		$page['current_date'] = date('Y-m-d');
 
 		$page['hardware_asset'] = $this->hardware_asset_model->get_one($hardware_asset_id);
-
 		$hardware_asset = $page['hardware_asset'];
 
 		$page['hardware_remaining']  = $this->hardware_asset_model->get_remaining_years($hardware_asset->har_tech_refresher);
-
+		
 		$audit_entries =  $this->audit_entry_model->get_by_hardware($hardware_asset_id);
-
-
-		$page['audit_entries'] = $audit_entries;		
+		$page['audit_entries'] = $audit_entries;	
 
 		$employees =  $this->employee_model->get_all();
 		$page['employees'] = $employees;
@@ -427,11 +398,9 @@ class Hardware_assets extends CI_Controller
 		$field_list = array('aud_id', 'aud_datetime', 'aud_status', 'aud_comment', 'aud_har', 'aud_per', 'aud_confirm', 'aud_untag', 'aud_date_untagged');
 
 		$hardware_update = array();
-		$hardware_update_fields = array('har_barcode', 'har_status');
+		$hardware_update_fields = array('har_barcode', 'har_status', 'har_last_update');
 		$hardware_update['har_barcode'] = $hardware_asset_id;
 
-
-		//$current_audit_entry = $this->audit_entry_model->get_current_by_hardware($hardware_asset_id);
 
 		$current_audit_entry = $this->audit_entry_model->get_by_hardware($hardware_asset_id)->first_row();
 
@@ -443,10 +412,8 @@ class Hardware_assets extends CI_Controller
 			$this->template->notification('Hardware asset was not found.', 'danger');
 			redirect('admin/hardware_assets');
 		}
-
-
 			
-			$audit_entry['aud_datetime'] = date('Y-m-d H:i:s');
+		$audit_entry['aud_datetime'] = date('Y-m-d H:i:s');
 
 			
 		if($this->input->post('tag_barcode_status'))
@@ -455,33 +422,18 @@ class Hardware_assets extends CI_Controller
 			if($this->input->post('tag_barcode_status')==$hardware_asset_id)
 			{
 
-				// if($current_audit_entry->aud_status=='active'):
-
-				//  	$this->auto_untag($current_audit_entry);				
-				// endif;
 
 				$audit_entry['aud_status'] = $this->input->post('aud_status');
 
-				// if ($audit_entry['aud_status'] == "") 
-				// {
-				// 	$audit_entry['aud_status'] = $current_audit_entry->aud_status;
-				// }
-				// else 
+
 				if ($current_audit_entry == "active") 
 				{
 					$this->auto_untag($current_audit_entry);
 				}
 
-				// if ($audit_entry['aud_status'] == "" && ) 
-				// {
-				// 	$audit_entry['aud_status'] = "active";
-				// }
-				// else if ($audit_entry['aud_status'] != "") 
-				// {
-				// 	$this->auto_untag($current_audit_entry);
-				// }
 
 				$hardware_update['har_status'] = $audit_entry['aud_status'];
+				$hardware_update['har_last_update'] = date('Y-m-d H:i:s');
 
 				if($this->input->post('aud_comment')):
 					$audit_entry['aud_comment'] = $this->input->post("aud_comment");
@@ -504,7 +456,7 @@ class Hardware_assets extends CI_Controller
 				$this->audit_entry_model->create($audit_entry, $field_list);
 				$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);
 
-				$this->template->notification('New audit entry created.', 'success');
+				$this->template->notification("New audit entry created. <a class='label label-success' href=".site_url('admin/hardware_assets').">Back to Asset List</a>", 'success');
 				redirect('admin/hardware_assets/view/' . $hardware_asset_id);
 		
 				$this->template->autofill($audit_entry);
@@ -522,33 +474,13 @@ class Hardware_assets extends CI_Controller
 
 		if($this->input->post('add_remarks_button'))
 		{
-			// if($current_audit_entry->aud_status=='active'):
 
-			//  	$this->auto_untag($current_audit_entry);				
-			// endif;
 
 			$audit_entry['aud_status'] = "active";
 
-			// if ($audit_entry['aud_status'] == "") 
-			// {
-			// 	$audit_entry['aud_status'] = $current_audit_entry->aud_status;
-			// }
-			// else 
-			// if ($current_audit_entry == "active") 
-			// {
-			// 	$this->auto_untag($current_audit_entry);
-			// }
-
-			// if ($audit_entry['aud_status'] == "" && ) 
-			// {
-			// 	$audit_entry['aud_status'] = "active";
-			// }
-			// else if ($audit_entry['aud_status'] != "") 
-			// {
-			// 	$this->auto_untag($current_audit_entry);
-			// }
 
 			$hardware_update['har_status'] = $audit_entry['aud_status'];
+			$hardware_update['har_last_update'] = date('Y-m-d H:i:s');
 
 			if($this->input->post('aud_comment')):
 				$audit_entry['aud_comment'] = $this->input->post("aud_comment");
@@ -571,7 +503,7 @@ class Hardware_assets extends CI_Controller
 			$this->audit_entry_model->create($audit_entry, $field_list);
 			$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);
 
-			$this->template->notification('New audit entry created.', 'success');
+			$this->template->notification("New audit entry created. <a class='label label-success' href=".site_url('admin/hardware_assets').">Back to Asset List</a>", 'success');
 
 			redirect('admin/hardware_assets/view/' . $hardware_asset_id);
 	
@@ -591,6 +523,7 @@ class Hardware_assets extends CI_Controller
 				{
 					$audit_entry['aud_status'] = 'active';	
 					$hardware_update['har_status'] = $audit_entry['aud_status'];
+					$hardware_update['har_last_update'] = date('Y-m-d H:i:s');
 
 					if($this->input->post('aud_comment')):
 						$audit_entry['aud_comment'] = $this->input->post("aud_comment");
@@ -613,10 +546,9 @@ class Hardware_assets extends CI_Controller
 
 					//$this->email_employee($employee, $hardware_asset);
 
-
 					//END EMAIL
 
-					$this->template->notification('New audit entry created.', 'success');
+					$this->template->notification("New audit entry created. <a class='label label-success' href=".site_url('admin/hardware_assets').">Back to Asset List</a>", 'success');
 					redirect('admin/hardware_assets/view/' . $hardware_asset_id);
 		
 					$this->template->autofill($audit_entry);
@@ -639,20 +571,7 @@ class Hardware_assets extends CI_Controller
 
 			}
 
-
-
-			//$current_audit_entry = $this->audit_entry_model->get_by_hardware($hardware_asset_id)->first_row();
-
 		}
-
-			// var_dump($audit_entry);
-			// var_dump($field_list);
-			// die();	
-			
-
-
-			
-		
 
 
 		if($this->input->post('untag_barcode'))
@@ -665,10 +584,16 @@ class Hardware_assets extends CI_Controller
 
 				$new_status = $this->input->post('aud_status');	
 				$this->untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status);
+				$hardware_update['har_id'] = $hardware_asset_id;
+				$hardware_update['har_status'] = $new_status;
+				$hardware_update['har_last_update'] = date('Y-m-d H:i:s');
+
+				$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);	
 				$current_audit_entry = $this->audit_entry_model->get_by_hardware($hardware_asset_id)->first_row();
 				$page['current_audit_entry'] = $current_audit_entry;
+				
 
-				$this->template->notification('Asset is now untagged.', 'success');
+				$this->template->notification("Asset is now untagged. <a class='label label-success' href=".site_url('admin/hardware_assets').">Back to Asset List</a>", 'success');
 				//redirect($this->uri->uri_string());
 				redirect('admin/hardware_assets/view/' . $hardware_asset_id);
 				$this->template->autofill($audit_entry);
@@ -701,29 +626,12 @@ class Hardware_assets extends CI_Controller
 
 			if ( ! $this->upload->do_upload("aud_confirm"))
 			{
-				//$error = array('error' => $this->upload->display_errors());
-
 				$this->template->notification($this->upload->display_errors(), 'danger');
 			}
 			else
 			{
 
 		
-			// 'file_name'			=> $this->file_name,
-			// 'file_type'			=> $this->file_type,
-			// 'file_path'			=> $this->upload_path,
-			// 'full_path'			=> $this->upload_path.$this->file_name,
-			// 'raw_name'			=> str_replace($this->file_ext, '', $this->file_name),
-			// 'orig_name'			=> $this->orig_name,
-			// 'client_name'		=> $this->client_name,
-			// 'file_ext'			=> $this->file_ext,
-			// 'file_size'			=> $this->file_size,
-			// 'is_image'			=> $this->is_image(),
-			// 'image_width'		=> $this->image_width,
-			// 'image_height'		=> $this->image_height,
-			// 'image_type'		=> $this->image_type,
-			// 'image_size_str'	=> $this->image_size_str,
-					
 
 				$data =  $this->upload->data();
 
@@ -795,14 +703,17 @@ class Hardware_assets extends CI_Controller
 	private function untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status)
 	{
 		$audit_entry = array();
-		$hardware_update = array();
-		$hardware_update_fields = array('har_id', 'har_status');
-		$hardware_update['har_id'] = $hardware_asset_id;
+
+		// $hardware_update = array();
+		// $hardware_update_fields = array('har_id', 'har_status', 'har_last_update');
+		
+		// $hardware_update['har_id'] = $hardware_asset_id;
+		// $hardware_update['har_status'] = $new_status;
+		// $hardware_update['har_last_update'] = date('Y-m-d H:i:s');
 
 		$audit_entry['aud_datetime'] = date('Y-m-d H:i:s');
 		$audit_entry['aud_status'] = $new_status;
-		$hardware_update['har_status'] = $audit_entry['aud_status'];
-
+		
 		$name = $current_audit_entry->emp_first_name." ".$current_audit_entry->emp_last_name;
 			
 		$audit_entry['aud_comment'] = 'Untagged from '.$name;	
@@ -811,7 +722,7 @@ class Hardware_assets extends CI_Controller
 		$audit_entry['aud_per'] = null;
 
 		$this->audit_entry_model->create($audit_entry, $field_list);
-		$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);			
+		//$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);			
 
 	}
 
@@ -820,7 +731,6 @@ class Hardware_assets extends CI_Controller
 		$audit_update = array();
 		$audit_update_fields = array('aud_id', 'aud_untag', 'aud_date_untagged');
 
-		//print_r($current_audit_entry->aud_id); die();
 
 		$audit_update['aud_id'] = $current_audit_entry->aud_id;
 		$audit_update['aud_untag'] = TRUE;

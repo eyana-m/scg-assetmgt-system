@@ -204,11 +204,15 @@ class Employees extends CI_Controller
 				$new_status = $this->input->post("aud_status");	
 
 				$this->untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status);
+				$hardware_update['har_id'] = $hardware_asset_id;
+				$hardware_update['har_status'] = $new_status;
+				$hardware_update['har_last_update'] = date('Y-m-d H:i:s');
 
+				$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);	
 				$page['current_audit_entry']= $this->audit_entry_model->get_by_employee($employee_id)->first_row();
 				$current_audit_entry = $page['current_audit_entry'];
 
-				$this->template->notification('Asset is now untagged.', 'success');
+				$this->template->notification("Asset is now untagged. <a class='label label-success' href=".site_url('admin/hardware_assets').">Back to Asset List</a>", 'success');
 				//redirect($this->uri->uri_string());
 				redirect('admin/employees/view/' . $employee_id);
 				$this->template->autofill($audit_entry);
@@ -240,9 +244,9 @@ class Employees extends CI_Controller
 	private function untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status)
 	{
 		$audit_entry = array();
-		$hardware_update = array();
-		$hardware_update_fields = array('har_id', 'har_status');
-		$hardware_update['har_id'] = $hardware_asset_id;
+		// $hardware_update = array();
+		// $hardware_update_fields = array('har_id', 'har_status');
+		// $hardware_update['har_id'] = $hardware_asset_id;
 
 		$audit_entry['aud_datetime'] = date('Y-m-d H:i:s');
 		$audit_entry['aud_status'] = $new_status;
@@ -256,7 +260,7 @@ class Employees extends CI_Controller
 		$audit_entry['aud_per'] = null;
 
 		$this->audit_entry_model->create($audit_entry, $field_list);
-		$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);			
+		// $this->hardware_asset_model->update($hardware_update, $hardware_update_fields);			
 
 	}
 
