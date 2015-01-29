@@ -7,7 +7,7 @@ class Accounts extends CI_Controller
 	{
 		parent::__construct();
 	
-		$this->access_control->account_type('dev', 'admin');
+		$this->access_control->account_type('dev', 'admin', 'user');
 		$this->access_control->validate();
 		
 		$this->load->model('account_model');

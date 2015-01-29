@@ -10,7 +10,6 @@ if($accounts->num_rows())
 		<table class="table-list table-striped table-bordered">
 			<thead>
 				<tr>
-					<th></th>
 					<th>Email</th>
 					<th style="width: 250px;">Name</th>
 					<th style="width: 100px;">Account Type</th>
@@ -23,7 +22,6 @@ if($accounts->num_rows())
 		{
 			?>
 			<tr>
-				<td class="center"><input type="checkbox" name="acc_ids[]" value="<?php echo $account->acc_id; ?>" /></td>		
 				<td><a href="<?php echo site_url('admin/accounts/view/' . $account->acc_id); ?>"><?php echo $account->acc_username; ?></a></td>
 				<td><?php echo $account->acc_first_name . ' ' . $account->acc_last_name; ?></td>		
 				<td><?php echo $account->acc_type; ?></td>		

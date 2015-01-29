@@ -423,7 +423,7 @@ class Employees extends CI_Controller
 		$this->load->dbutil();
 
 		
-		$audit_entries =  $this->audit_entry_model->get_by_employee($data["employee"]);
+		$audit_entries =  $this->audit_entry_model->get_by_employee_labels($data["employee"]);
 
 
 		$page['audit_entries'] = $audit_entries;

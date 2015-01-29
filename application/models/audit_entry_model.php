@@ -34,8 +34,10 @@ class Audit_entry_model extends Base_model
 		return parent::get_all($params);
 	}
 
-	public function get_by_employee($emp_id)
+	
+	public function get_by_employee_labels($emp_id)
 	{
+		$this->db->select('aud_id AS `Audit Entry ID`, aud_datetime AS `Date and Time`, aud_status AS `Status`, aud_comment AS `Remark`,  aud_confirm AS `Confirmed`, aud_har AS `Asset Barcode`, har_model AS `Model`, har_asset_type AS `Asset Type`');
 		$this->db->join('hardware_asset', "hardware_asset.har_barcode= {$this->table}.aud_har");				
 		$this->db->join('employee', "employee.emp_id = {$this->table}.aud_per", 'Right');
 		$this->db->where('aud_per', $emp_id);
@@ -46,6 +48,21 @@ class Audit_entry_model extends Base_model
 
 		return $query;
 	}
+
+	public function get_by_employee($emp_id)
+	{
+
+		$this->db->join('hardware_asset', "hardware_asset.har_barcode= {$this->table}.aud_har");				
+		$this->db->join('employee', "employee.emp_id = {$this->table}.aud_per", 'Right');
+		$this->db->where('aud_per', $emp_id);
+		$this->db->where('aud_untag', FALSE);	
+		$this->db->order_by("aud_id","desc");
+		$query = $this->db->get($this->table); // Use $this->table to get the table name
+
+
+		return $query;
+	}
+
 
 
 	public function get_by_hardware($har_barcode)
