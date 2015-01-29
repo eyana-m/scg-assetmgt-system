@@ -76,7 +76,7 @@ class Employees extends CI_Controller
 	public function create()
 	{
 
-		if($this->access_control->account_type('admin')) 
+		if($this->access_control->check_account_type('admin')) 
 		{
 			$this->template->title('Create Employee');
 
@@ -133,7 +133,7 @@ class Employees extends CI_Controller
 	public function edit($emp_id)
 	{
 
-		if($this->access_control->account_type('admin')) 
+		if($this->access_control->check_account_type('admin')) 
 		{
 
 			$this->template->title('Edit Employee '.$emp_id);
@@ -211,7 +211,7 @@ class Employees extends CI_Controller
 		if($this->input->post('untag_barcode'))
 		{
 
-			if($this->access_control->account_type('admin'))
+			if($this->access_control->check_account_type('admin'))
 			{
 				$hardware_asset_id = $current_audit_entry->aud_har;
 

@@ -78,7 +78,7 @@ if($hardware_assets->num_rows())
 	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
 
-	<?php if($this->access_control->account_type('admin')): ?>
+	<?php if($this->access_control->check_account_type('admin')): ?>
 		<div class="panel panel-danger panel-personnel generate-report" style="margin-left: 0;">
 		    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="text-decoration: none;">
 				<div class="panel-heading" role="tab" id="headingOne" style="text-decoration: none;">

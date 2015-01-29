@@ -43,7 +43,7 @@ class Hardware_assets extends CI_Controller
 	
 		if($this->input->post('form_mode'))
 		{
-			if($this->access_control->account_type('admin')) 
+			if($this->access_control->check_account_type('admin')) 
 			{
 				$report_type = $this->extract->post();
 				switch ($report_type["report-type"]) {
@@ -218,7 +218,7 @@ class Hardware_assets extends CI_Controller
 	public function create()
 	{
 
-		if($this->access_control->account_type('admin')) 
+		if($this->access_control->check_account_type('admin')) 
 		{	
 			$this->template->title('Create Hardware Asset');		
 			$this->form_validation->set_rules('har_asset_number', 'Asset Number', 'trim|required|max_length[15]', 'add_asset');
@@ -313,7 +313,7 @@ class Hardware_assets extends CI_Controller
 	public function edit($har_barcode)
 	{
 
-		if($this->access_control->account_type('admin')) 
+		if($this->access_control->check_account_type('admin')) 
 		{			
 			$this->template->title('Edit Asset: '.$har_barcode);
 			//$this->form_validation->set_rules('har_asset_number', 'Asset Number', 'trim|required|integer|max_length[15]');
@@ -434,7 +434,7 @@ class Hardware_assets extends CI_Controller
 			
 		if($this->input->post('tag_barcode_status'))
 		{
-			if($this->access_control->account_type('admin')) 
+			if($this->access_control->check_account_type('admin')) 
 			{
 				if($this->input->post('tag_barcode_status')==$hardware_asset_id)
 				{
@@ -492,7 +492,7 @@ class Hardware_assets extends CI_Controller
 		if($this->input->post('add_remarks_button'))
 		{
 
-			if($this->access_control->account_type('admin')) 
+			if($this->access_control->check_account_type('admin')) 
 			{
 				$audit_entry['aud_status'] = "active";
 
@@ -533,7 +533,7 @@ class Hardware_assets extends CI_Controller
 		if($this->input->post("tag_barcode"))
 		{
 
-			if($this->access_control->account_type('admin')) 
+			if($this->access_control->check_account_type('admin')) 
 			{
 				if($this->input->post('tag_barcode')==$hardware_asset_id)
 				{
@@ -599,7 +599,7 @@ class Hardware_assets extends CI_Controller
 		if($this->input->post('untag_barcode'))
 		{
 
-			if($this->access_control->account_type('admin')) 
+			if($this->access_control->check_account_type('admin')) 
 			{
 				if($this->input->post('untag_barcode')==$hardware_asset_id)
 				{
@@ -638,7 +638,7 @@ class Hardware_assets extends CI_Controller
 		if($this->input->post('confirm'))
 		{
 
-			if($this->access_control->account_type('admin')) 
+			if($this->access_control->check_account_type('admin')) 
 			{
 				$config =  array(
 		              'upload_path'     => dirname($_SERVER["SCRIPT_FILENAME"])."/uploads/confirmation",

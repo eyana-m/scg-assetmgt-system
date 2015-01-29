@@ -63,7 +63,7 @@
 					<?php if ($audit_entry->aud_confirm != null):  ?>
 
 
-						<?php if($this->access_control->account_type('admin')): ?>						
+						<?php if($this->access_control->check_account_type('admin')): ?>						
 							<a href="<?php echo site_url('admin/audit_entries/view/' . $audit_entry->aud_id); ?>"  role="button" class="label label-info" style="font-size:10px">Acknowledged</a>
 						<?php else: ?>
 							<span class="label label-info" style="font-size:10px">Acknowledged</span>
@@ -73,7 +73,7 @@
 
 					<?php else: ?>
 
-						<?php if($this->access_control->account_type('admin')): ?>
+						<?php if($this->access_control->check_account_type('admin')): ?>
 							<a href="<?php echo site_url('admin/audit_entries/view/' . $audit_entry->aud_id); ?>"  role="button" class="label label-danger" style="font-size:10px">Not yet</a>
 						<?php else: ?>
 							<span class="label label-danger" style="font-size:10px">Not yet</span>
@@ -177,7 +177,7 @@
 							<strong><a href="<?php echo site_url('admin/employees/view/' . $current_audit_entry->emp_id); ?>"><?php echo $current_audit_entry->emp_first_name; ?> <?php echo $current_audit_entry->emp_last_name; ?></a>
 							</strong>
 
-						<?php if($this->access_control->account_type('admin')): ?>
+						<?php if($this->access_control->check_account_type('admin')): ?>
 
 							<?php if(($current_audit_entry->aud_status=='active')):?>
 								<a href="#untag" style="text-decoration: none" role="button" data-toggle="modal" data-dismiss = "modal"><small>(untag)</small></a>
@@ -221,7 +221,7 @@
 
 
 
-			<?php if($this->access_control->account_type('admin')): ?>
+			<?php if($this->access_control->check_account_type('admin')): ?>
 				<div class="panel-footer">
 
 					<a href="<?php echo site_url('admin/hardware_assets/edit/' . $hardware_asset->har_barcode); ?>" class="btn btn-small btn-default" style="font-size:12px">Update Details</a>
@@ -255,7 +255,7 @@
 			</div>
 		</div>
 
-	<?php if($this->access_control->account_type('admin')): ?>	
+	<?php if($this->access_control->check_account_type('admin')): ?>	
 		<div class="panel panel-default panel-personnel " style="margin-left: 0">
 			<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="text-decoration: none">
 				<?php if ($current_audit_entry->aud_status == 'active') : ?>	
@@ -327,7 +327,7 @@
 	<?php endif; ?>
 
 
-	<?php if($this->access_control->account_type('admin')): ?>	
+	<?php if($this->access_control->check_account_type('admin')): ?>	
 		<?php if ($audit_entries->num_rows()): ?>
 
 				<?php if(($current_audit_entry->aud_status=='disposed') || ($current_audit_entry->aud_status=='active')):   ?>
@@ -469,7 +469,7 @@
 		</div>
 	<!---ASSET INFORMATION-->
 	
-	<?php if($this->access_control->account_type('admin')): ?>	
+	<?php if($this->access_control->check_account_type('admin')): ?>	
 		<div class="panel panel-default panel-personnel " style="margin-left: 0">
 			<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive" style="text-decoration: none">
 				<div class="panel-heading" id="headingFive">				

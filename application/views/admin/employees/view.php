@@ -11,7 +11,7 @@
 			<th>Status</th>
 			<th>Remarks</th>
 			<th>Date Assigned</th>
-			<?php if($this->access_control->account_type('admin')):  ?>
+			<?php if($this->access_control->check_account_type('admin')):  ?>
 				<th>Actions</th>
 			<?php endif; ?>
 		</thead>
@@ -57,7 +57,7 @@
 				?>
 
 
-			<?php if($this->access_control->account_type('admin')):  ?>	
+			<?php if($this->access_control->check_account_type('admin')):  ?>	
 				<td>
 				<a href="#untag" class="label label-default" style="text-decoration: none" role="button" data-toggle="modal" data-dismiss = "modal">untag</a>
 				</td>
@@ -118,7 +118,7 @@
 
 		</div>
 
-	<?php if($this->access_control->account_type('admin')):  ?>
+	<?php if($this->access_control->check_account_type('admin')):  ?>
 		<div class="panel-footer">
 			<a href="<?php echo site_url('admin/employees/edit/' . $employee->emp_id); ?>" class="btn btn-default btn-small" style="font-size:12px">Edit Employee Details</a>
 			<form  method="post" class="pull-right" action="<?php echo site_url("admin/employees/audit_entries_csv"); ?>"  name="audit_entries_csv" id="audit_entries_csv">
