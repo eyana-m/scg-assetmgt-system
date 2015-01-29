@@ -37,7 +37,7 @@ class Audit_entry_model extends Base_model
 	
 	public function get_by_employee_labels($emp_id)
 	{
-		$this->db->select('aud_id AS `Audit Entry ID`, aud_datetime AS `Date and Time`, aud_status AS `Status`, aud_comment AS `Remark`,  aud_confirm AS `Confirmed`, aud_har AS `Asset Barcode`, har_model AS `Model`, har_asset_type AS `Asset Type`');
+		$this->db->select('aud_per AS `Employee ID`, CONCAT(emp_last_name, ", ", emp_first_name, " ", emp_middle_name) AS `Employee Name`, emp_office AS `Office`, emp_department AS `Department`, emp_position AS `Position`, aud_har AS `Asset Barcode`, har_asset_type AS `Asset Type`, har_model AS `Model`, har_serial_number AS `Serial Number`', FALSE);	
 		$this->db->join('hardware_asset', "hardware_asset.har_barcode= {$this->table}.aud_har");				
 		$this->db->join('employee', "employee.emp_id = {$this->table}.aud_per", 'Right');
 		$this->db->where('aud_per', $emp_id);
@@ -74,7 +74,18 @@ class Audit_entry_model extends Base_model
 		$this->db->order_by("aud_id","desc");
 		$query = $this->db->get($this->table); // 
 		return $query;
+	}
 
+	public function get_by_hardware_labels($har_barcode)
+	{
+		$this->db->select('aud_datetime AS `Date and Time`, aud_status AS `Status`, aud_comment AS `Remarks`, aud_har AS `Asset Barcode`, har_asset_type AS `Asset Type`, har_model AS `Model`, har_serial_number AS `Serial Number`, aud_per AS `Employee ID`, CONCAT(emp_last_name, ", ", emp_first_name, " ", emp_middle_name) AS `Employee Name`, emp_office AS `Office`, emp_department AS `Department`, emp_position AS `Position`, aud_date_untagged AS `Date Untagged`', FALSE);	
+		$this->db->join('hardware_asset', "hardware_asset.har_barcode = {$this->table}.aud_har");				
+		$this->db->join('employee', "employee.emp_id = {$this->table}.aud_per", "left outer");
+		$this->db->where('aud_har', $har_barcode);	
+		//$this->db->where('aud_per', null);
+		$this->db->order_by("aud_id","desc");
+		$query = $this->db->get($this->table); // 
+		return $query;
 	}
 
 	public function get_current_by_hardware($har_barcode)

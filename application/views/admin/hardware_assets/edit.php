@@ -1,5 +1,5 @@
 <div class="col-md-12" style="margin-bottom: 2em">
-	<a href="<?php echo site_url('admin/hardware_assets'); ?>" class="btn btn-info">Back to Assets Page</a>	
+	<a href="<?php echo site_url('admin/hardware_assets/view/' . $hardware_asset->har_barcode); ?>" class="btn btn-info">Back to Assets Page</a>	
 </div>
 
 <form method="post">
@@ -29,6 +29,10 @@
 					<option value="Video Conference">Video Conference</option>
 				</select>
 			</td>
+		</tr>
+		<tr>
+			<th>Office</th>
+			<td><input type="text" name="har_office" class="form-control" size="11" maxlength="11" value="<?php echo $hardware_asset->har_office; ?>" disabled/></td>
 		</tr>
 		<tr>
 			<th>ERF Number</th>

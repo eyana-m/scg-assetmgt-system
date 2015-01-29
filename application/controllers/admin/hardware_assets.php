@@ -991,7 +991,7 @@ class Hardware_assets extends CI_Controller
 		$this->load->dbutil();
 
 		
-		$audit_entries =  $this->audit_entry_model->get_by_hardware($data["hardware_asset"]);
+		$audit_entries =  $this->audit_entry_model->get_by_hardware_labels($data["hardware_asset"]);
 
 
 		$page['audit_entries'] = $audit_entries;
