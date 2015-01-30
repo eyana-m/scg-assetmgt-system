@@ -636,7 +636,7 @@
 <div id = "untag" class = "modal fade">
 	<div class = "modal-dialog">
 		<div class = "modal-content">
-			<div class = "modal-header"><h3>Untag Employee</h3></div>
+			<div class = "modal-header"><center><h3>Untag Employee</h3></center></div>
 			<div class = "modal-body">
 				You're about to untag the following asset to the following employee:
 
@@ -696,11 +696,12 @@
 						<option value="for disposal">for disposal</option>
 						<option value="disposed">disposed</option>
 					</select>
-
+					<input id="aud_comment" class="form-control form-control-small" name="aud_comment" type="text" placeholder="Remark (e.g. 'Normal Condition')">
 					<input id="untag_barcode" class="form-control form-control-small" name="untag_barcode" type="text" placeholder="Scan code here to untag">
 
 				</form>
 			</div>
+		</div>
 			<div class = "modal-footer">
 				<button class ="btn btn-default no-border-radius" data-dismiss = "modal">Cancel</button>
 			</div>
