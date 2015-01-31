@@ -15,14 +15,19 @@ class Accounts extends CI_Controller
 	
 	public function index() 
 	{
-		$this->template->title('Accounts');
-		
-		if($this->input->post('form_mode'))
+
+
+		if($this->access_control->check_account_type('admin')  )
+
 		{
-			$form_mode = $this->input->post('form_mode');
+
+			$this->template->title('Accounts');
 			
-			if($form_mode === 'delete')
+			if($this->input->post('form_mode'))
 			{
+				$form_mode = $this->input->post('form_mode');
+				
+
 				$account_ids = $this->input->post('acc_ids');
 				if($account_ids !== false)
 				{
@@ -40,70 +45,87 @@ class Accounts extends CI_Controller
 					}
 					$this->template->notification('Selected accounts were deleted.', 'success');
 				}
+				
 			}
+			
+			$page = array();
+			$page['accounts'] = $this->account_model->pagination('admin/accounts/index/__PAGE__', 'get_all', array('acc_type !=' => 'dev'));
+			$page['accounts_pagination'] = $this->account_model->pagination_links();
+			
+			$this->template->content('accounts-index', $page);
+			//$this->template->content('menu-accounts', null, 'admin', 'page-nav');
+			$this->template->show();
+
 		}
-		
-		$page = array();
-		$page['accounts'] = $this->account_model->pagination('admin/accounts/index/__PAGE__', 'get_all', array('acc_type !=' => 'dev'));
-		$page['accounts_pagination'] = $this->account_model->pagination_links();
-		
-		$this->template->content('accounts-index', $page);
-		//$this->template->content('menu-accounts', null, 'admin', 'page-nav');
-		$this->template->show();
+
+		else 
+		{
+			redirect('admin/forbidden');
+		}
 	}
 	
 	public function create() 
 	{
-		$this->template->title('Create Account');
-		
-		// Use the set_rules from the Form_validation class for form validation.
-		// Already combined with jQuery. No extra coding required for JS validation.
-		// We get both JS and PHP validation which makes it both secure and user friendly.
-		// NOTE: Set the rules before you check if $_POST is set so that the jQuery validation will work.
-		$this->form_validation->set_rules('acc_username', 'Email', 'trim|required|valid_email|max_length[150]');
-		$this->form_validation->set_rules('acc_password', 'Password', 'required|min_length[6]');
-		$this->form_validation->set_rules('acc_password2', 'Retype Password', 'required|matches[acc_password]');
-		$this->form_validation->set_rules('acc_first_name', 'First Name', 'trim|required|max_length[60]');
-		$this->form_validation->set_rules('acc_last_name', 'Last Name', 'trim|required|max_length[30]');
-		$this->form_validation->set_rules('acc_type', 'Account Type', 'trim|required');
 
-		if($this->input->post('submit'))
+		if($this->access_control->check_account_type('admin')  )
 		{
-			// Extract all $_POST variables using the method post from Extract
-			$account = $this->extract->post();
 
-			// Call run method from Form_validation to check
-			if($this->form_validation->run() !== false)
+			$this->template->title('Create Account');
+			
+			// Use the set_rules from the Form_validation class for form validation.
+			// Already combined with jQuery. No extra coding required for JS validation.
+			// We get both JS and PHP validation which makes it both secure and user friendly.
+			// NOTE: Set the rules before you check if $_POST is set so that the jQuery validation will work.
+			$this->form_validation->set_rules('acc_username', 'Email', 'trim|required|valid_email|max_length[150]');
+			$this->form_validation->set_rules('acc_password', 'Password', 'required|min_length[6]');
+			$this->form_validation->set_rules('acc_password2', 'Retype Password', 'required|matches[acc_password]');
+			$this->form_validation->set_rules('acc_first_name', 'First Name', 'trim|required|max_length[60]');
+			$this->form_validation->set_rules('acc_last_name', 'Last Name', 'trim|required|max_length[30]');
+			$this->form_validation->set_rules('acc_type', 'Account Type', 'trim|required');
+
+			if($this->input->post('submit'))
 			{
-				$duplicateAccount = $this->account_model->get_by_username($account['acc_username']);
-				if($duplicateAccount === false)
+				// Extract all $_POST variables using the method post from Extract
+				$account = $this->extract->post();
+
+				// Call run method from Form_validation to check
+				if($this->form_validation->run() !== false)
 				{
-					// Encrypt password
-					$account['acc_password'] = md5($account['acc_password']);
-					$this->account_model->create($account, $this->form_validation->get_fields());
-					// Set a notification using notification method from Template.
-					// It is okay to redirect after and the notification will be displayed on the redirect page.
-					$this->template->notification('New account created.', 'success');
-					redirect('admin/accounts');
+					$duplicateAccount = $this->account_model->get_by_username($account['acc_username']);
+					if($duplicateAccount === false)
+					{
+						// Encrypt password
+						$account['acc_password'] = md5($account['acc_password']);
+						$this->account_model->create($account, $this->form_validation->get_fields());
+						// Set a notification using notification method from Template.
+						// It is okay to redirect after and the notification will be displayed on the redirect page.
+						$this->template->notification('New account created.', 'success');
+						redirect('admin/accounts');
+					}
+					else
+					{
+						$this->template->notification('Username already exists.', 'warning');
+					}
 				}
 				else
 				{
-					$this->template->notification('Username already exists.', 'warning');
+					// To display validation errors caught by the Form_validation, you should have the code below. 
+					$this->template->notification(validation_errors(), 'error');
 				}
-			}
-			else
-			{
-				// To display validation errors caught by the Form_validation, you should have the code below. 
-				$this->template->notification(validation_errors(), 'error');
-			}
 
-			unset($account['acc_password']);
-			unset($account['acc_password2']);
-			$this->template->autofill($account);
+				unset($account['acc_password']);
+				unset($account['acc_password2']);
+				$this->template->autofill($account);
+			}
+			
+			$this->template->content('accounts-create');
+			$this->template->show();
 		}
-		
-		$this->template->content('accounts-create');
-		$this->template->show();
+
+		else 
+		{
+			redirect('admin/forbidden');
+		}
 	}
 	
 	public function view($id = 0)
