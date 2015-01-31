@@ -3,7 +3,7 @@
 
 	<div class="panel panel-success panel-personnel" style="margin-left: 0">
 			
-			<a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour" style="text-decoration: none;">
+			<a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour" style="text-decoration: none;">
 				<div class="panel-heading" id="headingFour">
 				Asset Information
 				</div>

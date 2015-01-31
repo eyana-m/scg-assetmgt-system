@@ -7,7 +7,6 @@ if($hardware_assets->num_rows())
 	?>
 
 	<div class="manage-assets">
-
 		<table class="table-list table-striped table-bordered">
 		<form method="post" id="report-type" name="form_mode">
 			<thead>
@@ -283,6 +282,115 @@ if($hardware_assets->num_rows())
 
 	jQuery(function($) {
 
+		//KEN EXPERIMENT SIMULTANEOUS SEARCH
+		$( "input:text[name=har_model]" )
+		  .keyup(function(e) {
+			e.preventDefault(); 
+			
+			var har_office = $( 'select[name=har_office]').val();
+
+			var har_model = $( 'input:text[name=har_model]').val();
+
+			var har_asset_number = $( 'input:text[name=har_asset_number]').val();
+
+			//var har_asset_type = $( 'select[name=har_asset_type]').val();
+			var har_asset_type = $( 'select[name=har_asset_type]').val();
+			var har_status = $( 'select[name=har_status]').val();
+			var har_date_added = $( 'select[name=har_date_added]').val();
+
+			ajax_call(har_office, har_model, har_asset_number, har_asset_type, har_status, har_date_added);
+			
+		  })
+
+		  $( "input:text[name=har_asset_number]" )
+		  .keyup(function(e) {
+			e.preventDefault(); 
+			
+			var har_office = $( 'select[name=har_office]').val();
+
+			var har_model = $( 'input:text[name=har_model]').val();
+
+			var har_asset_number = $( 'input:text[name=har_asset_number]').val();
+
+			//var har_asset_type = $( 'select[name=har_asset_type]').val();
+			var har_asset_type = $( 'select[name=har_asset_type]').val();
+			var har_status = $( 'select[name=har_status]').val();
+			var har_date_added = $( 'select[name=har_date_added]').val();
+
+			ajax_call(har_office, har_model, har_asset_number, har_asset_type, har_status, har_date_added);
+			
+		  })
+
+		  $('select[name=har_asset_type]').change(function(e){
+    		e.preventDefault(); 
+			
+			var har_office = $( 'select[name=har_office]').val();
+
+			var har_model = $( 'input:text[name=har_model]').val();
+
+			var har_asset_number = $( 'input:text[name=har_asset_number]').val();
+
+			//var har_asset_type = $( 'select[name=har_asset_type]').val();
+			var har_asset_type = $( 'select[name=har_asset_type]').val();
+			var har_status = $( 'select[name=har_status]').val();
+			var har_date_added = $( 'select[name=har_date_added]').val();
+
+			ajax_call(har_office, har_model, har_asset_number, har_asset_type, har_status, har_date_added);
+  			});
+
+		  $('select[name=har_office]').change(function(e){
+    		e.preventDefault(); 
+			
+			var har_office = $( 'select[name=har_office]').val();
+
+			var har_model = $( 'input:text[name=har_model]').val();
+
+			var har_asset_number = $( 'input:text[name=har_asset_number]').val();
+
+			//var har_asset_type = $( 'select[name=har_asset_type]').val();
+			var har_asset_type = $( 'select[name=har_asset_type]').val();
+			var har_status = $( 'select[name=har_status]').val();
+			var har_date_added = $( 'select[name=har_date_added]').val();
+
+			ajax_call(har_office, har_model, har_asset_number, har_asset_type, har_status, har_date_added);
+  			});
+
+		  $('select[name=har_status]').change(function(e){
+    		e.preventDefault(); 
+			
+			var har_office = $( 'select[name=har_office]').val();
+
+			var har_model = $( 'input:text[name=har_model]').val();
+
+			var har_asset_number = $( 'input:text[name=har_asset_number]').val();
+
+			//var har_asset_type = $( 'select[name=har_asset_type]').val();
+			var har_asset_type = $( 'select[name=har_asset_type]').val();
+			var har_status = $( 'select[name=har_status]').val();
+			var har_date_added = $( 'select[name=har_date_added]').val();
+
+			ajax_call(har_office, har_model, har_asset_number, har_asset_type, har_status, har_date_added);
+  			});
+
+		  $('select[name=har_date_added]').change(function(e){
+    		e.preventDefault(); 
+			
+			var har_office = $( 'select[name=har_office]').val();
+
+			var har_model = $( 'input:text[name=har_model]').val();
+
+			var har_asset_number = $( 'input:text[name=har_asset_number]').val();
+
+			//var har_asset_type = $( 'select[name=har_asset_type]').val();
+			var har_asset_type = $( 'select[name=har_asset_type]').val();
+			var har_status = $( 'select[name=har_status]').val();
+			var har_date_added = $( 'select[name=har_date_added]').val();
+
+			ajax_call(har_office, har_model, har_asset_number, har_asset_type, har_status, har_date_added);
+  			});
+		  //END KEN EXPERIMENT
+
+
 		$('form[name="filter_search"]').submit(function(e){
 			e.preventDefault(); 
 			
@@ -313,16 +421,13 @@ if($hardware_assets->num_rows())
 			});
 			 
 			request.done(function( msg ) {
-				$(".manage-assets").fadeOut(800, function(){
-                     $(".manage-assets").html(msg).fadeIn().delay(1500);    
+				$(".manage-assets").fadeOut(0, function(){
+                     $(".manage-assets").html(msg).fadeIn().delay(0);    
                      // $(".salvagevalue").hide();  
                      // $(".asset-replacement").hide(); 
                      // $(".asset-recentlyadded").hide();   
                      // $(".asset-status").hide();   
                     	$(".generate-report").hide(); 
-
-
-                     
                              
                 });
 			

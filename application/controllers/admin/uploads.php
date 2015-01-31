@@ -131,7 +131,7 @@ class Uploads extends CI_Controller {
 						else if ($date_error_count == 1) {
 							$date_error = " " . $date_error_count . " asset was not imported due to date formatting.";
 						}
-						$this->template->notification("No assets were added. " . $j . " asset was already found in the database.". $date_error, 'success');
+						$this->template->notification("No assets were added. " . $j . " asset was already found in the database.". $date_error, 'danger');
 					}
 					else if ($j == 0) {
 						$date_error = "";
@@ -141,7 +141,7 @@ class Uploads extends CI_Controller {
 						else if ($date_error_count == 1) {
 							$date_error = " " . $date_error_count . " asset was not imported due to date formatting.";
 						}
-						$this->template->notification("The CSV file uploaded does not contain any data." . $date_error  , 'success');
+						$this->template->notification("The CSV file uploaded does not contain any data." . $date_error  , 'danger');
 					}
 					else {
 						$date_error = "";
@@ -151,7 +151,7 @@ class Uploads extends CI_Controller {
 						else if ($date_error_count == 1) {
 							$date_error = " " . $date_error_count . " asset was not imported due to date formatting.";
 						}
-						$this->template->notification("No assets were added. " . $j . " assets were already found in the database."  . $date_error, 'success');
+						$this->template->notification("No assets were added. " . $j . " assets were already found in the database."  . $date_error, 'danger');
 					}
 				}
 				else {
@@ -303,9 +303,7 @@ class Uploads extends CI_Controller {
 				
 			}**/
 
-
-			//KEN'S EXPERIMENT FOR ASSET RECORD CONFLICT
-			//Working but not yet tested thoroughly
+			//check for duplicate
 			foreach($employees_csv as $employee) 
 			{
 							
@@ -335,13 +333,13 @@ class Uploads extends CI_Controller {
 			}
 			else if ($i == 0) {
 				if ($j == 1) {
-					$this->template->notification("No employees were added. " . $j . " employee was already found in the database.", 'success');
+					$this->template->notification("No employees were added. " . $j . " employee was already found in the database.", 'danger');
 				}
 				else if ($j == 0) {
-					$this->template->notification("The CSV file uploaded does not contain any data.", 'success');
+					$this->template->notification("The CSV file uploaded does not contain any data.", 'danger');
 				}
 				else {
-					$this->template->notification("No employees were added. " . $j . " employees were already found in the database.", 'success');
+					$this->template->notification("No employees were added. " . $j . " employees were already found in the database.", 'danger');
 				}
 			}
 			else {
