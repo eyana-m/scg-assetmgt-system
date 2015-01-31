@@ -10,6 +10,20 @@ body {
 	background-color: #eee;
 }
 
+#info-table {
+	font-size: 12px;
+	width: 100%;
+	vertical-align: middle;
+}
+#info-table tr {
+	background-color: #f9f9f9;
+	border-bottom: 1px solid #eee;
+}
+#info-table th, td {
+	vertical-align: middle;
+	padding: 5px 10px;
+}
+
 .left {
 	text-align: left !important;
 }

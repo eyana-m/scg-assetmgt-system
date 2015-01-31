@@ -608,7 +608,8 @@ class Hardware_assets extends CI_Controller
 					endif;
 
 					$new_status = $this->input->post('aud_status');	
-					$this->untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status);
+					$new_comment = $this->input->post('aud_comment');	
+					$this->untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status, $new_comment);
 					$hardware_update['har_id'] = $hardware_asset_id;
 					$hardware_update['har_status'] = $new_status;
 					$hardware_update['har_last_update'] = date('Y-m-d H:i:s');
@@ -730,7 +731,7 @@ class Hardware_assets extends CI_Controller
 
 	}
 
-	private function untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status)
+	private function untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status, $new_comment)
 	{
 		$audit_entry = array();
 
@@ -746,7 +747,10 @@ class Hardware_assets extends CI_Controller
 		
 		$name = $current_audit_entry->emp_first_name." ".$current_audit_entry->emp_last_name;
 			
-		$audit_entry['aud_comment'] = 'Untagged from '.$name;	
+		$audit_entry['aud_comment'] = 'Untagged from '.$name.'.';	
+		if ($new_comment != null) {
+			$audit_entry['aud_comment'] .= "</br> " . $new_comment . '.';
+		}
 
 		$audit_entry['aud_har'] = $hardware_asset_id;
 		$audit_entry['aud_per'] = null;
@@ -991,7 +995,7 @@ class Hardware_assets extends CI_Controller
 		$this->load->dbutil();
 
 		
-		$audit_entries =  $this->audit_entry_model->get_by_hardware($data["hardware_asset"]);
+		$audit_entries =  $this->audit_entry_model->get_by_hardware_labels($data["hardware_asset"]);
 
 
 		$page['audit_entries'] = $audit_entries;

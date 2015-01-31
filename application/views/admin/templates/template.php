@@ -128,7 +128,7 @@
 	
 </div>
 
-<footer style="margin-top: 2em; margin-bottom: 2em">
+<footer style="clear: both; position: relative; z-index: 10;height: 3em; margin-top: 2em;">
 	<div class="container text-center">
 	<p>&copy; 2014 | Summit Consulting Group<br>
 	Ateneo de Manila University</p>

@@ -167,5 +167,17 @@ class Accounts extends CI_Controller
 			}
 		}
 	}
+
+	public function edit()
+	{
+		$this->form_validation->set_rules('acc_last_name', 'Last Name', 'trim|required|max_length[30]');
+		$this->form_validation->set_rules('acc_first_name', 'First Name', 'trim|required|max_length[30]');
+		$this->form_validation->set_rules('acc_type', 'Middle Name', 'trim|required|max_length[30]');
+		$this->form_validation->set_rules('acc_status', 'Email', 'trim|required|max_length[30]');
+		echo "HI";
+
+		$this->template->content('accounts-index', $page);
+		$this->template->show();
+	}
 	
 }

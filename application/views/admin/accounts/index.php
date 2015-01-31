@@ -11,9 +11,9 @@ if($accounts->num_rows())
 			<thead>
 				<tr>
 					<th>Email</th>
-					<th style="width: 250px;">Name</th>
-					<th style="width: 100px;">Account Type</th>
-					<th style="width: 80px;">Status</th>
+					<th style="width: 300px;">Name</th>
+					<th style="width: 170px;">Account Type</th>
+					<th style="width: 170px;">Status</th>
 				</tr>
 			</thead>
 			<tbody>			
@@ -24,8 +24,8 @@ if($accounts->num_rows())
 			<tr>
 				<td><a href="<?php echo site_url('admin/accounts/view/' . $account->acc_id); ?>"><?php echo $account->acc_username; ?></a></td>
 				<td><?php echo $account->acc_first_name . ' ' . $account->acc_last_name; ?></td>		
-				<td><?php echo $account->acc_type; ?></td>		
-				<td><?php echo $account->acc_status; ?></td>
+				<td><?php echo $account->acc_type; ?></td>
+				<td><?php echo $account->acc_status; ?></td>		
 			</tr>
 			<?php
 		}

@@ -76,47 +76,57 @@
 <div class="col-md-3 col-sm-12" style="margin-right: 0; padding-right: 0">
 
 
-	<div class="panel panel-success panel-personnel">
+	<div class="panel panel-success panel-personnel" style = "width: 300px;">
 		<div class="panel-heading">Personnel Information</div>
 		<div class="panel-body">
-
-			<div class="col-xs-5 panel-personnel-content"><small>ID Number:</small>
+			<div style="padding-left:1px; padding-right:1px;">
+				<table id="info-table">
+					<tr>
+						<th class="col-xs-5"><div class="panel-personnel-content"><small>ID Number:</small>
+						</div></th>
+						<td class="col-xs-7"><div class="text-right panel-personnel-content">
+							<?php echo $employee->emp_id; ?> 
+						</div></td>
+					</tr>
+					<tr>
+						<th class="col-xs-3"><div class="panel-personnel-content"><small>Name:</small>
+						</div></th>
+						<td class="col-xs-9"><div class="text-right panel-personnel-content">
+							<strong><?php echo $employee->emp_last_name; ?>, <?php echo $employee->emp_first_name; ?> <?php echo $employee->emp_middle_name; ?></strong>
+						</div></td>
+					</tr>
+					<tr>
+						<th class="col-xs-5"><div class="panel-personnel-content"><small>Email:</small>
+						</div></th>
+						<td class="col-xs-9"><div class="text-right panel-personnel-content">
+							<?php echo $employee->emp_email; ?>
+						</div></td>
+					</tr>
+					<tr>
+						<th class="col-xs-5"><div class="panel-personnel-content"><small>Position:</small>
+						</div></th>
+						<td class="col-xs-7"><div class="text-right panel-personnel-content">
+							<?php echo $employee->emp_position; ?>
+						</div></td>
+					</tr>
+					<tr>
+						<th class="col-xs-5"><div class="panel-personnel-content"><small>Department:</small>
+						</div>
+						<td class="col-xs-7"><div class="text-right panel-personnel-content">
+							<?php echo $employee->emp_department; ?> 
+						</div>
+					</tr>
+					<tr>
+						<th class="col-xs-5"><div class="panel-personnel-content"><small>Office:</small>
+						</div>
+						<th class="col-xs-7"><div class="text-right panel-personnel-content">
+							<?php echo $employee->emp_office; ?> 
+						</div>
+					</tr>
+				</table>
 			</div>
-			<div class="col-xs-7 text-right panel-personnel-content">
-				<?php echo $employee->emp_id; ?> 
-			</div>
-
-			<div class="col-xs-3 panel-personnel-content"><small>Name:</small>
-			</div>
-			<div class="col-xs-9 text-right panel-personnel-content">
-				<strong><?php echo $employee->emp_last_name; ?>, <?php echo $employee->emp_first_name; ?> <?php echo $employee->emp_middle_name; ?></strong>
-			</div>
-
-			<div class="col-xs-3 panel-personnel-content"><small>Email:</small>
-			</div>
-			<div class="col-xs-9 text-right panel-personnel-content">
-				<?php echo $employee->emp_email; ?>
-			</div>
-
-			<div class="col-xs-5 panel-personnel-content"><small>Position:</small>
-			</div>
-			<div class="col-xs-7 text-right panel-personnel-content">
-				<?php echo $employee->emp_position; ?>
-			</div>
-
-			<div class="col-xs-5 panel-personnel-content"><small>Department:</small>
-			</div>
-			<div class="col-xs-7 text-right panel-personnel-content">
-				<?php echo $employee->emp_department; ?> 
-			</div>
-
-			<div class="col-xs-5 panel-personnel-content"><small>Office:</small>
-			</div>
-			<div class="col-xs-7 text-right panel-personnel-content">
-				<?php echo $employee->emp_office; ?> 
-			</div>
-
 		</div>
+
 
 	<?php if($this->access_control->check_account_type('admin')):  ?>
 		<div class="panel-footer">
