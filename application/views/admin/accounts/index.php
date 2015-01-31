@@ -86,7 +86,7 @@ else
 
 			</div>
 
-			<form method="post" id="edit-acc-type">
+			<form method="post" id="edit">
 
 				<div class="col-xs-6 panel-personnel-content">Account Type:</div>
 				<div class="col-xs-6 panel-personnel-content">
@@ -128,12 +128,11 @@ else
 					<input id="aud_password" class="form-control form-control-small" name="aud_password" type="text" placeholder="">
 				</div>
 
+				<input type="submit" name="edit" value="Edit" class="btn btn-primary no-border-radius" />
+				<button class ="btn btn-default no-border-radius" data-dismiss = "modal">Cancel</button>
 			</form>
+			
 
-				<div class = "modal-footer">
-					<button class ="btn btn-default no-border-radius" value="submit" style="width: 70px;">Edit</button>
-					<button class ="btn btn-default no-border-radius" data-dismiss = "modal" style="margin-left:10px;">Cancel</button>
-				</div>
 		</div>	
 		</div>
 	</div>
