@@ -68,8 +68,6 @@ if($hardware_assets->num_rows())
 
 	</div>
 	
-
-
 </div>
 
 <div class="col-md-3 col-sm-12" style="margin-right: 0; padding-right: 0">
