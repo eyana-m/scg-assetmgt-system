@@ -4,13 +4,13 @@
 	<form method="post" id="report-type" name="form_mode">
 		<thead>
 			<tr>
-				<th></th>
-				<th>Asset Barcode</th>
-				<th>Asset Type</th>
-				<th>Office</th>
-				<th>Model</th>
-				<th>Status</th>
-				<th>Tech Refresher</th>
+				<th style="width:5%;"></th>
+				<th style="width:18%;">Asset Barcode</th>
+				<th style="width:9%;">Asset Type</th>
+				<th style="width:13%;">Office</th>
+				<th style="width:32%;">Model</th>
+				<th style="width:8%;">Status</th>
+				<th style="width:15%;">Tech Refresher</th>
 
 				
 			</tr>
