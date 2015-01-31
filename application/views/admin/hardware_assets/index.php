@@ -7,7 +7,7 @@ if($hardware_assets->num_rows())
 	?>
 
 	<div class="manage-assets">
-		<table class="table-list table-striped table-bordered">
+		<table class="table-list table-striped table-bordered" style="font-size:14px;">
 		<form method="post" id="report-type" name="form_mode">
 			<thead>
 				<tr>
@@ -15,8 +15,8 @@ if($hardware_assets->num_rows())
 					<th style="width:18%;">Asset Barcode</th>
 					<th style="width:9%;">Asset Type</th>
 					<th style="width:13%;">Office</th>
-					<th style="width:22%;">Model</th>
-					<th style="width:8%;">Status</th>
+					<th style="width:25%;">Model</th>
+					<th style="width:5%;">Status</th>
 					<th style="width:12%;">Tech Refresher</th>
 					<th style="width:13%;">Last Update</th>
 
