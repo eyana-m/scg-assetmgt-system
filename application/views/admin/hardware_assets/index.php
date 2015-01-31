@@ -11,14 +11,14 @@ if($hardware_assets->num_rows())
 		<form method="post" id="report-type" name="form_mode">
 			<thead>
 				<tr>
-					<th></th>
-					<th>Asset Barcode</th>
-					<th>Asset Type</th>
-					<th>Office</th>
-					<th>Model</th>
-					<th>Status</th>
-					<th>Tech Refresher</th>
-					<th>Last Update</th>
+					<th style="width:5%;"></th>
+					<th style="width:18%;">Asset Barcode</th>
+					<th style="width:9%;">Asset Type</th>
+					<th style="width:13%;">Office</th>
+					<th style="width:22%;">Model</th>
+					<th style="width:8%;">Status</th>
+					<th style="width:12%;">Tech Refresher</th>
+					<th style="width:13%;">Last Update</th>
 
 					
 				</tr>
@@ -255,7 +255,7 @@ if($hardware_assets->num_rows())
 		</div>
 
 
-		<div class="panel panel-danger panel-personnel" style="margin-left: 0;">
+		<div class="panel panel-danger panel-personnel replacement-panel" style="margin-left: 0;">
 		    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style="text-decoration: none;">
 				<div class="panel-heading" role="tab" id="headingThree" style="text-decoration: none;">
 				Total Value of Assets Due for Replacement
@@ -421,13 +421,14 @@ if($hardware_assets->num_rows())
 			});
 			 
 			request.done(function( msg ) {
-				$(".manage-assets").fadeOut(0, function(){
-                     $(".manage-assets").html(msg).fadeIn().delay(0);    
+				$(".manage-assets").hide(0, function(){
+                     $(".manage-assets").html(msg).show().delay(200);    
                      // $(".salvagevalue").hide();  
                      // $(".asset-replacement").hide(); 
                      // $(".asset-recentlyadded").hide();   
                      // $(".asset-status").hide();   
                     	$(".generate-report").hide(); 
+                    	$(".replacement-panel").hide(); 
                              
                 });
 			
