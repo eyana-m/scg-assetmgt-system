@@ -35,12 +35,11 @@ if($accounts->num_rows())
 		<?php echo $accounts_pagination; ?>
 
 		<div class="choose-select">
-			With selected: 
-			<select name="form_mode" class="select-submit form-control form-control-small" style="width: 200px">
+			<select name="form_mode" class="select-submit form-control form-control-small" style="width: 200px; display: none">
 				<option value="delete">Delete Accounts</option>
 			</select>
 	
-			<a href="#formsubmit" class="btn btn-sm btn-danger no-border-radius" data-toggle="modal">Submit</a>
+			<a href="#formsubmit" class="btn btn-sm btn-danger no-border-radius" data-toggle="modal">Delete Selected Accounts</a>
 		
 		</div>
 
