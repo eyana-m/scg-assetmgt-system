@@ -58,6 +58,24 @@ class Account_model extends Base_model
 		$result = $this->account_model->authenticate($acc_username, $this->DEFAULT_PASS);
 		return ($result !== false);
 	}
+
+	public function change_account_type($acc_username, $acc_type)
+	{
+		$account = $this->get_by_username($acc_username);
+		if($account !== false)
+		{
+			$data = array();
+			$data['acc_id'] = $account->acc_id;
+			$data['acc_type'] = $acc_type;
+			
+			$result = $this->update($data);
+			return ($result == 0);
+		}
+		else
+		{
+			return false;
+		}
+	}
 	
 	public function change_password($acc_username, $acc_password)
 	{
