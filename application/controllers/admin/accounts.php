@@ -26,7 +26,7 @@ class Accounts extends CI_Controller
 			if($this->input->post('form_mode'))
 			{
 				$form_mode = $this->input->post('form_mode');
-				
+				$session_username = $this->session->userdata('acc_username');
 
 				$account_ids = $this->input->post('acc_ids');
 				if($account_ids !== false)
@@ -37,9 +37,14 @@ class Accounts extends CI_Controller
 						if($account !== false)
 						{
 							// Prevent admin user from being deleted
-							if($account->acc_username != 'admin')
+							if($account->acc_username != $session_username)
 							{
 								$this->account_model->delete($account_id);
+							}
+							else
+							{
+								$this->template->notification('You cannot delete your own account.', 'danger');
+								redirect('admin/accounts');
 							}
 						}
 					}
@@ -173,9 +178,7 @@ class Accounts extends CI_Controller
 		
 			if($this->input->post('submit') !== false)
 			{
-				$session_username = $this->session->userdata('acc_username');
-				$session_password = $this->session->userdata('acc_password');
-
+				
 				$password = $this->input->post('acc_password');
 				$this->account_model->change_password($account->acc_username, $password);
 				

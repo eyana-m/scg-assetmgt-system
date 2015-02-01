@@ -50,7 +50,7 @@ if($accounts->num_rows())
 					<h2>Confirm Action</h2>
 					</div>
 					<div class="col-md-12">
-						<h5>Are you sure you want to delete the selected accounts? This action cannot be undone.</h5>
+						<h5><center>Are you sure you want to delete the selected accounts? This action cannot be undone.</center></h5>
 					</div>
 
 					<div class = "modal-footer">
