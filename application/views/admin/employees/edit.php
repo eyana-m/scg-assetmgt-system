@@ -1,6 +1,6 @@
 
 <div class="col-md-12" style="margin-bottom: 2em">
-	<a href="<?php echo site_url('admin/employees'); ?>" class="btn btn-info">Back to Employees Page</a>	
+	<a href="<?php echo site_url('admin/employees/view/' .$employee->emp_id); ?>" class="btn btn-info">Back to Employees Page</a>	
 </div>
 
 <form method="post">

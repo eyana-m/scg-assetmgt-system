@@ -312,14 +312,15 @@ class Hardware_assets extends CI_Controller
 
 	public function edit($har_barcode)
 	{
-
 		if($this->access_control->check_account_type('admin')) 
-		{			
-			$this->template->title('Edit Asset: '.$har_barcode);
+		{	
+			$hardware_asset = $this->hardware_asset_model->get_one($har_barcode);
+			$this->template->title('Edit Asset: '.$hardware_asset->har_model.' (SN: '.$hardware_asset->har_serial_number.')');
+			
 			//$this->form_validation->set_rules('har_asset_number', 'Asset Number', 'trim|required|integer|max_length[15]');
 			//$this->form_validation->set_rules('har_asset_type', 'Asset Type', 'trim|required');
 			//$this->form_validation->set_rules('har_office', 'Asset Office', 'trim|required');
-			$this->form_validation->set_rules('har_erf_number', 'Erf Number', 'trim|required|integer|max_length[11]');
+			$this->form_validation->set_rules('har_erf_number', 'Erf Number', 'trim|required|max_length[11]');
 			$this->form_validation->set_rules('har_model', 'Model', 'trim|required|max_length[30]');
 			$this->form_validation->set_rules('har_serial_number', 'Serial Number', 'trim|required|max_length[30]');
 			$this->form_validation->set_rules('har_hostname', 'Hostname', 'trim|required|max_length[30]');
@@ -392,7 +393,8 @@ class Hardware_assets extends CI_Controller
 
 	public function view($hardware_asset_id)
 	{
-		$this->template->title('Audit Trail: '.$hardware_asset_id);
+		$hardware_asset = $this->hardware_asset_model->get_one($hardware_asset_id);
+		$this->template->title('Audit Trail: '.$hardware_asset->har_model.' (SN: '.$hardware_asset->har_serial_number.')');
 
 		
 		$page = array();

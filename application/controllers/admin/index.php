@@ -48,6 +48,7 @@ class Index extends CI_Controller
 					$this->account_model->failed_login_reset($username);
 					
 					$this->session->set_userdata('acc_username', $account->acc_username);
+					$this->session->set_userdata('acc_password', $account->acc_password);
 					$this->session->set_userdata('acc_type', $account->acc_type);
 					$this->session->set_userdata('acc_first_name', $account->acc_first_name);
 					$this->session->set_userdata('acc_last_name', $account->acc_last_name);

@@ -127,9 +127,6 @@ if($hardware_assets->num_rows())
 					  </label>
 					</div>
 
-
-
-
 					<input type="submit" class="btn btn-warning pull-right"  name="form_mode" value="Generate Report">
 				
 				</form>

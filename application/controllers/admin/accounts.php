@@ -62,6 +62,8 @@ class Accounts extends CI_Controller
 		{
 			redirect('admin/forbidden');
 		}
+
+
 	}
 	
 	public function create() 
@@ -190,16 +192,51 @@ class Accounts extends CI_Controller
 		}
 	}
 
-	public function edit()
+	public function edit($id = 0)
 	{
-		$this->form_validation->set_rules('acc_last_name', 'Last Name', 'trim|required|max_length[30]');
-		$this->form_validation->set_rules('acc_first_name', 'First Name', 'trim|required|max_length[30]');
-		$this->form_validation->set_rules('acc_type', 'Middle Name', 'trim|required|max_length[30]');
-		$this->form_validation->set_rules('acc_status', 'Email', 'trim|required|max_length[30]');
-		echo "HI";
+		$account = $this->account_model->get_one($id);
+		if($account === false)
+		{
+			redirect('admin/accounts');
+		}
+		else
+		{
+			// Prevent viewing 'dev' accounts if user is not 'dev' 
+			if($account->acc_type == 'dev' && !$this->access_control->check_account_type('dev'))
+			{
+				redirect('admin/accounts');
+			}
+		
+			if($this->input->post('confirm') !== false)
+			{
+				$session_username = $this->session->userdata('acc_username');
+				$session_password = $this->session->userdata('acc_password');
+				
+				$acc_password = $this->input->post('acc_password');
+				$this->form_validation->set_rules('acc_password', 'Password', 'required|matches[session_password]');
 
-		$this->template->content('accounts-index', $page);
-		$this->template->show();
+				$acc_type = $this->input->post('acc_type');
+
+				if($session_password == md5($acc_password))
+				{
+					$this->account_model->change_account_type($account->acc_username, $acc_type);
+					$this->template->notification('Account type of ' . $account->acc_username . ' was changed to ' . $acc_type, 'success');
+					redirect('admin/accounts/view/' . $account->acc_id);
+				}
+				else
+				{
+					$this->template->notification('Incorrect password.', 'danger');
+					redirect('admin/accounts/view/' . $account->acc_id);
+				}
+			}
+			else
+			{
+				$this->template->notification('Change unsuccessful.', 'danger');
+				redirect('admin/accounts');
+			}
+		}
 	}
+
+
 	
 }

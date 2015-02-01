@@ -136,7 +136,8 @@ class Employees extends CI_Controller
 		if($this->access_control->check_account_type('admin')) 
 		{
 
-			$this->template->title('Edit Employee '.$emp_id);
+			$employee = $this->employee_model->get_one($emp_id);
+			$this->template->title('Audit Trail: '.$employee->emp_last_name.', '.$employee->emp_first_name);
 
 			//$this->form_validation->set_rules('emp_id', 'ID Number', 'trim|required|integer|max_length[10]');
 			$this->form_validation->set_rules('emp_last_name', 'Last Name', 'trim|required|max_length[30]');
@@ -185,7 +186,6 @@ class Employees extends CI_Controller
 
 	public function view($employee_id)
 	{
-	
 		$employee = $this->employee_model->get_one($employee_id);
 		$this->template->title('Audit Trail: '.$employee->emp_last_name.', '.$employee->emp_first_name);
 		$page = array();
