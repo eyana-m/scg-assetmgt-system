@@ -15,6 +15,7 @@
 	<?php echo template('head'); ?>
 	<link rel="stylesheet" type="text/css" href="<?php echo res_url('admin/css/styles.css'); ?>" />
 	<link rel="stylesheet" type="text/css" href="<?php echo res_url('admin/css/custom.css'); ?>" />
+	<link rel="shortcut icon" href="<?php echo res_url('admin/images/Motolite.ico'); ?>">
 </head>
 
 

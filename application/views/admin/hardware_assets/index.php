@@ -12,11 +12,11 @@ if($hardware_assets->num_rows())
 			<thead>
 				<tr>
 					<th style="width:5%;"></th>
-					<th style="width:18%;">Asset Barcode</th>
+					<th style="width:16%;">Asset Barcode</th>
 					<th style="width:9%;">Asset Type</th>
 					<th style="width:13%;">Office</th>
 					<th style="width:25%;">Model</th>
-					<th style="width:5%;">Status</th>
+					<th style="width:7%;">Status</th>
 					<th style="width:12%;">Tech Refresher</th>
 					<th style="width:13%;">Last Update</th>
 
@@ -264,12 +264,12 @@ if($hardware_assets->num_rows())
 
 			<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
 
-			<div class="panel-body asset-info-panel" id="scan-panel-body">
-			
+				<div class="panel-body asset-info-panel" id="scan-panel-body">
+				
 
-				 Php <?php echo number_format($hardware_assets_value); ?>
+					 Php <?php echo number_format($hardware_assets_value); ?>
 
-			</div>
+				</div>
 			</div>
 		</div>
 
@@ -299,7 +299,6 @@ if($hardware_assets->num_rows())
 			var har_date_added = $( 'select[name=har_date_added]').val();
 
 			ajax_call(har_office, har_model, har_asset_number, har_asset_type, har_status, har_date_added);
-			
 		  })
 
 		  $( "input:text[name=har_asset_number]" )
@@ -407,7 +406,6 @@ if($hardware_assets->num_rows())
 
 
 			ajax_call(har_office, har_model, har_asset_number, har_asset_type, har_status, har_date_added);
-
 		});	
 
 	function ajax_call(har_office, har_model, har_asset_number, har_asset_type, har_status, har_date_added){
@@ -427,8 +425,8 @@ if($hardware_assets->num_rows())
                      // $(".asset-replacement").hide(); 
                      // $(".asset-recentlyadded").hide();   
                      // $(".asset-status").hide();   
-                    	$(".generate-report").hide(); 
-                    	$(".replacement-panel").hide(); 
+                     	$(".generate-report").hide(); 
+                     	$(".replacement-panel").hide(); 
                              
                 });
 			
@@ -438,6 +436,7 @@ if($hardware_assets->num_rows())
 				alert( "Request failed: " + textStatus );
 			});
 	}
+
 
 
 

@@ -185,7 +185,6 @@ class Employees extends CI_Controller
 
 	public function view($employee_id)
 	{
-	
 		$employee = $this->employee_model->get_one($employee_id);
 		$this->template->title('Audit Trail: '.$employee->emp_last_name.', '.$employee->emp_first_name);
 		$page = array();
