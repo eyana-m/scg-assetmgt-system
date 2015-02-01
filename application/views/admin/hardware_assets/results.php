@@ -1,16 +1,16 @@
 <div class="manage-assets">
 	
-	<table class="table-list table-striped table-bordered">
+	<table class="table-list table-striped table-bordered"  style="font-size:14px;">
 	<form method="post" id="report-type" name="form_mode">
 		<thead>
 			<tr>
 				<th style="width:5%;"></th>
-				<th style="width:18%;">Asset Barcode</th>
+				<th style="width:16%;">Asset Barcode</th>
 				<th style="width:9%;">Asset Type</th>
 				<th style="width:13%;">Office</th>
 				<th style="width:32%;">Model</th>
-				<th style="width:8%;">Status</th>
-				<th style="width:15%;">Tech Refresher</th>
+				<th style="width:12%;">Status</th>
+				<th style="width:13%;">Tech Refresher</th>
 
 				
 			</tr>
@@ -61,4 +61,6 @@
 	 echo $hardware_assets_pagination;
 	endif;
   ?>
+
+
 	
