@@ -207,20 +207,36 @@ class Accounts extends CI_Controller
 				redirect('admin/accounts');
 			}
 		
-			if($this->input->post('edit') !== false)
+			if($this->input->post('confirm') !== false)
 			{
-				$acc_type = $this->input->post('acc_type');
-				$this->account_model->change_account_type($account->acc_username, $acc_type);
+				$session_username = $this->session->userdata('acc_username');
+				$session_password = $this->session->userdata('acc_password');
+				
+				$acc_password = $this->input->post('acc_password');
+				$this->form_validation->set_rules('acc_password', 'Password', 'required|matches[session_password]');
 
-				$this->template->notification('Account type of ' . $account->acc_username . ' was changed to ' . $acc_type, 'success');
-				redirect('admin/accounts/view/' . $account->acc_id);
+				$acc_type = $this->input->post('acc_type');
+
+				if($session_password == md5($acc_password))
+				{
+					$this->account_model->change_account_type($account->acc_username, $acc_type);
+					$this->template->notification('Account type of ' . $account->acc_username . ' was changed to ' . $acc_type, 'success');
+					redirect('admin/accounts/view/' . $account->acc_id);
+				}
+				else
+				{
+					$this->template->notification('Incorrect password.', 'danger');
+					redirect('admin/accounts/view/' . $account->acc_id);
+				}
 			}
 			else
 			{
-				$this->template->notification('Account type was not changed.', 'danger');
+				$this->template->notification('Change unsuccessful.', 'danger');
 				redirect('admin/accounts');
 			}
 		}
 	}
+
+
 	
 }
