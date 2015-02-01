@@ -1,7 +1,3 @@
-<div class="col-md-12" style="margin-bottom: 2em">
-	<a href="<?php echo site_url('admin/accounts/'); ?>" class="btn btn-info">Back to Accounts Page</a>	
-</div>
-
 <table class="table-form table-bordered">
 	<form method="post" id="edit_account" name="edit_account">
 	<tr>
@@ -26,7 +22,12 @@
 	</tr>
 	<tr>
 		<th></th>
-		<td><a href="#confirm"  role="button" data-toggle="modal" data-dismiss = "modal" class="pull-left btn btn-medium btn-primary">Edit</a></td>
+		<td>
+			<a href="#confirm"  role="button" data-toggle="modal" data-dismiss = "modal" class="pull-left btn btn-medium btn-primary">Edit</a>
+			<a href="<?php echo site_url('admin/accounts'); ?>" class="btn">Back</a>
+		</td>
+
+
 	</tr>
 
 	</form>
@@ -38,7 +39,7 @@
 		<div class = "modal-content" style="height:20%;">
 			<div class = "modal-header"><h3><center>Confirmation</center></h3></div>
 			<div class = "modal-body"><center>
-				Change the account type of the user and enter your password to proceed.</center>
+				<span style="font-size:14px;">Change the account type of the user and enter your password to proceed.</span></center>
 			
 			<div class="well row" style="margin-top: 1em; background-color: #bbb; border-color: #bbb;">
 			<table class="table-form table-bordered" style="font-size:13px;">

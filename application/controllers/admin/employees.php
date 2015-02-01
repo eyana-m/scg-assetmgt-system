@@ -355,7 +355,7 @@ class Employees extends CI_Controller
 
 		$page['employees'] = $emps["employees"];
 
-		$page['employees_pagination'] = $this->employee_model->pagination_links();
+		$page['employees_pagination_results'] = $this->employee_model->pagination_links();
 
 		$page["keys"] = $emps["key"];
 		$page["params"] = $emps["params"];

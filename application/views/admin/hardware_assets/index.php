@@ -233,8 +233,6 @@ if($hardware_assets->num_rows())
 					</div>
 
 
-
-
 					
 				</div>
 
@@ -405,7 +403,7 @@ if($hardware_assets->num_rows())
 			ajax_call(har_office, har_model, har_asset_number, har_asset_type, har_status, har_date_added);
 		});	
 
-	function ajax_call(har_office, har_model, har_asset_number, har_asset_type, har_status, har_date_added){
+	function ajax_call(har_office, har_model, har_asset_number, har_asset_type, har_status, har_date_added, har_specs){
 			
 			var request = $.ajax({					
 				url: '<?php echo site_url("admin/hardware_assets/results"); ?>',

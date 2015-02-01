@@ -6,19 +6,19 @@ if($employees->num_rows())
 {
 	?>
 
-	<div class="manage-assets">
+	<div class="manage-employees">
 
 		<form method="post">
-			<table class="table-list table-striped table-bordered">
+			<table class="table-list table-striped table-bordered" style = "font-size:14px;">
 				<thead>
 					<tr>
 						
-						<th>Employee ID</th>
-						<th>Last Name</th>
-						<th>First Name</th>
-						<th>Office</th>
-						<th>Department</th>
-						<th>Position</th>
+						<th style="width:14%">Employee ID</th>
+						<th style="width:19%">Last Name</th>
+						<th style="width:19%">First Name</th>
+						<th style="width:14%">Office</th>
+						<th style="width:12%">Department</th>
+						<th style="width:21%">Position</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -109,6 +109,39 @@ if($employees->num_rows())
 
 	jQuery(function($) {
 
+		$( "input:text[name=emp_last_name], input:text[name=emp_first_name], input:text[name=emp_department]")
+		  .keyup(function(e) {
+			e.preventDefault(); 
+			
+			var emp_last_name = $( 'input:text[name=emp_last_name]').val();
+
+			var emp_first_name = $( 'input:text[name=emp_first_name]').val();
+
+			var emp_department= $( 'input:text[name=emp_department]').val();
+
+			var emp_office  = $( 'select[name=emp_office]').val();
+
+
+			ajax_call(emp_last_name, emp_first_name, emp_department, emp_office);
+			
+			
+		  })
+
+		  $('select[name=emp_office]').change(function(e){
+    		e.preventDefault(); 
+			
+			var emp_last_name = $( 'input:text[name=emp_last_name]').val();
+
+			var emp_first_name = $( 'input:text[name=emp_first_name]').val();
+
+			var emp_department= $( 'input:text[name=emp_department]').val();
+
+			var emp_office  = $( 'select[name=emp_office]').val();
+
+
+			ajax_call(emp_last_name, emp_first_name, emp_department, emp_office);
+		})
+
 		$('form[name=filter]').submit(function(e){
 			e.preventDefault(); 
 			
@@ -136,8 +169,8 @@ if($employees->num_rows())
 			});
 			 
 			request.done(function( msg ) {
-				$(".manage-assets").fadeOut(800, function(){
-                     $(".manage-assets").html(msg).fadeIn().delay(1500);    
+				$(".manage-employees").hide(0, function(){
+                     $(".manage-employees").html(msg).show().delay(200);    
 
 
 
