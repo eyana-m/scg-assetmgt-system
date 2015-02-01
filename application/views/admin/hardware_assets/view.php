@@ -2,15 +2,13 @@
 <div class="col-md-9 col-sm-12" style="padding-left: 0; margin-left: 0">
 
 	<div class="panel panel-success panel-personnel" style="margin-left: 0">
-			
-			<a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour" style="text-decoration: none;">
-				<div class="panel-heading" id="headingFour">
+
+			<div class="panel-heading" role="tab" id="headingFour" style="text-decoration: none;">
 				Asset Information
-				</div>
-			</a>
+			</div>
 			
 
-			<div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+			<div id="headingFour" role="tabpanel" aria-labelledby="headingFour">
 
 			<div class="panel-body">
 

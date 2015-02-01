@@ -16,11 +16,7 @@ class Audit_entry_model extends Base_model
 
 		
 	public function get_one($id)
-	{		
-		// $this->db->select('har_barcode AS `Asset Barcode');
-		// $this->db->from('hardware_asset');
-		// $this->db->select('aud_har AS `Hardware`');
-		// $this->db->from('audit_entry');		
+	{			
 		$this->db->join('hardware_asset', "hardware_asset.har_barcode = {$this->table}.aud_har", 'Right');				
 		$this->db->join('employee', "employee.emp_id = {$this->table}.aud_per", 'Right');
 		
@@ -37,7 +33,7 @@ class Audit_entry_model extends Base_model
 	
 	public function get_by_employee_labels($emp_id)
 	{
-		$this->db->select('aud_per AS `Employee ID`, CONCAT(emp_last_name, ", ", emp_first_name, " ", emp_middle_name) AS `Employee Name`, emp_office AS `Office`, emp_department AS `Department`, emp_position AS `Position`, aud_har AS `Asset Barcode`, har_asset_type AS `Asset Type`, har_model AS `Model`, har_serial_number AS `Serial Number`', FALSE);	
+		$this->db->select('CONCAT(emp_last_name, ", ", emp_first_name, " ", emp_middle_name) AS `Employee Name`, aud_har AS `Asset Barcode`, har_asset_type AS `Asset Type`, har_model AS `Model`, har_serial_number AS `Serial Number`, aud_comment AS `Remarks`, aud_datetime AS `Date and Time Assigned`', FALSE);	
 		$this->db->join('hardware_asset', "hardware_asset.har_barcode= {$this->table}.aud_har");				
 		$this->db->join('employee', "employee.emp_id = {$this->table}.aud_per", 'Right');
 		$this->db->where('aud_per', $emp_id);
@@ -78,7 +74,7 @@ class Audit_entry_model extends Base_model
 
 	public function get_by_hardware_labels($har_barcode)
 	{
-		$this->db->select('aud_datetime AS `Date and Time`, aud_status AS `Status`, aud_comment AS `Remarks`, aud_har AS `Asset Barcode`, har_asset_type AS `Asset Type`, har_model AS `Model`, har_serial_number AS `Serial Number`, aud_per AS `Employee ID`, CONCAT(emp_last_name, ", ", emp_first_name, " ", emp_middle_name) AS `Employee Name`, emp_office AS `Office`, emp_department AS `Department`, emp_position AS `Position`, aud_date_untagged AS `Date Untagged`', FALSE);	
+		$this->db->select('aud_datetime AS `Date and Time`, aud_status AS `Status`, har_model AS `Model`, har_serial_number AS `Serial Number`, aud_per AS `Employee ID`, CONCAT(emp_last_name, ", ", emp_first_name, " ", emp_middle_name) AS `Employee Name`, emp_office AS `Office`, emp_department AS `Department`, emp_position AS `Position`, aud_comment AS `Remarks`', FALSE);	
 		$this->db->join('hardware_asset', "hardware_asset.har_barcode = {$this->table}.aud_har");				
 		$this->db->join('employee', "employee.emp_id = {$this->table}.aud_per", "left outer");
 		$this->db->where('aud_har', $har_barcode);	
