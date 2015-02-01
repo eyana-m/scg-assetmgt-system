@@ -132,7 +132,7 @@ class Accounts extends CI_Controller
 	
 	public function view($id = 0)
 	{
-		$this->template->title('Accounts');
+		$this->template->title('Edit Account');
 		
 		$account = $this->account_model->get_one($id);
 		if($account !== false)
@@ -206,7 +206,7 @@ class Accounts extends CI_Controller
 			{
 				redirect('admin/accounts');
 			}
-		
+			
 			if($this->input->post('confirm') !== false)
 			{
 				$session_username = $this->session->userdata('acc_username');

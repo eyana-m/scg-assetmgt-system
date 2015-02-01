@@ -37,7 +37,7 @@
 				Change the account type of the user and enter your password to proceed.</center>
 			
 			<div class="well row" style="margin-top: 1em; background-color: #bbb; border-color: #bbb;">
-			<table class="table-form table-bordered">
+			<table class="table-form table-bordered" style="font-size:13px;">
 				<form method="post" id="confirm" action="<?php echo site_url("admin/accounts/edit/" . $account->acc_id); ?>" enctype="multipart/form-data">
 				
 					
@@ -75,7 +75,7 @@
 						</tr>
 						<tr>
 							<th>Password</th>
-							<td><input type="password" class="form-control-small form-control" name="acc_password" placeholder="" style="text-align: center;"></td>
+							<td><input type="password" class="form-control-small form-control" name="acc_password" placeholder=""></td>
 						</tr>
 					</div>
 					
