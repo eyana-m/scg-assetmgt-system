@@ -173,13 +173,15 @@ class Accounts extends CI_Controller
 		
 			if($this->input->post('submit') !== false)
 			{
-				
+				$session_username = $this->session->userdata('acc_username');
+				$session_password = $this->session->userdata('acc_password');
+
 				$password = $this->input->post('acc_password');
 				$this->account_model->change_password($account->acc_username, $password);
 				
 				$this->template->notification('Password for ' . $account->acc_username . ' was changed.', 'success');
 				
-				redirect('admin/accounts');
+				redirect('admin/accounts/reset_password/' . $account->acc_id);
 			}
 			else
 			{
@@ -232,7 +234,7 @@ class Accounts extends CI_Controller
 			else
 			{
 				$this->template->notification('Change unsuccessful.', 'danger');
-				redirect('admin/accounts');
+				redirect('admin/accounts/view/' . $account->acc_id);
 			}
 		}
 	}

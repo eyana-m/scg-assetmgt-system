@@ -1,3 +1,6 @@
+<div class="col-md-12" style="margin-bottom: 2em">
+	<a href="<?php echo site_url('admin/accounts/'); ?>" class="btn btn-info">Back to Accounts Page</a>	
+</div>
 <form method="post">
 	<table class="table-form table-bordered">
 		<tr>
@@ -22,7 +25,7 @@
 			<th></th>
 			<td>
 				<input type="submit" name="submit" value="Confirm" class="btn btn-primary" />
-				<a href="<?php echo site_url('admin/accounts'); ?>" class="btn">Back</a>
+				<a href="<?php echo site_url('admin/accounts/view/' . $account->acc_id); ?>" class="btn">Back</a>
 			</td>
 		</tr>
 	</table>

@@ -15,7 +15,7 @@
 	<tr>
 		<th>Account Type</th>
 		<td>
-			<?php echo $account->acc_type ?><a href="#confirm"  role="button" data-toggle="modal" data-dismiss = "modal" class="pull-left btn btn-small btn-primary" style="font-size:12px">Edit</a>
+			<?php echo $account->acc_type ?>
 		</td>
 	</tr>
 	<tr>
@@ -23,6 +23,10 @@
 		<td>
 			<a href="<?php echo site_url('admin/accounts/reset_password/' . $account->acc_id); ?>">Reset Password</a>
 		</td>
+	</tr>
+	<tr>
+		<th></th>
+		<td><a href="#confirm"  role="button" data-toggle="modal" data-dismiss = "modal" class="pull-left btn btn-medium btn-primary">Edit</a></td>
 	</tr>
 
 	</form>
