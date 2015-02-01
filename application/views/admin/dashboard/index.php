@@ -185,6 +185,7 @@
 
 // Graph 1: PBI Roces
 $(function () {
+
     $('#barchart-PBI-1').highcharts({
         chart: {
             type: 'column'

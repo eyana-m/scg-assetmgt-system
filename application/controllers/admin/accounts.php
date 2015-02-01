@@ -178,12 +178,21 @@ class Accounts extends CI_Controller
 		
 			if($this->input->post('submit') !== false)
 			{
-				
-				$password = $this->input->post('acc_password');
-				$this->account_model->change_password($account->acc_username, $password);
-				
-				$this->template->notification('Password for ' . $account->acc_username . ' was changed.', 'success');
-				
+				$session_username = $this->session->userdata('acc_username');
+				$session_password = $this->session->userdata('acc_password');
+				$verif_password = $this->input->post('acc_password2');
+
+				if($session_password == md5($verif_password))
+				{
+					$password = $this->input->post('acc_password');
+					$this->account_model->change_password($account->acc_username, $password);
+					$this->template->notification('Password for ' . $account->acc_username . ' was changed.', 'success');				
+				}
+				else
+				{
+					$this->template->notification('Incorrect password.', 'danger');
+				}
+
 				redirect('admin/accounts/reset_password/' . $account->acc_id);
 			}
 			else
