@@ -282,7 +282,6 @@ if($hardware_assets->num_rows())
 
 	jQuery(function($) {
 
-		//KEN EXPERIMENT SIMULTANEOUS SEARCH
 		$( "input:text[name=har_model]" )
 		  .keyup(function(e) {
 			e.preventDefault(); 
@@ -387,7 +386,6 @@ if($hardware_assets->num_rows())
 
 			ajax_call(har_office, har_model, har_asset_number, har_asset_type, har_status, har_date_added);
   			});
-		  //END KEN EXPERIMENT
 
 
 		$('form[name="filter_search"]').submit(function(e){

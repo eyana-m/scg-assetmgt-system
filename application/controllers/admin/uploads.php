@@ -65,8 +65,6 @@ class Uploads extends CI_Controller {
 					
 				}**/
 
-				//KEN'S EXPERIMENT FOR ASSET RECORD CONFLICT
-				//Working but not yet tested thoroughly
 				foreach($hardware_assets_csv as $hardware_asset) 
 				{
 								
