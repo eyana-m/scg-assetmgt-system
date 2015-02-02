@@ -1,4 +1,6 @@
 
+
+
 <div class="col-md-7">
 <h4>
 Filtered Results: <small><?php echo template('content-top'); ?>

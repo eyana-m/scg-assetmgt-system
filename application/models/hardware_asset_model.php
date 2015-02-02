@@ -93,6 +93,36 @@ class Hardware_asset_model extends Base_model
 		return $this->db->get($this->table);
 	}
 
+	//get all arranged by latest har_date_added
+	public function get_all_reverse_filtered_count($params = array())
+	{
+		if(is_array($params))
+		{
+			foreach($params as $key=> $value)
+			{
+				if ($key== "har_asset_type" && ($value == "camera" || $value == "Camera" || $value == "CAMERA")) {
+					$this->db->where($key, $value);
+				}
+				else {
+					$this->db->like($key, $value,'both');
+				}
+			}
+		}
+
+		$this->db->order_by("har_last_update","desc");
+		//$this->db->order_by("har_date_added","desc");
+
+		$query = $this->db->get($this->table);
+		$rowcount = $query->num_rows();
+		return $rowcount;
+	}
+
+	public function get_asset_count()
+	{
+		$query = $this->db->get($this->table);
+		$rowcount = $query->num_rows();
+		return $rowcount;
+	}
 	
 	//LAP-112864-100717
 	//{har_asset_type}-{har_asset_number}-{har_date_added}
@@ -147,11 +177,30 @@ class Hardware_asset_model extends Base_model
 				break;	
 			case 'Projector':
 				$tech_year = 3;
-				break;						
+				break;
+			case 'DESKTOP':
+				$tech_year = 4;
+				break;
+			case 'LAPTOP':
+				$tech_year = 3;
+				break;	
+			case 'PROJECTOR':
+				$tech_year = 3;
+				break;	
+			case 'desktop':
+				$tech_year = 4;
+				break;
+			case 'laptop':
+				$tech_year = 3;
+				break;	
+			case 'projector':
+				$tech_year = 3;
+				break;	
 			default:
 				$tech_year = 1;
 				break;
-		}
+			}
+
 
 		return $tech_year;
 
@@ -225,7 +274,7 @@ class Hardware_asset_model extends Base_model
 			default:
 				$tech_year = 1;
 				break;
-		}
+			}
 
 		$date_purchase = strtotime($har_date_purchase);
 		$added_tech_refresher = strtotime('+'.$tech_year.' years', $date_purchase);
@@ -404,6 +453,7 @@ class Hardware_asset_model extends Base_model
 		return $query;
 	}
 
+
 	// Status
 	public function get_asset_status($params)
 	{
@@ -503,4 +553,26 @@ class Hardware_asset_model extends Base_model
 		$rowcount = $query->num_rows();
 		return $rowcount;
 	}
+
+
+	public function pagination_links_filtered($params)
+	{
+
+		$page_uri = array_shift($params);
+		$function = array_shift($params);
+		
+		$this->pagination->set_function($this->table . '_model', $function, $params);
+		$this->pagination->run_query($page_uri);
+		return $this->pagination->query_links();
+	}
+
+
+	public function params_handler($params=array())
+	{
+
+	     return $this->session->set_userdata($params);
+	        
+	}
+
+
 }

@@ -13,6 +13,7 @@ class Hardware_assets extends CI_Controller
 		$this->load->helper('csv');
 		$this->load->helper('download');
 		$this->load->library('upload');
+
 		
 		$this->load->helper('file'); 
 
@@ -36,7 +37,7 @@ class Hardware_assets extends CI_Controller
 
 		$hardware_assets = $page['hardware_assets'];
 
-		
+		$page['hardware_count'] = $this->hardware_asset_model->get_asset_count();
 		$page['hardware_assets_value'] = $this->hardware_asset_model->get_total_value();
 		$page['hardware_assets_pagination'] = $this->hardware_asset_model->pagination_links();
 		
@@ -804,6 +805,7 @@ class Hardware_assets extends CI_Controller
 
 	public function results()
 	{
+
 		$har_office = $this->check_postvar($this->input->post('har_office'));
 
 		$har_model = $this->check_postvar($this->input->post('har_model'));
@@ -826,14 +828,27 @@ class Hardware_assets extends CI_Controller
 
 		);
 
+		
+		$this->session->set_userdata($args);
+
+		//var_dump($this->session->all_userdata()); die();
+
+	 	
+
 	
 		$assets = $this->query_hardware_asset($args);
 
 		$page = array();
 
-		$page['hardware_assets'] = $assets["hardware_assets"];
+		//$this->load->library('pagination');
 
-		$page['hardware_assets_pagination'] = $this->hardware_asset_model->pagination_links();
+
+		$page['hardware_assets'] = $assets["hardware_assets"];
+		$page['hardware_count'] =  $assets["hardware_count"];
+
+		$page['hardware_assets_pagination'] = $assets["hardware_assets_pagination"];
+
+		//$page['hardware_assets_pagination'] = $this->hardware_asset_model->pagination_links();
 
 		$page["keys"] = $assets["key"];
 		$page["params"] = $assets["params"];
@@ -920,9 +935,14 @@ class Hardware_assets extends CI_Controller
 
 		endif;	
 	
+		
+		
+		//$out["hardware_assets"] = $this->hardware_asset_model->pagination("admin/hardware_assets/index/__PAGE__", 'get_all_reverse_filtered', $params);
+		
+		$out["hardware_assets"] = $this->hardware_asset_model->get_all_reverse_filtered($params);
+		$out["hardware_assets_pagination"] = $this->hardware_asset_model->pagination_links();
 
-		$out["hardware_assets"] = $this->hardware_asset_model->pagination("admin/hardware_assets/index/__PAGE__", 'get_all_reverse_filtered', $params);
-
+		$out["hardware_count"] = $this->hardware_asset_model->get_all_reverse_filtered_count($params);
 		$out["key"] = $key;
 		$out["params"] = $params;
 
@@ -931,6 +951,8 @@ class Hardware_assets extends CI_Controller
 		return $out;
 
 	}
+
+
 
 
 

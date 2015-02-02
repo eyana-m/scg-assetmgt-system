@@ -1,4 +1,9 @@
 <div class="manage-assets">
+<div class="col-md-12 text-right">
+	<p>Shows <?php echo $hardware_assets->num_rows(); ?> out of <?php echo $hardware_count; ?> assets</p>
+</div>
+
+
 	
 	<table class="table-list table-striped table-bordered"  style="font-size:14px;">
 	<form method="post" id="report-type" name="form_mode">
@@ -57,8 +62,8 @@
 	</table>
 </div>
 <?php
-	if($hardware_assets->num_rows()>20):
-	 echo $hardware_assets_pagination;
+	if($hardware_count>20):
+	echo $hardware_assets_pagination;
 	endif;
   ?>
 

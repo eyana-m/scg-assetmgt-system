@@ -4,9 +4,14 @@
 <?php
 if($hardware_assets->num_rows())
 {
+	
 	?>
+<div class="manage-assets">
+<div class="col-md-12 text-right">
+	<p> Shows <?php echo $hardware_assets->num_rows(); ?> out of <?php echo $hardware_count; ?> assets</p>
+</div>
 
-	<div class="manage-assets">
+	
 		<table class="table-list table-striped table-bordered" style="font-size:14px;">
 		<form method="post" id="report-type" name="form_mode">
 			<thead>
