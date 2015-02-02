@@ -1,6 +1,11 @@
 <div class="manage-assets">
 <div class="col-md-12 text-right">
-	<p> Search Result: <?php echo $hardware_assets->num_rows(); ?> assets</p>
+
+<?php if( $hardware_assets->num_rows() >1 ): ?>
+	<p> Search Results: <?php echo $hardware_assets->num_rows(); ?> assets</p>
+<?php else: ?>	
+	<p> Search Result: <?php echo $hardware_assets->num_rows(); ?> asset</p>
+<?php endif; ?>	
 </div>
 
 
