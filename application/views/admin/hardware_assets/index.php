@@ -175,7 +175,7 @@ if($hardware_assets->num_rows())
 					<div class="form-group">
 					    <label class= "control-label col-md-12" >Date Added</label>
 					    <div class="col-md-12 controls">
-					    	<input type="date" class="form-control-small form-control" name="har_date_added" placeholder="Asset Model">
+					    	<input id="har_date_added" type="date" class="form-control-small form-control" name="har_date_added" placeholder="Asset Model">
 					    </div>						
 					</div>
 
@@ -282,7 +282,7 @@ if($hardware_assets->num_rows())
 
 	jQuery(function($) {
 
-		$( "input:text[name=har_model]" )
+		$( "input:text[name=har_model], input:text[name=har_asset_number]" )
 		  .keyup(function(e) {
 			e.preventDefault(); 
 			
@@ -295,31 +295,12 @@ if($hardware_assets->num_rows())
 			//var har_asset_type = $( 'select[name=har_asset_type]').val();
 			var har_asset_type = $( 'select[name=har_asset_type]').val();
 			var har_status = $( 'select[name=har_status]').val();
-			var har_date_added = $( 'select[name=har_date_added]').val();
+			var har_date_added = $('#har_date_added').val();
 
 			ajax_call(har_office, har_model, har_asset_number, har_asset_type, har_status, har_date_added);
 		  })
 
-		  $( "input:text[name=har_asset_number]" )
-		  .keyup(function(e) {
-			e.preventDefault(); 
-			
-			var har_office = $( 'select[name=har_office]').val();
-
-			var har_model = $( 'input:text[name=har_model]').val();
-
-			var har_asset_number = $( 'input:text[name=har_asset_number]').val();
-
-			//var har_asset_type = $( 'select[name=har_asset_type]').val();
-			var har_asset_type = $( 'select[name=har_asset_type]').val();
-			var har_status = $( 'select[name=har_status]').val();
-			var har_date_added = $( 'select[name=har_date_added]').val();
-
-			ajax_call(har_office, har_model, har_asset_number, har_asset_type, har_status, har_date_added);
-			
-		  })
-
-		  $('select[name=har_asset_type]').change(function(e){
+		  $('select[name=har_asset_type], select[name=har_office], select[name=har_status], #har_date_added').change(function(e){
     		e.preventDefault(); 
 			
 			var har_office = $( 'select[name=har_office]').val();
@@ -331,62 +312,10 @@ if($hardware_assets->num_rows())
 			//var har_asset_type = $( 'select[name=har_asset_type]').val();
 			var har_asset_type = $( 'select[name=har_asset_type]').val();
 			var har_status = $( 'select[name=har_status]').val();
-			var har_date_added = $( 'select[name=har_date_added]').val();
+			var har_date_added = $('#har_date_added').val();
 
 			ajax_call(har_office, har_model, har_asset_number, har_asset_type, har_status, har_date_added);
   			});
-
-		  $('select[name=har_office]').change(function(e){
-    		e.preventDefault(); 
-			
-			var har_office = $( 'select[name=har_office]').val();
-
-			var har_model = $( 'input:text[name=har_model]').val();
-
-			var har_asset_number = $( 'input:text[name=har_asset_number]').val();
-
-			//var har_asset_type = $( 'select[name=har_asset_type]').val();
-			var har_asset_type = $( 'select[name=har_asset_type]').val();
-			var har_status = $( 'select[name=har_status]').val();
-			var har_date_added = $( 'select[name=har_date_added]').val();
-
-			ajax_call(har_office, har_model, har_asset_number, har_asset_type, har_status, har_date_added);
-  			});
-
-		  $('select[name=har_status]').change(function(e){
-    		e.preventDefault(); 
-			
-			var har_office = $( 'select[name=har_office]').val();
-
-			var har_model = $( 'input:text[name=har_model]').val();
-
-			var har_asset_number = $( 'input:text[name=har_asset_number]').val();
-
-			//var har_asset_type = $( 'select[name=har_asset_type]').val();
-			var har_asset_type = $( 'select[name=har_asset_type]').val();
-			var har_status = $( 'select[name=har_status]').val();
-			var har_date_added = $( 'select[name=har_date_added]').val();
-
-			ajax_call(har_office, har_model, har_asset_number, har_asset_type, har_status, har_date_added);
-  			});
-
-		  $('select[name=har_date_added]').change(function(e){
-    		e.preventDefault(); 
-			
-			var har_office = $( 'select[name=har_office]').val();
-
-			var har_model = $( 'input:text[name=har_model]').val();
-
-			var har_asset_number = $( 'input:text[name=har_asset_number]').val();
-
-			//var har_asset_type = $( 'select[name=har_asset_type]').val();
-			var har_asset_type = $( 'select[name=har_asset_type]').val();
-			var har_status = $( 'select[name=har_status]').val();
-			var har_date_added = $( 'select[name=har_date_added]').val();
-
-			ajax_call(har_office, har_model, har_asset_number, har_asset_type, har_status, har_date_added);
-  			});
-
 
 		$('form[name="filter_search"]').submit(function(e){
 			e.preventDefault(); 
@@ -400,13 +329,13 @@ if($hardware_assets->num_rows())
 			//var har_asset_type = $( 'select[name=har_asset_type]').val();
 			var har_asset_type = $( 'select[name=har_asset_type]').val();
 			var har_status = $( 'select[name=har_status]').val();
-			var har_date_added = $( 'select[name=har_date_added]').val();
-
+			var har_date_added = $('#har_date_added').val();
+			//$( 'select[name=har_date_added]').val(); 
 
 			ajax_call(har_office, har_model, har_asset_number, har_asset_type, har_status, har_date_added);
 		});	
 
-	function ajax_call(har_office, har_model, har_asset_number, har_asset_type, har_status, har_date_added, har_specs){
+	function ajax_call(har_office, har_model, har_asset_number, har_asset_type, har_status, har_date_added){
 			
 			var request = $.ajax({					
 				url: '<?php echo site_url("admin/hardware_assets/results"); ?>',
