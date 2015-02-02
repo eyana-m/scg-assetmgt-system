@@ -1,6 +1,6 @@
 <div class="manage-assets">
 <div class="col-md-12 text-right">
-	<p>Shows <?php echo $hardware_assets->num_rows(); ?> out of <?php echo $hardware_count; ?> assets</p>
+	<p> Search Result: <?php echo $hardware_assets->num_rows(); ?> assets</p>
 </div>
 
 
