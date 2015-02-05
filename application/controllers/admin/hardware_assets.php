@@ -613,13 +613,15 @@ class Hardware_assets extends CI_Controller
 					$new_status = $this->input->post('aud_status');	
 					$new_comment = $this->input->post('aud_comment');	
 					$this->untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status, $new_comment);
+
 					$hardware_update['har_id'] = $hardware_asset_id;
 					$hardware_update['har_status'] = $new_status;
 					$hardware_update['har_last_update'] = date('Y-m-d H:i:s');
 
 					$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);	
-					$current_audit_entry = $this->audit_entry_model->get_by_hardware($hardware_asset_id)->first_row();
-					$page['current_audit_entry'] = $current_audit_entry;
+
+					$page['current_audit_entry'] = $this->audit_entry_model->get_by_hardware($hardware_asset_id)->first_row();
+					$current_audit_entry = $page['current_audit_entry'] ;
 					
 
 					$this->template->notification("Asset is now untagged. <a class='label label-success' href=".site_url('admin/hardware_assets').">Back to Asset List</a>", 'success');
