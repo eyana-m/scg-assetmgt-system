@@ -5,6 +5,7 @@
 
 			<div class="panel-heading" role="tab" id="headingFour" style="text-decoration: none;">
 				Asset Information
+				<?php echo $hardware_asset->har_status; ?>
 			</div>
 			
 
@@ -687,10 +688,9 @@
 				<form method="post" id="untag">
 
 					<select name="aud_status" id="aud_status" class="input-medium form-control form-control-small">
-						<option value="">Select Status</option>				
-						<option value="stockroom" selected>stockroom</option>
+										
+						<option value="stockroom">stockroom</option>
 						<option value="service unit">service unit</option>
-						<option value="repair">repair</option>
 						<option value="for disposal">for disposal</option>
 						<option value="disposed">disposed</option>
 					</select>

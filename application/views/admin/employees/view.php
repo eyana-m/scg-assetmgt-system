@@ -59,10 +59,102 @@
 
 			<?php if($this->access_control->check_account_type('admin')):  ?>	
 				<td>
+				
+
+
 				<a href="#untag" class="label label-default" style="text-decoration: none" role="button" data-toggle="modal" data-dismiss = "modal">untag</a>
+				
 				</td>
+
+
+
 			<?php endif;?>
     	</tr>
+
+
+		<!-- Untag from Employee-->
+		<div id = "untag" class = "modal fade">
+			<div class = "modal-dialog">
+				<div class = "modal-content">
+					<div class = "modal-header"><h3>Untag Employee</h3></div>
+					<div class = "modal-body">
+						You're about to untag the following asset to the following employee:
+
+					<div class="well row" style="margin-top: 1em; background-color: #bbb; border-color: #bbb">
+
+
+					<div class="col-xs-6">
+						<div class="col-xs-5 panel-personnel-content">Employee:</div>
+						<div class="col-xs-7 panel-personnel-content">
+							<strong><?php echo $audit_entry->emp_first_name; ?> <?php echo $audit_entry->emp_last_name; ?>
+							</strong>					
+						</div>
+
+						<div class="col-xs-5 panel-personnel-content">Department:</div>
+						<div class="col-xs-7 panel-personnel-content">
+							<?php echo $audit_entry->emp_department; ?> 
+						</div>	
+
+						<div class="col-xs-5 panel-personnel-content">Office:</div>
+						<div class="col-xs-7 panel-personnel-content">
+							<?php echo $audit_entry->emp_office; ?> 
+						</div>		
+					</div>
+
+
+					<div class="col-xs-6">
+
+						<div class="col-xs-5 panel-personnel-content">Asset Type:</div>
+						<div class="col-xs-7 panel-personnel-content">
+							<strong><?php echo $audit_entry->har_asset_type; ?></strong>
+							
+						</div>
+
+						<div class="col-xs-5 panel-personnel-content">Asset Model:</div>
+						<div class="col-xs-7 panel-personnel-content">
+							<?php echo $audit_entry->har_model; ?> 
+						</div>	
+
+						<div class="col-xs-5 panel-personnel-content">Serial Number:</div>
+						<div class="col-xs-7 panel-personnel-content">
+							<?php echo $audit_entry->har_serial_number; ?> 
+						</div>	
+
+					</div>	
+
+					</div>
+
+					<div class="col-xs-12">
+					<div class="panel-personnel-content">Select new <strong>Asset Status</strong> after untagging:</div>
+					<form method="post" id="untag">
+					<select name="aud_status" id="aud_status" class="input-medium form-control form-control-small">
+										
+						<option value="stockroom">stockroom</option>
+						<option value="service unit">service unit</option>
+						<option value="for disposal">for disposal</option>
+						<option value="disposed">disposed</option>
+					</select>
+					<input id="aud_comment" class="form-control form-control-small" name="aud_comment" type="text" placeholder="Remark (e.g. 'Normal Condition')">
+					<input id="untag_barcode" class="form-control form-control-small" name="untag_barcode" type="text" placeholder="Scan code here to untag">
+					<input type="hidden" name="hardware_asset" value="<?php echo $audit_entry->har_barcode; ?>">
+					<input type="hidden" name="aud_id" value="<?php echo $audit_entry->aud_id; ?>">
+					</div>
+
+
+					</div>
+					<div class = "modal-footer">
+					
+						<!--<input class ="btn btn-danger no-border-radius" type="submit" name="untag" value="Untag">-->
+					</form>
+						<button class ="btn btn-default no-border-radius" data-dismiss = "modal">Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
 
     	<?php endforeach; ?>
 
@@ -147,84 +239,6 @@
 
 
 
-<!-- Untag from Employee-->
-<div id = "untag" class = "modal fade">
-	<div class = "modal-dialog">
-		<div class = "modal-content">
-			<div class = "modal-header"><h3>Untag Employee</h3></div>
-			<div class = "modal-body">
-				You're about to untag the following asset to the following employee:
-
-			<div class="well row" style="margin-top: 1em; background-color: #bbb; border-color: #bbb">
-
-
-			<div class="col-xs-6">
-				<div class="col-xs-5 panel-personnel-content">Employee:</div>
-				<div class="col-xs-7 panel-personnel-content">
-					<strong><?php echo $current_audit_entry->emp_first_name; ?> <?php echo $current_audit_entry->emp_last_name; ?>
-					</strong>					
-				</div>
-
-				<div class="col-xs-5 panel-personnel-content">Department:</div>
-				<div class="col-xs-7 panel-personnel-content">
-					<?php echo $current_audit_entry->emp_department; ?> 
-				</div>	
-
-				<div class="col-xs-5 panel-personnel-content">Office:</div>
-				<div class="col-xs-7 panel-personnel-content">
-					<?php echo $current_audit_entry->emp_office; ?> 
-				</div>		
-			</div>
-
-
-			<div class="col-xs-6">
-
-				<div class="col-xs-5 panel-personnel-content">Asset Type:</div>
-				<div class="col-xs-7 panel-personnel-content">
-					<strong><?php echo $current_audit_entry->har_asset_type; ?></strong>
-					
-				</div>
-
-				<div class="col-xs-5 panel-personnel-content">Asset Model:</div>
-				<div class="col-xs-7 panel-personnel-content">
-					<?php echo $current_audit_entry->har_model; ?> 
-				</div>	
-
-				<div class="col-xs-5 panel-personnel-content">Serial Number:</div>
-				<div class="col-xs-7 panel-personnel-content">
-					<?php echo $current_audit_entry->har_serial_number; ?> 
-				</div>	
-
-			</div>	
-
-			</div>
-
-			<div class="col-xs-12">
-			<div class="panel-personnel-content">Select new <strong>Asset Status</strong> after untagging:</div>
-			<form method="post" id="untag">
-			<select name="aud_status" id="aud_status" class="input-medium form-control form-control-small">
-				<option value="" disabled>Select Status</option>				
-				<option value="stockroom" selected>stockroom</option>
-				<option value="service unit">service unit</option>
-				<option value="for disposal">for disposal</option>
-				<option value="disposed">disposed</option>
-			</select>
-
-			<input id="untag_barcode" class="form-control form-control-small" name="untag_barcode" type="text" placeholder="Scan code here to untag">
-
-			</div>
-
-
-			</div>
-			<div class = "modal-footer">
-			
-				<!--<input class ="btn btn-danger no-border-radius" type="submit" name="untag" value="Untag">-->
-			</form>
-				<button class ="btn btn-default no-border-radius" data-dismiss = "modal">Cancel</button>
-			</div>
-		</div>
-	</div>
-</div>
 
 
 <script type="text/javascript">

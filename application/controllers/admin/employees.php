@@ -213,26 +213,34 @@ class Employees extends CI_Controller
 
 			if($this->access_control->check_account_type('admin'))
 			{
-				$hardware_asset_id = $current_audit_entry->aud_har;
+				$hardware_asset_id = $this->input->post('hardware_asset');
+				$selected_aud_id = $this->input->post('aud_id');
 
 				if($this->input->post('untag_barcode')==$hardware_asset_id)
-				{			
-					if($current_audit_entry->aud_status=='active'):
-					 	$this->auto_untag($current_audit_entry);	
-					 endif;
+				{		
+
+					$current = $this->audit_entry_model->get_one($selected_aud_id);
+					
+
+					$this->auto_untag($current);	
+					
 
 					$new_status = $this->input->post("aud_status");	
 
-					$this->untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status);
+					$this->untag_next_status($field_list, $hardware_asset_id, $current, $new_status);
 
-					$hardware_update['har_id'] = $hardware_asset_id;
+					$hardware_update = array();
+					$hardware_update_fields = array('har_barcode', 'har_status', 'har_last_update');
+					$hardware_update['har_barcode'] = $hardware_asset_id;
 					$hardware_update['har_status'] = $new_status;
+					
 					$hardware_update['har_last_update'] = date('Y-m-d H:i:s');
 
 					$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);	
-					
-					$page['current_audit_entry']= $this->audit_entry_model->get_by_employee($employee_id)->first_row();
-					$current_audit_entry = $page['current_audit_entry'];
+
+					$hw = $this->hardware_asset_model->get_one($hardware_asset_id);
+
+
 
 					$this->template->notification("Asset is now untagged. <a class='label label-success' href=".site_url('admin/hardware_assets').">Back to Asset List</a>", 'success');
 					//redirect($this->uri->uri_string());
@@ -273,7 +281,7 @@ class Employees extends CI_Controller
 
 		$audit_entry['aud_datetime'] = date('Y-m-d H:i:s');
 		$audit_entry['aud_status'] = $new_status;
-		$hardware_update['har_status'] = $new_status;
+		//$hardware_update['har_status'] = $new_status;
 
 		$name = $current_audit_entry->emp_first_name." ".$current_audit_entry->emp_last_name;
 			

@@ -12,17 +12,22 @@ class Hardware_assets extends CI_Controller
 		$this->load->helper('url');
 		$this->load->helper('csv');
 		$this->load->helper('download');
-		$this->load->library('upload');
-
-		
 		$this->load->helper('file'); 
 
-		
+		$this->load->library('upload');
 
 		$this->load->model('hardware_asset_model');
 		$this->load->model('employee_model');
 		$this->load->model('audit_entry_model');
 	}
+
+
+
+
+	// HARDWARE_ASSETS INDEX
+	// List all assets by latest update
+	// Filters assets by search
+	// Generate reports for the ff: assets need for replacement, asset added this week, each asset status, each salvage value
 
 	public function index()
 	{
@@ -41,7 +46,7 @@ class Hardware_assets extends CI_Controller
 		$page['hardware_assets_value'] = $this->hardware_asset_model->get_total_value();
 		$page['hardware_assets_pagination'] = $this->hardware_asset_model->pagination_links();
 		
-	
+		
 		if($this->input->post('form_mode'))
 		{
 			if($this->access_control->check_account_type('admin')) 
@@ -182,14 +187,9 @@ class Hardware_assets extends CI_Controller
 				    case 'asset-salvagevalue':
 				    $date = date('Y-m-d');
 					$filename = 'asset_computation_'.$date.'.csv';
-
-
-					// $page['hardware_selected'] =  $this->hardware_asset_model->get_selected($report_type['har_barcodes']);
 					$page['hardware_selected'] =  $this->hardware_asset_model->get_salvage_value($report_type['har_barcodes']);
-
 					$hardware_selected = $page['hardware_selected'] ;
 
-					
 					$data = $this->dbutil->csv_from_result($hardware_selected);
 
 					force_download($filename, $data);
@@ -215,14 +215,15 @@ class Hardware_assets extends CI_Controller
 	}
 
 	
-	
+	// HARDWARE_ASSETS CREATE
+	// Adds an hardware asset with validation
 	public function create()
 	{
 
 		if($this->access_control->check_account_type('admin')) 
 		{	
 			$this->template->title('Create Hardware Asset');		
-			$this->form_validation->set_rules('har_asset_number', 'Asset Number', 'trim|required|max_length[15]', 'add_asset');
+			$this->form_validation->set_rules('har_asset_number', 'Asset Number', 'trim|required|max_length[6]', 'add_asset');
 			$this->form_validation->set_rules('har_asset_type', 'Asset Type', 'trim|required', 'add_asset');
 			$this->form_validation->set_rules('har_office', 'Asset Office', 'trim|required', 'add_asset');
 			$this->form_validation->set_rules('har_erf_number', 'Erf Number', 'trim|required', 'add_asset');
@@ -245,19 +246,12 @@ class Hardware_assets extends CI_Controller
 				$hardware_asset = $this->extract->post();
 				
 				$hardware_asset['har_barcode'] = $this->hardware_asset_model->generate_barcode($hardware_asset['har_asset_type'],$hardware_asset['har_asset_number'],$hardware_asset['har_date_purchase']);
-
 				$hardware_asset['har_tech_refresher'] = $this->hardware_asset_model->get_tech_refresher_date($hardware_asset['har_asset_type'],$hardware_asset['har_date_purchase']);
-
 				$tech_year = $this->hardware_asset_model->get_tech_refresher_year($hardware_asset['har_asset_type']);
-
-				$you = $this->hardware_asset_model->get_you($hardware_asset['har_date_purchase']);
-			
+				$you = $this->hardware_asset_model->get_you($hardware_asset['har_date_purchase']);			
 				$hardware_asset['har_book_value'] = $this->hardware_asset_model-> get_book_value($hardware_asset['har_cost'], $tech_year, $you);
-
 				$hardware_asset['har_predetermined_value']  = $this->hardware_asset_model->get_market_value($hardware_asset['har_tech_refresher'],$hardware_asset['har_cost']);
-
 				$hardware_asset['har_asset_value'] = $this->hardware_asset_model->get_asset_value($hardware_asset['har_book_value'], $hardware_asset['har_predetermined_value']);
-
 				$hardware_asset['har_last_update'] = date('Y-m-d H:i:s');
 
 				//FIRST AUDIT ENTRY
@@ -282,10 +276,8 @@ class Hardware_assets extends CI_Controller
 					$this->hardware_asset_model->create($hardware_asset, $this->hardware_asset_model->get_fields());
 					$this->audit_entry_model->create($audit_entry, $audit_field_list);
 
-					//$this->template->notification("New hardware asset created. <a class='label label-success' href=".site_url('admin/hardware_assets/create').">Add More Asset</a>", 'success');
+					
 					$this->template->notification("Hardware asset ".$hardware_asset['har_barcode']." created. <br><a class='label label-primary' href=".site_url('admin/hardware_assets').">Back to Asset List</a> <a class='label label-success' href=".site_url('admin/hardware_assets/view/')."/".$hardware_asset['har_barcode'].">View Asset</a>", 'success');
-					//redirect('admin/hardware_assets');
-					//redirect('admin/hardware_assets/view/' . $hardware_asset['har_barcode']);
 					redirect('admin/hardware_assets/create');
 				}
 				else
@@ -310,6 +302,9 @@ class Hardware_assets extends CI_Controller
 		}
 
 	}
+ 
+	// HARDWARE_ASSET EDIT
+	// Edit a specific hardware_asset
 
 	public function edit($har_barcode)
 	{
@@ -321,7 +316,7 @@ class Hardware_assets extends CI_Controller
 			//$this->form_validation->set_rules('har_asset_number', 'Asset Number', 'trim|required|integer|max_length[15]');
 			//$this->form_validation->set_rules('har_asset_type', 'Asset Type', 'trim|required');
 			//$this->form_validation->set_rules('har_office', 'Asset Office', 'trim|required');
-			$this->form_validation->set_rules('har_erf_number', 'Erf Number', 'trim|required|max_length[11]');
+			$this->form_validation->set_rules('har_erf_number', 'Erf Number', 'trim|required|max_length[6]');
 			$this->form_validation->set_rules('har_model', 'Model', 'trim|required|max_length[30]');
 			$this->form_validation->set_rules('har_serial_number', 'Serial Number', 'trim|required|max_length[30]');
 			$this->form_validation->set_rules('har_hostname', 'Hostname', 'trim|required|max_length[30]');
@@ -391,6 +386,13 @@ class Hardware_assets extends CI_Controller
 			redirect('admin/forbidden');
 		}
 	}
+
+	// HARDWARE_ASSET VIEW
+	// View a specific hardware_asset
+	// Tag an asset to employee and email after each tag
+	// Untag an asset from employee
+	// Add remarks
+	// Acknowledge a tag by image upload
 
 	public function view($hardware_asset_id)
 	{
@@ -614,7 +616,10 @@ class Hardware_assets extends CI_Controller
 					$new_comment = $this->input->post('aud_comment');	
 					$this->untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status, $new_comment);
 
-					$hardware_update['har_id'] = $hardware_asset_id;
+					$hardware_update = array();
+					$hardware_update_fields = array('har_barcode', 'har_status', 'har_last_update');
+					
+					$hardware_update['har_barcode'] = $hardware_asset_id;
 					$hardware_update['har_status'] = $new_status;
 					$hardware_update['har_last_update'] = date('Y-m-d H:i:s');
 
@@ -695,6 +700,8 @@ class Hardware_assets extends CI_Controller
 	}
 
 
+	// EMAIL EMPLOYEE
+	// After tagging an employee, this method activates
 	public function email_employee($employee, $hardware_asset)
 	{
 
@@ -719,7 +726,6 @@ class Hardware_assets extends CI_Controller
 		$this->email->to($employee['emp_email']); 
 		//$this->email->cc('another@another-example.com'); 
 
-
 		$this->email->subject('Asset '.$hardware_asset['har_barcode'].
 			' tagged');
 		$this->email->message('This asset, <strong>'.$hardware_asset['har_model'].'</strong> has been tagged to you on '.$hardware['har_last_update'].' Please reply to acknowledge. Thank you.');	
@@ -736,16 +742,11 @@ class Hardware_assets extends CI_Controller
 
 	}
 
+	// UNTAG_NEXT_STATUS
+	// Create new audit entry
 	private function untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status, $new_comment)
 	{
 		$audit_entry = array();
-
-		// $hardware_update = array();
-		// $hardware_update_fields = array('har_id', 'har_status', 'har_last_update');
-		
-		// $hardware_update['har_id'] = $hardware_asset_id;
-		// $hardware_update['har_status'] = $new_status;
-		// $hardware_update['har_last_update'] = date('Y-m-d H:i:s');
 
 		$audit_entry['aud_datetime'] = date('Y-m-d H:i:s');
 		$audit_entry['aud_status'] = $new_status;
@@ -761,7 +762,7 @@ class Hardware_assets extends CI_Controller
 		$audit_entry['aud_per'] = null;
 
 		$this->audit_entry_model->create($audit_entry, $field_list);
-		//$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);			
+				
 
 	}
 
