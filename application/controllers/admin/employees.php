@@ -13,17 +13,17 @@ class Employees extends CI_Controller
 		$this->load->helper('format');
 		$this->load->helper('download');
 
-
-
 		$this->load->library('upload');
-		//$this->mythos->library("form_validation");
-
+	
 		$this->load->model('employee_model');
 		$this->load->model('hardware_asset_model');
 		$this->load->model('audit_entry_model');
-
-
 	}
+
+
+	// EMPLOYEE INDEX
+	// List all employees by latest update
+	// Filters assets by search
 
 	public function index()
 	{
@@ -40,14 +40,7 @@ class Employees extends CI_Controller
 	}
 
 
-	public function batch_upload()
-	{
-		$this->template->title('Batch Upload');
-		$page = array();
-		$this->template->content('employees-batch_upload', $page);
-		$this->template->show();
 
-	}
 
 	public function do_upload()
 	{
@@ -73,6 +66,8 @@ class Employees extends CI_Controller
 	}
 
 
+	// EMPLOYEE CREATE
+	// Add an employee with validation
 	public function create()
 	{
 
@@ -130,6 +125,8 @@ class Employees extends CI_Controller
 		}
 	}
 
+	//EMPLOYEE EDIT
+	// Edit a specific employee id
 	public function edit($emp_id)
 	{
 
@@ -184,6 +181,10 @@ class Employees extends CI_Controller
 		}
 	}
 
+	// EMPLOYEE VIEW
+	// View employee information and current tagged assets
+	// Untag each asset
+	// Generate csv for the current tagged assets 
 	public function view($employee_id)
 	{
 		$employee = $this->employee_model->get_one($employee_id);
@@ -272,16 +273,17 @@ class Employees extends CI_Controller
 		$this->template->show();
 	}
 
+
+	// UNTAG_NEXT_STATUS
+	// Create new audit entry
 	private function untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status)
 	{
 		$audit_entry = array();
-		// $hardware_update = array();
-		// $hardware_update_fields = array('har_id', 'har_status');
-		// $hardware_update['har_id'] = $hardware_asset_id;
+	
 
 		$audit_entry['aud_datetime'] = date('Y-m-d H:i:s');
 		$audit_entry['aud_status'] = $new_status;
-		//$hardware_update['har_status'] = $new_status;
+		
 
 		$name = $current_audit_entry->emp_first_name." ".$current_audit_entry->emp_last_name;
 			
@@ -292,10 +294,10 @@ class Employees extends CI_Controller
 
 		$this->audit_entry_model->create($audit_entry, $field_list);
 		// $this->hardware_asset_model->update($hardware_update, $hardware_update_fields);			
-
 	}
 
-
+	// AUTO UNTAG
+	// Automatically sets aud_untag of audit_entry to True
 	private function auto_untag($current_audit_entry)
 	{
 		$audit_update = array();
@@ -312,6 +314,8 @@ class Employees extends CI_Controller
 		$this->audit_entry_model->update($audit_update, $audit_update_fields);	
 	}
 
+	// CATCH EMPLOYEE
+	// Gets employee_id input
 	public function catch_employee()
 	{
 		$data = $this->extract->post();
@@ -334,8 +338,8 @@ class Employees extends CI_Controller
 		}
 	}
 
-
-
+	// RESULTS
+	// results of search
 	public function results()
 	{
 
@@ -384,10 +388,11 @@ class Employees extends CI_Controller
 	 	
 	 	$this->template->content('employees-results', $page);
 	 	$this->template->show('admin/templates','emppartial');	
-
-
 	}
 
+
+	// QUERY EMPLOYEE
+	// search based on set parameters in array
 	public function query_employee($args=array())
 	{
 
@@ -447,6 +452,8 @@ class Employees extends CI_Controller
 
 	}
 
+	// AUDIT ENTRY CSV
+	// Generates csv of all audit entries by employee
 	public function audit_entries_csv()
 	{
 
@@ -468,7 +475,8 @@ class Employees extends CI_Controller
 
 	}
 
-
+	// CHECK POSTVAR
+	// Sets invalid entry to null
 	private function check_postvar($postvar)
 	{
 		if($postvar==false)

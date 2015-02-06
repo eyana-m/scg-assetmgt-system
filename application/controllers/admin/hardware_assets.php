@@ -216,7 +216,7 @@ class Hardware_assets extends CI_Controller
 
 	
 	// HARDWARE_ASSETS CREATE
-	// Adds an hardware asset with validation
+	// Add an hardware asset with validation
 	public function create()
 	{
 
@@ -618,7 +618,7 @@ class Hardware_assets extends CI_Controller
 
 					$hardware_update = array();
 					$hardware_update_fields = array('har_barcode', 'har_status', 'har_last_update');
-					
+
 					$hardware_update['har_barcode'] = $hardware_asset_id;
 					$hardware_update['har_status'] = $new_status;
 					$hardware_update['har_last_update'] = date('Y-m-d H:i:s');
@@ -739,7 +739,6 @@ class Hardware_assets extends CI_Controller
 		else {
 			echo 'Your e-mail has been sent!';
 		}
-
 	}
 
 	// UNTAG_NEXT_STATUS
@@ -761,10 +760,11 @@ class Hardware_assets extends CI_Controller
 		$audit_entry['aud_har'] = $hardware_asset_id;
 		$audit_entry['aud_per'] = null;
 
-		$this->audit_entry_model->create($audit_entry, $field_list);
-				
-
+		$this->audit_entry_model->create($audit_entry, $field_list);				
 	}
+
+	// AUTO UNTAG
+	// Automatically sets aud_untag of audit_entry to True
 
 	private function auto_untag($current_audit_entry)
 	{
@@ -779,10 +779,10 @@ class Hardware_assets extends CI_Controller
 
 
 		$this->audit_entry_model->update($audit_update, $audit_update_fields);
-
 	}
 
-
+	// CATCH BARCODE
+	// Gets barcode input
 	public function catch_barcode()
 	{
 		$data = $this->extract->post();
@@ -805,7 +805,8 @@ class Hardware_assets extends CI_Controller
 
 	
 
-
+	// RESULTS
+	// results of search
 	public function results()
 	{
 
@@ -869,9 +870,10 @@ class Hardware_assets extends CI_Controller
 	 	
 	 	$this->template->content('hardware_assets-results', $page);
 	 	$this->template->show('admin/templates','partial');	
-
-
 	}
+
+	// QUERY HARDWARE ASSET
+	// search based on set parameters in array
 
 	public function query_hardware_asset($args=array())
 	{
@@ -952,13 +954,11 @@ class Hardware_assets extends CI_Controller
 
 
 		return $out;
-
 	}
 
 
-
-
-
+	// FILTER CSV
+	// Generates csv based on filtered data
 	public function filter_csv()
 	{
 
@@ -973,32 +973,10 @@ class Hardware_assets extends CI_Controller
 		$data = $this->dbutil->csv_from_result($assets["hardware_assets"]);
 
 		force_download($filename, $data); 
-
-
-
 	}
 
-	public function filter_csv_replacement()
-	{
-
-		$data = $this->extract->post();
-		$this->load->dbutil();
-
-		$assets = $this->query_hardware_asset_repair($data["filters"]);
-
-		$date = date('Y-m-d');
-		$filename = 'asset_repair_'.$date.'.csv';
-
-		$data = $this->dbutil->csv_from_result($assets["hardware_assets"]);
-
-		force_download($filename, $data); 
-
-
-
-	}
-
-
-
+	// CHECK POSTVAR
+	// Sets invalid entry to null
 
 	private function check_postvar($postvar)
 	{
@@ -1014,7 +992,8 @@ class Hardware_assets extends CI_Controller
 	}
 
 
-
+	// AUDIT ENTRY CSV
+	// Generates csv of all audit entries by hardware
 	public function audit_entries_csv()
 	{
 
@@ -1036,7 +1015,8 @@ class Hardware_assets extends CI_Controller
 
 	}
 
-
+	// GENERATE CSV - Used in hardware_assets-create
+	// Generates csv of assets created today
 	public function generate_csv()
 	{
 		$this->load->dbutil();
@@ -1053,7 +1033,8 @@ class Hardware_assets extends CI_Controller
 	}
 
 
-
+	// BACKUP
+	// Backs up database using CI utilities
 	public function backup()
 	{
 

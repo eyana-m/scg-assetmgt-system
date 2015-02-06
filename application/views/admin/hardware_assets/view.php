@@ -5,7 +5,7 @@
 
 			<div class="panel-heading" role="tab" id="headingFour" style="text-decoration: none;">
 				Asset Information
-				<?php echo $hardware_asset->har_status; ?>
+				
 			</div>
 			
 

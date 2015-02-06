@@ -67,8 +67,6 @@ class Accounts extends CI_Controller
 		{
 			redirect('admin/forbidden');
 		}
-
-
 	}
 	
 	public function create() 
