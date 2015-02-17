@@ -4,7 +4,7 @@
 	<div class="panel panel-success panel-personnel" style="margin-left: 0">
 
 			<div class="panel-heading" role="tab" id="headingFour" style="text-decoration: none;">
-				Asset Information
+				Asset Information  <?php echo $hardware_asset->har_status; ?>
 				
 			</div>
 			
@@ -285,7 +285,7 @@
 
 						<?php if($this->access_control->check_account_type('admin')): ?>
 
-							<?php if(($current_audit_entry->aud_status=='active')):?>
+							<?php if(($current_audit_entry->aud_status=='active') || ($current_audit_entry->aud_status=='service unit')):?>
 								<a href="#untag" style="text-decoration: none" role="button" data-toggle="modal" data-dismiss = "modal"><small>(untag)</small></a>
 							<?php endif; ?>
 
@@ -694,6 +694,7 @@
 						<option value="for disposal">for disposal</option>
 						<option value="disposed">disposed</option>
 					</select>
+
 					<input id="aud_comment" class="form-control form-control-small" name="aud_comment" type="text" placeholder="Remark (e.g. 'Normal Condition')">
 					<input id="untag_barcode" class="form-control form-control-small" name="untag_barcode" type="text" placeholder="Scan code here to untag">
 

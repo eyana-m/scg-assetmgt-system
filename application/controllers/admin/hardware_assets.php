@@ -614,7 +614,7 @@ class Hardware_assets extends CI_Controller
 			{
 				if($this->input->post('untag_barcode')==$hardware_asset_id)
 				{
-					if($current_audit_entry->aud_status=='active'):
+					if(($current_audit_entry->aud_status=='active') || ($current_audit_entry->aud_status=='service unit')):
 					 	$this->auto_untag($current_audit_entry);			 					
 					endif;
 

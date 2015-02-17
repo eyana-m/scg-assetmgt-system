@@ -170,11 +170,7 @@ if($employees->num_rows())
 			 
 			request.done(function( msg ) {
 				$(".manage-employees").hide(0, function(){
-                     $(".manage-employees").html(msg).show().delay(200);    
-
-
-
-                     
+                     $(".manage-employees").html(msg).show().delay(200);                     
                              
                 });
 			
