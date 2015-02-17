@@ -214,6 +214,11 @@ class Hardware_assets extends CI_Controller
 		$this->template->show();
 	}
 
+	public function find_current_audit_entry($har_barcode){
+		$current_audit_entry = $this->audit_entry_model->get_by_hardware($har_barcode)->first_row();		
+		return $current_audit_entry->result();
+	}
+
 	
 	// HARDWARE_ASSETS CREATE
 	// Add an hardware asset with validation

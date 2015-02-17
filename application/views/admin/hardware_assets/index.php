@@ -51,7 +51,7 @@ if($hardware_assets->num_rows())
 
 					<?php else: ?>
 
-						<span class="label label-default"><?php echo $hardware_asset->har_status; ?></span>
+						<span class="label label-default"><?php echo $hardware_asset->har_status; ?></span> 
 
 						
 

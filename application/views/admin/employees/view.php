@@ -12,11 +12,13 @@
 			<th>Remarks</th>
 			<th>Date Assigned</th>
 			<?php if($this->access_control->check_account_type('admin')):  ?>
-				<th>Actions</th>
+				<th>Untag from Employee</th>
 			<?php endif; ?>
 		</thead>
 
-		<?php foreach($audit_entries->result() as $audit_entry): ?>
+		<?php 
+		$count = 0;
+		foreach($audit_entries->result() as $audit_entry): ?>
 
     	<tr>
 			<td>
@@ -49,113 +51,42 @@
 				<td><?php echo nl2br($audit_entry->aud_comment); ?></td>
 				<td><?php echo format_datetime($audit_entry->aud_datetime); ?></td>
 
-				<?php 
 
-				$next = $audit_entries->previous_row();
-
-
-				?>
 
 
 			<?php if($this->access_control->check_account_type('admin')):  ?>	
-				<td>
-				
+				<td>				
+					<!-- <a href="#untag" class="label label-default" style="text-decoration: none" role="button" data-toggle="modal" data-dismiss = "modal">untag</a>	 -->
+					<form method="post" id="untag_asset" name="untag_asset" action="<?php echo site_url("admin/employees/untag_asset/")?>">
 
-
-				<a href="#untag" class="label label-default" style="text-decoration: none" role="button" data-toggle="modal" data-dismiss = "modal">untag</a>
-				
-				</td>
-
-
-
-			<?php endif;?>
-    	</tr>
-
-
-		<!-- Untag from Employee-->
-		<div id = "untag" class = "modal fade">
-			<div class = "modal-dialog">
-				<div class = "modal-content">
-					<div class = "modal-header"><h3>Untag Employee</h3></div>
-					<div class = "modal-body">
-						You're about to untag the following asset to the following employee:
-
-					<div class="well row" style="margin-top: 1em; background-color: #bbb; border-color: #bbb">
-
-
-					<div class="col-xs-6">
-						<div class="col-xs-5 panel-personnel-content">Employee:</div>
-						<div class="col-xs-7 panel-personnel-content">
-							<strong><?php echo $audit_entry->emp_first_name; ?> <?php echo $audit_entry->emp_last_name; ?>
-							</strong>					
-						</div>
-
-						<div class="col-xs-5 panel-personnel-content">Department:</div>
-						<div class="col-xs-7 panel-personnel-content">
-							<?php echo $audit_entry->emp_department; ?> 
-						</div>	
-
-						<div class="col-xs-5 panel-personnel-content">Office:</div>
-						<div class="col-xs-7 panel-personnel-content">
-							<?php echo $audit_entry->emp_office; ?> 
-						</div>		
-					</div>
-
-
-					<div class="col-xs-6">
-
-						<div class="col-xs-5 panel-personnel-content">Asset Type:</div>
-						<div class="col-xs-7 panel-personnel-content">
-							<strong><?php echo $audit_entry->har_asset_type; ?></strong>
-							
-						</div>
-
-						<div class="col-xs-5 panel-personnel-content">Asset Model:</div>
-						<div class="col-xs-7 panel-personnel-content">
-							<?php echo $audit_entry->har_model; ?> 
-						</div>	
-
-						<div class="col-xs-5 panel-personnel-content">Serial Number:</div>
-						<div class="col-xs-7 panel-personnel-content">
-							<?php echo $audit_entry->har_serial_number; ?> 
-						</div>	
-
-					</div>	
-
-					</div>
-
-					<div class="col-xs-12">
-					<div class="panel-personnel-content">Select new <strong>Asset Status</strong> after untagging:</div>
-					<form method="post" id="untag">
+					<input type="hidden" name="hardware_asset" id="hardware_asset" value="<?php echo $audit_entry->har_barcode; ?>">
+					<input type="hidden" name="aud_id" id="aud_id" value="<?php echo $audit_entry->aud_id; ?>"> 
+					<input type="hidden" name="employee_id" id="employee_id" value="<?php echo $audit_entry->emp_id; ?>"> 
+					
 					<select name="aud_status" id="aud_status" class="input-medium form-control form-control-small">
-										
+						<option value="" disabled>Change Status</option>				
 						<option value="stockroom">stockroom</option>
 						<option value="for disposal">for disposal</option>
 						<option value="disposed">disposed</option>
 					</select>
 					
 					<input id="untag_barcode" class="form-control form-control-small" name="untag_barcode" type="text" placeholder="Scan code here to untag">
-					<input type="hidden" name="hardware_asset" value="<?php echo $audit_entry->har_barcode; ?>">
-					<input type="hidden" name="aud_id" value="<?php echo $audit_entry->aud_id; ?>">
-					</div>
-
-
-					</div>
-					<div class = "modal-footer">
 					
-						<!--<input class ="btn btn-danger no-border-radius" type="submit" name="untag" value="Untag">-->
-					</form>
-						<button class ="btn btn-default no-border-radius" data-dismiss = "modal">Cancel</button>
-					</div>
-				</div>
-			</div>
-		</div>
+					<input type="hidden" name="count" value="<?php echo $count; ?>">
+					
+					</form>				
+				</td>
 
+			<?php endif;?>
+    	</tr>
+	
+		<?php 
+			$next = $audit_entries->previous_row();
+		?>
 
-
-
-
-    	<?php endforeach; ?>
+    	<?php
+    		$count++;
+    	 	endforeach; ?>
 
 
   	</table>
@@ -245,12 +176,23 @@
 
 	   var bc;
 	   setTimeout(function() {
-	      	bc = $("input:text[name=untag_barcode]").val(); 
+	      	bc = $("input:text[name=untag_barcode").val(); 
 	    }, 2000);
 
 	   $("form#untag").submit();
 
 	});
+
+	// $('select[name="aud_status"]').change(function() {
+ //        if (this.value !== '') {           
+            
+ //            $('input:text[name="untag_barcode"]').removeAttr('disabled');
+ //            $('input:text[name="untag_barcode"]').focus();
+ //        }
+ //        else {
+ //             $('input:text[name="untag_barcode"]').attr('disabled', 'disabled');
+ //        }
+ //    });
 
 	// $('#untag_barcode').bind('copy paste',function(e) {
 	//     e.preventDefault(); return false; 
