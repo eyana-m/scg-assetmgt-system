@@ -320,7 +320,7 @@ class Employees extends CI_Controller
 
 	// AUTO UNTAG
 	// Automatically sets aud_untag of audit_entry to True
-	/**private function auto_untag($current_audit_entry)
+	private function auto_untag($current_audit_entry)
 	{
 		$audit_update = array();
 		$audit_update_fields = array('aud_id', 'aud_untag', 'aud_date_untagged');
@@ -334,36 +334,34 @@ class Employees extends CI_Controller
 
 
 		$this->audit_entry_model->update($audit_update, $audit_update_fields);	
-
-
-	}**/
+	}
 
 	//KEN EXPERIMENT
-	private function auto_untag($current_audit_entry, $all_audit_entry)
-	{
-		$audit_update = array();
-		$audit_update_fields = array('aud_id', 'aud_untag', 'aud_date_untagged');//, 'aud_comment');
+	// private function auto_untag($current_audit_entry, $all_audit_entry)
+	// {
+	// 	$audit_update = array();
+	// 	$audit_update_fields = array('aud_id', 'aud_untag', 'aud_date_untagged');//, 'aud_comment');
 
 
-		//$audit_update['aud_id'] = $current_audit_entry->aud_id;
-		$audit_update['aud_untag'] = TRUE;
-		$audit_update['aud_date_untagged'] = date('Y-m-d H:i:s');
+	// 	//$audit_update['aud_id'] = $current_audit_entry->aud_id;
+	// 	$audit_update['aud_untag'] = TRUE;
+	// 	$audit_update['aud_date_untagged'] = date('Y-m-d H:i:s');
 	
 
-		//$audit_entries = $this->audit_entry_model->get_by_hardware($all_audit_entry->);
+	// 	//$audit_entries = $this->audit_entry_model->get_by_hardware($all_audit_entry->);
 
-		foreach($all_audit_entry->result() as $audit_entry) {
-			$i = 128;
-			$i++;
-			//$test = $this->audit_entry_model->get_current_by_hardware($audit_entry->aud_har);
-			$audit_update['aud_id'] = $audit_entry->aud_id;//$test->aud_id;
-			//$audit_update['aud_comment'] = 
-			$this->audit_entry_model->update_aud_entry($audit_update, $audit_update_fields);
-		}
+	// 	foreach($all_audit_entry->result() as $audit_entry) {
+	// 		$i = 128;
+	// 		$i++;
+	// 		//$test = $this->audit_entry_model->get_current_by_hardware($audit_entry->aud_har);
+	// 		$audit_update['aud_id'] = $audit_entry->aud_id;//$test->aud_id;
+	// 		//$audit_update['aud_comment'] = 
+	// 		$this->audit_entry_model->update_aud_entry($audit_update, $audit_update_fields);
+	// 	}
 
-		//$this->audit_entry_model->update_aud_entry($audit_update, $audit_update_fields);
+	// 	//$this->audit_entry_model->update_aud_entry($audit_update, $audit_update_fields);
 		
-	}
+	// }
 
 	// CATCH EMPLOYEE
 	// Gets employee_id input
