@@ -416,7 +416,6 @@
 							<?php endif; ?>
 						</select>
 
-						<input disabled type="number" class="form-control form-control-small" id="emp_id_service" name="emp_id_service" placeholder="Employee ID (e.g. '10000022')">
 						<input type="text" class="form-control form-control-small" id="aud_comment" name="aud_comment" placeholder="Remark (e.g. 'Normal Condition')">
 
 						<?php if ($current_audit_entry->aud_status == 'active') : ?>	
@@ -691,6 +690,7 @@
 					<select name="aud_status" id="aud_status" class="input-medium form-control form-control-small">
 										
 						<option value="stockroom">stockroom</option>
+						<option value="service unit">service unit</option>
 						<option value="for disposal">for disposal</option>
 						<option value="disposed">disposed</option>
 					</select>
@@ -864,19 +864,6 @@ $('#add_remarks_button').click(function() {
 
    $("form#add-remarks").submit();
 });
-
-
-
-
-$('select[name="aud_status"]').change(function() {
-    if (this.value == 'service unit') {
-        $('input#emp_id_service').removeAttr('disabled');
-    }
-    else {
-        $('input#emp_id_service').attr('disabled', 'disabled');
-    }
-});
-
 
 
 

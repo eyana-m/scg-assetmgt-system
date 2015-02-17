@@ -469,17 +469,11 @@ class Hardware_assets extends CI_Controller
 					{
 						$audit_entry['aud_per'] = $current_audit_entry->aud_per;
 					}
-					elseif (($audit_entry['aud_status'] == 'service unit')) {
-						$audit_entry['aud_per'] = $this->input->post('emp_id_service');
-						$audit_entry['aud_untag'] = FALSE;
-					}
 					else 
 					{
 					$audit_entry['aud_per'] = null;
 					$audit_entry['aud_confirm'] = null;	
 					}
-
-
 
 					$this->audit_entry_model->create($audit_entry, $field_list);
 					$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);
@@ -706,8 +700,6 @@ class Hardware_assets extends CI_Controller
 	}
 
 
-	// EMAIL EMPLOYEE
-	// After tagging an employee, this method activates
 	public function email_employee($employee, $hardware_asset, $a)
 	{
 		$config = Array(
@@ -744,11 +736,11 @@ class Hardware_assets extends CI_Controller
 		
 		if (!$this->email->send()) {
 			show_error($this->email->print_debugger());
-			$this->template->notification("Your email has not been sent!", 'danger');
+			$this->template->notification("The acknowledgement email has not been sent!", 'danger');
 			redirect('admin/hardware_assets/view/'.$hardware_asset->har_barcode);
 		}
 		else {
-			$this->template->notification('Your email has been sent to '.$employee->emp_first_name.' '.$employee->emp_last_name.'!', 'success');
+			$this->template->notification('The acknowledgement email has been sent to '.$employee->emp_first_name.' '.$employee->emp_last_name.'!', 'success');
 			redirect('admin/hardware_assets/view/'.$hardware_asset->har_barcode);
 		}
 	}

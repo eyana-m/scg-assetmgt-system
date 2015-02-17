@@ -130,6 +130,7 @@
 					<select name="aud_status" id="aud_status" class="input-medium form-control form-control-small">
 										
 						<option value="stockroom">stockroom</option>
+						<option value="service unit">service unit</option>
 						<option value="for disposal">for disposal</option>
 						<option value="disposed">disposed</option>
 					</select>

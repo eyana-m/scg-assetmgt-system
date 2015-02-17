@@ -222,7 +222,7 @@ class Employees extends CI_Controller
 
 					$current = $this->audit_entry_model->get_one($selected_aud_id);
 					
-					
+
 					$this->auto_untag($current);	
 					
 
