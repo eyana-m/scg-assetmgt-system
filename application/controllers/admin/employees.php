@@ -223,7 +223,12 @@ class Employees extends CI_Controller
 					$current = $this->audit_entry_model->get_one($selected_aud_id);
 					$all_audit_entry = $this->audit_entry_model->get_by_hardware_two($hardware_asset_id);
 					
+<<<<<<< HEAD
 					$this->auto_untag($current, $all_audit_entry);	
+=======
+
+					$this->auto_untag($current);	
+>>>>>>> 7e316e1c9d6ce03a21c7d921f16adfeec218a562
 					
 
 					$new_status = $this->input->post("aud_status");	
