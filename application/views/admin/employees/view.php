@@ -135,6 +135,7 @@
 						<option value="disposed">disposed</option>
 					</select>
 					
+					<input id="aud_comment" class="form-control form-control-small" name="aud_comment" type="text" placeholder="Remark (e.g. 'Normal Condition')">
 					<input id="untag_barcode" class="form-control form-control-small" name="untag_barcode" type="text" placeholder="Scan code here to untag">
 					<input type="hidden" name="hardware_asset" value="<?php echo $audit_entry->har_barcode; ?>">
 					<input type="hidden" name="aud_id" value="<?php echo $audit_entry->aud_id; ?>">
