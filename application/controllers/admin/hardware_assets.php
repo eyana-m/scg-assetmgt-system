@@ -426,6 +426,8 @@ class Hardware_assets extends CI_Controller
 
 		$current_audit_entry = $this->audit_entry_model->get_by_hardware($hardware_asset_id)->first_row();
 
+		$all_audit_entry = $this->audit_entry_model->get_by_hardware_two($hardware_asset_id);
+
 		$page['current_audit_entry'] = $current_audit_entry;
 
 
@@ -450,7 +452,7 @@ class Hardware_assets extends CI_Controller
 
 					if ($current_audit_entry == "active") 
 					{
-						$this->auto_untag($current_audit_entry);
+						$this->auto_untag($current_audit_entry,0);
 					}
 
 
@@ -469,17 +471,11 @@ class Hardware_assets extends CI_Controller
 					{
 						$audit_entry['aud_per'] = $current_audit_entry->aud_per;
 					}
-					elseif (($audit_entry['aud_status'] == 'service unit')) {
-						$audit_entry['aud_per'] = $this->input->post('emp_id_service');
-						$audit_entry['aud_untag'] = FALSE;
-					}
 					else 
 					{
 					$audit_entry['aud_per'] = null;
 					$audit_entry['aud_confirm'] = null;	
 					}
-
-
 
 					$this->audit_entry_model->create($audit_entry, $field_list);
 					$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);
@@ -529,6 +525,10 @@ class Hardware_assets extends CI_Controller
 				$audit_entry['aud_confirm'] = null;	
 				}
 
+				//KEN EXPERIMENT
+				$audit_entry['aud_untag'] = FALSE;	
+				$audit_entry['aud_date_untagged'] = null;
+
 				$this->audit_entry_model->create($audit_entry, $field_list);
 				$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);
 
@@ -576,7 +576,7 @@ class Hardware_assets extends CI_Controller
 
 						//EMAIL 
 
-						//$this->email_employee($employee, $hardware_asset);
+						$this->email_employee($employee, $hardware_asset, "1");
 
 						//END EMAIL
 
@@ -614,8 +614,13 @@ class Hardware_assets extends CI_Controller
 			{
 				if($this->input->post('untag_barcode')==$hardware_asset_id)
 				{
+<<<<<<< HEAD
 					if(($current_audit_entry->aud_status=='active') || ($current_audit_entry->aud_status=='service unit')):
 					 	$this->auto_untag($current_audit_entry);			 					
+=======
+					if($current_audit_entry->aud_status=='active'):
+					 	$this->auto_untag($current_audit_entry,$all_audit_entry);			 					
+>>>>>>> 65fef0f3a3dfb570f55d5d9c8fa2a7ee6d4769bf
 					endif;
 
 					$new_status = $this->input->post('aud_status');	
@@ -706,44 +711,48 @@ class Hardware_assets extends CI_Controller
 	}
 
 
-	// EMAIL EMPLOYEE
-	// After tagging an employee, this method activates
-	public function email_employee($employee, $hardware_asset)
+	public function email_employee($employee, $hardware_asset, $a)
 	{
-
 		$config = Array(
 			'protocol' => 'smtp',
 			'smtp_host' => 'ssl://smtp.googlemail.com',
 			'smtp_port' => 465,
-			'smtp_user' => 'xxx@gmail.com', // change it to yours
-			'smtp_pass' => 'xxx', // change it to yours
+			'smtp_user' => 'summitconsultinggroup.ph@gmail.com', // change it to yours
+			'smtp_pass' => 'anggandaatpoginatin', // change it to yours
 			'mailtype' => 'html',
 			'charset' => 'iso-8859-1',
 			'wordwrap' => TRUE
 		);
 
+		$this->load->library('email', $config);
+		$this->email->from('summitconsultinggroup.ph@gmail.com', 'Motolite IT Department');
+		$this->email->to($employee->emp_email);
 
+		$this->email->subject('Asset '.$hardware_asset->har_barcode.' Tagged');
+		$this->email->message('This asset, '.$hardware_asset->har_model.' (Serial Number: '.$hardware_asset->har_serial_number.'), has been tagged to you on '.$hardware_asset->har_last_update.'. Please reply to Arianne Cerdino at acerdino@motolite.com to acknowledge. Thank you.');	
 
-		$this->load->library('email');
-
-		$this->email->from('abcerdino@motolite.com', 'Motolite IT Dept');
-		$this->email->reply_to('you@example.com', 'Your Name');
-
-		$this->email->to($employee['emp_email']); 
-		//$this->email->cc('another@another-example.com'); 
-
-		$this->email->subject('Asset '.$hardware_asset['har_barcode'].
-			' tagged');
-		$this->email->message('This asset, <strong>'.$hardware_asset['har_model'].'</strong> has been tagged to you on '.$hardware['har_last_update'].' Please reply to acknowledge. Thank you.');	
+		// if($a == "1")
+		// {
+		// 	$this->email->subject('Asset '.$hardware_asset->har_barcode.' Tagged');
+		// 	$this->email->message('This asset, '.$hardware_asset->har_model.' (Serial Number: '.$hardware_asset->har_serial_number.'), has been tagged to you on '.$hardware_asset->har_last_update.'. Please reply to Arianne Cerdino at acerdino@motolite.com to acknowledge. Thank you.');	
+		// }
+		// else if($a == "2")
+		// {
+		// 	$this->email->subject('Asset '.$hardware_asset->har_barcode.' Untagged');
+		// 	$this->email->message('This asset, '.$hardware_asset->har_model.' (Serial Number: '.$hardware_asset->har_serial_number.'), has been untagged to you on '.$hardware_asset->har_last_update.'. Please reply to Arianne Cerdino at acerdino@motolite.com to acknowledge. Thank you.');	
+			
+		// }
 
 		$this->email->send();
-
-		//echo $this->email->print_debugger();
-
+		
 		if (!$this->email->send()) {
-			show_error($this->email->print_debugger()); }
+			show_error($this->email->print_debugger());
+			$this->template->notification("The acknowledgement email has not been sent!", 'danger');
+			redirect('admin/hardware_assets/view/'.$hardware_asset->har_barcode);
+		}
 		else {
-			echo 'Your e-mail has been sent!';
+			$this->template->notification('The acknowledgement email has been sent to '.$employee->emp_first_name.' '.$employee->emp_last_name.'!', 'success');
+			redirect('admin/hardware_assets/view/'.$hardware_asset->har_barcode);
 		}
 	}
 
@@ -772,19 +781,30 @@ class Hardware_assets extends CI_Controller
 	// AUTO UNTAG
 	// Automatically sets aud_untag of audit_entry to True
 
-	private function auto_untag($current_audit_entry)
+	private function auto_untag($current_audit_entry, $all_audit_entry)
 	{
 		$audit_update = array();
-		$audit_update_fields = array('aud_id', 'aud_untag', 'aud_date_untagged');
+		$audit_update_fields = array('aud_id', 'aud_untag', 'aud_date_untagged');//, 'aud_comment');
 
 
-		$audit_update['aud_id'] = $current_audit_entry->aud_id;
+		//$audit_update['aud_id'] = $current_audit_entry->aud_id;
 		$audit_update['aud_untag'] = TRUE;
 		$audit_update['aud_date_untagged'] = date('Y-m-d H:i:s');
 	
 
+		//$audit_entries = $this->audit_entry_model->get_by_hardware($all_audit_entry->);
 
-		$this->audit_entry_model->update($audit_update, $audit_update_fields);
+		foreach($all_audit_entry->result() as $audit_entry) {
+			$i = 128;
+			$i++;
+			//$test = $this->audit_entry_model->get_current_by_hardware($audit_entry->aud_har);
+			$audit_update['aud_id'] = $audit_entry->aud_id;//$test->aud_id;
+			//$audit_update['aud_comment'] = 
+			$this->audit_entry_model->update_aud_entry($audit_update, $audit_update_fields);
+		}
+
+		//$this->audit_entry_model->update_aud_entry($audit_update, $audit_update_fields);
+		
 	}
 
 	// CATCH BARCODE

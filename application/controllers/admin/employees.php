@@ -227,12 +227,14 @@ class Employees extends CI_Controller
 
 
 
+
 	public function untag_asset()
 	{
 
 
 		if($this->access_control->check_account_type('admin'))
 		{
+
 
 			$hardware_asset_id = $this->input->post('hardware_asset');
 			$selected_aud_id = $this->input->post('aud_id');
@@ -255,9 +257,10 @@ class Employees extends CI_Controller
 				
 
 				$new_status = $this->input->post("aud_status");	
+				$new_comment = $this->input->post("aud_comment");	
 
 
-				$this->untag_next_status($field_list, $hardware_asset_id, $current, $new_status);
+				$this->untag_next_status($field_list, $hardware_asset_id, $current, $new_status, $new_comment);
 
 				$hardware_update = array();
 				$hardware_update_fields = array('har_barcode', 'har_status', 'har_last_update');
@@ -292,7 +295,7 @@ class Employees extends CI_Controller
 
 	// UNTAG_NEXT_STATUS
 	// Create new audit entry
-	private function untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status)
+	private function untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status, $new_comment)
 	{
 		$audit_entry = array();
 	
@@ -303,7 +306,10 @@ class Employees extends CI_Controller
 
 		$name = $current_audit_entry->emp_first_name." ".$current_audit_entry->emp_last_name;
 			
-		$audit_entry['aud_comment'] = 'Untagged from '.$name;	
+		$audit_entry['aud_comment'] = 'Untagged from '.$name;
+		if ($new_comment != null) {
+			$audit_entry['aud_comment'] .= "</br> " . $new_comment . '.';
+		}	
 
 		$audit_entry['aud_har'] = $hardware_asset_id;
 		$audit_entry['aud_per'] = null;
@@ -314,7 +320,7 @@ class Employees extends CI_Controller
 
 	// AUTO UNTAG
 	// Automatically sets aud_untag of audit_entry to True
-	private function auto_untag($current_audit_entry)
+	/**private function auto_untag($current_audit_entry)
 	{
 		$audit_update = array();
 		$audit_update_fields = array('aud_id', 'aud_untag', 'aud_date_untagged');
@@ -328,6 +334,35 @@ class Employees extends CI_Controller
 
 
 		$this->audit_entry_model->update($audit_update, $audit_update_fields);	
+
+
+	}**/
+
+	//KEN EXPERIMENT
+	private function auto_untag($current_audit_entry, $all_audit_entry)
+	{
+		$audit_update = array();
+		$audit_update_fields = array('aud_id', 'aud_untag', 'aud_date_untagged');//, 'aud_comment');
+
+
+		//$audit_update['aud_id'] = $current_audit_entry->aud_id;
+		$audit_update['aud_untag'] = TRUE;
+		$audit_update['aud_date_untagged'] = date('Y-m-d H:i:s');
+	
+
+		//$audit_entries = $this->audit_entry_model->get_by_hardware($all_audit_entry->);
+
+		foreach($all_audit_entry->result() as $audit_entry) {
+			$i = 128;
+			$i++;
+			//$test = $this->audit_entry_model->get_current_by_hardware($audit_entry->aud_har);
+			$audit_update['aud_id'] = $audit_entry->aud_id;//$test->aud_id;
+			//$audit_update['aud_comment'] = 
+			$this->audit_entry_model->update_aud_entry($audit_update, $audit_update_fields);
+		}
+
+		//$this->audit_entry_model->update_aud_entry($audit_update, $audit_update_fields);
+		
 	}
 
 	// CATCH EMPLOYEE

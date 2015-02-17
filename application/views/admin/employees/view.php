@@ -64,17 +64,17 @@
 					<input type="hidden" name="employee_id" id="employee_id" value="<?php echo $audit_entry->emp_id; ?>"> 
 					
 					<select name="aud_status" id="aud_status" class="input-medium form-control form-control-small">
-						<option value="">Change Status</option>				
+						<option value="" disabled>Change Status</option>				
 						<option value="stockroom">stockroom</option>
 						<option value="for disposal">for disposal</option>
 						<option value="disposed">disposed</option>
 					</select>
 					
-					<input disabled id="untag_barcode" class="form-control form-control-small" name="untag_barcode" type="text" placeholder="Scan code here to untag">
+					<input id="untag_barcode" class="form-control form-control-small" name="untag_barcode" type="text" placeholder="Scan code here to untag">
 					
 					<input type="hidden" name="count" value="<?php echo $count; ?>">
 					
-					</form>				
+					</form>			
 				</td>
 
 			<?php endif;?>
@@ -183,16 +183,16 @@
 
 	});
 
-	$('select[name="aud_status"]').change(function() {
-        if (this.value !== '') {           
+	// $('select[name="aud_status"]').change(function() {
+ //        if (this.value !== '') {           
             
-            $('input:text[name="untag_barcode"]').removeAttr('disabled');
-            $('input:text[name="untag_barcode"]').focus();
-        }
-        else {
-             $('input:text[name="untag_barcode"]').attr('disabled', 'disabled');
-        }
-    });
+ //            $('input:text[name="untag_barcode"]').removeAttr('disabled');
+ //            $('input:text[name="untag_barcode"]').focus();
+ //        }
+ //        else {
+ //             $('input:text[name="untag_barcode"]').attr('disabled', 'disabled');
+ //        }
+ //    });
 
 	// $('#untag_barcode').bind('copy paste',function(e) {
 	//     e.preventDefault(); return false; 

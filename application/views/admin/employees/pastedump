@@ -1,0 +1,61 @@
+public function untag_asset()
+	{
+
+
+		if($this->access_control->check_account_type('admin'))
+		{
+
+			$hardware_asset_id = $this->input->post('hardware_asset');
+			$selected_aud_id = $this->input->post('aud_id');
+			$employee = $this->input->post('employee_id');
+
+			$data = $this->extract->post();
+
+			//var_dump($data); die();
+
+
+
+			if($this->input->post('untag_barcode')==$hardware_asset_id)
+			{		
+				
+
+				$current = $this->audit_entry_model->get_one($selected_aud_id);
+				
+				
+				$this->auto_untag($current);	
+				
+
+				$new_status = $this->input->post("aud_status");	
+
+
+				$this->untag_next_status($field_list, $hardware_asset_id, $current, $new_status);
+
+				$hardware_update = array();
+				$hardware_update_fields = array('har_barcode', 'har_status', 'har_last_update');
+				$hardware_update['har_barcode'] = $hardware_asset_id;
+				$hardware_update['har_status'] = $new_status;
+				
+				$hardware_update['har_last_update'] = date('Y-m-d H:i:s');
+
+				$this->hardware_asset_model->update($hardware_update, $hardware_update_fields);	
+
+				$hw = $this->hardware_asset_model->get_one($hardware_asset_id);
+
+
+
+				$this->template->notification("Asset is now untagged. <a class='label label-success' href=".site_url('admin/hardware_assets').">Back to Asset List</a>", 'success');
+				//redirect($this->uri->uri_string());
+				redirect('admin/employees/view/'.$employee);
+				$this->template->autofill($audit_entry);
+			}
+			else
+			{
+				$this->template->notification('Wrong barcode '.$data['untag_barcode'], 'danger');
+				//redirect($this->uri->uri_string());
+				redirect('admin/employees/view/'.$employee);
+				$this->template->autofill($audit_entry);
+
+			}
+		}
+			
+	}
