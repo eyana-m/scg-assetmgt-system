@@ -56,21 +56,21 @@
 
 			<?php if($this->access_control->check_account_type('admin')):  ?>	
 				<td>				
-					<form method="post" id="untag_asset" name="untag_asset" action="<?php echo site_url("admin/employees/untag_asset/")?>">
+					<form method="post" id="untag_asset" name="untag_asset" action="<?php echo site_url("admin/employees/untag_asset/")?>" data-count="<?php echo $count;  ?>">
 
-					<input type="hidden" name="hardware_asset" id="hardware_asset" value="<?php echo $audit_entry->har_barcode; ?>">
-					<input type="hidden" name="aud_id" id="aud_id" value="<?php echo $audit_entry->aud_id; ?>"> 
-					<input type="hidden" name="employee_id" id="employee_id" value="<?php echo $audit_entry->emp_id; ?>"> 
-					
-					<select name="aud_status" id="aud_status" class="input-medium form-control form-control-small">
-						<option value="" disabled>Change Status</option>				
-						<option value="stockroom">stockroom</option>
-						<option value="for disposal">for disposal</option>
-						<option value="disposed">disposed</option>
-					</select>
-					
-					<input id="untag_barcode" class="form-control form-control-small" name="untag_barcode" type="text" placeholder="Scan code here to untag">				
-					<input type="hidden" name="count" value="<?php echo $count; ?>">
+						<input type="hidden" name="hardware_asset" id="hardware_asset" value="<?php echo $audit_entry->har_barcode; ?>">
+						<input type="hidden" name="aud_id" id="aud_id" value="<?php echo $audit_entry->aud_id; ?>"> 
+						<input type="hidden" name="employee_id" id="employee_id" value="<?php echo $audit_entry->emp_id; ?>"> 
+						
+						<select name="aud_status" id="aud_status" class="input-medium form-control form-control-small">
+							<option value="" disabled>Change Status</option>				
+							<option value="stockroom">stockroom</option>
+							<option value="for disposal">for disposal</option>
+							<option value="disposed">disposed</option>
+						</select>
+						
+						<input id="untag_barcode" class="form-control form-control-small" name="untag_barcode" type="text" placeholder="Scan code here to untag" data-count="<?php echo $count;  ?>">				
+						<input type="hidden" name="count" value="<?php echo $count; ?>">
 					
 					</form>				
 				</td>
@@ -170,16 +170,40 @@
 
 
 <script type="text/javascript">
-	$('#untag_barcode').on("input", function() {
 
+
+
+	var x = $('form#untag_asset').data('count');
+	var y = $('#untag_barcode').data('count');
+	var count= '<?php echo $count; ?>';
+
+	for (i=0; i < count; i++)
+	{
+		$('input:text[name=untag_barcode][data-count='+ i + ']').on("input", function() {
+		var input = $(this).data('count');
+		var parent_id = $(this).parent().attr('data-count');
+
+		
+		console.log(input);
+		console.log(parent_id);
+
+		
 	   var bc;
 	   setTimeout(function() {
-	      	bc = $("input:text[name=untag_barcode").val(); 
+	      	bc = $("input:text[name=untag_barcode][data-count="+ i + "]").val(); 
 	    }, 2000);
 
-	   $("form#untag_asset").submit();
+	   console.log("fuck");
 
-	});
+	   		//$("form[name=untag_asset][data-count="+ i + "]").submit();
+	   		$("form#untag_asset").submit();
+	 
+	   		
+		});
+
+	}
+
+	
 
 	// $('select[name="aud_status"]').change(function() {
  //        if (this.value !== '') {           

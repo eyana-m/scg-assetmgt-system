@@ -240,7 +240,7 @@ class Employees extends CI_Controller
 
 			$data = $this->extract->post();
 
-			//var_dump($data); die();
+		//	var_dump($data); die();
 
 
 
