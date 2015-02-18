@@ -63,13 +63,14 @@
 						<input type="hidden" name="employee_id" id="employee_id" value="<?php echo $audit_entry->emp_id; ?>"> 
 						
 						<select name="aud_status" id="aud_status" class="input-medium form-control form-control-small" data-count="<?php echo $count;  ?>">
-							<option value="">Change Status</option>				
+							<option value="">Status after untag</option>				
 							<option value="stockroom">stockroom</option>
 							<option value="for disposal">for disposal</option>
 							<option value="disposed">disposed</option>
 						</select>
 						
-						<input disabled id="untag_barcode" class="form-control form-control-small" name="untag_barcode" type="text" placeholder="Scan code here to untag" data-count="<?php echo $count;  ?>">				
+						<input disabled id="untag_barcode" class="form-control form-control-small" name="untag_barcode" type="text" placeholder="Scan code here to untag" data-count="<?php echo $count;  ?>">	
+									
 						<input type="hidden" name="count" value="<?php echo $count; ?>">
 					
 					</form>				
@@ -160,21 +161,39 @@
 		</div>
 	<?php endif; ?>
 	</div>
-
-
-
 </div>
 
 
-
+<div class="modal fade" id="untag-confirm">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <h5>Are you sure you want to untag this asset?</h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger">Okay</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 
 <script type="text/javascript">
 
+// $('#exampleModal').on('show.bs.modal', function (event) {
+//   var button = $(event.relatedTarget) // Button that triggered the modal
+//   var recipient = button.data('whatever') // Extract info from data-* attributes
+//   // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+//   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+//   var modal = $(this)
+//   modal.find('.modal-title').text('New message to ' + recipient)
+//   modal.find('.modal-body input').val(recipient)
+// })
 
-
-	var x = $('form#untag_asset').data('count');
-	var y = $('#untag_barcode').data('count');
 	var count= '<?php echo $count; ?>';
 
 	for (i=0; i < count; i++)
@@ -195,15 +214,46 @@
 		      	var value = $(this).val(); 
 		    }, 3000);
 
-		   console.log(value);
 
-		   $(parent).submit();
-		   	//$("form#untag_asset").submit();
+		   //openDialog(parent);
+		   //$(parent).submit();
+
+		   $('#untag-confirm').modal('show')
+		   
+		   	
 	 
 	   		
 		});
 
+
 	}
+
+	// function openDialog(parent) {
+	//     $("#dialog-confirm").html("Confirm Dialog Box");
+
+	//  //    $( "#dialog-confirm").dialog({
+	// 	//   dragStart: function( event, ui ) {}
+	// 	// });
+
+	//     // Define the Dialog and its properties.
+	//     $("#dialog-confirm").dialog({
+	//         resizable: false,
+	//         modal: true,
+	//         title: "Modal",
+	//         height: 250,
+	//         width: 400,
+	//         buttons: {
+	//             	"Okay": function () {
+	//                	$(parent).submit();
+	//                 //callback(true);
+	//             },
+	//                 "Cancel": function () {
+	//                 $(this).dialog('close');
+	//                 //callback(false);
+	//             }
+	//         }
+	//     });
+	// }
 
 	
 	for (i=0; i < count; i++)
@@ -214,8 +264,8 @@
 	            
 	            // $('input:text[name=untag_barcode][data-count='+ i + ']').removeAttr('disabled');
 	            // $('input:text[name=untag_barcode][data-count='+ i + ']').focus();
-	            $(this).next().removeAttr('disabled');
-	            $(this).next().focus();
+	            $($(this).next().removeAttr('disabled')).focus();
+	            //$(this).next().focus();
 	        }
 	        else {
 	            //$('input:text[name="untag_barcode"][data-count='+ i + ']').attr('disabled', 'disabled');

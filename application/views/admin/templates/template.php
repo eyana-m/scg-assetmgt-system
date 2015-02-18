@@ -5,16 +5,21 @@
 	<meta charset="utf-8">	
 	<?php //echo template('mythos'); ?>
 	<script type="text/javascript" src="<?php echo res_url('mythos/js/jquery.min.js'); ?>"></script>
-	<script type="text/javascript" src="<?php echo res_url('mythos/js/jquery-ui-1.8.16.custom.min.js'); ?>"></script>
+	
 	<script type="text/javascript" src="<?php echo res_url('mythos/js/jquery.floodling.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo res_url('mythos/js/jquery.validate.complete.min.js'); ?>"></script>
-		<script type="text/javascript" src="<?php echo res_url('mythos/js/utils.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo res_url('mythos/js/jquery-ui-1.8.16.custom.min.js'); ?>"></script>	
+	<script type="text/javascript" src="<?php echo res_url('mythos/js/utils.js'); ?>"></script>
 
 
 	<?php echo template('bootstrap'); ?>
 	<?php echo template('head'); ?>
 	<link rel="stylesheet" type="text/css" href="<?php echo res_url('admin/css/styles.css'); ?>" />
 	<link rel="stylesheet" type="text/css" href="<?php echo res_url('admin/css/custom.css'); ?>" />
+	<link rel="stylesheet" type="text/css" href="<?php echo res_url('mythos/css/jquery-ui-1.8.16.custom.css'); ?>" />
+	<link rel="stylesheet" type="text/css" href="<?php echo res_url('mythos/css/jquery-ui-extended.css'); ?>" />
+
+
 	<link rel="shortcut icon" href="<?php echo res_url('admin/images/Motolite.ico'); ?>">
 </head>
 

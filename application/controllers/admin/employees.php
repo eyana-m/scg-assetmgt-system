@@ -306,9 +306,9 @@ class Employees extends CI_Controller
 		
 		$audit_entry['aud_comment'] = 'Untagged from '.$name;	
 
-		// if ($new_comment!=null){
-		// 	$audit_entry['aud_comment'] = '<br>'.$new_comment;	
-		// }
+		if ($new_comment!=null){
+			$audit_entry['aud_comment'] = '<br>'.$new_comment;	
+		}
 
 		$audit_entry['aud_har'] = $hardware_asset_id;
 		$audit_entry['aud_per'] = null;
