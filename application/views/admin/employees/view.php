@@ -208,12 +208,16 @@
 			console.log("hello");
 	        if (this.value !== '') {           
 	            
-	            $('input:text[name=untag_barcode][data-count='+ i + ']').removeAttr('disabled');
-	            $('input:text[name=untag_barcode][data-count='+ i + ']').focus();
+	            // $('input:text[name=untag_barcode][data-count='+ i + ']').removeAttr('disabled');
+	            // $('input:text[name=untag_barcode][data-count='+ i + ']').focus();
+	            $(this).next().removeAttr('disabled');
+	            $(this).next().focus();
 	        }
 	        else {
-	             $('input:text[name="untag_barcode"][data-count='+ i + ']').attr('disabled', 'disabled');
+	            //$('input:text[name="untag_barcode"][data-count='+ i + ']').attr('disabled', 'disabled');
+	       		$(this).next().attr('disabled', 'disabled');
 	        }
+	        //console.log("hello");
 	    });
     }
 
