@@ -70,7 +70,7 @@
 						<option value="disposed">disposed</option>
 					</select>
 					
-					<input id="aud_comment" class="form-control form-control-small" name="aud_comment" type="text" placeholder="Remark (e.g. 'Normal Condition')">
+					<!-- <input id="aud_comment" class="form-control form-control-small" name="aud_comment" type="text" placeholder="Remark (e.g. 'Normal Condition')"> -->
 					<input id="untag_barcode" class="form-control form-control-small" name="untag_barcode" type="text" placeholder="Scan code here to untag">
 					
 					<input type="hidden" name="count" value="<?php echo $count; ?>">
@@ -177,11 +177,13 @@
 	      	bc = $("input:text[name=untag_barcode").val(); 
 	    }, 2000);
 
-<<<<<<< HEAD
-	   // $("form#untag_asset").submit();
-=======
-	   $("form#untag").submit();
->>>>>>> 60714dfba518c9542c85bc089177f9d22920622a
+	   $("form#untag_asset").submit();
+
+// <<<<<<< HEAD
+// 	   // $("form#untag_asset").submit();
+// =======
+// 	   $("form#untag_asset").submit();
+// >>>>>>> 60714dfba518c9542c85bc089177f9d22920622a
 
 	});
 

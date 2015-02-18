@@ -257,10 +257,10 @@ class Employees extends CI_Controller
 				
 
 				$new_status = $this->input->post("aud_status");	
-				$new_comment = $this->input->post("aud_comment");	
+				// $new_comment = $this->input->post("aud_comment");	
 
 
-				$this->untag_next_status($field_list, $hardware_asset_id, $current, $new_status, $new_comment);
+				$this->untag_next_status($field_list, $hardware_asset_id, $current, $new_status);
 
 				$hardware_update = array();
 				$hardware_update_fields = array('har_barcode', 'har_status', 'har_last_update');
@@ -295,7 +295,7 @@ class Employees extends CI_Controller
 
 	// UNTAG_NEXT_STATUS
 	// Create new audit entry
-	private function untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status, $new_comment)
+	private function untag_next_status($field_list, $hardware_asset_id, $current_audit_entry, $new_status)
 	{
 		$audit_entry = array();
 	
@@ -307,9 +307,9 @@ class Employees extends CI_Controller
 		$name = $current_audit_entry->emp_first_name." ".$current_audit_entry->emp_last_name;
 			
 		$audit_entry['aud_comment'] = 'Untagged from '.$name;
-		if ($new_comment != null) {
-			$audit_entry['aud_comment'] .= "</br> " . $new_comment . '.';
-		}	
+		// if ($new_comment != null) {
+		// 	$audit_entry['aud_comment'] .= "</br> " . $new_comment . '.';
+		// }	
 
 		$audit_entry['aud_har'] = $hardware_asset_id;
 		$audit_entry['aud_per'] = null;
