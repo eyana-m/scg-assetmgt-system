@@ -182,7 +182,8 @@
 		$('input:text[name=untag_barcode][data-count='+ i + ']').on("input", function() {
 			var input = $(this).data('count');
 			var parent_id = $(this).parent().attr('data-count');
-
+			var parent = $(this).parent();
+			var value = $(this).val();
 			
 			console.log(input);
 			console.log(parent_id);
@@ -190,11 +191,14 @@
 			
 		   var bc;
 		   setTimeout(function() {
-		      	bc = $("input:text[name=untag_barcode][data-count="+ i + "]").val(); 
-		    }, 2000);
+		      	//bc = $(this).val();
+		      	var value = $(this).val(); 
+		    }, 3000);
 
-		   		//$("form[name=untag_asset][data-count="+ i + "]").submit();
-		   	$("form#untag_asset").submit();
+		   console.log(value);
+
+		   $(parent).submit();
+		   	//$("form#untag_asset").submit();
 	 
 	   		
 		});
