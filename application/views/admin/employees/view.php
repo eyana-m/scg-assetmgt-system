@@ -62,14 +62,14 @@
 						<input type="hidden" name="aud_id" id="aud_id" value="<?php echo $audit_entry->aud_id; ?>"> 
 						<input type="hidden" name="employee_id" id="employee_id" value="<?php echo $audit_entry->emp_id; ?>"> 
 						
-						<select name="aud_status" id="aud_status" class="input-medium form-control form-control-small">
-							<option value="" disabled>Change Status</option>				
+						<select name="aud_status" id="aud_status" class="input-medium form-control form-control-small" data-count="<?php echo $count;  ?>">
+							<option value="">Change Status</option>				
 							<option value="stockroom">stockroom</option>
 							<option value="for disposal">for disposal</option>
 							<option value="disposed">disposed</option>
 						</select>
 						
-						<input id="untag_barcode" class="form-control form-control-small" name="untag_barcode" type="text" placeholder="Scan code here to untag" data-count="<?php echo $count;  ?>">				
+						<input disabled id="untag_barcode" class="form-control form-control-small" name="untag_barcode" type="text" placeholder="Scan code here to untag" data-count="<?php echo $count;  ?>">				
 						<input type="hidden" name="count" value="<?php echo $count; ?>">
 					
 					</form>				
@@ -180,23 +180,21 @@
 	for (i=0; i < count; i++)
 	{
 		$('input:text[name=untag_barcode][data-count='+ i + ']').on("input", function() {
-		var input = $(this).data('count');
-		var parent_id = $(this).parent().attr('data-count');
+			var input = $(this).data('count');
+			var parent_id = $(this).parent().attr('data-count');
 
-		
-		console.log(input);
-		console.log(parent_id);
+			
+			console.log(input);
+			console.log(parent_id);
 
-		
-	   var bc;
-	   setTimeout(function() {
-	      	bc = $("input:text[name=untag_barcode][data-count="+ i + "]").val(); 
-	    }, 2000);
+			
+		   var bc;
+		   setTimeout(function() {
+		      	bc = $("input:text[name=untag_barcode][data-count="+ i + "]").val(); 
+		    }, 2000);
 
-	   console.log("fuck");
-
-	   		//$("form[name=untag_asset][data-count="+ i + "]").submit();
-	   		$("form#untag_asset").submit();
+		   		//$("form[name=untag_asset][data-count="+ i + "]").submit();
+		   	$("form#untag_asset").submit();
 	 
 	   		
 		});
@@ -204,17 +202,20 @@
 	}
 
 	
-
-	// $('select[name="aud_status"]').change(function() {
- //        if (this.value !== '') {           
-            
- //            $('input:text[name="untag_barcode"]').removeAttr('disabled');
- //            $('input:text[name="untag_barcode"]').focus();
- //        }
- //        else {
- //             $('input:text[name="untag_barcode"]').attr('disabled', 'disabled');
- //        }
- //    });
+	for (i=0; i < count; i++)
+	{
+		$('select[name=aud_status][data-count='+ i + ']').change(function() {
+			console.log("hello");
+	        if (this.value !== '') {           
+	            
+	            $('input:text[name=untag_barcode][data-count='+ i + ']').removeAttr('disabled');
+	            $('input:text[name=untag_barcode][data-count='+ i + ']').focus();
+	        }
+	        else {
+	             $('input:text[name="untag_barcode"][data-count='+ i + ']').attr('disabled', 'disabled');
+	        }
+	    });
+    }
 
 	// $('#untag_barcode').bind('copy paste',function(e) {
 	//     e.preventDefault(); return false; 
