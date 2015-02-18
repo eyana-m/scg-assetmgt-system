@@ -474,10 +474,10 @@ class Hardware_assets extends CI_Controller
 					{
 						$audit_entry['aud_per'] = $current_audit_entry->aud_per;
 					}
-					elseif (($audit_entry['aud_status'] == 'service unit')) {
-						$audit_entry['aud_per'] = $this->input->post('emp_id_service');
-						$audit_entry['aud_untag'] = FALSE;
-					}
+					// elseif (($audit_entry['aud_status'] == 'service unit')) {
+					// 	$audit_entry['aud_per'] = $this->input->post('emp_id_service');
+					// 	$audit_entry['aud_untag'] = FALSE;
+					// }
 					else 
 					{
 					$audit_entry['aud_per'] = null;

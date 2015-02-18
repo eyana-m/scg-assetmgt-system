@@ -318,7 +318,7 @@ class Employees extends CI_Controller
 	}
 
 	// AUTO UNTAG
-	// Automatically sets aud_untag of audit_entry to True
+	// Automatically sets aud_untag of audit_entry to Tr2ue
 	private function auto_untag($current_audit_entry)
 	{
 		$audit_update = array();
