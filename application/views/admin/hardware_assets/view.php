@@ -636,9 +636,9 @@
 <div id = "untag" class = "modal fade">
 	<div class = "modal-dialog">
 		<div class = "modal-content">
-			<div class = "modal-header"><center><h3>Untag Employee</h3></center></div>
+			<div class = "modal-header"><center><h3>Untag from Employee</h3></center></div>
 			<div class = "modal-body">
-				You're about to untag the following asset to the following employee:
+				You're about to untag the following asset from the following employee:
 
 			<div class="well row" style="margin-top: 1em; background-color: #bbb; border-color: #bbb">
 

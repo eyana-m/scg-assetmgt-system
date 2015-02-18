@@ -169,13 +169,14 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      	<h4>Untag Asset from Employee</h4>
       </div>
       <div class="modal-body">
-        <h5>Are you sure you want to untag this asset?</h5>
+        <h5>Are you sure you want to untag <strong id="asset_barcode"></strong> from <strong><?php echo $employee->emp_first_name ?> <?php echo $employee->emp_last_name ?></strong>?</h5>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger">Okay</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+       	<a href="#" id="btn-yes" class="btn btn-danger confirm">Okay</a>
+        <a href="#" data-dismiss="modal" aria-hidden="true" class="btn btn-default secondary">Close</a>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -208,24 +209,36 @@
 			console.log(parent_id);
 
 			
-		   var bc;
+		   var value;
 		   setTimeout(function() {
 		      	//bc = $(this).val();
-		      	var value = $(this).val(); 
+		      	value = $(this).val(); 
 		    }, 3000);
 
 
-		   //openDialog(parent);
+		   openModal(parent, value);
 		   //$(parent).submit();
 
-		   $('#untag-confirm').modal('show')
-		   
-		   	
-	 
-	   		
+		 
+		   		   		
 		});
 
 
+
+
+
+
+
+	}
+
+	function openModal(parent,value) 
+	{
+		$('#untag-confirm').modal('show');
+		$('strong#asset_barcode').html(value);
+
+		$('#btn-yes').click(function() {		  
+		    $(parent).submit();	  
+		});
 	}
 
 	// function openDialog(parent) {
