@@ -177,7 +177,11 @@
 	      	bc = $("input:text[name=untag_barcode").val(); 
 	    }, 2000);
 
+<<<<<<< HEAD
 	   // $("form#untag_asset").submit();
+=======
+	   $("form#untag").submit();
+>>>>>>> 60714dfba518c9542c85bc089177f9d22920622a
 
 	});
 

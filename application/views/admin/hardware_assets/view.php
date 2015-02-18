@@ -386,7 +386,7 @@
 
 						<select name="aud_status" id="aud_status" class="input-medium form-control form-control-small">
 							<?php $current_cap = ucfirst( $current_audit_entry->aud_status ); 
-							$current = $current_audit_entry->aud_status?>
+							$current = $current_audit_entry->aud_status ?>
 							<option value="<?php echo $current?>"><?php echo $current_cap ?></option>
 
 							<?php if ($current_audit_entry->aud_status == 'stockroom') : ?>	
