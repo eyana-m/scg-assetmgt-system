@@ -581,7 +581,7 @@ class Hardware_assets extends CI_Controller
 
 						//EMAIL 
 
-						//$this->email_employee($employee, $hardware_asset);
+						$this->email_employee($employee, $hardware_asset, "1");
 
 						//END EMAIL
 
@@ -713,42 +713,48 @@ class Hardware_assets extends CI_Controller
 
 	// EMAIL EMPLOYEE
 	// After tagging an employee, this method activates
-	public function email_employee($employee, $hardware_asset)
+	public function email_employee($employee, $hardware_asset, $a)
 	{
-
 		$config = Array(
 			'protocol' => 'smtp',
 			'smtp_host' => 'ssl://smtp.googlemail.com',
 			'smtp_port' => 465,
-			'smtp_user' => 'xxx@gmail.com', // change it to yours
-			'smtp_pass' => 'xxx', // change it to yours
+			'smtp_user' => 'summitconsultinggroup.ph@gmail.com', // change it to yours
+			'smtp_pass' => 'anggandaatpoginatin', // change it to yours
 			'mailtype' => 'html',
 			'charset' => 'iso-8859-1',
 			'wordwrap' => TRUE
 		);
 
+		$this->load->library('email', $config);
+		$this->email->from('summitconsultinggroup.ph@gmail.com', 'Motolite IT Department');
+		$this->email->to($employee->emp_email);
 
+		$this->email->subject('Asset '.$hardware_asset->har_barcode.' Tagged');
+		$this->email->message('This asset, '.$hardware_asset->har_model.' (Serial Number: '.$hardware_asset->har_serial_number.'), has been tagged to you on '.$hardware_asset->har_last_update.'. Please reply to Arianne Cerdino at acerdino@motolite.com to acknowledge. Thank you.');	
 
-		$this->load->library('email');
-
-		$this->email->from('abcerdino@motolite.com', 'Motolite IT Dept');
-		$this->email->reply_to('you@example.com', 'Your Name');
-
-		$this->email->to($employee['emp_email']); 
-		//$this->email->cc('another@another-example.com'); 
-
-		$this->email->subject('Asset '.$hardware_asset['har_barcode'].
-			' tagged');
-		$this->email->message('This asset, <strong>'.$hardware_asset['har_model'].'</strong> has been tagged to you on '.$hardware['har_last_update'].' Please reply to acknowledge. Thank you.');	
+		// if($a == "1")
+		// {
+		// 	$this->email->subject('Asset '.$hardware_asset->har_barcode.' Tagged');
+		// 	$this->email->message('This asset, '.$hardware_asset->har_model.' (Serial Number: '.$hardware_asset->har_serial_number.'), has been tagged to you on '.$hardware_asset->har_last_update.'. Please reply to Arianne Cerdino at acerdino@motolite.com to acknowledge. Thank you.');	
+		// }
+		// else if($a == "2")
+		// {
+		// 	$this->email->subject('Asset '.$hardware_asset->har_barcode.' Untagged');
+		// 	$this->email->message('This asset, '.$hardware_asset->har_model.' (Serial Number: '.$hardware_asset->har_serial_number.'), has been untagged to you on '.$hardware_asset->har_last_update.'. Please reply to Arianne Cerdino at acerdino@motolite.com to acknowledge. Thank you.');	
+			
+		// }
 
 		$this->email->send();
-
-		//echo $this->email->print_debugger();
-
+		
 		if (!$this->email->send()) {
-			show_error($this->email->print_debugger()); }
+			show_error($this->email->print_debugger());
+			$this->template->notification("The acknowledgement email has not been sent!", 'danger');
+			redirect('admin/hardware_assets/view/'.$hardware_asset->har_barcode);
+		}
 		else {
-			echo 'Your e-mail has been sent!';
+			$this->template->notification('The acknowledgement email has been sent to '.$employee->emp_first_name.' '.$employee->emp_last_name.'!', 'success');
+			redirect('admin/hardware_assets/view/'.$hardware_asset->har_barcode);
 		}
 	}
 
