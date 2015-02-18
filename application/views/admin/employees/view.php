@@ -70,6 +70,7 @@
 						<option value="disposed">disposed</option>
 					</select>
 					
+					<input id="aud_comment" class="form-control form-control-small" name="aud_comment" type="text" placeholder="Remark (e.g. 'Normal Condition')">
 					<input id="untag_barcode" class="form-control form-control-small" name="untag_barcode" type="text" placeholder="Scan code here to untag">
 					
 					<input type="hidden" name="count" value="<?php echo $count; ?>">
@@ -162,9 +163,6 @@
 		</div>
 	<?php endif; ?>
 	</div>
-
-
-
 </div>
 
 
@@ -179,7 +177,7 @@
 	      	bc = $("input:text[name=untag_barcode").val(); 
 	    }, 2000);
 
-	   $("form#untag").submit();
+	   $("form#untag_asset").submit();
 
 	});
 
