@@ -56,7 +56,6 @@
 
 			<?php if($this->access_control->check_account_type('admin')):  ?>	
 				<td>				
-					<!-- <a href="#untag" class="label label-default" style="text-decoration: none" role="button" data-toggle="modal" data-dismiss = "modal">untag</a>	 -->
 					<form method="post" id="untag_asset" name="untag_asset" action="<?php echo site_url("admin/employees/untag_asset/")?>">
 
 					<input type="hidden" name="hardware_asset" id="hardware_asset" value="<?php echo $audit_entry->har_barcode; ?>">
@@ -70,8 +69,7 @@
 						<option value="disposed">disposed</option>
 					</select>
 					
-					<input id="untag_barcode" class="form-control form-control-small" name="untag_barcode" type="text" placeholder="Scan code here to untag">
-					
+					<input id="untag_barcode" class="form-control form-control-small" name="untag_barcode" type="text" placeholder="Scan code here to untag">				
 					<input type="hidden" name="count" value="<?php echo $count; ?>">
 					
 					</form>				
@@ -179,7 +177,7 @@
 	      	bc = $("input:text[name=untag_barcode").val(); 
 	    }, 2000);
 
-	   $("form#untag").submit();
+	   $("form#untag_asset").submit();
 
 	});
 
