@@ -185,16 +185,6 @@
 
 <script type="text/javascript">
 
-// $('#exampleModal').on('show.bs.modal', function (event) {
-//   var button = $(event.relatedTarget) // Button that triggered the modal
-//   var recipient = button.data('whatever') // Extract info from data-* attributes
-//   // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-//   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-//   var modal = $(this)
-//   modal.find('.modal-title').text('New message to ' + recipient)
-//   modal.find('.modal-body input').val(recipient)
-// })
-
 	var count= '<?php echo $count; ?>';
 
 	for (i=0; i < count; i++)
@@ -211,24 +201,12 @@
 			
 		   var value;
 		   setTimeout(function() {
-		      	//bc = $(this).val();
 		      	value = $(this).val(); 
-		    }, 3000);
-
+		    }, 2000);
 
 		   openModal(parent, value);
-		   //$(parent).submit();
-
-		 
-		   		   		
+		   //$(parent).submit();		   		   		
 		});
-
-
-
-
-
-
-
 	}
 
 	function openModal(parent,value) 
@@ -241,42 +219,14 @@
 		});
 	}
 
-	// function openDialog(parent) {
-	//     $("#dialog-confirm").html("Confirm Dialog Box");
-
-	//  //    $( "#dialog-confirm").dialog({
-	// 	//   dragStart: function( event, ui ) {}
-	// 	// });
-
-	//     // Define the Dialog and its properties.
-	//     $("#dialog-confirm").dialog({
-	//         resizable: false,
-	//         modal: true,
-	//         title: "Modal",
-	//         height: 250,
-	//         width: 400,
-	//         buttons: {
-	//             	"Okay": function () {
-	//                	$(parent).submit();
-	//                 //callback(true);
-	//             },
-	//                 "Cancel": function () {
-	//                 $(this).dialog('close');
-	//                 //callback(false);
-	//             }
-	//         }
-	//     });
-	// }
-
 	
 	for (i=0; i < count; i++)
 	{
 		$('select[name=aud_status][data-count='+ i + ']').change(function() {
-			console.log("hello");
+			//console.log("hello");
+			
 	        if (this.value !== '') {           
 	            
-	            // $('input:text[name=untag_barcode][data-count='+ i + ']').removeAttr('disabled');
-	            // $('input:text[name=untag_barcode][data-count='+ i + ']').focus();
 	            $($(this).next().removeAttr('disabled')).focus();
 	            //$(this).next().focus();
 	        }
@@ -284,7 +234,7 @@
 	            //$('input:text[name="untag_barcode"][data-count='+ i + ']').attr('disabled', 'disabled');
 	       		$(this).next().attr('disabled', 'disabled');
 	        }
-	        //console.log("hello");
+	        
 	    });
     }
 

@@ -404,6 +404,7 @@ class Hardware_assets extends CI_Controller
 		$hardware_asset = $this->hardware_asset_model->get_one($hardware_asset_id);
 		$this->template->title('Audit Trail: '.$hardware_asset->har_model.' (SN: '.$hardware_asset->har_serial_number.')');
 
+		//email_employee_tech($employee, $hardware_asset, $a);
 		
 		$page = array();
 		$audit_entry = array();
@@ -1080,6 +1081,50 @@ class Hardware_assets extends CI_Controller
 		// Load the download helper and send the file to your desktop
 		$this->load->helper('download');
 		force_download($filename, $backup);	
+	}
+
+
+
+	// EMAIL EMPLOYEE TECH REFRESHER
+	// After tagging an employee, this method activates
+	public function email_employee_tech($employee, $hardware_asset, $a)
+	{
+		$config = Array(
+			'protocol' => 'smtp',
+			'smtp_host' => 'ssl://smtp.googlemail.com',
+			'smtp_port' => 465,
+			'smtp_user' => 'summitconsultinggroup.ph@gmail.com', // change it to yours
+			'smtp_pass' => 'anggandaatpoginatin', // change it to yours
+			'mailtype' => 'html',
+			'charset' => 'iso-8859-1',
+			'wordwrap' => TRUE
+		);
+
+		$this->load->library('email', $config);
+		$this->email->from('summitconsultinggroup.ph@gmail.com', 'Motolite IT Department');
+		$this->email->to($employee->emp_email);
+
+		$this->email->subject('Asset '.$hardware_asset->har_barcode.' Near Tech Expiry!');
+		$this->email->message('This asset, '.$hardware_asset->har_model.' (Serial Number: '.$hardware_asset->har_serial_number.'), will expire on '.$hardware_asset->har_tech_refresher.'. Please reply to Arianne Cerdino at acerdino@motolite.com to return this asset. Thank you.');	
+
+		$today = new DateTime();
+		$tech= new DateTime($har_tech_refresher);
+		$interval = $today->diff($tech);
+
+
+		if ($interval->m <= 1){
+			$this->email->send();
+		}
+		
+		if (!$this->email->send()) {
+			show_error($this->email->print_debugger());
+			$this->template->notification("The reminder email has not been sent!", 'danger');
+			redirect('admin/hardware_assets/view/'.$hardware_asset->har_barcode);
+		}
+		else {
+			$this->template->notification('The reminder email has been sent to '.$employee->emp_first_name.' '.$employee->emp_last_name.'!', 'success');
+			redirect('admin/hardware_assets/view/'.$hardware_asset->har_barcode);
+		}
 	}
 
 
